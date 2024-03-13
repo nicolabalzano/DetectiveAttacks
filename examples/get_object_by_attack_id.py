@@ -9,6 +9,5 @@ def main():
     mitre_attack_data.print_stix_object(T1134, pretty=True)
 
 
-
 if __name__ == "__main__":
     main()
