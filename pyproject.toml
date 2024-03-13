@@ -1,0 +1,26 @@
+[tool.black]
+line-length = 120
+
+[tool.isort]
+profile = "black"
+
+[tool.ruff]
+line-length = 120
+ignore = [
+    "E501",  # line-too-long
+    "D100",  # Missing docstring in public module
+    "D105",  # undocumented-magic-method
+    ]
+# On top of the defaults (E, F), enable pydocstyle (D) and isort (I).
+select = ["E", "F", "D", "I"]
+exclude = [
+    ".venv",
+    "__pypackages__",
+    "build",
+    "dist",
+    "venv",
+    "tests",
+]
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
