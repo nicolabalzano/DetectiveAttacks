@@ -15,11 +15,6 @@ def get_tactics_by_technique_name(attack_name: str):
         return tactics
 
     return None
-    # for technique in techniques:
-    #    print(technique.serialize(pretty=True))
-
-    # print("Id of", attack_name, ":", (techniques[0])["id"])
-
 
 
 def main():
