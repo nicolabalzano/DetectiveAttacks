@@ -10,7 +10,7 @@ def main():
     print(f"Parent techniques of sub-techniques ({len(parent_techniques.keys())} sub-techniques):")
     for id, parent_technique in parent_techniques.items():
         parent = parent_technique[0]["object"]
-        print(f"* {parent.id} is the parent of {id}")
+        print(f"* {parent.name} is the parent of {id}")
 
 
 if __name__ == "__main__":

@@ -1,31 +1,58 @@
 from mitreattack.stix20 import MitreAttackData
 
 
-def get_tactics_by_technique_name(attack_name: str):
-    mitre_attack_data = MitreAttackData("enterprise-attack.json")
+class MyMitreAttackData:
 
-    # get object by name
-    techniques = mitre_attack_data.get_objects_by_name(attack_name, "attack-pattern")
+    def __init__(self, path_json_mitre_attack: str):
+        self.mitre_attack_data = MitreAttackData(path_json_mitre_attack)
 
-    # get tactics by (id of) object
+    '''
+    GET THE TACTIS LIST BY TECHNIQUE NAME
+    '''
+    def get_tactics_by_technique_name(self, attack_name: str) -> list:
+        # get object by name
+        techniques = self.mitre_attack_data.get_objects_by_name(attack_name, "attack-pattern")
 
-    # se la lista non è vuota
-    if techniques:
-        tactics = mitre_attack_data.get_tactics_by_technique((techniques[0])["id"])
-        return tactics
+        # get tactics by (id of) object
 
-    return None
+        # se la lista non è vuota
+        if techniques:
+            tactics = self.mitre_attack_data.get_tactics_by_technique((techniques[0])["id"])
+            return tactics
+
+        return []
+
+    '''GET TECHNIQUES LIST BY TACTIC NAME'''
+    def get_techniques_by_tactic(self, tactic_name: str):
+        tactics = self.mitre_attack_data.get_tactics()
+        tactics_names = [t["name"] for t in tactics]
+        if tactic_name not in tactics_names:
+            return []
+
+        techniques = self.mitre_attack_data.get_techniques_by_tactic(
+            tactic_name.lower(), "enterprise-attack", remove_revoked_deprecated=True
+        )
+
+        return techniques
 
 
 def main():
-    tactics = get_tactics_by_technique_name("Drive-by Compromise")
+    mitre_attack_data = MyMitreAttackData("enterprise-attack.json")
 
-    if tactics is None:
+    tactics = mitre_attack_data.get_tactics_by_technique_name("Drive-by Compromise")
+
+    if len(tactics) == 0:
         print("Techniques attacks doesn't exists")
     else:
-        print(f"Retrieved {len(tactics)} tactic(s):")
         for t in tactics:
             print(f"* {t.name}")
+
+    techniques = mitre_attack_data.get_techniques_by_tactic("gg")
+
+    if len(techniques) == 0:
+        print("Tactics doesn't exists")
+    else:
+        print(len(techniques))
 
 
 if __name__ == "__main__":
