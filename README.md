@@ -1,6 +1,6 @@
 # UniBa_Tesi
 
 
-costruire l'oggetto Attackpattern dal json e usare gli oggetti senza fare continue query al json a runtime
-
-1 -> phising
+dato un oggetto recuperare le tecniche correlate a quell'ogegtto
+data una tecnica recuperare le tecniche correlate ad oggetti in cui è presente la tecnica iniziale
+dividerle tra le tattiche e capire quelle future o precedenti
