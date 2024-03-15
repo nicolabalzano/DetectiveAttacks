@@ -47,7 +47,7 @@ def main():
         for t in tactics:
             print(f"* {t.name}")
 
-    techniques = mitre_attack_data.get_techniques_by_tactic("gg")
+    techniques = mitre_attack_data.get_techniques_by_tactic("Reconnaissance")
 
     if len(techniques) == 0:
         print("Tactics doesn't exists")

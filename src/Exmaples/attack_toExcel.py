@@ -5,6 +5,8 @@ import mitreattack.attackToExcel.stixToDf as stixToDf
 
 from pathlib import Path
 
+from stix2.v20 import AttackPattern
+
 
 def check_excel_files_exist(excel_folder: Path, domain: str):
     files_to_check = [
@@ -54,3 +56,4 @@ print(citations_df[citations_df["url"].str.contains("https")])
 # nome_categoria = techniques, procedure examples, associated mitigations, citations
 # nome_categoria_df = enterprise_df_data["nome_categoria"]
 # nome_categoria_df["nome_colonna"].vari_filtri
+
