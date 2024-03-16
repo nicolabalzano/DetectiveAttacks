@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from mitreattack.stix20 import MitreAttackData
 
 
@@ -13,7 +15,7 @@ def main():
         datacomponent = d["object"]
         datasource = mitre_attack_data.get_object_by_stix_id(datacomponent.x_mitre_data_source_ref)
         print(f"* {datasource.name}: {datacomponent.name} ({mitre_attack_data.get_attack_id(datasource.id)})")
-
+    pprint(datacomponents_detects_t1112[0])
 
 if __name__ == "__main__":
     main()

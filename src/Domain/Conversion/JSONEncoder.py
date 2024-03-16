@@ -3,7 +3,7 @@ import json
 from dataclasses import asdict
 
 from stix2.utils import STIXdatetime
-from stix2.v20 import ExternalReference
+from stix2.v20 import ExternalReference, Tool
 
 
 class MyJSONEncoder(json.JSONEncoder):
@@ -11,6 +11,8 @@ class MyJSONEncoder(json.JSONEncoder):
         if isinstance(obj, STIXdatetime):
             return obj.isoformat()
         elif isinstance(obj, ExternalReference):
+            return obj.__dict__
+        elif isinstance(obj, Tool):
             return obj.__dict__
 
         return super().default(obj)

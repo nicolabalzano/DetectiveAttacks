@@ -1,12 +1,9 @@
 import json
 from dataclasses import asdict
-from datetime import datetime
 
-from mitreattack import Technique
 from mitreattack.stix20 import MitreAttackData
-from stix2.v20 import AttackPattern
 
-from src.Domain.JSONEncoder import DateTimeEncoder
+from src.Domain.Conversion.JSONEncoder import DateTimeEncoder
 from src.Domain.Technique import MyAttackPattern
 
 mitre_attack_data = MitreAttackData("enterprise-attack.json")
