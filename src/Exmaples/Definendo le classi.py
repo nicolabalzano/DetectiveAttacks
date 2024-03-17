@@ -3,7 +3,7 @@ from dataclasses import asdict
 
 from mitreattack.stix20 import MitreAttackData
 
-from src.Domain.Conversion.JSONEncoder import DateTimeEncoder
+from src.Domain.ConversionFromMitreAttack.JSONEncoder import DateTimeEncoder
 from src.Domain.Technique import MyAttackPattern
 
 mitre_attack_data = MitreAttackData("enterprise-attack.json")

@@ -1,26 +1,24 @@
-from abc import ABC, abstractmethod
-from dataclasses import field, dataclass
+from abc import ABC
+from dataclasses import field, dataclass, fields
 from datetime import datetime
-from typing import List, Optional
-
-from stix2.v20 import _DomainObject
+from typing import Tuple
 
 from src.Domain.STIXObject.MyExternalReference import MyExternalReference
+from src.Domain.STIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
 
 
-@dataclass
+@dataclass(eq=False)
 class AbstractMySTIXObject(ABC):
     type: str
     id: str
     created: datetime
     modified: datetime
-    name: str
     description: str
     revoked: bool
     x_mitre_version: str
     x_mitre_attack_spec_version: str = ""
-    external_references: tuple[MyExternalReference] = field(default_factory=tuple)
-    x_mitre_domains: tuple[str] = field(default_factory=tuple)
-    x_mitre_contributors: tuple[str] = field(default_factory=tuple)
+    external_references: Tuple[MyExternalReference] = field(default_factory=tuple)
+    x_mitre_domains: Tuple[str] = field(default_factory=tuple)
+    x_mitre_contributors: Tuple[str] = field(default_factory=tuple)
     x_mitre_deprecated: bool = False
 

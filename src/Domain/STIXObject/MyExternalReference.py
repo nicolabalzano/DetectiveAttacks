@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 
-@dataclass
+@dataclass(eq=False)
 class MyExternalReference:
     source_name: str
     url: str

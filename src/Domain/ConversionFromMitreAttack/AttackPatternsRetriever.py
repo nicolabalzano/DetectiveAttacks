@@ -1,6 +1,6 @@
-from stix2.v20 import AttackPattern
 
-from src.Domain.Conversion.AbstractObjectRetriever import AbstractObjectRetriever
+from src.Domain.ConversionFromMitreAttack.AbstractObjectRetriever import AbstractObjectRetriever
+from src.Domain.ConversionFromMitreAttack.STIXBase20.AttackPatternSTIX import AttackPatternSTIX
 from src.Domain.MitreAttackData.MitreAttackData import mitre_attack_data
 from src.Domain.STIXObject.MyAttackPattern import MyAttackPattern
 from src.Domain.Singleton import singleton
@@ -16,7 +16,7 @@ class AttackPatternsRetriever(AbstractObjectRetriever):
     )
 
     def __init__(self):
-        super().__init__(MyAttackPattern, AttackPattern)
+        super().__init__(MyAttackPattern, AttackPatternSTIX)
 
     def _get_all(self):
         return mitre_attack_data.get_techniques(remove_revoked_deprecated=True)

@@ -1,13 +1,13 @@
-from stix2.v20 import Campaign
 
-from src.Domain.Conversion.AbstractObjectWithTechniquesRetriever import AbstractObjectWithTechniquesRetriever
+from src.Domain.ConversionFromMitreAttack.AbstractObjectWithAttackPatternRetriever import AbstractObjectWithAttackPatternsRetriever
+from src.Domain.ConversionFromMitreAttack.STIXBase20.CampaignSTIX import CampaignSTIX
 from src.Domain.MitreAttackData.MitreAttackData import mitre_attack_data
 from src.Domain.STIXObject.MyCampaign import MyCampaign
 from src.Domain.Singleton import singleton
 
 
 @singleton
-class CampaignsRetriever(AbstractObjectWithTechniquesRetriever):
+class CampaignsRetriever(AbstractObjectWithAttackPatternsRetriever):
     _KEYS_TO_DELETE: tuple = (
         'first_seen',
         'last_seen',
@@ -20,10 +20,10 @@ class CampaignsRetriever(AbstractObjectWithTechniquesRetriever):
     )
 
     def __init__(self):
-        super().__init__(MyCampaign, Campaign)
+        super().__init__(MyCampaign, CampaignSTIX)
 
     def _get_all(self):
         return mitre_attack_data.get_campaigns(remove_revoked_deprecated=True)
 
-    def get_objects_using_technique_id(self, object_stix_id: str):
-        return mitre_attack_data.get_campaigns_using_technique(object_stix_id)
+    def get_attack_patterns_relationship_using_objects_id(self, object_stix_id: str) -> tuple:
+        return tuple(mitre_attack_data.get_techniques_used_by_campaign(object_stix_id))
