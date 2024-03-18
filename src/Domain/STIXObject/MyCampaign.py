@@ -8,7 +8,7 @@ from src.Domain.STIXObject.convert_lists_to_tuples_in_init import convert_lists_
 
 
 @convert_lists_to_tuples_in_init
-@dataclass(eq=False)
+@dataclass(eq=False, frozen=True)
 class MyCampaign(AbstractMySTIXObjectWithAttackPatterns):
     aliases: Tuple[str] = field(default_factory=tuple)
     # first_seen: str
