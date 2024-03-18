@@ -5,7 +5,7 @@ def main():
     mitre_attack_data = MitreAttackData("enterprise-attack.json")
 
     # get campaigns related to T1049
-    technique_stix_id = "attack-pattern--7e150503-88e7-4861-866b-ff1ac82c4475"
+    technique_stix_id = "attack-pattern--57340c81-c025-4189-8fa0-fc7ede51bae4"
     campaigns_using_t1049 = mitre_attack_data.get_campaigns_using_technique(technique_stix_id)
 
     print(f"Campaigns using T1049 ({len(campaigns_using_t1049)}):")
