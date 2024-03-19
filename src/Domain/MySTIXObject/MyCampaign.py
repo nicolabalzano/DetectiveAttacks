@@ -3,8 +3,8 @@ from typing import List, Tuple
 
 from stix2.v20 import Campaign
 
-from src.domain.STIXObject.AbstractMySTIXObjectWithAttackPatterns import AbstractMySTIXObjectWithAttackPatterns
-from src.domain.STIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
+from src.domain.MySTIXObject.AbstractMySTIXObjectWithAttackPatterns import AbstractMySTIXObjectWithAttackPatterns
+from src.domain.MySTIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
 
 
 @convert_lists_to_tuples_in_init

@@ -2,8 +2,8 @@ from abc import ABC
 from dataclasses import field, dataclass, fields
 from typing import Tuple
 
-from src.domain.STIXObject.AbstractMySTIXObject import AbstractMySTIXObject
-from src.domain.STIXObject.AbstractMySTIXObjectWithName import AbstractMySTIXObjectWithName
+from src.domain.MySTIXObject.AbstractMySTIXObject import AbstractMySTIXObject
+from src.domain.MySTIXObject.AbstractMySTIXObjectWithName import AbstractMySTIXObjectWithName
 
 
 @dataclass(eq=False, frozen=True)

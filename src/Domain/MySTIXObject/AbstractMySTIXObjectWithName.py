@@ -2,7 +2,7 @@ from abc import ABC
 from dataclasses import dataclass, field
 from typing import Tuple
 
-from src.domain.STIXObject.AbstractMySTIXObject import AbstractMySTIXObject
+from src.domain.MySTIXObject.AbstractMySTIXObject import AbstractMySTIXObject
 
 
 @dataclass(eq=False, frozen=True)

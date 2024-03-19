@@ -4,7 +4,7 @@ from typing import Type, Generic, Tuple
 from src.domain.container.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.interfaceToMitreAttack.conversionType._AbstractObjectWithRelationshipRetriever import _AbstractObjectWithRelationshipRetriever
 from src.domain.interfaceToMitreAttack.conversionType.GenericType import T_MY_STIX, T_STIX
-from src.domain.STIXObject.MyAttackPattern import MyAttackPattern
+from src.domain.MySTIXObject.MyAttackPattern import MyAttackPattern
 
 
 class _AbstractObjectWithAttackPatternsRetriever(_AbstractObjectWithRelationshipRetriever, Generic[T_MY_STIX, T_STIX], ABC):

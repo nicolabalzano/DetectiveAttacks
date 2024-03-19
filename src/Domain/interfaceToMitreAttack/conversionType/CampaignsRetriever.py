@@ -4,7 +4,7 @@ from stix2.v20 import Campaign
 
 from src.domain.interfaceToMitreAttack.conversionType.AbstractObjectWithAttackPatternRetriever import _AbstractObjectWithAttackPatternsRetriever
 from src.domain.interfaceToMitreAttack.mitreAttackData.MitreAttackData import mitre_attack_data
-from src.domain.STIXObject.MyCampaign import MyCampaign
+from src.domain.MySTIXObject.MyCampaign import MyCampaign
 from src.domain.Singleton import singleton
 
 

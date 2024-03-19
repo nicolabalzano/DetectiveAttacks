@@ -1,7 +1,7 @@
 from stix2.v20 import CourseOfAction
 
 from src.domain.interfaceToMitreAttack.conversionType._AbstractCreateObjectFromSTIX import _AbstractCreateObjectFromSTIX
-from src.domain.STIXObject.MyCourseOfAction import MyCourseOfAction
+from src.domain.MySTIXObject.MyCourseOfAction import MyCourseOfAction
 from src.domain.Singleton import singleton
 
 

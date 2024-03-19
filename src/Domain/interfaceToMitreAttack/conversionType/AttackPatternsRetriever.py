@@ -5,7 +5,7 @@ from stix2.v20 import AttackPattern
 from src.domain.interfaceToMitreAttack.conversionType.linkedCreator.CourseOfActionRetriever import CourseOfActionRetriever
 from src.domain.interfaceToMitreAttack.conversionType._AbstractObjectWithRelationshipRetriever import _AbstractObjectWithRelationshipRetriever
 from src.domain.interfaceToMitreAttack.mitreAttackData.MitreAttackData import mitre_attack_data
-from src.domain.STIXObject.MyAttackPattern import MyAttackPattern
+from src.domain.MySTIXObject.MyAttackPattern import MyAttackPattern
 from src.domain.Singleton import singleton
 
 

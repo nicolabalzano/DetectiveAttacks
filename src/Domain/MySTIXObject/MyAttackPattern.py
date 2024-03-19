@@ -1,11 +1,11 @@
 from dataclasses import dataclass, field
 from typing import Tuple, Dict
 
-from src.domain.STIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
-from src.domain.STIXObject.MyCourseOfAction import MyCourseOfAction
-from src.domain.STIXObject.MyKillChainPhase import MyKillChainPhase
-from src.domain.STIXObject.MyRelationship import MyRelationship
-from src.domain.STIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
+from src.domain.MySTIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
+from src.domain.MySTIXObject.MyCourseOfAction import MyCourseOfAction
+from src.domain.MySTIXObject.MyKillChainPhase import MyKillChainPhase
+from src.domain.MySTIXObject.MyRelationship import MyRelationship
+from src.domain.MySTIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
 
 
 @convert_lists_to_tuples_in_init

@@ -4,9 +4,9 @@ from typing import Dict, Tuple
 
 from stix2.v20 import AttackPattern
 
-from src.domain.STIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
-from src.domain.STIXObject.MyAttackPattern import MyAttackPattern
-from src.domain.STIXObject.MyRelationship import MyRelationship
+from src.domain.MySTIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
+from src.domain.MySTIXObject.MyAttackPattern import MyAttackPattern
+from src.domain.MySTIXObject.MyRelationship import MyRelationship
 
 
 @dataclass(eq=False, frozen=True)

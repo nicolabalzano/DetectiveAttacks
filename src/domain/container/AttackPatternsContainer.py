@@ -1,7 +1,7 @@
 from typing import Set
 
-from src.domain.STIXObject.AttackPhase import AttackPhase
-from src.domain.STIXObject.MyAttackPattern import MyAttackPattern
+from src.domain.MySTIXObject.AttackPhase import AttackPhase
+from src.domain.MySTIXObject.MyAttackPattern import MyAttackPattern
 from src.domain.container.AbstractContainer import AbstractContainer
 from src.domain.Singleton import singleton
 from src.domain.container.CampaignsContainer import CampaignsContainer

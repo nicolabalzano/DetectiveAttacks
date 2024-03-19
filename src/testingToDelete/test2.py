@@ -1,6 +1,6 @@
-from src.domain.STIXObject.MyKillChainPhase import MyKillChainPhase
+from pprint import pprint
 
-var1 = MyKillChainPhase(kill_chain_name= "mitre1",  phase_name= "reconaissance")
-var2 = MyKillChainPhase(kill_chain_name= "mitre2",  phase_name= "reconaissance")
-print(var1)
-print(var2)
+from src.domain.interfaceToMitreAttack.mitreAttackData.MitreAttackData import mitre_attack_data
+
+for dt in mitre_attack_data.get_datacomponents():
+    pprint(dt)

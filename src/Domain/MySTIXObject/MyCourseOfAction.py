@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from stix2.v20 import CourseOfAction
 
-from src.domain.STIXObject.AbstractMySTIXObjectWithName import AbstractMySTIXObjectWithName
+from src.domain.MySTIXObject.AbstractMySTIXObjectWithName import AbstractMySTIXObjectWithName
 
 
 @dataclass(eq=False, frozen=True)

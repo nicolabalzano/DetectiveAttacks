@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Tuple
 
 
-from src.domain.STIXObject.MyExternalReference import MyExternalReference
+from src.domain.MySTIXObject.MyExternalReference import MyExternalReference
 
 @dataclass(eq=False, frozen=True)
 class AbstractMySTIXObject(ABC):

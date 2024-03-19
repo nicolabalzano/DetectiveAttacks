@@ -4,7 +4,7 @@ from typing import Generic, Type, Dict, Tuple
 from stix2.v20 import _STIXBase20
 
 from src.domain.interfaceToMitreAttack.conversionType.GenericType import T_MY_STIX, T_STIX
-from src.domain.STIXObject.AbstractMySTIXObject import AbstractMySTIXObject
+from src.domain.MySTIXObject.AbstractMySTIXObject import AbstractMySTIXObject
 
 
 class _AbstractCreateObjectFromSTIX(Generic[T_MY_STIX, T_STIX], ABC):

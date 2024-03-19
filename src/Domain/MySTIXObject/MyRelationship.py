@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from src.domain.STIXObject.AbstractMySTIXObject import AbstractMySTIXObject
-from src.domain.STIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
+from src.domain.MySTIXObject.AbstractMySTIXObject import AbstractMySTIXObject
+from src.domain.MySTIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
 
 
 @convert_lists_to_tuples_in_init

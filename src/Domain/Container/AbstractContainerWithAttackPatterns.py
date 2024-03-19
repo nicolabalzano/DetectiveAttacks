@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import Tuple, Set
 
-from src.domain.STIXObject.MyAttackPattern import MyAttackPattern
+from src.domain.MySTIXObject.MyAttackPattern import MyAttackPattern
 from src.domain.container.AbstractContainer import AbstractContainer
 
 

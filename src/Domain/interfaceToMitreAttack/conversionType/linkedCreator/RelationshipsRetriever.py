@@ -3,7 +3,7 @@ from typing import Tuple, Dict
 from stix2.v20 import Relationship
 
 from src.domain.interfaceToMitreAttack.conversionType._AbstractCreateObjectFromSTIX import _AbstractCreateObjectFromSTIX
-from src.domain.STIXObject.MyRelationship import MyRelationship
+from src.domain.MySTIXObject.MyRelationship import MyRelationship
 from src.domain.Singleton import singleton
 
 
