@@ -1,11 +1,10 @@
 from abc import ABC
-from dataclasses import field, dataclass, fields
+from dataclasses import field, dataclass
 from datetime import datetime
 from typing import Tuple
 
-from src.domain.STIXObject.MyExternalReference import MyExternalReference
-from src.domain.STIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
 
+from src.domain.STIXObject.MyExternalReference import MyExternalReference
 
 @dataclass(eq=False, frozen=True)
 class AbstractMySTIXObject(ABC):
