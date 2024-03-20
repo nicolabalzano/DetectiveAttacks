@@ -3,17 +3,17 @@ from enum import Enum
 
 class AttackPhase(Enum):
     RECONNAISSANCE = 1
-    RESOURCE_DEVELOPMENT = 2
-    INITIAL_ACCESS = 3
-    EXECUTION = 4
-    PERSISTENCE = 5
-    PRIVILEGE_ESCALATION = 6
+    DISCOVERY = 2
+    RESOURCE_DEVELOPMENT = 3
+    CREDENTIAL_ACCESS = 4
+    INITIAL_ACCESS = 5
+    EXECUTION = 6
     DEFENSE_EVASION = 7
-    CREDENTIAL_ACCESS = 8
-    DISCOVERY = 9
-    LATERAL_MOVEMENT = 10
-    COLLECTION = 11
-    COMMAND_AND_CONTROL = 12
+    PERSISTENCE = 8
+    PRIVILEGE_ESCALATION = 9
+    COMMAND_AND_CONTROL = 10
+    LATERAL_MOVEMENT = 11
+    COLLECTION = 12
     EXFILTRATION = 13
     IMPACT = 14
 
@@ -21,10 +21,17 @@ class AttackPhase(Enum):
         return self.name.lower().replace('_', '-')
 
     @classmethod
+    def get_enum_from_string(cls, name):
+        formatted_name = name.upper().replace('-', '_')
+        for phase in cls:
+            if phase.name == formatted_name:
+                return phase
+        return None
+
+    @classmethod
     def get_phase_value_from_name(cls, name):
         formatted_name = name.upper().replace('-', '_')
         for phase in cls:
             if phase.name == formatted_name:
                 return phase.value
-        # Ritorna None o solleva un'eccezione se il nome non è trovato
         return None

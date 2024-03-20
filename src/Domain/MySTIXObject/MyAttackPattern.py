@@ -1,9 +1,11 @@
 from dataclasses import dataclass, field
 from typing import Tuple, Dict
 
+from stix2.v20 import KillChainPhase
+
 from src.domain.MySTIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
 from src.domain.MySTIXObject.MyCourseOfAction import MyCourseOfAction
-from src.domain.MySTIXObject.MyKillChainPhase import MyKillChainPhase
+from src.domain.MySTIXObject.toDelete.MyKillChainPhase import MyKillChainPhase
 from src.domain.MySTIXObject.MyRelationship import MyRelationship
 from src.domain.MySTIXObject.convert_lists_to_tuples_in_init import convert_lists_to_tuples_in_init
 
@@ -11,7 +13,7 @@ from src.domain.MySTIXObject.convert_lists_to_tuples_in_init import convert_list
 @convert_lists_to_tuples_in_init
 @dataclass(eq=False, frozen=True)
 class MyAttackPattern(AbstractMySTIXObjectWithContributors):
-    kill_chain_phases: Tuple[MyKillChainPhase] = field(default_factory=tuple)
+    kill_chain_phases: Tuple[KillChainPhase] = field(default_factory=tuple)
     x_mitre_data_sources: Tuple[str] = field(default_factory=tuple)
     x_mitre_defense_bypassed: Tuple[str] = field(default_factory=tuple)
     x_mitre_platforms: Tuple[str] = field(default_factory=tuple)

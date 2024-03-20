@@ -56,15 +56,20 @@ print("By Campaigns", len(attack_set_by_campaign))
 print("By ToolMalware", len(attack_set_by_tool))
 print("By All", len(attack_set))
 
-print("\n* Probably happened attacks: ")
-print(len(AttackPatternsContainer().get_probably_happend_attack_patterns(
-    AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id)))
-)
+print("\n\nPhase of attack-pattern searched: ", AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id).kill_chain_phases)
 
-print("\n* Probably futured attacks: ")
-print(len(AttackPatternsContainer().get_probably_futured_attack_patterns(
-    AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id)))
-)
+print("\n* Probably happened attacks dict for phase: ")
+dict_probably_happened = AttackPatternsContainer().get_probably_happened_attack_patterns_grouped_by_phase(
+        AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id))
+for key in dict_probably_happened:
+    print(key, len(dict_probably_happened[key]))
+
+print("\n* Probably futured attacks dict for phase: ")
+dict_futured = AttackPatternsContainer().get_futured_attack_patterns_grouped_by_phase(
+        AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id))
+for key in dict_futured:
+    print(key, len(dict_futured[key]))
+
 '''
 for att in attack_set:
     print(att.name)
