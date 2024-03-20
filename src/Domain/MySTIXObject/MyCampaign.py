@@ -11,9 +11,7 @@ from src.domain.MySTIXObject.convert_lists_to_tuples_in_init import convert_list
 @dataclass(eq=False, frozen=True)
 class MyCampaign(AbstractMySTIXObjectWithAttackPatterns):
     aliases: Tuple[str] = field(default_factory=tuple)
-    # first_seen: str
-    # last_seen: str
-    # object_marking_refs: field(default_factory=List[str])
-    # x_mitre_first_seen_citation: str
-    # x_mitre_last_seen_citation: str
-    # x_mitre_modified_by_ref: str
+    first_seen: str = ""
+    last_seen: str = ""
+    x_mitre_first_seen_citation: str = ""
+    x_mitre_last_seen_citation: str = ""

@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from stix2.v20 import AttackPattern
+from stix2 import AttackPattern
 
 from src.domain.interfaceToMitreAttack.conversionType.linkedCreator.CourseOfActionRetriever import CourseOfActionRetriever
 from src.domain.interfaceToMitreAttack.conversionType._AbstractObjectWithRelationshipRetriever import _AbstractObjectWithRelationshipRetriever
@@ -11,13 +11,13 @@ from src.domain.Singleton import singleton
 
 @singleton
 class AttackPatternsRetriever(_AbstractObjectWithRelationshipRetriever):
-
+    """
     _KEYS_TO_DELETE: Tuple = (
         'object_marking_refs',
         'x_mitre_modified_by_ref',
         'created_by_ref'
     )
-
+    """
     def __init__(self):
         super().__init__(MyAttackPattern, AttackPattern)
 

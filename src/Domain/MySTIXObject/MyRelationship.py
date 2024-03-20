@@ -9,6 +9,4 @@ from src.domain.MySTIXObject.convert_lists_to_tuples_in_init import convert_list
 class MyRelationship(AbstractMySTIXObject):
     relationship_type: str = ""
     source_ref: str = ""
-    # object_marking_refs: List[str]
-    # x_mitre_modified_by_ref: str
-    # created_by_ref: str
+    target_ref: str = ""

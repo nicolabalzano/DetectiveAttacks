@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from stix2.v20 import Campaign
+from stix2 import Campaign
 
 from src.domain.interfaceToMitreAttack.conversionType.AbstractObjectWithAttackPatternRetriever import _AbstractObjectWithAttackPatternsRetriever
 from src.domain.interfaceToMitreAttack.mitreAttackData.MitreAttackData import mitre_attack_data
@@ -10,7 +10,7 @@ from src.domain.Singleton import singleton
 
 @singleton
 class CampaignsRetriever(_AbstractObjectWithAttackPatternsRetriever):
-
+    """
     _KEYS_TO_DELETE: Tuple = (
         'first_seen',
         'last_seen',
@@ -20,7 +20,8 @@ class CampaignsRetriever(_AbstractObjectWithAttackPatternsRetriever):
         'x_mitre_modified_by_ref',
         'created_by_ref'
 
-    )
+    # )
+    """
 
     def __init__(self):
         super().__init__(MyCampaign, Campaign)

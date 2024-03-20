@@ -7,10 +7,6 @@ from src.domain.MySTIXObject.AbstractMySTIXObjectWithName import AbstractMySTIXO
 
 @dataclass(eq=False, frozen=True)
 class MyCourseOfAction(AbstractMySTIXObjectWithName):
-    pass
-    # created_by_ref: str
-    # object_marking_refs: List[str]
-    # x_mitre_modified_by_ref: str
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, MyCourseOfAction):

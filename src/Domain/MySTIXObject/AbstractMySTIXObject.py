@@ -10,13 +10,16 @@ from src.domain.MySTIXObject.toDelete.MyExternalReference import MyExternalRefer
 
 @dataclass(eq=False, frozen=True)
 class AbstractMySTIXObject(ABC):
-    type: str
-    id: str
-    created: datetime
-    modified: datetime
-    description: str
-    x_mitre_version: str
+    created: datetime = field(default_factory=datetime.now)
+    modified: datetime = field(default_factory=datetime.now)
+    type: str = ""
+    id: str = ""
+    description: str = ""
+    x_mitre_version: str = ""
+    x_mitre_modified_by_ref: str = ""
     external_references: Tuple[ExternalReference] = field(default_factory=tuple)
+    object_marking_refs: Tuple = field(default_factory=tuple)
     x_mitre_attack_spec_version: str = ""
     x_mitre_deprecated: bool = False
     revoked: bool = False
+    created_by_ref: str = ""

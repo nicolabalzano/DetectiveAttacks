@@ -26,8 +26,6 @@ class MyAttackPattern(AbstractMySTIXObjectWithContributors):
     x_mitre_effective_permissions: Tuple[str] = field(default_factory=tuple)
     x_mitre_network_requirements: Tuple[str] = field(default_factory=tuple)
     courses_of_action_and_relationship: Tuple[Dict[MyCourseOfAction, tuple[MyRelationship]]] = field(default_factory=tuple)
-    # x_mitre_modified_by_ref: str
-    # object_marking_refs: List[str]
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, MyAttackPattern):
