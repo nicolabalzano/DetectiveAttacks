@@ -1,7 +1,7 @@
 from src.domain.Singleton import singleton
-from src.domain.container.AbstractContainerWithAttackPatterns import AbstractContainerWithAttackPatterns
+from src.domain.container.AbstractContainerMyStixWithAttackPatterns import AbstractContainerMyStixWithAttackPatterns
 
 
 @singleton
-class CampaignsContainer(AbstractContainerWithAttackPatterns):
+class CampaignsContainer(AbstractContainerMyStixWithAttackPatterns):
     pass

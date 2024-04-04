@@ -8,6 +8,7 @@ def main():
 
     print(f"Retrieved {len(assets)} ICS assets.")
 
+    print(assets[0])
 
 if __name__ == "__main__":
     main()

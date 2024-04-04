@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from mitreattack.stix20 import MitreAttackData
 
 
@@ -8,6 +10,7 @@ def main():
 
     print(f"Retrieved {len(datacomponents)} ATT&CK data components.")
 
+    pprint(datacomponents[0])
 
 if __name__ == "__main__":
     main()
