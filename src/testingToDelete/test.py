@@ -6,7 +6,8 @@ from src.domain.container.AttackToCVEContainer import AttackToCVEContainer
 from src.domain.container.CampaignsContainer import CampaignsContainer
 from src.domain.container.ToolsMalwareContainer import ToolsMalwareContainer
 from src.domain.interfaceToMitre.conversionType.stixConversionType.AssetsRetriever import AssetRetriever
-from src.domain.interfaceToMitre.conversionType.stixConversionType.AttackPatternsRetriever import AttackPatternsRetriever
+from src.domain.interfaceToMitre.conversionType.stixConversionType.AttackPatternsRetriever import \
+    AttackPatternsRetriever
 from src.domain.interfaceToMitre.conversionType.AttackToCVERetriever import AttackToCVERetriever
 from src.domain.interfaceToMitre.conversionType.stixConversionType.CampaignsRetriever import CampaignsRetriever
 from src.domain.interfaceToMitre.conversionType.stixConversionType.ToolsMalwareRetriever import ToolsMalwareRetriever
@@ -58,7 +59,8 @@ pprint(len(retrieverAttackPatterns.get_all_objects()))
 print("dimension AttackPatternsContainer",
       len(AttackPatternsContainer(AttackPatternsRetriever().get_all_objects()).get_data()))
 print("dimension CampaignsContainer", len(CampaignsContainer(CampaignsRetriever().get_all_objects()).get_data()))
-print("dimension ToolsMalwareContainer", len(ToolsMalwareContainer(ToolsMalwareRetriever().get_all_objects()).get_data()))
+print("dimension ToolsMalwareContainer",
+      len(ToolsMalwareContainer(ToolsMalwareRetriever().get_all_objects()).get_data()))
 print("dimension AssetContainer", len(AssetContainer(AssetRetriever().get_all_objects()).get_data()))
 print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetriever().get_all_objects()).get_data()))
 
@@ -90,7 +92,10 @@ print("By Asset", len(attack_set_by_asset))
 print("--> By All", len(attack_set))
 
 print("\nSearch AttackToCVE by cve id:")
-pprint(AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-3151'))
+
+for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2020-3460').items():
+    print("-", key)
+    print([at_name.name for at_name in value])
 
 """
 for at in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-3151')["Primary Impact"]:
@@ -103,10 +108,12 @@ for at in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-3151')["
     print(AttackPatternsContainer().get_object_from_data_by_mitre_id(at).x_mitre_id)
 """
 
-print("\nSearch cve id by attack pattern stix id:")
-print(AttackToCVEContainer().get_cve_id_by_attack_pattern_mitre_id(
-    AttackPatternsContainer().get_object_from_data_by_mitre_id('T1565.002').x_mitre_id
-))
+print("\nSearch cve id by attack pattern mitre id:")
+for dict_at in AttackToCVEContainer().get_cve_id_by_attack_pattern_mitre_id(
+        AttackPatternsContainer().get_object_from_data_by_mitre_id('T1565.002').x_mitre_id):
+    for key, value in dict_at.items():
+        print(key)
+        print(value)
 
 print("\n\nPhase and Domain of attack-pattern searched: ",
       AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id).kill_chain_phases,
@@ -114,7 +121,6 @@ print("\n\nPhase and Domain of attack-pattern searched: ",
 
 # lista per contare da quale matrice provengono le relazioni
 i = 0
-
 
 print("\n* Probably happened attacks dict for phase: ")
 dict_probably_happened = AttackPatternsContainer().get_probably_happened_attack_patterns_grouped_by_phase(

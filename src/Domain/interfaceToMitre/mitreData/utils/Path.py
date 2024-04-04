@@ -11,6 +11,6 @@ default_repos = {
     MOBILE_ATTACK: "https://github.com/mitre/cti.git",
     ICS_ATTACK: "https://github.com/mitre/cti.git",
     ATLAS: "https://github.com/mitre-atlas/atlas-data.git",
-    ATTACK_TO_CVE: "https://github.com/center-for-threat-informed-defense/attack_to_cve.git"
+    ATTACK_TO_CVE: "https://github.com/center-for-threat-informed-defense/mappings-explorer.git"
 }
 

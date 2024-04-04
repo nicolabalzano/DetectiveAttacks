@@ -36,4 +36,3 @@ r = nvdlib.searchCVE(cveId='CVE-2024-30334')[0]
 print(r.descriptions[0].value)
 # pprint(r)
 
-print([at.name for at in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-30334')])

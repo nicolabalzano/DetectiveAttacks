@@ -50,16 +50,17 @@ def fetch_atlas_data() -> bool:
 
 def fetch_attack_to_cve_data():
     """
-        Metodo che permette di ottenere la mappatura CVE ATTACK mediante request.
+        Metodo che permette di ottenere la mappatura CVE to ATTACK mediante request.
         """
     return __fetch_file(ATTACK_TO_CVE,
-                        'https://raw.githubusercontent.com/center-for-threat-informed-defense/attack_to_cve/master/Att%26ckToCveMappings.csv', 'master')
+                        'https://raw.githubusercontent.com/center-for-threat-informed-defense/mappings-explorer/main/mappings/cve/attack-9.0/cve-10.21.2021/enterprise/cve-10.21.2021_attack-9.0-enterprise.json', 'main')
 
 
 def __fetch_file(domain: str, path: str, branch: str):
     filepath = f"{default_path}{domain}.json"
     file_json = None
-    if not (__check_last_commit(domain) and exists(filepath)):
+    if not (__check_last_commit(domain, branch) and exists(filepath)):
+        print(domain, "change")
         if __check_internet_connection():
             # request
             file_text = requests.get(path).text
@@ -78,6 +79,8 @@ def __fetch_file(domain: str, path: str, branch: str):
             return file_json
         else:
             raise ConnectionError("Internet connection is not available. Please connect to a network and try again!")
+    else:
+        print(domain, "not change")
 
     # file already up-to-date
     return True
