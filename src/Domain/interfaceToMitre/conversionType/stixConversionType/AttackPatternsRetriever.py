@@ -1,7 +1,8 @@
 from stix2.v20 import AttackPattern
 
 from src.domain.business.MySTIXObject.MyAttackPattern import MyAttackPattern
-from src.domain.interfaceToMitre.conversionType.stixConversionType._AbstractObjectRetriever import _AbstractObjectRetriever
+from src.domain.interfaceToMitre.conversionType.stixConversionType._AbstractObjectRetriever import \
+    _AbstractObjectRetriever
 from src.domain.interfaceToMitre.conversionType.util.CourseOfActionRetriever import CourseOfActionRetriever
 from src.domain.interfaceToMitre.conversionType.util.RelationshipRetriever import RelationshipRetriever
 from src.domain.interfaceToMitre.mitreData.MitreData import MITRE_ATTACK_ENTERPRISE_DATA, \
@@ -24,13 +25,17 @@ class AttackPatternsRetriever(_AbstractObjectRetriever):
                    + MITRE_ATTACK_MOBILE_DATA.get_mitigations_mitigating_technique(stix_object['id'])
                    + MITRE_ATTACK_ICS_DATA.get_mitigations_mitigating_technique(stix_object['id'])
                    + MITRE_ATLAS_DATA.get_mitigations_mitigating_technique(stix_object['id'])):
-
             my_relationships_value = RelationshipRetriever.get_my_relationships(ca)
             my_course_of_action_key = CourseOfActionRetriever().get_my_courses_of_action(ca)
             courses_of_action_dict[my_course_of_action_key] = my_relationships_value
 
-        courses_of_action_and_relationship = {'courses_of_action_and_relationship': courses_of_action_dict}
-        my_stix_object = self.my_stix_type(**stix_object, **courses_of_action_and_relationship)
+        added_dict = {'courses_of_action_and_relationship': courses_of_action_dict}
+
+        # if there isn't domain isn't ATLAS (because MitreAtlasData is home-made)
+        if not hasattr(stix_object, 'x_mitre_domains'):
+            added_dict['x_mitre_domains'] = ['atlas']
+
+        my_stix_object = self.my_stix_type(**stix_object, **added_dict)
 
         return my_stix_object
 

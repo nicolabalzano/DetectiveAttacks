@@ -1,0 +1,48 @@
+{
+    "mapping_objects": [
+        {
+            "comments": "",
+            "attack_object_id": "T1204.002",
+            "attack_object_name": "Malicious File",
+            "references": [],
+            "capability_description": "Foxit PDF Reader Doc Object Use-After-Free Remote Code Execution Vulnerability",
+            "capability_id": "CVE-2024-30334",
+            "mapping_type": "uncategorized",
+            "capability_group": "2024",
+            "status": "complete"
+        },
+        {
+            "comments": "",
+            "attack_object_id": "T1203",
+            "attack_object_name": "Exploitation for Client Execution",
+            "references": [],
+            "capability_description": "Foxit PDF Reader Doc Object Use-After-Free Remote Code Execution Vulnerability",
+            "capability_id": "CVE-2024-30334",
+            "mapping_type": "uncategorized",
+            "capability_group": "2024",
+            "status": "complete"
+        },
+        {
+            "comments": "",
+            "attack_object_id": "T1221",
+            "attack_object_name": "Template Injection",
+            "references": [],
+            "capability_description": "Foxit PDF Reader Doc Object Use-After-Free Remote Code Execution Vulnerability",
+            "capability_id": "CVE-2024-30334",
+            "mapping_type": "uncategorized",
+            "capability_group": "2024",
+            "status": "complete"
+        },
+        {
+            "comments": "",
+            "attack_object_id": "T0863",
+            "attack_object_name": "User Execution",
+            "references": [],
+            "capability_description": "Foxit PDF Reader Doc Object Use-After-Free Remote Code Execution Vulnerability",
+            "capability_id": "CVE-2024-30334",
+            "mapping_type": "uncategorized",
+            "capability_group": "2024",
+            "status": "complete"
+        }
+    ]
+}

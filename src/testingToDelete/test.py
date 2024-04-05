@@ -30,33 +30,8 @@ AttackBert()
 campaign_stix_id = "campaign--b4e5a4a9-f3be-4631-ba8f-da6ebb067fac"
 tool_malware_stix_id = "tool--b76b2d94-60e4-4107-a903-4a3a7622fb3b"
 
-# get all tools
-'''
-retrieverTools = RetrieverTools()
-pprint(len(retrieverTools.get_all_objects()))
-'''
-
-# get all campaigns
-'''
-retrieverCampaigns = RetrieverCampaigns()
-pprint(len(retrieverCampaigns.get_all_objects()))
-'''
-
-# technique
-'''
-pprint(len(mitre_attack_data.get_techniques(remove_revoked_deprecated=True)))
-pprint(mitre_attack_data.get_techniques()[0])
-'''
-
-# get all techniques
-'''
-retrieverAttackPatterns = AttackPatternsRetriever()
-pprint(len(retrieverAttackPatterns.get_all_objects()))
-'''
-
 # container
-
-print("dimension AttackPatternsContainer",
+print("\ndimension AttackPatternsContainer",
       len(AttackPatternsContainer(AttackPatternsRetriever().get_all_objects()).get_data()))
 print("dimension CampaignsContainer", len(CampaignsContainer(CampaignsRetriever().get_all_objects()).get_data()))
 print("dimension ToolsMalwareContainer",
@@ -64,21 +39,9 @@ print("dimension ToolsMalwareContainer",
 print("dimension AssetContainer", len(AssetContainer(AssetRetriever().get_all_objects()).get_data()))
 print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetriever().get_all_objects()).get_data()))
 
-# print(len(AttackPatternsContainer().get_object_from_data_by_id('attack-pattern--25852363-5968-4673-b81d-341d5ed90bd1').assets_and_relationship))
-
-"""
-for ats in AttackPatternsContainer().get_object_from_data_by_name("Destruction"):
-    print(ats.name)
-"""
-
-# pprint(type(CampaignsContainer().get_data()[0].x_mitre_domains))
-# print(AttackPatternsContainer().get_data()[0])
-# print(CampaignsContainer().get_data()[0].attack_patterns_and_relationships[0])
-# print("\n\n")
-# print(ToolsContainer().get_data()[0].attack_patterns_and_relationships[0])
-# pprint(CampaignsContainer().get_data()[2])
-
-attack_pattern_stix_id = AttackPatternsContainer().get_object_from_data_by_name('External Remote Services')[0].id
+                                                                                                                            # External Remote Services
+print("\n\nName of searched attack", AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].name)
+attack_pattern_stix_id = AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].id
 
 attack_set_by_campaign = CampaignsContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
 attack_set_by_tool = ToolsMalwareContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
@@ -93,24 +56,14 @@ print("--> By All", len(attack_set))
 
 print("\nSearch AttackToCVE by cve id:")
 
-for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2020-3460').items():
+                                                                                                        # CVE-2020-3460
+for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-30334').items():
     print("-", key)
     print([at_name.name for at_name in value])
 
-"""
-for at in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-3151')["Primary Impact"]:
-    print(AttackPatternsContainer().get_object_from_data_by_mitre_id(at).x_mitre_id)
-for at in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-3151')["Secondary Impact"]:
-    print(AttackPatternsContainer().get_object_from_data_by_mitre_id(at).x_mitre_id)
-for at in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-3151')["Exploitation Technique"]:
-    print(AttackPatternsContainer().get_object_from_data_by_mitre_id(at).x_mitre_id)
-for at in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-3151')["Uncategorized"]:
-    print(AttackPatternsContainer().get_object_from_data_by_mitre_id(at).x_mitre_id)
-"""
-
 print("\nSearch cve id by attack pattern mitre id:")
 for dict_at in AttackToCVEContainer().get_cve_id_by_attack_pattern_mitre_id(
-        AttackPatternsContainer().get_object_from_data_by_mitre_id('T1565.002').x_mitre_id):
+        AttackPatternsContainer().get_object_from_data_by_name('Malicious File')[0].x_mitre_id):
     for key, value in dict_at.items():
         print(key)
         print(value)
@@ -119,7 +72,6 @@ print("\n\nPhase and Domain of attack-pattern searched: ",
       AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id).kill_chain_phases,
       AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id).x_mitre_domains)
 
-# lista per contare da quale matrice provengono le relazioni
 i = 0
 
 print("\n* Probably happened attacks dict for phase: ")
@@ -138,7 +90,7 @@ for key in dict_probably_happened:
             ics.append(i)
         elif 'mobile-attack' in at_rel_key.x_mitre_domains:
             mobile.append(i)
-        elif 'atlas-attack' in at_rel_key.x_mitre_domains:
+        elif 'atlas' in at_rel_key.x_mitre_domains:
             atlas.append(i)
         i += 1
 
@@ -160,45 +112,8 @@ for key in dict_futured:
             ics.append(i)
         elif 'mobile-attack' in at_rel_key.x_mitre_domains:
             mobile.append(i)
-        elif 'atlas-attack' in at_rel_key.x_mitre_domains:
+        elif 'atlas' in at_rel_key.x_mitre_domains:
             atlas.append(i)
         i += 1
 
     print("   e", len(enterprise), "  m", len(mobile), "  i", len(ics), "  a", len(atlas), "\n")
-
-# print(dict_probably_happened['evasion'])
-
-'''
-for att in attack_set:
-    print(att.name)
-'''
-
-# get attack_patterns name from Campaign
-'''
-print(f"\n* Campaign {campaign_stix_id} related attack patterns:")
-for attack_patterns_and_relationships_dict in CampaignsContainer().get_object_from_data_by_id(campaign_stix_id).attack_patterns_and_relationships:
-    for chiave in attack_patterns_and_relationships_dict:
-        print(chiave.name)
-
-# get attack_patterns name from ToolMalware
-print(f"\n* ToolsMalware {tool_malware_stix_id} related attack patterns:")
-for attack_patterns_and_relationships_dict in ToolsMalwareContainer().get_object_from_data_by_id(tool_malware_stix_id).attack_patterns_and_relationships:
-    for chiave in attack_patterns_and_relationships_dict:
-        print(chiave.name)
-'''
-
-# test see relationship type
-'''
-list_attack_id = [x.id for x in mitre_attack_data.get_techniques()]
-
-for id_att in list_attack_id:
-    list_obj = mitre_attack_data.get_techniques_used_by_campaign(id_att)
-    for l in list_obj:
-        pprint(len(l['relationships']))
-        # pprint(len(l['relationships']), l['relationships'][0].relationship_type)
-pprint(mitre_attack_data.get_techniques_used_by_campaign(campaign_stix_id)[0]['relationships'])
-'''
-
-'''
-pprint(mitre_attack_data.get_software_using_technique(attack_pattern_stix_id)[0]['relationships'])
-'''

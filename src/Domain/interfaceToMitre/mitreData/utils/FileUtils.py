@@ -5,6 +5,8 @@ import os
 
 import yaml
 
+from src.domain.interfaceToMitre.mitreData.utils.Path import json_format
+
 
 def read_from_json(path: str, filename: str):
     with open(f"{path}{filename}.json", "r") as file:
@@ -14,6 +16,10 @@ def read_from_json(path: str, filename: str):
 def save_to_json_file(json_data, filename, path):
     json_string = json.dumps(json_data, indent=4, default=str)
     __write_to_file(json_string, f"{filename}.json", path)
+
+
+def check_exist_file_json(filename, path):
+    return os.path.isfile(path + filename + json_format)
 
 
 def __write_to_file(file_content, filename, path):
@@ -52,7 +58,8 @@ def conversion_csv_string_to_json_string(csv_content: str) -> str:
         for key, value in row.items():
             if key not in ['CVE ID', 'Phase']:
                 # Dividi per ';' se presente, altrimenti crea una lista con un singolo elemento
-                row[key] = [__format_mitre_id(v.strip()) for v in value.split(';') if v.strip()] if value.strip() else []
+                row[key] = [__format_mitre_id(v.strip()) for v in value.split(';') if
+                            v.strip()] if value.strip() else []
             # Per 'CVE ID' e 'Phase' lascia il valore come stringa
             if key == 'CVE ID':
                 # Formatta l'ID MITRE se presente in "CVE ID"

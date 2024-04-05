@@ -27,7 +27,8 @@ class AttackPhase(Enum):
 
     @classmethod
     def get_enum_from_string(cls, name):
-        formatted_name = name.upper().replace('-', '_')
+        formatted_name = name.upper().replace(' ', '_')
+        formatted_name = formatted_name.upper().replace('-', '_')
         phase = getattr(cls, formatted_name, None)
         if phase:
             return phase.value
@@ -35,11 +36,12 @@ class AttackPhase(Enum):
             # Verifica se formatted_name è un alias
             if formatted_name in cls.__members__:
                 return cls.__members__[formatted_name]
-            return None
+        return None
 
     @classmethod
     def get_phase_value_from_name(cls, name):
-        formatted_name = name.upper().replace('-', '_')
+        formatted_name = name.upper().replace(' ', '_')
+        formatted_name = formatted_name.upper().replace('-', '_')
         phase = getattr(cls, formatted_name, None)
         if phase:
             return phase.value

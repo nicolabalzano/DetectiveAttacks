@@ -24,7 +24,7 @@ fetch_attack_to_cve_data()
 
 # container
 
-print("dimension AttackPatternsContainer",
+print("\ndimension AttackPatternsContainer",
       len(AttackPatternsContainer(AttackPatternsRetriever().get_all_objects()).get_data()))
 print("dimension CampaignsContainer", len(CampaignsContainer(CampaignsRetriever().get_all_objects()).get_data()))
 print("dimension ToolsMalwareContainer",
@@ -34,5 +34,6 @@ print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetr
 
 r = nvdlib.searchCVE(cveId='CVE-2024-30334')[0]
 print(r.descriptions[0].value)
+print(r.id, r.id.split('-')[1], r.descriptions[0].value.split('.')[0])
 # pprint(r)
 

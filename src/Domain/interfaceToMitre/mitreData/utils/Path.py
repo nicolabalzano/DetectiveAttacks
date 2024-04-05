@@ -4,7 +4,9 @@ ENTERPRISE_ATTACK = 'enterprise-attack'
 MOBILE_ATTACK = 'mobile-attack'
 ICS_ATTACK = 'ics-attack'
 ATLAS = 'atlas'
-ATTACK_TO_CVE = "attack_to_cve"
+ATTACK_TO_CVE = 'attack_to_cve'
+ATTACK_TO_CVE_BERT_HISTORY = 'attack_to_cve_bert_history'
+json_format = '.json'
 
 default_repos = {
     ENTERPRISE_ATTACK: "https://github.com/mitre/cti.git",

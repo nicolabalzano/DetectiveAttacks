@@ -87,7 +87,10 @@ def __fetch_file(domain: str, path: str, branch: str):
 
 
 def __check_last_commit(domain: str, branch: str = 'master') -> bool:
-    return __get_current_commit(domain, branch) == __get_last_local_hash(domain)
+    if __check_internet_connection():
+        return __get_current_commit(domain, branch) == __get_last_local_hash(domain)
+    else:
+        return True
 
 
 def __get_current_commit(domain: str, branch: str = 'master'):
