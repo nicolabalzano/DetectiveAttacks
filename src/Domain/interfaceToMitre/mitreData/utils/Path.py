@@ -1,5 +1,5 @@
 default_path = "C:\\Users\\nikba\\OneDrive\\Desktop\\Tesi\\UniBa_Tesi\\src\\domain\\interfaceToMitre\\mitreData\\files\\"
-#src\\domain\\interfaceToMitre\\mitreData
+# src\\domain\\interfaceToMitre\\mitreData
 ENTERPRISE_ATTACK = 'enterprise-attack'
 MOBILE_ATTACK = 'mobile-attack'
 ICS_ATTACK = 'ics-attack'
@@ -15,4 +15,3 @@ default_repos = {
     ATLAS: "https://github.com/mitre-atlas/atlas-data.git",
     ATTACK_TO_CVE: "https://github.com/center-for-threat-informed-defense/mappings-explorer.git"
 }
-
