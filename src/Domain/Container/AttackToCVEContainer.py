@@ -1,10 +1,9 @@
-import nvdlib
-
 from src.domain.Singleton import singleton
-from src.domain.container.AttackPatternsContainer import AttackPatternsContainer
+from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.interfaceToMitre.mitreData.mitreAttackToCVE.AttackBert import AttackBert
-from src.domain.interfaceToMitre.mitreData.utils.FileUtils import save_to_json_file, check_exist_file_json, read_from_json
-from src.domain.interfaceToMitre.mitreData.utils.Path import default_path, ATTACK_TO_CVE_BERT_HISTORY, json_format
+from src.domain.interfaceToMitre.mitreData.utils.FileUtils import save_to_json_file, check_exist_file_json, \
+    read_from_json
+from src.domain.interfaceToMitre.mitreData.utils.Path import default_path, ATTACK_TO_CVE_BERT_HISTORY
 
 
 @singleton
@@ -38,47 +37,19 @@ class AttackToCVEContainer:
         dict_result = self.__get_attack_pattern_by_cve_id_in_mapped(target_id)
         MIN_SIMILARITY = 0.5
 
+        # if CVE isn't map in MITRE ENGENUITY use SMET to determinate
         if not dict_result:
-            # if CVE isn't map in MITRE ENGENUITY use SMET to determinate
-            cve = nvdlib.searchCVE(cveId=target_id)[0]
 
             # if cosine similarity is >= 0.5 add attack to related list of attacks
             at_related = [at for at in AttackPatternsContainer().get_data() if
-                          AttackBert().check_similarity(cve.descriptions[0].value, at.description) >= MIN_SIMILARITY]
+                          AttackBert().check_similarity_between_CVE_sentence(target_id, at.description) >= MIN_SIMILARITY]
 
             dict_result = {'uncategorized': at_related}
 
             # save new mapping for future research
-            self.__save_new_mapping(cve, at_related)
+            AttackBert.save_new_mapping(target_id, at_related)
 
         return dict_result
-
-    @staticmethod
-    def __save_new_mapping(cve: dict, list_of_attack_patterns: list):
-
-        # check if file exist
-        if not check_exist_file_json(default_path, ATTACK_TO_CVE_BERT_HISTORY):
-            save_to_json_file({'mapping_objects': []}, ATTACK_TO_CVE_BERT_HISTORY, default_path)
-
-        dict_bert_history = read_from_json(default_path, ATTACK_TO_CVE_BERT_HISTORY)
-
-        for at in list_of_attack_patterns:
-            dict_mapping = {
-                "comments": "",
-                "attack_object_id": at.x_mitre_id,
-                "attack_object_name": at.name,
-                "references": [],
-                "capability_description": cve.descriptions[0].value.split('.')[0],
-                "capability_id": cve.id,
-                "mapping_type": "uncategorized",
-                "capability_group": cve.id.split('-')[1],
-                "status": "complete"
-            }
-
-            dict_bert_history["mapping_objects"].append(dict_mapping)
-
-        # save new mapping
-        save_to_json_file(dict_bert_history, ATTACK_TO_CVE_BERT_HISTORY, default_path)
 
     def get_cve_id_by_attack_pattern_mitre_id(self, attack_pattern_mitre_id: str) -> list[dict]:
         """

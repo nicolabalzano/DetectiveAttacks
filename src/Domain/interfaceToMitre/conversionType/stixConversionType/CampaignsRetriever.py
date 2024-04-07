@@ -6,7 +6,7 @@ from src.domain.interfaceToMitre.conversionType.stixConversionType._AbstractObje
     _AbstractObjectWithAttackPatternsRetriever
 from src.domain.interfaceToMitre.mitreData.MitreData import MITRE_ATTACK_ENTERPRISE_DATA, \
     MITRE_ATTACK_MOBILE_DATA, MITRE_ATTACK_ICS_DATA, MITRE_ATLAS_DATA
-from src.domain.business.MySTIXObject.MyCampaign import MyCampaign
+from src.domain.business.mySTIXObject.MyCampaign import MyCampaign
 from src.domain.Singleton import singleton
 
 

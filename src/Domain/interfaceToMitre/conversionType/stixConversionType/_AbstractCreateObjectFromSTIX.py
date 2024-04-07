@@ -2,13 +2,13 @@ from abc import ABC
 from typing import Generic, Type
 
 from src.domain.interfaceToMitre.conversionType.util.GenericType import T_MY_STIX, T_STIX
-from src.domain.business.MySTIXObject.AbstractMySTIXObject import AbstractMySTIXObject
+from src.domain.business.mySTIXObject.AbstractMySTIXObject import AbstractMySTIXObject
 
 
 class _AbstractCreateObjectFromSTIX(Generic[T_MY_STIX, T_STIX], ABC):
 
     def __init__(self, my_stix_type: Type[T_MY_STIX], stix_type: Type[T_STIX]):
-        # controlliamo a runtime se stix_type è effettivamente una sottoclasse di MySTIXObject
+        # controlliamo a runtime se stix_type è effettivamente una sottoclasse di mySTIXObject
         if not issubclass(my_stix_type, AbstractMySTIXObject):
             raise TypeError(f"{my_stix_type.__name__} must be a subclass of AbstractMySTIXObject")
         self.my_stix_type = my_stix_type

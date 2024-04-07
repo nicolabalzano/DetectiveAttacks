@@ -3,8 +3,8 @@ from dataclasses import dataclass, field
 from stix2.v20 import Relationship
 from stix2.v20 import KillChainPhase
 
-from src.domain.business.MySTIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
-from src.domain.business.MySTIXObject.MyCourseOfAction import MyCourseOfAction
+from src.domain.business.mySTIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
+from src.domain.business.mySTIXObject.MyCourseOfAction import MyCourseOfAction
 
 
 @dataclass(eq=False, frozen=True, slots=True)

@@ -2,7 +2,7 @@ from typing import List
 
 from mitreattack.stix20 import Asset
 
-from src.domain.business.MySTIXObject.MyAsset import MyAsset
+from src.domain.business.mySTIXObject.MyAsset import MyAsset
 from src.domain.interfaceToMitre.conversionType.stixConversionType._AbstractObjectWithAttackPatternRetriever import \
     _AbstractObjectWithAttackPatternsRetriever
 from src.domain.interfaceToMitre.mitreData.MitreData import MITRE_ATTACK_ICS_DATA

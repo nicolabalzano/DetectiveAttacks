@@ -1,7 +1,7 @@
 from stix2.v20 import CourseOfAction
 
 from src.domain.interfaceToMitre.conversionType.stixConversionType._AbstractCreateObjectFromSTIX import _AbstractCreateObjectFromSTIX
-from src.domain.business.MySTIXObject.MyCourseOfAction import MyCourseOfAction
+from src.domain.business.mySTIXObject.MyCourseOfAction import MyCourseOfAction
 from src.domain.Singleton import singleton
 
 

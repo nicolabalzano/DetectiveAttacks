@@ -1,6 +1,6 @@
 from stix2.v20 import AttackPattern
 
-from src.domain.business.MySTIXObject.MyAttackPattern import MyAttackPattern
+from src.domain.business.mySTIXObject.MyAttackPattern import MyAttackPattern
 from src.domain.interfaceToMitre.conversionType.stixConversionType._AbstractObjectRetriever import \
     _AbstractObjectRetriever
 from src.domain.interfaceToMitre.conversionType.util.CourseOfActionRetriever import CourseOfActionRetriever

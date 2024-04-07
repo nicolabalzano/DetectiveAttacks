@@ -1,10 +1,9 @@
 from abc import ABC
-from typing import Tuple
 
-from src.domain.container.AbstractContainer import AbstractContainer
+from src.domain.container.mySTIXContainer.AbstractContainerTuple import AbstractContainerTuple
 
 
-class AbstractContainerMyStix(AbstractContainer, ABC):
+class AbstractContainerMyStix(AbstractContainerTuple, ABC):
 
     def get_object_from_data_by_id(self, target_id: str):
         return next((obj for obj in self._objects if obj.id == target_id), None)

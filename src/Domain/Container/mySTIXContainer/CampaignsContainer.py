@@ -1,5 +1,5 @@
 from src.domain.Singleton import singleton
-from src.domain.container.AbstractContainerMyStixWithAttackPatterns import AbstractContainerMyStixWithAttackPatterns
+from src.domain.container.mySTIXContainer.AbstractContainerMyStixWithAttackPatterns import AbstractContainerMyStixWithAttackPatterns
 
 
 @singleton

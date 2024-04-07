@@ -1,7 +1,7 @@
 from abc import ABC
 
 
-class AbstractContainer(ABC):
+class AbstractContainerTuple(ABC):
 
     def __init__(self, objects: tuple | list):
         if not isinstance(objects, tuple):

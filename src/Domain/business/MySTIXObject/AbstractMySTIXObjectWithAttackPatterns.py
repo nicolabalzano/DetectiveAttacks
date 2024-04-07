@@ -4,8 +4,8 @@ from typing import Dict
 
 from stix2.v20 import Relationship
 
-from src.domain.business.MySTIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
-from src.domain.business.MySTIXObject.MyAttackPattern import MyAttackPattern
+from src.domain.business.mySTIXObject.AbstractMySTIXObjectWithContributors import AbstractMySTIXObjectWithContributors
+from src.domain.business.mySTIXObject.MyAttackPattern import MyAttackPattern
 
 
 @dataclass(eq=False, frozen=True, slots=True)

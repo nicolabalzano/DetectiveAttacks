@@ -1,7 +1,7 @@
 from abc import ABC
 from dataclasses import dataclass, field
 
-from src.domain.business.MySTIXObject.AbstractMySTIXObject import AbstractMySTIXObject
+from src.domain.business.mySTIXObject.AbstractMySTIXObject import AbstractMySTIXObject
 
 
 @dataclass(eq=False, frozen=True, slots=True)

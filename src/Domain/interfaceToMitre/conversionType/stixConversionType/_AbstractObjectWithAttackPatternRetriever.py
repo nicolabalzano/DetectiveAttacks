@@ -1,9 +1,9 @@
 from abc import abstractmethod, ABC
 from typing import Type, Generic, List
 
-from src.domain.container.AttackPatternsContainer import AttackPatternsContainer
+from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.interfaceToMitre.conversionType.util.GenericType import T_MY_STIX, T_STIX
-from src.domain.business.MySTIXObject import MyAttackPattern
+from src.domain.business.mySTIXObject import MyAttackPattern
 from src.domain.interfaceToMitre.conversionType.stixConversionType._AbstractObjectRetriever import _AbstractObjectRetriever
 from src.domain.interfaceToMitre.conversionType.util.RelationshipRetriever import RelationshipRetriever
 

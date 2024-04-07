@@ -1,9 +1,8 @@
-from src.domain.container.AttackPatternsContainer import AttackPatternsContainer
+from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.container.AttackToCVEContainer import AttackToCVEContainer
 from src.domain.interfaceToMitre.conversionType.stixConversionType.AttackPatternsRetriever import AttackPatternsRetriever
 from src.domain.interfaceToMitre.conversionType.AttackToCVERetriever import AttackToCVERetriever
 from src.domain.interfaceToMitre.mitreData.FetchData import fetch_attack_to_cve_data
-from src.domain.interfaceToMitre.mitreData.MitreData import MITRE_ATTACK_ENTERPRISE_DATA, MITRE_ATLAS_DATA
 
 """
 pprint(list(mitre_atlas_data.get_all_techniques_used_by_all_case_studies().values())[0])

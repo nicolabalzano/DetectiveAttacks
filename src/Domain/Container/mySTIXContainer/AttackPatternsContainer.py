@@ -1,12 +1,12 @@
 from stix2.v20 import KillChainPhase, Relationship
 
 from src.domain.business.AttackPhase import AttackPhase
-from src.domain.business.MySTIXObject import MyAttackPattern
-from src.domain.container.AbstractContainerMyStix import AbstractContainerMyStix
+from src.domain.business.mySTIXObject import MyAttackPattern
+from src.domain.container.mySTIXContainer.AbstractContainerMyStix import AbstractContainerMyStix
 from src.domain.Singleton import singleton
-from src.domain.container.AssetContainer import AssetContainer
-from src.domain.container.CampaignsContainer import CampaignsContainer
-from src.domain.container.ToolsMalwareContainer import ToolsMalwareContainer
+from src.domain.container.mySTIXContainer.AssetContainer import AssetContainer
+from src.domain.container.mySTIXContainer.CampaignsContainer import CampaignsContainer
+from src.domain.container.mySTIXContainer.ToolsMalwareContainer import ToolsMalwareContainer
 
 
 @singleton

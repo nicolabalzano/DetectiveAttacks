@@ -1,10 +1,8 @@
-from pprint import pprint
-
-from src.domain.container.AssetContainer import AssetContainer
-from src.domain.container.AttackPatternsContainer import AttackPatternsContainer
+from src.domain.container.mySTIXContainer.AssetContainer import AssetContainer
+from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.container.AttackToCVEContainer import AttackToCVEContainer
-from src.domain.container.CampaignsContainer import CampaignsContainer
-from src.domain.container.ToolsMalwareContainer import ToolsMalwareContainer
+from src.domain.container.mySTIXContainer.CampaignsContainer import CampaignsContainer
+from src.domain.container.mySTIXContainer.ToolsMalwareContainer import ToolsMalwareContainer
 from src.domain.interfaceToMitre.conversionType.stixConversionType.AssetsRetriever import AssetRetriever
 from src.domain.interfaceToMitre.conversionType.stixConversionType.AttackPatternsRetriever import \
     AttackPatternsRetriever

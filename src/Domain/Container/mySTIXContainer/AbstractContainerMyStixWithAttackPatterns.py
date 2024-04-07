@@ -1,6 +1,6 @@
 from abc import ABC
 
-from src.domain.container.AbstractContainerMyStix import AbstractContainerMyStix
+from src.domain.container.mySTIXContainer.AbstractContainerMyStix import AbstractContainerMyStix
 
 
 class AbstractContainerMyStixWithAttackPatterns(AbstractContainerMyStix, ABC):

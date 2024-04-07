@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from src.domain.business.MySTIXObject.AbstractMySTIXObjectWithName import AbstractMySTIXObjectWithName
+from src.domain.business.mySTIXObject.AbstractMySTIXObjectWithName import AbstractMySTIXObjectWithName
 
 
 @dataclass(eq=False, frozen=True, slots=True)
