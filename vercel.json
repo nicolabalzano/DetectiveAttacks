@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "*.py",
+            "use": "@nicolabalzano/now-flask"
+        }
+    ],
+    "routes": [
+        {
+            "src": "(.*)",
+            "dest": "/testingToDelete/test.py"
+        }
+    ]
+  }
