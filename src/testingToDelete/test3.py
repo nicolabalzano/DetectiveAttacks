@@ -1,4 +1,5 @@
 import nvdlib
+from allennlp.predictors import Predictor
 
 from src.domain.container.mySTIXContainer.AssetContainer import AssetContainer
 from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
@@ -32,5 +33,21 @@ print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetr
 r = nvdlib.searchCVE(cveId='CVE-2024-30334')[0]
 print(r.descriptions[0].value)
 print(r.id, r.id.split('-')[1], r.descriptions[0].value.split('.')[0])
+
 # pprint(r)
 
+# Carica il modello SRL pre-allenato
+predictor = Predictor.from_path("https://storage.googleapis.com/allennlp-public-models/bert-base-srl-2020.11.19.tar.gz")
+
+# Frase su cui eseguire SRL
+sentence = "The quick brown fox jumps over the lazy dog."
+
+# Esegui SRL sulla frase
+srl_result = predictor.predict(sentence=sentence)
+
+# Stampa i risultati
+for verb in srl_result['verbs']:
+    print(f"Verbo: {verb['verb']}")
+    for tag, description in verb['description'].items():
+        print(f"  {tag}: {description}")
+    print("\n")

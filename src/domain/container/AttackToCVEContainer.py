@@ -1,5 +1,6 @@
 from src.domain.Singleton import singleton
 from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
+from src.domain.interfaceToMitre.conversionType.AttackToCVERetriever import AttackToCVERetriever
 from src.domain.interfaceToMitre.mitreData.mitreAttackToCVE.AttackBert import AttackBert
 from src.domain.interfaceToMitre.mitreData.utils.FileUtils import save_to_json_file, check_exist_file_json, \
     read_from_json
@@ -10,6 +11,9 @@ from src.domain.interfaceToMitre.mitreData.utils.Path import default_path, ATTAC
 class AttackToCVEContainer:
 
     def __init__(self, objects: dict):
+        self.__objects = objects
+
+    def reset_dataset(self, objects: dict):
         self.__objects = objects
 
     def get_data(self):
@@ -39,15 +43,17 @@ class AttackToCVEContainer:
 
         # if CVE isn't map in MITRE ENGENUITY use SMET to determinate
         if not dict_result:
-
             # if cosine similarity is >= 0.5 add attack to related list of attacks
             at_related = [at for at in AttackPatternsContainer().get_data() if
-                          AttackBert().check_similarity_between_CVE_sentence(target_id, at.description) >= MIN_SIMILARITY]
+                          AttackBert().check_similarity_between_CVE_sentence(target_id,
+                                                                             at.description) >= MIN_SIMILARITY]
 
             dict_result = {'uncategorized': at_related}
 
             # save new mapping for future research
             AttackBert.save_new_mapping(target_id, at_related)
+            # re-set the dataset with new mapping
+            # ---------> self.reset_dataset(AttackToCVERetriever().get_all_objects())
 
         return dict_result
 

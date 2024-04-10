@@ -54,10 +54,13 @@ print("--> By All", len(attack_set))
 
 print("\nSearch AttackToCVE by cve id:")
 
-                                                                                                        # CVE-2020-3460
-for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id('CVE-2024-30334').items():
-    print("-", key)
-    print([at_name.name for at_name in value])
+# 'CVE-2019-15976', 'CVE-2019-15958', 'CVE-2019-12660', 'CVE-2020-3460', 'CVE-2019-12660'
+
+for cve in ['CVE-2019-15243']:
+    print("* ", cve)
+    for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id(cve).items():
+        print("-", key)
+        print([at_name.name for at_name in value])
 
 print("\nSearch cve id by attack pattern mitre id:")
 for dict_at in AttackToCVEContainer().get_cve_id_by_attack_pattern_mitre_id(
@@ -65,6 +68,8 @@ for dict_at in AttackToCVEContainer().get_cve_id_by_attack_pattern_mitre_id(
     for key, value in dict_at.items():
         print(key)
         print(value)
+
+
 
 print("\n\nPhase and Domain of attack-pattern searched: ",
       AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id).kill_chain_phases,
