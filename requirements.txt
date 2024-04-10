@@ -1,0 +1,11 @@
+allennlp==2.10.1
+GitPython==3.1.43
+GitPython==3.1.43
+mitreattack_python==3.0.3
+nvdlib==0.7.6
+PyYAML==6.0.1
+PyYAML==6.0.1
+Requests==2.31.0
+scikit_learn==1.2.2
+sentence_transformers==2.2.2
+stix2==3.0.1
