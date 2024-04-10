@@ -1,3 +1,5 @@
+import nvdlib
+
 from src.domain.Singleton import singleton
 from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.interfaceToMitre.conversionType.AttackToCVERetriever import AttackToCVERetriever
@@ -9,6 +11,7 @@ from src.domain.interfaceToMitre.mitreData.utils.Path import default_path, ATTAC
 
 @singleton
 class AttackToCVEContainer:
+    i = 0
 
     def __init__(self, objects: dict):
         self.__objects = objects
@@ -41,17 +44,29 @@ class AttackToCVEContainer:
         dict_result = self.__get_attack_pattern_by_cve_id_in_mapped(target_id)
         MIN_SIMILARITY = 0.5
 
+        cve = nvdlib.searchCVE(cveId=target_id)[0]
+        at_related = []
+
         # if CVE isn't map in MITRE ENGENUITY use SMET to determinate
         if not dict_result:
             # if cosine similarity is >= 0.5 add attack to related list of attacks
+            """
             at_related = [at for at in AttackPatternsContainer().get_data() if
-                          AttackBert().check_similarity_between_CVE_sentence(target_id,
-                                                                             at.description) >= MIN_SIMILARITY]
+                          AttackBert().check_similarity(cve.descriptions[0].value, at.description) >= MIN_SIMILARITY]
+            """
+            for at in AttackPatternsContainer().get_data():
+                self.i += 1
+                print(self.i)
 
+                if AttackBert().check_similarity(cve.descriptions[0].value, at.description) >= MIN_SIMILARITY:
+                    print(at.name, AttackBert().check_similarity(cve.descriptions[0].value, at.description))
+                    at_related.append(at)
+
+            self.i = 0
             dict_result = {'uncategorized': at_related}
 
             # save new mapping for future research
-            AttackBert.save_new_mapping(target_id, at_related)
+            AttackBert().save_new_mapping(cve, at_related)
             # re-set the dataset with new mapping
             # ---------> self.reset_dataset(AttackToCVERetriever().get_all_objects())
 

@@ -1,4 +1,4 @@
-default_path = "C:\\Users\\nikba\\OneDrive\\Desktop\\Tesi\\UniBa_Tesi\\src\\domain\\interfaceToMitre\\mitreData\\files\\"
+default_path = "..\\domain\\interfaceToMitre\\mitreData\\files\\"
 # src\\domain\\interfaceToMitre\\mitreData
 ENTERPRISE_ATTACK = 'enterprise-attack'
 MOBILE_ATTACK = 'mobile-attack'

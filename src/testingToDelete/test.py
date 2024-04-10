@@ -54,9 +54,9 @@ print("--> By All", len(attack_set))
 
 print("\nSearch AttackToCVE by cve id:")
 
-# 'CVE-2019-15976', 'CVE-2019-15958', 'CVE-2019-12660', 'CVE-2020-3460', 'CVE-2019-12660'
+#
 
-for cve in ['CVE-2019-15243']:
+for cve in ['CVE-2019-15976', 'CVE-2019-15243', 'CVE-2019-15958', 'CVE-2019-12660', 'CVE-2020-3460', 'CVE-2019-12660']:
     print("* ", cve)
     for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id(cve).items():
         print("-", key)
