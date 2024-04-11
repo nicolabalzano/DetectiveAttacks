@@ -13,6 +13,8 @@ from src.domain.interfaceToMitre.conversionType.stixConversionType.AttackPattern
 from src.domain.interfaceToMitre.conversionType.stixConversionType.CampaignsRetriever import CampaignsRetriever
 from src.domain.interfaceToMitre.conversionType.stixConversionType.ToolsMalwareRetriever import ToolsMalwareRetriever
 from src.domain.interfaceToMitre.mitreData.FetchData import *
+from src.domain.interfaceToMitre.mitreData.utils.FileUtils import check_exist_file_json
+from src.domain.interfaceToMitre.mitreData.utils.Path import ATTACK_TO_CVE_BERT_HISTORY
 
 fetch_enterprise_data()
 fetch_mobile_data()
@@ -31,17 +33,10 @@ print("dimension AssetContainer", len(AssetContainer(AssetRetriever().get_all_ob
 print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetriever().get_all_objects()).get_data()))
 
 # pprint(r)
-i=0
+i = 0
 for at in AttackPatternsContainer().get_data():
     if 'atlas' in at.x_mitre_domains:
-        i+=1
+        i += 1
         print(i, "-----", at.description)
 
-# Stampa i risultati
-"""
-for verb in srl_result['verbs']:
-    print(f"Verbo: {verb['verb']}")
-    for tag, description in verb['description'].items():
-        print(f"  {tag}: {description}")
-    print("\n")
-"""
+print(check_exist_file_json(ATTACK_TO_CVE_BERT_HISTORY, default_path))

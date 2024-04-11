@@ -4,9 +4,6 @@ from src.domain.Singleton import singleton
 from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.interfaceToMitre.conversionType.AttackToCVERetriever import AttackToCVERetriever
 from src.domain.interfaceToMitre.mitreData.mitreAttackToCVE.AttackBert import AttackBert
-from src.domain.interfaceToMitre.mitreData.utils.FileUtils import save_to_json_file, check_exist_file_json, \
-    read_from_json
-from src.domain.interfaceToMitre.mitreData.utils.Path import default_path, ATTACK_TO_CVE_BERT_HISTORY
 
 
 @singleton
