@@ -16,12 +16,8 @@ class MitreAttackToCVEData:
                     dict_file_bert_history = json.load(file_bert_history)
 
                 # for duplicate key mapping_objects, union the lists
-                """
-                self.dict_file = {**dict_file, **dict_file_bert_history,
+                self.dict_file = {**dict_file_bert_history, **dict_file,
                                   'mapping_objects': dict_file['mapping_objects'] + dict_file_bert_history['mapping_objects']}
-                """
-
-                self.dict_file = dict_file_bert_history
 
             # if there isn't bert history
             else:

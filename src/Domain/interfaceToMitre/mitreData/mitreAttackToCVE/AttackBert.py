@@ -31,24 +31,19 @@ class AttackBert:
         dict_bert_history = read_from_json(default_path, ATTACK_TO_CVE_BERT_HISTORY)
 
         for at in list_of_attack_patterns:
-            try:
-                dict_mapping = {
-                    "comments": "",
-                    "attack_object_id": at.x_mitre_id,
-                    "attack_object_name": at.name,
-                    "references": [],
-                    "capability_description": cve.descriptions[0].value.split('.')[0],
-                    "capability_id": cve.id,
-                    "mapping_type": "uncategorized",
-                    "capability_group": cve.id.split('-')[1],
-                    "status": "complete"
-                }
+            dict_mapping = {
+                "comments": "",
+                "attack_object_id": at.x_mitre_id,
+                "attack_object_name": at.name,
+                "references": [],
+                "capability_description": cve.descriptions[0].value.split('.')[0],
+                "capability_id": cve.id,
+                "mapping_type": "uncategorized",
+                "capability_group": cve.id.split('-')[1],
+                "status": "complete"
+            }
 
-                dict_bert_history["mapping_objects"].append(dict_mapping)
-
-            except:
-                print(at.name, at.x_mitre_domains, at.x_mitre_id)
-                traceback.print_exc()
+            dict_bert_history["mapping_objects"].append(dict_mapping)
 
         # save new mapping
         save_to_json_file(dict_bert_history, ATTACK_TO_CVE_BERT_HISTORY, default_path)
