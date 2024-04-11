@@ -25,7 +25,7 @@ class AttackBert:
     def save_new_mapping(cve, list_of_attack_patterns: list):
 
         # check if file exist
-        if not check_exist_file_json(default_path, ATTACK_TO_CVE_BERT_HISTORY):
+        if not check_exist_file_json(ATTACK_TO_CVE_BERT_HISTORY, default_path):
             save_to_json_file({'mapping_objects': []}, ATTACK_TO_CVE_BERT_HISTORY, default_path)
 
         dict_bert_history = read_from_json(default_path, ATTACK_TO_CVE_BERT_HISTORY)
