@@ -57,9 +57,9 @@ class AttackToCVEContainer:
             for at in AttackPatternsContainer().get_data():
                 self.i += 1
                 print(self.i)
-
-                if AttackBert().check_similarity(cve.descriptions[0].value, at.description) >= MIN_SIMILARITY:
-                    print(at.name, AttackBert().check_similarity(cve.descriptions[0].value, at.description))
+                sim = AttackBert().check_similarity(cve.descriptions[0].value, at.description)
+                if sim >= MIN_SIMILARITY:
+                    print(at.name, sim)
                     at_related.append(at)
 
             self.i = 0
@@ -67,8 +67,9 @@ class AttackToCVEContainer:
 
             # save new mapping for future research
             AttackBert().save_new_mapping(cve, at_related)
-            # re-set the dataset with new mapping
-            # ---------> self.reset_dataset(AttackToCVERetriever().get_all_objects())
+
+            # update the dataset with new mapping
+            self.reset_dataset(AttackToCVERetriever().get_all_objects())
 
         return dict_result
 

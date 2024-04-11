@@ -1,3 +1,5 @@
+import nvdlib
+
 from src.domain.container.mySTIXContainer.AssetContainer import AssetContainer
 from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.container.AttackToCVEContainer import AttackToCVEContainer
@@ -37,8 +39,9 @@ print("dimension ToolsMalwareContainer",
 print("dimension AssetContainer", len(AssetContainer(AssetRetriever().get_all_objects()).get_data()))
 print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetriever().get_all_objects()).get_data()))
 
-                                                                                                                            # External Remote Services
-print("\n\nName of searched attack", AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].name)
+# External Remote Services
+print("\n\nName of searched attack",
+      AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].name)
 attack_pattern_stix_id = AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].id
 
 attack_set_by_campaign = CampaignsContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
@@ -56,7 +59,7 @@ print("\nSearch AttackToCVE by cve id:")
 
 #
 
-for cve in ['CVE-2019-15976', 'CVE-2019-15243', 'CVE-2019-15958', 'CVE-2019-12660', 'CVE-2020-3460', 'CVE-2019-12660']:
+for cve in ['CVE-2024-3570', 'CVE-2024-3569', 'CVE-2024-3568', 'CVE-2024-3388']:
     print("* ", cve)
     for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id(cve).items():
         print("-", key)
@@ -68,8 +71,6 @@ for dict_at in AttackToCVEContainer().get_cve_id_by_attack_pattern_mitre_id(
     for key, value in dict_at.items():
         print(key)
         print(value)
-
-
 
 print("\n\nPhase and Domain of attack-pattern searched: ",
       AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id).kill_chain_phases,

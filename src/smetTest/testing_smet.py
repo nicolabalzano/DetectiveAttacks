@@ -2,7 +2,7 @@ from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackP
 from src.domain.interfaceToMitre.conversionType.stixConversionType.AttackPatternsRetriever import \
     AttackPatternsRetriever
 from src.domain.interfaceToMitre.mitreData.FetchData import *
-from src.smetTest.smet import map_text
+from src.smetTest.smet import map_text, predict_techniques, get_AVs
 
 fetch_enterprise_data()
 fetch_mobile_data()
@@ -22,4 +22,12 @@ text = ("While supply chain compromise can impact any component of hardware or s
         "used as dependencies in many applications may also be targeted as a means to add malicious code to users of "
         "the dependency.(Citation: Trendmicro NPM Compromise)")
 
-print(map_text(text))
+# print(predict_techniques(text, 0))
+# print(map_text(text))
+avs = get_AVs(text)
+print(avs)
+
+# Crea un nuovo set che contiene solo gli AVs senza 'Citation'
+avs_without_citation = {av for av in avs if 'Citation' not in av}
+
+print(avs_without_citation)
