@@ -30,14 +30,12 @@ print("dimension ToolsMalwareContainer",
 print("dimension AssetContainer", len(AssetContainer(AssetRetriever().get_all_objects()).get_data()))
 print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetriever().get_all_objects()).get_data()))
 
-
-r = nvdlib.searchCVE(cveId='CVE-2024-30334')[0]
-print(r.descriptions[0].value)
-print(r.id, r.id.split('-')[1], r.descriptions[0].value.split('.')[0])
-
 # pprint(r)
-
-print(AttackPatternsContainer().get_object_from_data_by_mitre_id('T1195').description)
+i=0
+for at in AttackPatternsContainer().get_data():
+    if 'atlas' in at.x_mitre_domains:
+        i+=1
+        print(i, "-----", at.description)
 
 # Stampa i risultati
 """
