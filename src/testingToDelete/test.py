@@ -40,7 +40,7 @@ print("dimension AssetContainer", len(AssetContainer(AssetRetriever().get_all_ob
 print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetriever().get_all_objects()).get_data()))
 
 # External Remote Services
-print("\n\nName of searched attack",
+print("\n\nName of searched attack:",
       AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].name)
 attack_pattern_stix_id = AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].id
 
@@ -57,10 +57,11 @@ print("--> By All", len(attack_set))
 
 print("\nSearch AttackToCVE by cve id:")
 
-#
+# 'CVE-2024-3570', 'CVE-2024-3569', 'CVE-2024-3568',
 
-for cve in ['CVE-2024-3570', 'CVE-2024-3569', 'CVE-2024-3568', 'CVE-2024-3388']:
+for cve in ['CVE-2024-3388']:
     print("* ", cve)
+    print("Description: ", nvdlib.searchCVE(cveId=cve)[0].descriptions[0].value)
     for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id(cve).items():
         print("-", key)
         print([at_name.name for at_name in value])

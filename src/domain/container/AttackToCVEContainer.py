@@ -26,14 +26,14 @@ class AttackToCVEContainer:
         for index, obj in enumerate(self.__objects['mapping_objects']):
             # if the cve is found
             if obj["capability_id"] == target_id and obj['status'] == 'complete':
+                at = AttackPatternsContainer().get_object_from_data_by_mitre_id(obj['attack_object_id'])
+
                 if obj["mapping_type"] not in dict_at_type_rel:
                     # if there is key
-                    dict_at_type_rel[obj["mapping_type"]] = [
-                        AttackPatternsContainer().get_object_from_data_by_mitre_id(obj['attack_object_id'])]
+                    dict_at_type_rel[obj["mapping_type"]] = [at]
                 else:
                     # if there isn't key, add to the list
-                    dict_at_type_rel[obj["mapping_type"]].append(
-                        AttackPatternsContainer().get_object_from_data_by_mitre_id(obj['attack_object_id']))
+                    dict_at_type_rel[obj["mapping_type"]].append(at)
 
         return dict_at_type_rel
 

@@ -32,11 +32,4 @@ print("dimension ToolsMalwareContainer",
 print("dimension AssetContainer", len(AssetContainer(AssetRetriever().get_all_objects()).get_data()))
 print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetriever().get_all_objects()).get_data()))
 
-# pprint(r)
-i = 0
-for at in AttackPatternsContainer().get_data():
-    if 'atlas' in at.x_mitre_domains:
-        i += 1
-        print(i, "-----", at.description)
-
-print(check_exist_file_json(ATTACK_TO_CVE_BERT_HISTORY, default_path))
+print("Description: ", nvdlib.cve.searchCVE('CVE-2024-3569')[0].descriptions[0].value)
