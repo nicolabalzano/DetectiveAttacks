@@ -33,7 +33,8 @@ class AttackPatternsContainer(AbstractContainerMyStix):
     def get_futured_attack_patterns_grouped_by_phase(self, attacks_pattern: MyAttackPattern) -> dict:
         return self.__get_probably_happened_or_futured_attack_patterns_grouped_by_phase(attacks_pattern, True)
 
-    def __get_probably_happened_or_futured_attack_patterns_grouped_by_phase(self, attack_pattern: MyAttackPattern, future_or_happened: bool) -> dict:
+    def __get_probably_happened_or_futured_attack_patterns_grouped_by_phase(self, attack_pattern: MyAttackPattern,
+                                                                            future_or_happened: bool) -> dict:
         dict_kill_chain_phases = {}
         ats_rel = self.get_related_attack_patterns_by_attack_pattern_id(attack_pattern.id)
         # for related attack pattern
@@ -45,19 +46,25 @@ class AttackPatternsContainer(AbstractContainerMyStix):
                     # TRUE -> futured  FALSE -> probably happened
                     if future_or_happened:
                         # if one phase is after of another add related attack pattern to the returned set
-                        if AttackPhase.get_phase_value_from_name(atp1.phase_name) > AttackPhase.get_phase_value_from_name(atp2.phase_name):
-                            dict_kill_chain_phases = self.__update_dict_grouped_by_kcp(atp1, dict_kill_chain_phases, at, rel)
+                        if AttackPhase.get_phase_value_from_name(
+                                atp1.phase_name) > AttackPhase.get_phase_value_from_name(atp2.phase_name):
+                            dict_kill_chain_phases = self.__update_dict_grouped_by_kcp(atp1, dict_kill_chain_phases, at,
+                                                                                       rel)
                     else:
                         # if one phase is before of another add related attack pattern to the returned set
-                        if AttackPhase.get_phase_value_from_name(atp1.phase_name) <= AttackPhase.get_phase_value_from_name(atp2.phase_name):
-                            dict_kill_chain_phases = self.__update_dict_grouped_by_kcp(atp1, dict_kill_chain_phases, at, rel)
+                        if AttackPhase.get_phase_value_from_name(
+                                atp1.phase_name) <= AttackPhase.get_phase_value_from_name(atp2.phase_name):
+                            dict_kill_chain_phases = self.__update_dict_grouped_by_kcp(atp1, dict_kill_chain_phases, at,
+                                                                                       rel)
 
         return dict_kill_chain_phases
 
     """
     This method create and update the dict[MyAttackPattern, [Relationship] to return futured and happened attack pattern
     """
-    def __update_dict_grouped_by_kcp(self, atp: KillChainPhase, dict_kill_chain_phases: dict, at: MyAttackPattern, rel: Relationship) -> dict:
+
+    def __update_dict_grouped_by_kcp(self, atp: KillChainPhase, dict_kill_chain_phases: dict, at: MyAttackPattern,
+                                     rel: Relationship) -> dict:
         # if kill chain phase is not in dictionary, add it
         at_rel = {at: rel}
         if atp.phase_name not in dict_kill_chain_phases:

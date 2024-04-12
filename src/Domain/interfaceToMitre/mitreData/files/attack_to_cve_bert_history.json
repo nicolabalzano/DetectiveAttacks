@@ -629,7 +629,7 @@
         },
         {
             "comments": "",
-            "attack_object_id": "",
+            "attack_object_id": "AML.T0049",
             "attack_object_name": "Exploit Public-Facing Application",
             "references": [],
             "capability_description": "A vulnerability in the GlobalProtect Gateway in Palo Alto Networks PAN-OS software enables an authenticated attacker to impersonate another user and send network packets to internal assets",

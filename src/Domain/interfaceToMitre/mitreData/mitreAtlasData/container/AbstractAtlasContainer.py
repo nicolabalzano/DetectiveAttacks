@@ -21,6 +21,7 @@ class AbstractAtlasContainer(ABC):
 
     def _get_external_refs(self, obj_dict: dict, url_dir: str) -> List[dict]:
         external_refs = []
+        """
         if "ATT&CK-reference" in obj_dict.keys():
             attack_ref = obj_dict["ATT&CK-reference"]
             external_refs.append({
@@ -29,9 +30,10 @@ class AbstractAtlasContainer(ABC):
                 "external_id": attack_ref['id']
             })
         else:
-            external_refs.append({
-                "source_name": "mitre-atlas",
-                "url": f"https://atlas.mitre.org/{url_dir}/{obj_dict['id']}",
-                "external_id": obj_dict['id']
-            })
+        """
+        external_refs.append({
+            "source_name": "mitre-atlas",
+            "url": f"https://atlas.mitre.org/{url_dir}/{obj_dict['id']}",
+            "external_id": obj_dict['id']
+        })
         return external_refs
