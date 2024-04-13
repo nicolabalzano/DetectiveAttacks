@@ -1,3 +1,5 @@
+- spiegare il perchè della similiratà coseno
+
 - non ha molto senso chiedere la correlazione con le altre tecniche, sono quelle confermata da 	mitre, al massimo posso chiedere la correlazione tra cve e tecniche?
 confronto tra gpt e il mio algoritmo, gpt fa cacare nel nostro caso
 confronto tra gpt e bert
