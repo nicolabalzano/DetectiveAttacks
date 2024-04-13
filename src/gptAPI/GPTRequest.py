@@ -16,9 +16,9 @@ def gpt_request():
         response_format={"type": "json_object"},
         temperature=0,
         messages=[
-            {"role": "system", "content": "In tema di cybersecurity, conosciamo le seguenti tecniche espresse in formato JSON:"
+            {"role": "system", "content": "In tema di cybersecurity, conosciamo le seguenti tecniche di attacco informatico espresse in formato JSON:"
                                           "tecnicheeeeeeeeeeeeeeeeeeee"},
-            {"role": "user", "content": "Se in fase di detection, identifico che sono stato vittima della tecnica T1053.005, quale "}
+            {"role": "user", "content": "Data la CVE XXXXXXX quali delle tecniche conosciute si possono riscontrano se questa CVE viene sfruttata per intenti malevoli?"}
         ]
     )
     print(response.choices[0].message.content)
