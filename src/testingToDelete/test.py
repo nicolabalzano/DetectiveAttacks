@@ -39,10 +39,11 @@ print("dimension ToolsMalwareContainer",
 print("dimension AssetContainer", len(AssetContainer(AssetRetriever().get_all_objects()).get_data()))
 print("dimension AttackToCVEContainer", len(AttackToCVEContainer(AttackToCVERetriever().get_all_objects()).get_data()))
 
+
+attack_pattern_stix_id = AttackPatternsContainer().get_object_from_data_by_mitre_id('T1053.005').id
+
 # External Remote Services
-print("\n\nName of searched attack:",
-      AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].name)
-attack_pattern_stix_id = AttackPatternsContainer().get_object_from_data_by_name('LLM Plugin Compromise')[0].id
+print("\n\nName of searched attack:", attack_pattern_stix_id)
 
 attack_set_by_campaign = CampaignsContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
 attack_set_by_tool = ToolsMalwareContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
@@ -78,6 +79,7 @@ print("\n\nPhase and Domain of attack-pattern searched: ",
       AttackPatternsContainer().get_object_from_data_by_id(attack_pattern_stix_id).x_mitre_domains)
 
 i = 0
+key_set = set()
 
 print("\n* Probably happened attacks dict for phase: ")
 dict_probably_happened = AttackPatternsContainer().get_probably_happened_attack_patterns_grouped_by_phase(
@@ -89,6 +91,7 @@ for key in dict_probably_happened:
     ics = []
     atlas = []
     for at_rel_key in dict_probably_happened[key]:
+        key_set.add(at_rel_key.x_mitre_id)
         if 'enterprise-attack' in at_rel_key.x_mitre_domains:
             enterprise.append(i)
         elif 'ics-attack' in at_rel_key.x_mitre_domains:
@@ -111,6 +114,8 @@ for key in dict_futured:
     ics = []
     atlas = []
     for at_rel_key in dict_futured[key]:
+        print(at_rel_key.x_mitre_id)
+        key_set.add(at_rel_key.x_mitre_id)
         if 'enterprise-attack' in at_rel_key.x_mitre_domains:
             enterprise.append(i)
         elif 'ics-attack' in at_rel_key.x_mitre_domains:
@@ -122,3 +127,5 @@ for key in dict_futured:
         i += 1
 
     print("   e", len(enterprise), "  m", len(mobile), "  i", len(ics), "  a", len(atlas), "\n")
+
+print(key_set)
