@@ -12,7 +12,7 @@ from src.domain.interfaceToMitre.conversionType.stixConversionType.AttackPattern
 from src.domain.interfaceToMitre.conversionType.stixConversionType.CampaignsRetriever import CampaignsRetriever
 from src.domain.interfaceToMitre.conversionType.stixConversionType.ToolsMalwareRetriever import ToolsMalwareRetriever
 from src.domain.interfaceToMitre.mitreData.FetchData import *
-from src.gptAPI.GPTRequest import gpt_request
+from anlisys.gptAPI.GPTRequest import gpt_request
 
 fetch_enterprise_data()
 fetch_mobile_data()
@@ -72,6 +72,6 @@ for at in combined_lists:
         "description": at.description
     }
     print("    ", at.name)
-save_to_json_file(dict_id_name_and_description, "techniques_to_know", "./files/")
+save_to_json_file(dict_id_name_and_description, "techniques_to_know", "files/")
 
 

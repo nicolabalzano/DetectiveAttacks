@@ -7,14 +7,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 from src.domain.Singleton import singleton
 from src.domain.interfaceToMitre.mitreData.utils.FileUtils import check_exist_file_json, save_to_json_file, \
     read_from_json
-from src.domain.interfaceToMitre.mitreData.utils.Path import default_path, ATTACK_TO_CVE_BERT_HISTORY
+from src.domain.interfaceToMitre.mitreData.utils.Path import default_path, ATTACK_TO_CVE_SSM_HISTORY
 
 
 @singleton
-class AttackBert:
+class SentenceSimilarityModel:
 
     def __init__(self):
-        self.model = SentenceTransformer('basel/ATTACK-BERT')
+        # BlueAvenir/sti_cyber_security_model_V_0_1
+        # basel/ATTACK-BERT
+        self.model = SentenceTransformer('BlueAvenir/sti_cyber_security_model_V_0_1')
 
     def check_similarity(self, sentence1: str, sentence2: str):
         embeddings = self.model.encode([sentence1, sentence2])
@@ -25,10 +27,10 @@ class AttackBert:
     def save_new_mapping(cve, list_of_attack_patterns: list):
 
         # check if file exist
-        if not check_exist_file_json(ATTACK_TO_CVE_BERT_HISTORY, default_path):
-            save_to_json_file({'mapping_objects': []}, ATTACK_TO_CVE_BERT_HISTORY, default_path)
+        if not check_exist_file_json(ATTACK_TO_CVE_SSM_HISTORY, default_path):
+            save_to_json_file({'mapping_objects': []}, ATTACK_TO_CVE_SSM_HISTORY, default_path)
 
-        dict_bert_history = read_from_json(default_path, ATTACK_TO_CVE_BERT_HISTORY)
+        dict_bert_history = read_from_json(default_path, ATTACK_TO_CVE_SSM_HISTORY)
 
         for at in list_of_attack_patterns:
             dict_mapping = {
@@ -46,4 +48,4 @@ class AttackBert:
             dict_bert_history["mapping_objects"].append(dict_mapping)
 
         # save new mapping
-        save_to_json_file(dict_bert_history, ATTACK_TO_CVE_BERT_HISTORY, default_path)
+        save_to_json_file(dict_bert_history, ATTACK_TO_CVE_SSM_HISTORY, default_path)

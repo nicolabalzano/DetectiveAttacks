@@ -3,12 +3,13 @@ import nvdlib
 from src.domain.Singleton import singleton
 from src.domain.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.domain.interfaceToMitre.conversionType.AttackToCVERetriever import AttackToCVERetriever
-from src.domain.interfaceToMitre.mitreData.mitreAttackToCVE.AttackBert import AttackBert
+from src.domain.interfaceToMitre.mitreData.mitreAttackToCVE.SentenceSimilarityModel import SentenceSimilarityModel
 
 
 @singleton
 class AttackToCVEContainer:
     i = 0
+    MIN_SIMILARITY = 0.5
 
     def __init__(self, objects: dict):
         self.__objects = objects
@@ -26,7 +27,7 @@ class AttackToCVEContainer:
         for index, obj in enumerate(self.__objects['mapping_objects']):
             # if the cve is found
             if obj["capability_id"] == target_id and obj['status'] == 'complete':
-                at = AttackPatternsContainer().get_object_from_data_by_mitre_id(obj['attack_object_id'])
+                at = AttackPatternsContainer().get_object_from_data_by_mitre_id(obj['attack_object_id'].strip())
 
                 if obj["mapping_type"] not in dict_at_type_rel:
                     # if there is key
@@ -39,7 +40,6 @@ class AttackToCVEContainer:
 
     def get_attack_pattern_by_cve_id(self, target_id: str) -> dict:
         dict_result = self.__get_attack_pattern_by_cve_id_in_mapped(target_id)
-        MIN_SIMILARITY = 0.5
 
         cve = nvdlib.searchCVE(cveId=target_id)[0]
         at_related = []
@@ -54,8 +54,8 @@ class AttackToCVEContainer:
             for at in AttackPatternsContainer().get_data():
                 self.i += 1
                 print(self.i)
-                sim = AttackBert().check_similarity(cve.descriptions[0].value, at.description)
-                if sim >= MIN_SIMILARITY:
+                sim = SentenceSimilarityModel().check_similarity(cve.descriptions[0].value, at.description)
+                if sim >= AttackToCVEContainer.MIN_SIMILARITY:
                     print(at.name, sim)
                     at_related.append(at)
 
@@ -63,7 +63,7 @@ class AttackToCVEContainer:
             dict_result = {'uncategorized': at_related}
 
             # save new mapping for future research
-            AttackBert().save_new_mapping(cve, at_related)
+            SentenceSimilarityModel().save_new_mapping(cve, at_related)
 
             # update the dataset with new mapping
             self.reset_dataset(AttackToCVERetriever().get_all_objects())

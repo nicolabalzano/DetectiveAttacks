@@ -1,0 +1,39 @@
+{
+    "mapping": [
+        {
+            "cve_id": "CVE-2019-15243",
+            "cve_desc": "Multiple vulnerabilities in Cisco SPA100 Series Analog Telephone Adapters (ATAs) could allow an authenticated, adjacent attacker to execute arbitrary code with elevated privileges. The vulnerabilities are due to improper validation of user-supplied input to the web-based management interface. An attacker could exploit these vulnerabilities by authenticating to the web-based management interface and sending crafted requests to an affected device. A successful exploit could allow the attacker to execute arbitrary code with elevated privileges. Note: The web-based management interface is enabled by default.",
+            "attack_object_id": "T1055.011",
+            "attack_object_name": "Extra Window Memory Injection",
+            "similarity": "0.515136"
+        },
+        {
+            "cve_id": "CVE-2019-15243",
+            "cve_desc": "Multiple vulnerabilities in Cisco SPA100 Series Analog Telephone Adapters (ATAs) could allow an authenticated, adjacent attacker to execute arbitrary code with elevated privileges. The vulnerabilities are due to improper validation of user-supplied input to the web-based management interface. An attacker could exploit these vulnerabilities by authenticating to the web-based management interface and sending crafted requests to an affected device. A successful exploit could allow the attacker to execute arbitrary code with elevated privileges. Note: The web-based management interface is enabled by default.",
+            "attack_object_id": "T1066",
+            "attack_object_name": "Indicator Removal from Tools",
+            "similarity": "0.66564363"
+        },
+        {
+            "cve_id": "CVE-2019-15243",
+            "cve_desc": "Multiple vulnerabilities in Cisco SPA100 Series Analog Telephone Adapters (ATAs) could allow an authenticated, adjacent attacker to execute arbitrary code with elevated privileges. The vulnerabilities are due to improper validation of user-supplied input to the web-based management interface. An attacker could exploit these vulnerabilities by authenticating to the web-based management interface and sending crafted requests to an affected device. A successful exploit could allow the attacker to execute arbitrary code with elevated privileges. Note: The web-based management interface is enabled by default.",
+            "attack_object_id": "T1156",
+            "attack_object_name": "Malicious Shell Modification",
+            "similarity": "0.6144929"
+        },
+        {
+            "cve_id": "CVE-2019-15243",
+            "cve_desc": "Multiple vulnerabilities in Cisco SPA100 Series Analog Telephone Adapters (ATAs) could allow an authenticated, adjacent attacker to execute arbitrary code with elevated privileges. The vulnerabilities are due to improper validation of user-supplied input to the web-based management interface. An attacker could exploit these vulnerabilities by authenticating to the web-based management interface and sending crafted requests to an affected device. A successful exploit could allow the attacker to execute arbitrary code with elevated privileges. Note: The web-based management interface is enabled by default.",
+            "attack_object_id": "T1113",
+            "attack_object_name": "Screen Capture",
+            "similarity": "0.6060978"
+        },
+        {
+            "cve_id": "CVE-2019-15243",
+            "cve_desc": "Multiple vulnerabilities in Cisco SPA100 Series Analog Telephone Adapters (ATAs) could allow an authenticated, adjacent attacker to execute arbitrary code with elevated privileges. The vulnerabilities are due to improper validation of user-supplied input to the web-based management interface. An attacker could exploit these vulnerabilities by authenticating to the web-based management interface and sending crafted requests to an affected device. A successful exploit could allow the attacker to execute arbitrary code with elevated privileges. Note: The web-based management interface is enabled by default.",
+            "attack_object_id": "T1027.011",
+            "attack_object_name": "Fileless Storage",
+            "similarity": "0.55970705"
+        }
+    ]
+}

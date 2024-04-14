@@ -13,7 +13,7 @@ from src.domain.interfaceToMitre.conversionType.stixConversionType.CampaignsRetr
 from src.domain.interfaceToMitre.conversionType.stixConversionType.ToolsMalwareRetriever import ToolsMalwareRetriever
 from src.domain.interfaceToMitre.mitreData.FetchData import fetch_enterprise_data, fetch_mobile_data, \
     fetch_ics_data, fetch_atlas_data, fetch_attack_to_cve_data
-from src.domain.interfaceToMitre.mitreData.mitreAttackToCVE.AttackBert import AttackBert
+from src.domain.interfaceToMitre.mitreData.mitreAttackToCVE.SentenceSimilarityModel import SentenceSimilarityModel
 
 # fetch data
 fetch_enterprise_data()
@@ -23,7 +23,7 @@ fetch_atlas_data()
 fetch_attack_to_cve_data()
 
 # init language semantic model
-AttackBert()
+SentenceSimilarityModel()
 
 # attack_pattern_stix_id = "attack-pattern--57340c81-c025-4189-8fa0-fc7ede51bae4"
 # attack_pattern_name = "Drive-by Compromise"

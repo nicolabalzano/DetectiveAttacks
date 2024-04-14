@@ -1,11 +1,10 @@
-default_path = "..\\domain\\interfaceToMitre\\mitreData\\files\\"
-# src\\domain\\interfaceToMitre\\mitreData
+default_path = "C:\\Users\\nikba\\OneDrive\\Desktop\\Tesi\\UniBa_Tesi\\src\\domain\\interfaceToMitre\\mitreData\\files\\"
 ENTERPRISE_ATTACK = 'enterprise-attack'
 MOBILE_ATTACK = 'mobile-attack'
 ICS_ATTACK = 'ics-attack'
 ATLAS = 'atlas'
 ATTACK_TO_CVE = 'attack_to_cve'
-ATTACK_TO_CVE_BERT_HISTORY = 'attack_to_cve_bert_history'
+ATTACK_TO_CVE_SSM_HISTORY = 'attack_to_cve_ssm_history'
 json_format = '.json'
 
 default_repos = {
