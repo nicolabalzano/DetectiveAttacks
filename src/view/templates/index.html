@@ -1,42 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatShare</title>
-    <link rel="icon" href="../static/images/img.png" type="image/x-icon">
-    <link rel="stylesheet" href="../static/css/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Exo:400,700" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attack prevention</title>
+
+  <!-- Bootstrap CSS JS-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Custom import -->
+  <link rel="icon" href="../static/images/logo.svg" type="image/x-icon">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="stylesheet" href="../static/css/scrollAnim.css">
+  <link rel="stylesheet" href="../static/css/navbar.css">
+  <script src="../static/js/index.js"></script>
 </head>
 
-<body>
-    <div class="area">
-        <div class="circles">
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-    </div>
-    <div class="context">
-        <h1>Prova flask</h1>
-        <ul>
-            {% for len in lenghts_of_container %}
-                <li>
-                    {{ len }}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</body>
+<body data-bs-theme="dark">
+<!-- Navbar -->
+<nav class="navbar bg-dark navbar-expand-lg navbar-inverse fixed-top" >
 
+  <!-- LOGO -->
+  <div class="container-fluid d-flex align-items-center ">
+    <a class="navbar-brand" href="#">
+      <img src="../static/images/logo.svg" alt="Logo" href="#" width="30" height="24" class="logo-img d-inline-block align-text-top">
+    </a>
+  </div>
+
+  <!-- SMALL TITLE
+  <div class="container-fluid d-flex justify-content-center align-items-center small-title-container">
+    <a class="navbar-brand d-flex justify-content-center align-items-center small-title" href="#">
+      <h1 class="navbar-brand mb-0 h1 small-title">Attack Prevention Tool</h1>
+    </a>
+  </div>-->
+  <div class="container-fluid d-flex justify-content-center align-items-center ">
+    <div class="small-logo-container">
+      <a class="small-logo h1" href="#">Attack Prevention Tool</a>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="collapse navbar-collapse container-fluid align-items-center">
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" href="#">About</a>
+    </div>
+  </div>
+
+</nav>
+
+
+<div class="container-fluid">
+
+  <!-- BIG TITLE -->
+  <div class="container-fluid big-logo-container justify-content-center">
+    <h1 class="big-logo h1">Attack Prevention Tool</h1>
+  </div>
+
+  <!-- SUB TITLE -->
+  <div class="container-fluid d-flex justify-content-center align-items-center sub-title" >
+    <h2 class="mb-0 display-4 sub-title">A tool to prevent attacks on your business </h2>
+  </div>
+
+  <!-- SCROLL DOWN -->
+  <div class="container-fluid align-items-center mouse"></div>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center description hide">
+      <div class="col-lg-5 col-md-6 col-sm-8 justify-content-center ">
+        <p>Dolor sit amet, consectetur adipisicing elit. Id maxime repellat repellendus porro voluptas laudantium similique eveniet quis perferendis beatae commodi sunt ullam provident dolorum doloribus esse accusamus dolores. Corrupti.</p>
+        <p>Consectetur incidunt voluptatibus ipsa nisi esse eos deleniti repudiandae at quo sit praesentium nemo optio perspiciatis sequi quaerat voluptates minus reprehenderit doloremque accusamus et quisquam nesciunt sunt consequatur explicabo excepturi!</p>
+        <p>Sequi facilis ea dolor asperiores quibusdam eveniet optio corporis et accusantium voluptatem architecto quis iste recusandae molestias dolorem soluta ex blanditiis illo impedit laborum iusto? Iure sapiente eos molestiae est?</p>
+        <p>Numquam delectus recusandae nesciunt rem itaque harum corporis maxime hic iste molestias adipisci excepturi ullam libero necessitatibus cum eum modi minus obcaecati est nemo quia velit earum perferendis consectetur porro?</p>
+        <p>Accusamus dicta consequatur quos ipsum rerum tempora assumenda ex excepturi itaque soluta magnam debitis voluptatibus neque eos porro. Neque tempora ea beatae delectus facere quas voluptas accusamus maxime enim consequuntur.</p>
+      </div><!--/.col-xs-12 -->
+    </div><!--/.row -->
+  </div><!--/.container -->
+
+</div>
+</body>
 </html>

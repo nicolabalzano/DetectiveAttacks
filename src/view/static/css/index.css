@@ -1,0 +1,50 @@
+.logo-img{
+    margin-right: 10px;
+}
+
+.navbar{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+body{
+    margin-top: 50px;
+}
+
+html, body {
+    scrollbar-width: none;
+    scrollbar-color: transparent transparent;
+}
+
+/* Per Chrome, Edge e Safari */
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    width: 0px;
+}
+
+.big-title > h1{
+    font-weight: bold;
+    padding-top: 200px;
+}
+
+.sub-title > h2{
+    padding-top: 100px;
+    text-align: center;
+}
+
+.sub-title{
+    margin-bottom: 25px;
+}
+
+.hide{
+    opacity: 0;
+}
+
+.show{
+    opacity: 1;
+}
+
+.description{
+  transition: all 0.3s ease-out;
+    margin-bottom: 150px;
+    margin-top: 25px;
+}
