@@ -7,6 +7,7 @@
   height: 88px;
   border-radius: 100px;
   background-size: 100% 200%;
+  margin-top: 40px;
   transition: opacity 0.3s ease-in-out;
   -webkit-animation: colorSlide 5s linear infinite, nudgeMouse 5s ease-out infinite;
           animation: colorSlide 5s linear infinite, nudgeMouse 5s ease-out infinite;

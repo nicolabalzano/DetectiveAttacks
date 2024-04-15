@@ -20,26 +20,42 @@ function scrollHideWhileUp(class_name) {
   }
 }
 
-function scrollingMouse() {
-  const class_name= '.mouse';
-  const element = $(class_name);
-
-
+function scrollHideWhileDownMouse() {
   const scrollPos = $(window).scrollTop();
+  const mouse = $('.mouse');
 
   if (scrollPos > 0) {
-    element.css('margin-bottom', '0px')
-    element.addClass('hide');
+    mouse.addClass('hide');
+    mouse.on('transitionend', function() {
+      $('.description').removeClass('hide');
+      mouse.hide();
+      mouse.off('transitionend');
+    });
   } else {
-    element.css('margin-bottom', '25px')
-    element.removeClass('hide');
+    mouse.show()
+    mouse.off('transitionend');
   }
+}
 
+function scrollHideWhileUpDescription() {
+  const scrollPos = $(window).scrollTop();
+  const description = $('.description');
+
+  if (scrollPos > 0) {
+    description.show();
+    description.off('transitionend');
+  } else {
+    description.addClass('hide');
+    description.on('transitionend', function() {
+      $('.mouse').removeClass('hide');
+      description.off('transitionend');
+    });
+  }
 }
 
 $(window).scroll(function() {
-  scrollingMouse();
-  scrollHideWhileDown('.big-logo');
+  scrollHideWhileDownMouse()
+  scrollHideWhileUpDescription();
   scrollHideWhileUp('.small-logo');
-  scrollHideWhileUp('.description');
+  scrollHideWhileDown('.big-logo');
 });

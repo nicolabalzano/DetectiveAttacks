@@ -32,19 +32,15 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 
 .sub-title{
-    margin-bottom: 25px;
+    margin-bottom: 60px;
 }
 
 .hide{
     opacity: 0;
-}
-
-.show{
-    opacity: 1;
+    transition: all 0.3s ease-out;
 }
 
 .description{
-  transition: all 0.3s ease-out;
     margin-bottom: 150px;
-    margin-top: 25px;
+        transition: all 0.3s ease-out;
 }
