@@ -13,6 +13,10 @@ body{
     margin-top: 50px;
 }
 
+.btn-primary{
+	padding: 7.5px 50px;
+}
+
 html, body {
     font-family: 'Roboto Light', sans-serif;
     scrollbar-width: none;

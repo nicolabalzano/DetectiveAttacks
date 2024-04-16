@@ -53,6 +53,8 @@ function scrollHideWhileUpDescription() {
   }
 }
 
+$('small-logo').addClass('hide');
+
 $(window).scroll(function() {
   scrollHideWhileDownMouse()
   scrollHideWhileUpDescription();

@@ -1,0 +1,24 @@
+<nav class="navbar bg-dark navbar-expand-lg navbar-inverse fixed-top" >
+
+  <!-- LOGO -->
+  <div class="container-fluid d-flex align-items-center ">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+      <img src="../../static/images/logo.svg" alt="Logo" href="#" width="30" height="24" class="logo-img d-inline-block align-text-top">
+    </a>
+  </div>
+
+  <!-- SMALL TITLE -->
+  <div class="container-fluid d-flex justify-content-center align-items-center ">
+    <div class="small-logo-container">
+      <a class="small-logo h1" href="{{ url_for('index') }}">Attack Prediction Tool</a>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div class="collapse navbar-collapse container-fluid align-items-center">
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link text-primary" href="{{ url_for('searching_choice') }}">About</a>
+    </div>
+  </div>
+
+</nav>
