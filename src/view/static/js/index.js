@@ -32,7 +32,6 @@ function scrollHideWhileDownMouse() {
       mouse.off('transitionend');
     });
   } else {
-    mouse.show()
     mouse.off('transitionend');
   }
 }
@@ -48,6 +47,7 @@ function scrollHideWhileUpDescription() {
     description.addClass('hide');
     description.on('transitionend', function() {
       $('.mouse').removeClass('hide');
+      $('.mouse').show()
       description.off('transitionend');
     });
   }
