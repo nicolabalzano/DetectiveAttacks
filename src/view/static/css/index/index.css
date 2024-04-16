@@ -1,0 +1,24 @@
+.big-title > h1{
+    font-weight: bold;
+    padding-top: 200px;
+}
+
+.sub-title > h2{
+    padding-top: 100px;
+    text-align: center;
+}
+
+.sub-title{
+    margin-bottom: 60px;
+}
+
+.description{
+    margin-bottom: 150px;
+        transition: all 0.3s ease-out;
+}
+
+.cyber-img{
+    margin-top: 20px;
+    width: 20%;
+    height: auto;
+}
