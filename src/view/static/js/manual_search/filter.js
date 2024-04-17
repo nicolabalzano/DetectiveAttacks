@@ -1,6 +1,4 @@
 const checkboxes = document.querySelectorAll('.form-check-input');
-const checkedCheckboxesDomain = document.querySelectorAll('.checkbox-domain:checked');
-const checkedCheckboxesType = document.querySelectorAll('.checkbox-type:checked');
 
 checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', function() {
@@ -14,17 +12,15 @@ checkboxes.forEach(checkbox => {
             search = '';
         }
 
-        // page number
-        const pathname = url.pathname;
-        const number = pathname.split('/')[2];
-
         // domains
+        const checkedCheckboxesDomain = document.querySelectorAll('.checkbox-domain:checked');
         const domain = Array.from(checkedCheckboxesDomain).map(checkbox => checkbox.id);
 
         // types
+        const checkedCheckboxesType = document.querySelectorAll('.checkbox-type:checked');
         const type = Array.from(checkedCheckboxesType).map(checkbox => checkbox.id);
 
         // set the new url
-        window.location.href = `/manual_search/${number}?search=${search}&domain=${domain}&type=${type}`;
+        window.location.href = `/manual_search/1?search=${search}&type=${type}&domain=${domain}`;
     });
 });

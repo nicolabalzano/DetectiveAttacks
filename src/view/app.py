@@ -19,31 +19,49 @@ def searching_choice():
 
 @app.route('/manual_search/<int:page>', methods=['GET'])
 def manual_search_page(page):
+    list_of_filter_types = ['Attack', 'Campaign', 'Tools', 'Malware', 'Asset', 'Vulnerability', 'n/a']
+    list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
     MAX_OBJS_PER_PAGE = 15
     start = page * MAX_OBJS_PER_PAGE
 
     search_term = request.args.get('search', '')
     all_result = get_searched_obj(search_term)
 
-    checked_types = request.args.getlist('type')
-    checked_domains = request.args.getlist('domain')
+    checked_types = request.args.get('type')
+    checked_domains = request.args.get('domain')
 
-    print("checked_types: ", checked_types)
-    print("checked_domains: ", checked_domains)
+    # if the user has not selected any type or domain, the default value is ['']
+    if not checked_domains:
+        checked_domains = ['']
+    else:
+        checked_domains = checked_domains.split(',')
+
+    if not checked_types:
+        checked_types = ['']
+    else:
+        checked_types = checked_types.split(',')
 
     # check if the user has selected any type or domain
+    all_result_filtered_type = []
     for types in checked_types:
-        all_result = [obj for obj in all_result if obj[0].lower() == types.lower()]
+        print("types: ", types)
+        all_result_filtered_type.extend([obj for obj in all_result if types.lower() in obj[0].lower()])
+        print("all_result_filtered_type: ", all_result_filtered_type)
 
+    all_result_filtered = []
     for domains in checked_domains:
-        all_result = [obj for obj in all_result if obj[3].lower() == domains.lower()]
+        print("domains: ", domains)
+        all_result_filtered.extend([obj for obj in all_result_filtered_type if domains.lower() in obj[3].lower()])
+        print("all_result_filtered: ", all_result_filtered)
 
-    filters = "?search=" + search_term + "&type=".join(checked_types) + "&domain=".join(checked_domains)
+    filters = "?search=" + search_term + "&type=" + ','.join(checked_types) + "&domain=" + ','.join(checked_domains)
+    print("filters: ", filters)
 
-    result = all_result[start:start + 15]
+    result = all_result_filtered[start:start + 15]
 
     return render_template('manual_search.html', result=result, page_number=page,
-                           last_page_nuber=len(all_result) // MAX_OBJS_PER_PAGE, filters=filters)
+                           last_page_nuber=len(all_result_filtered) // MAX_OBJS_PER_PAGE, list_of_filter_types=list_of_filter_types,
+                           list_of_filter_domains=list_of_filter_domains, filters=filters)
 
 
 @app.route('/util/navbar')
