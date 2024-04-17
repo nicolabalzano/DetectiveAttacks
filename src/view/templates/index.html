@@ -14,11 +14,10 @@
 
   <!-- Custom import -->
   <link rel="icon" href="../static/images/logo.svg" type="image/x-icon">
-  <link rel="stylesheet" href="../static/css/main.css">
-  <link rel="stylesheet" href="../static/css/util.css">
+  <link rel="stylesheet" href="../static/css/util/main.css">
+  <link rel="stylesheet" href="../static/css/util/util.css">
   <link rel="stylesheet" href="../static/css/index/index.css">
   <link rel="stylesheet" href="../static/css/index/scroll_anim.css">
-  <link rel="stylesheet" href="../static/css/navbar.css">
   <script src="../static/js/index/index.js"></script>
 </head>
 
@@ -28,7 +27,7 @@
 <div id="nav-placeholder"></div>
 <script>
     $(document).ready(function() {
-        $("#nav-placeholder").load("navbar.html")
+        $("#nav-placeholder").load("util/navbar")
     })
   </script>
 
@@ -58,7 +57,7 @@
 
       <div class="row justify-content-center align-items-center text-center">
         <!-- BUTTON -->
-        <a class="text-decoration-none" href="searching_choice.html" >
+        <a class="text-decoration-none" href="searching_choice" >
           <button type="button" class="btn btn-primary" aria-pressed="true">
             Get started
           </button>

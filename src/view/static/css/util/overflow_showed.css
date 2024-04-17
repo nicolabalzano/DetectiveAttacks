@@ -1,0 +1,12 @@
+html, body {
+  border-radius: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #7027f3 transparent;
+}
+
+/* Per Chrome, Edge e Safari */
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+  width: 10px;
+}
+
+/*# sourceMappingURL=overflow_showed.css.map */

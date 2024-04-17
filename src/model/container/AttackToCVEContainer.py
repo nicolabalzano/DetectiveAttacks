@@ -20,6 +20,12 @@ class AttackToCVEContainer:
     def get_data(self):
         return self.__objects
 
+    def get_object_from_data_by_name(self, target_name: str):
+        return [obj for obj in self.__objects['mapping_objects'] if target_name.lower() in obj['capability_description'].lower()]
+
+    def get_object_from_data_by_cve_id(self, target_id: str):
+        return [obj for obj in self.__objects['mapping_objects'] if target_id.lower() in obj['capability_id'].lower()]
+
     def __get_attack_pattern_by_cve_id_in_mapped(self, target_id: str):
         dict_at_type_rel = {}
 

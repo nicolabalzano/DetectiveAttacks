@@ -13,9 +13,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <!-- Custom import -->
-  <link rel="stylesheet" href="../static/css/main.css">
-  <link rel="stylesheet" href="../static/css/util.css">
-  <link rel="stylesheet" href="../static/css/navbar.css">
+  <link rel="stylesheet" href="../static/css/util/main.css">
+  <link rel="stylesheet" href="../static/css/util/util.css">
   <link rel="stylesheet" href="../static/css/searching_choice/searching_choice.css">
 
 </head>
@@ -26,12 +25,12 @@
 <div id="nav-placeholder"></div>
 <script>
   $(document).ready(function() {
-    $("#nav-placeholder").load("navbar.html")
+    $("#nav-placeholder").load("util/navbar")
   })
 </script>
 
 <div class="container text-center title" >
-  <h1 class="display-4 h1 text-primary">Choose your searching method:</h1>
+  <h1 class="display-4 h1 text-primary fw-bold">Choose your searching method:</h1>
 </div>
 
 <div class="container text-center">
@@ -44,14 +43,14 @@
       <div id="file-picker-placeholder"></div>
       <script>
         $(document).ready(function() {
-          $("#file-picker-placeholder").load("file_picker.html")
+          $("#file-picker-placeholder").load("util/file_picker")
         })
       </script>
 
     </div>
 
     <div class="d-flex col-1 justify-content-center align-items-center" style="height: auto;">
-      <div class="vr bg-primary"></div>
+      <div class="vr thick-vr border-primary"></div>
     </div>
 
     <!-- Manual searching method -->
@@ -65,7 +64,7 @@
         <img class="lens" src="../static/images/search_lens.png" alt="lens"/>
       </div>
       <div class="row mt-3">
-        <a href="#">
+        <a href="manual_search/1">
           <button type="button" class="btn btn-primary">  Start search  </button>
         </a>
       </div>
