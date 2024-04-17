@@ -23,12 +23,27 @@ def manual_search_page(page):
     start = page * MAX_OBJS_PER_PAGE
 
     search_term = request.args.get('search', '')
-    print("-------------------------",search_term)
     all_result = get_searched_obj(search_term)
+
+    checked_types = request.args.getlist('type')
+    checked_domains = request.args.getlist('domain')
+
+    print("checked_types: ", checked_types)
+    print("checked_domains: ", checked_domains)
+
+    # check if the user has selected any type or domain
+    for types in checked_types:
+        all_result = [obj for obj in all_result if obj[0].lower() == types.lower()]
+
+    for domains in checked_domains:
+        all_result = [obj for obj in all_result if obj[3].lower() == domains.lower()]
+
+    filters = "?search=" + search_term + "&type=".join(checked_types) + "&domain=".join(checked_domains)
+
     result = all_result[start:start + 15]
 
     return render_template('manual_search.html', result=result, page_number=page,
-                           last_page_nuber=len(all_result) // MAX_OBJS_PER_PAGE, search_term=search_term)
+                           last_page_nuber=len(all_result) // MAX_OBJS_PER_PAGE, filters=filters)
 
 
 @app.route('/util/navbar')
