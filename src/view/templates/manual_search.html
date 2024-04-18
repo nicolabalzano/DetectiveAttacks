@@ -55,39 +55,61 @@
                 <!-- Object type -->
                 <p class="h6 text-secondary">Object type:</p>
                 <div class="ms-5">
-                    {% for type in list_of_filter_types %}
-                    <div class="form-check text-secondary">
+                    {% if list_of_filter_checked_types is defined and list_of_filter_checked_types|all_empty %}
+                        {% for type in list_of_filter_types %}
+                        <div class="form-check text-secondary">
+                            <input class="form-check-input checkbox-type" type="checkbox" value="" id="{{type}}" checked>
+                            <label class="form-check-label" for="{{type}}">
+                                {{type}}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        {% for type in list_of_filter_types %}
+                        <div class="form-check text-secondary">
 
-                        {% if type in list_of_filter_checked_types %}
-                        <input class="form-check-input checkbox-type" type="checkbox" value="" id="{{type}}" checked>
-                        {% else %}
-                        <input class="form-check-input checkbox-type" type="checkbox" value="" id="{{type}}">
-                        {% endif %}
+                            {% if type in list_of_filter_checked_types %}
+                            <input class="form-check-input checkbox-type" type="checkbox" value="" id="{{type}}" checked>
+                            {% else %}
+                            <input class="form-check-input checkbox-type" type="checkbox" value="" id="{{type}}">
+                            {% endif %}
 
-                        <label class="form-check-label" for="{{type}}">
-                            {{type}}
-                        </label>
-                    </div>
-                    {% endfor %}
+                            <label class="form-check-label" for="{{type}}">
+                                {{type}}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <!-- Domain -->
                 <p class="h6 mt-3 text-secondary">Domain of search:</p>
                 <div class="ms-5">
-                    {% for domain in list_of_filter_domains %}
-                    <div class="form-check text-secondary">
+                    {% if listf_of_filter_checked_domains is defined and listf_of_filter_checked_domains|all_empty %}
+                        {% for domain in list_of_filter_domains %}
+                        <div class="form-check text-secondary">
+                            <input class="form-check-input checkbox-domain" type="checkbox" value="" id="{{domain}}" checked>
+                            <label class="form-check-label" for="{{domain}}">
+                                {{domain}}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        {% for domain in list_of_filter_domains %}
+                        <div class="form-check text-secondary">
 
-                        {% if domain in listf_of_filter_checked_domains %}
-                        <input class="form-check-input checkbox-domain" type="checkbox" value="" id="{{domain}}" checked>
-                        {% else %}
-                        <input class="form-check-input checkbox-domain" type="checkbox" value="" id="{{domain}}">
-                        {% endif %}
+                            {% if domain in listf_of_filter_checked_domains or list_of_filter_domains is none %}
+                            <input class="form-check-input checkbox-domain" type="checkbox" value="" id="{{domain}}" checked>
+                            {% else %}
+                            <input class="form-check-input checkbox-domain" type="checkbox" value="" id="{{domain}}">
+                            {% endif %}
 
-                        <label class="form-check-label" for="{{domain}}">
-                            {{domain}}
-                        </label>
-                    </div>
-                    {% endfor %}
+                            <label class="form-check-label" for="{{domain}}">
+                                {{domain}}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <script src="../static/js/manual_search/filter.js"></script>
@@ -126,8 +148,8 @@
                 </div>
             {% else %}
                 <div class="justify-content-center align-items-center text-center mt-lg-3">
-                    {% if page_number > 1 %}
-                        <a href="{{1}}{{filters}}" class="btn ">
+                    {% if page_number > 0 %}
+                        <a href="{{0}}{{filters}}" class="btn ">
                             <i class="h5 bi bi-chevron-double-left text-secondary"></i>
                         </a>
                         <a href="{{page_number-1}}{{filters}}" class="btn ">
@@ -135,7 +157,7 @@
                         </a>
                     {% endif %}
                     <span class="h3 text-secondary align-middle">
-                        {{page_number}} of {{last_page_nuber}}
+                        {{page_number+1}} of {{last_page_nuber+1}}
                     </span>
                     {% if page_number < last_page_nuber %}
                         <a href="{{page_number+1}}{{filters}}" class="btn">

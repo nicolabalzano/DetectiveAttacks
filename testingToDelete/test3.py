@@ -19,3 +19,6 @@ from src.model.interfaceToMitre.conversionType.stixConversionType.ToolsMalwareRe
 from src.model.interfaceToMitre.mitreData.FetchData import *
 from src.model.interfaceToMitre.mitreData.mitreAttackToCVE.SentenceSimilarityModel import SentenceSimilarityModel
 
+for obj in CampaignsContainer().get_data():
+    if obj.x_mitre_domains == ['atlas']:
+        print(obj.x_mitre_id, obj.name)

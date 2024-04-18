@@ -57,6 +57,11 @@ def manual_search_page(page):
 
     result = all_result_filtered[start:start + 15]
 
+    print("result: ", len(result))
+
+    print("list_of_filter_types: ", list_of_filter_types)
+    print("list_of_filter_domains: ", list_of_filter_domains)
+
     return render_template('manual_search.html', result=result, page_number=page,
                            last_page_nuber=len(all_result_filtered) // MAX_OBJS_PER_PAGE, list_of_filter_checked_types=checked_types, list_of_filter_types=list_of_filter_types,
                            listf_of_filter_checked_domains=checked_domains, list_of_filter_domains=list_of_filter_domains, filters=filters)
@@ -75,3 +80,9 @@ def file_picker():
 @app.route('/util/search_bar')
 def search_bar():
     return render_template('util/search_bar.html')
+
+
+# custom filter
+@app.template_filter('all_empty')
+def all_empty_filter(s):
+    return all(x == '' for x in s)

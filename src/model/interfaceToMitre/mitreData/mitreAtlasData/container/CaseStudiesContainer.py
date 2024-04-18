@@ -20,8 +20,8 @@ class CaseStudiesContainer(AbstractAtlasContainer):
             case_study = Campaign(
                 type='campaign',
                 id="campaign--" + f"{get_uuid_from_string(cs['id'])}",
-                name=[cs['name']],
-                description=[cs['summary']],
+                name=cs['name'],
+                description=cs['summary'],
                 created=datetime.date(int(date_data[0]), int(date_data[1]), int(date_data[2])),
                 external_references=super()._get_external_refs(cs, 'studies')
             )

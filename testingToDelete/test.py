@@ -101,5 +101,3 @@ for key in dict_futured:
 
 print(key_set)
 
-for obj in CampaignsContainer().get_data():
-    print(obj.x_mitre_id, obj.name)

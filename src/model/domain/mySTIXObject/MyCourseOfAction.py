@@ -9,7 +9,7 @@ class MyCourseOfAction(AbstractMySTIXObjectWithName):
 
     def __post_init__(self):
         for er in self.external_references:
-            if '/mitigations/' in er.url and 'mitre-' in er.source_name:
+            if '/mitigations/' in er.url and 'mitre' in er.source_name:
                 object.__setattr__(self, 'x_mitre_id', f"{er.external_id}")
                 break
         object.__setattr__(self, 'x_mitre_id', '')

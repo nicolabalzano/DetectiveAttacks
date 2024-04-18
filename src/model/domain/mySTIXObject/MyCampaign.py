@@ -14,10 +14,13 @@ class MyCampaign(AbstractMySTIXObjectWithAttackPatterns):
 
     def __post_init__(self):
         for er in self.external_references:
-            if '/campaigns/' in er.url and 'mitre-' in er.source_name:
+            if '/campaigns/' in er.url and 'mitre-' in er.source_name or '/studies/' in er.url and 'mitre' in er.source_name:
                 object.__setattr__(self, 'x_mitre_id', f"{er.external_id}")
                 break
         object.__setattr__(self, 'x_mitre_id', '')
+
+    def set_x_mitre_domains(self, value):
+        object.__setattr__(self, 'x_mitre_domains', value)
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, MyCampaign):

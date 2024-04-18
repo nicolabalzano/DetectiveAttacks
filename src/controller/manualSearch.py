@@ -51,11 +51,15 @@ def __get_search_stix(searched_str: str):
             searched_set_obj.add(obj)
 
     # RETURNED OBJECTS FORMAT: [type, x_mitre_id, name, x_mitre_domains]
-    searched_list_obj = [[obj.type,
-                          obj.x_mitre_id,
-                          obj.name,
-                          ', '.join([domain.split('-')[0] if '-' in domain else 'n/a' if '' == domain[0] else domain for domain in obj.x_mitre_domains])
-                          ] for obj in searched_set_obj]
+    searched_list_obj = [
+        [
+            obj.type,
+            obj.x_mitre_id,
+            obj.name,
+            ', '.join([domain.split('-')[0] if '-' in domain else domain for domain in obj.x_mitre_domains]) or 'n/a'
+        ]
+        for obj in searched_set_obj
+    ]
 
     searched_list_obj = sorted(searched_list_obj, key=lambda obj: (obj[0], obj[2]))
 

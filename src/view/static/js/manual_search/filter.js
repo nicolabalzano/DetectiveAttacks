@@ -21,6 +21,6 @@ checkboxes.forEach(checkbox => {
         const type = Array.from(checkedCheckboxesType).map(checkbox => checkbox.id);
 
         // set the new url
-        window.location.href = `/manual_search/1?search=${search}&type=${type}&domain=${domain}`;
+        window.location.href = `/manual_search/0?search=${search}&type=${type}&domain=${domain}`;
     });
 });
