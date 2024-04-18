@@ -100,3 +100,6 @@ for key in dict_futured:
     print("   e", len(enterprise), "  m", len(mobile), "  i", len(ics), "  a", len(atlas), "\n")
 
 print(key_set)
+
+for obj in CampaignsContainer().get_data():
+    print(obj.x_mitre_id, obj.name)

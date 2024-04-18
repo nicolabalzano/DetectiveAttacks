@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import sys
 
-sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/UniBa_Tesi')
+sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/UniBa_Tesi')
 from src.controller.manualSearch import get_searched_obj
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ def searching_choice():
 
 @app.route('/manual_search/<int:page>', methods=['GET'])
 def manual_search_page(page):
-    list_of_filter_types = ['Attack', 'Campaign', 'Tools', 'Malware', 'Asset', 'Vulnerability', 'n/a']
+    list_of_filter_types = ['Attack', 'Campaign', 'Tools', 'Malware', 'Asset', 'Vulnerability']
     list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
     MAX_OBJS_PER_PAGE = 15
     start = page * MAX_OBJS_PER_PAGE
@@ -46,13 +46,11 @@ def manual_search_page(page):
     for types in checked_types:
         print("types: ", types)
         all_result_filtered_type.extend([obj for obj in all_result if types.lower() in obj[0].lower()])
-        print("all_result_filtered_type: ", all_result_filtered_type)
 
     all_result_filtered = []
     for domains in checked_domains:
         print("domains: ", domains)
         all_result_filtered.extend([obj for obj in all_result_filtered_type if domains.lower() in obj[3].lower()])
-        print("all_result_filtered: ", all_result_filtered)
 
     filters = "?search=" + search_term + "&type=" + ','.join(checked_types) + "&domain=" + ','.join(checked_domains)
     print("filters: ", filters)
@@ -60,8 +58,8 @@ def manual_search_page(page):
     result = all_result_filtered[start:start + 15]
 
     return render_template('manual_search.html', result=result, page_number=page,
-                           last_page_nuber=len(all_result_filtered) // MAX_OBJS_PER_PAGE, list_of_filter_types=list_of_filter_types,
-                           list_of_filter_domains=list_of_filter_domains, filters=filters)
+                           last_page_nuber=len(all_result_filtered) // MAX_OBJS_PER_PAGE, list_of_filter_checked_types=checked_types, list_of_filter_types=list_of_filter_types,
+                           listf_of_filter_checked_domains=checked_domains, list_of_filter_domains=list_of_filter_domains, filters=filters)
 
 
 @app.route('/util/navbar')

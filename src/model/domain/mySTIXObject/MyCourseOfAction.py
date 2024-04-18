@@ -12,6 +12,7 @@ class MyCourseOfAction(AbstractMySTIXObjectWithName):
             if '/mitigations/' in er.url and 'mitre-' in er.source_name:
                 object.__setattr__(self, 'x_mitre_id', f"{er.external_id}")
                 break
+        object.__setattr__(self, 'x_mitre_id', '')
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, MyCourseOfAction):

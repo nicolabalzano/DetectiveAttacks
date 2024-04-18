@@ -57,7 +57,13 @@
                 <div class="ms-5">
                     {% for type in list_of_filter_types %}
                     <div class="form-check text-secondary">
+
+                        {% if type in list_of_filter_checked_types %}
                         <input class="form-check-input checkbox-type" type="checkbox" value="" id="{{type}}" checked>
+                        {% else %}
+                        <input class="form-check-input checkbox-type" type="checkbox" value="" id="{{type}}">
+                        {% endif %}
+
                         <label class="form-check-label" for="{{type}}">
                             {{type}}
                         </label>
@@ -70,7 +76,13 @@
                 <div class="ms-5">
                     {% for domain in list_of_filter_domains %}
                     <div class="form-check text-secondary">
+
+                        {% if domain in listf_of_filter_checked_domains %}
                         <input class="form-check-input checkbox-domain" type="checkbox" value="" id="{{domain}}" checked>
+                        {% else %}
+                        <input class="form-check-input checkbox-domain" type="checkbox" value="" id="{{domain}}">
+                        {% endif %}
+
                         <label class="form-check-label" for="{{domain}}">
                             {{domain}}
                         </label>
@@ -125,7 +137,7 @@
                     <span class="h3 text-secondary align-middle">
                         {{page_number}} of {{last_page_nuber}}
                     </span>
-                    {% if page_number < last_page_nuber-1 %}
+                    {% if page_number < last_page_nuber %}
                         <a href="{{page_number+1}}{{filters}}" class="btn">
                             <i class="h5 bi bi-chevron-right text-secondary"></i>
                         </a>
