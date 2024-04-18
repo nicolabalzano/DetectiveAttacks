@@ -26,7 +26,6 @@ class CampaignsRetriever(_AbstractObjectWithAttackPatternsRetriever):
     def _get_object_from_stix(self, stix_object):
         my_stix_object = super()._get_object_from_stix(stix_object)
         if my_stix_object.x_mitre_domains:
-            print(my_stix_object.x_mitre_id, my_stix_object.name)
             my_stix_object.set_x_mitre_domains(['atlas'])
 
         return my_stix_object
