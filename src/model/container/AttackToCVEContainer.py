@@ -21,10 +21,34 @@ class AttackToCVEContainer:
         return self.__objects
 
     def get_object_from_data_by_name(self, target_name: str):
-        return [obj for obj in self.__objects['mapping_objects'] if target_name.lower() in obj['capability_description'].lower()]
+        searched_obj = []
+        for obj in self.__objects['mapping_objects']:
+            if target_name.lower() in obj['capability_description'].lower():
+
+                # if cve is not yet in the list
+                searched_obj_in_list_searched = False
+                for obj_in_searched_list in searched_obj:
+                    if obj['capability_description'] == obj_in_searched_list['capability_description']:
+                        searched_obj_in_list_searched = True
+
+                if not searched_obj_in_list_searched:
+                    searched_obj.append(obj)
+        return searched_obj
 
     def get_object_from_data_by_cve_id(self, target_id: str):
-        return [obj for obj in self.__objects['mapping_objects'] if target_id.lower() in obj['capability_id'].lower()]
+        searched_obj = []
+        for obj in self.__objects['mapping_objects']:
+            if target_id.lower() in obj['capability_id'].lower():
+
+                # if cve is not yet in the list
+                searched_obj_in_list_searched = False
+                for obj_in_searched_list in searched_obj:
+                    if obj['capability_id'] == obj_in_searched_list['capability_id']:
+                        searched_obj_in_list_searched = True
+
+                if not searched_obj_in_list_searched:
+                    searched_obj.append(obj)
+        return searched_obj
 
     def __get_attack_pattern_by_cve_id_in_mapped(self, target_id: str):
         dict_at_type_rel = {}

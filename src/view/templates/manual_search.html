@@ -32,7 +32,7 @@
 
 <!-- SEARCH BAR -->
 <div class="container">
-    <form autocomplete="off" method="GET" action="/manual_search/1">
+    <form autocomplete="off" method="GET" action="{{ url_for('manual_search', page=0) }}">
         <div id="search_bar-placeholder"></div>
     </form>
 </div>
@@ -131,10 +131,10 @@
                 </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                {% for obj in result[:15] %}
-                <tr>
+                {% for obj in result %}
+                <tr onclick="window.location.href='{{ url_for('attack_pattern', searched_id=obj[1]) }}'">
                     <td>{{obj[0]}}</td>
-                    <td>{{obj[1]}}</td>
+                    <td><a href="{{ url_for('index') }}">{{obj[1]}}</a></td>
                     <td>{{obj[2]}}</td>
                     <td>{{obj[3]}}</td>
                 </tr>
@@ -142,7 +142,7 @@
                 </tbody>
             </table>
 
-            {% if last_page_nuber == 0 %}
+            {% if result|length == 0 %}
                 <div class="text-center">
                     <p class="h4 text-secondary">No result found</p>
                 </div>

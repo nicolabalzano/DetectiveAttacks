@@ -21,7 +21,7 @@ class MyAttackPattern(AbstractMySTIXObjectWithContributors):
     x_mitre_impact_type: list[str] = field(default_factory=list)
     x_mitre_effective_permissions: list[str] = field(default_factory=list)
     x_mitre_network_requirements: list[str] = field(default_factory=list)
-    courses_of_action_and_relationship: dict[MyCourseOfAction, list[Relationship]] = field(default_factory=dict)
+    courses_of_action_and_relationship: dict[MyCourseOfAction, Relationship] = field(default_factory=dict)
     x_mitre_tactic_type: str = ""
 
     def __post_init__(self):

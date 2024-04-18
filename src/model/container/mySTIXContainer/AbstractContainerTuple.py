@@ -1,5 +1,7 @@
 from abc import ABC
 
+from src.model.domain.mySTIXObject.MyCampaign import MyCampaign
+
 
 class AbstractContainerTuple(ABC):
 

@@ -25,7 +25,7 @@ class CampaignsRetriever(_AbstractObjectWithAttackPatternsRetriever):
     # Override this method to add the x_mitre_domains attribute to the object
     def _get_object_from_stix(self, stix_object):
         my_stix_object = super()._get_object_from_stix(stix_object)
-        if my_stix_object.x_mitre_domains:
+        if len(my_stix_object.x_mitre_domains) == 0:
             my_stix_object.set_x_mitre_domains(['atlas'])
 
         return my_stix_object

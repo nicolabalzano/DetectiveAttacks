@@ -10,4 +10,4 @@ class RelationshipRetriever:
         list_relationships = []
         for rel_obj in stix_object['relationships']:
             list_relationships.append(rel_obj)
-        return list_relationships
+        return list_relationships[0]

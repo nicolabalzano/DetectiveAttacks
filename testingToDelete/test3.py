@@ -7,6 +7,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, pipelin
 from wandb.wandb_torch import torch
 import transformers
 
+from src.controller.attackPattern import get_attack_patter_from_mitre_id
 from src.model.container.mySTIXContainer.AssetContainer import AssetContainer
 from src.model.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.model.container.AttackToCVEContainer import AttackToCVEContainer
@@ -21,11 +22,6 @@ from src.model.interfaceToMitre.conversionType.stixConversionType.ToolsMalwareRe
 from src.model.interfaceToMitre.mitreData.FetchData import *
 from src.model.interfaceToMitre.mitreData.mitreAttackToCVE.SentenceSimilarityModel import SentenceSimilarityModel
 
-for obj in [obj for obj in CampaignsContainer().get_data() if obj.x_mitre_domains == ['atlas']]:
-    if obj.x_mitre_id == '':
-        print("id", obj.x_mitre_id, "name=", obj.name)
-
-obj = [obj for obj in CampaignsContainer().get_data() if obj.x_mitre_domains == ['atlas']][20]
-pprint(obj.external_references)
-
-for obj in CampaignsRetriever().get_all_objects():
+for key, value in get_attack_patter_from_mitre_id("T1110").items():
+    if isinstance(value, list):
+        print(f"{key}:")

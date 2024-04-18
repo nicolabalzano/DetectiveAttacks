@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request
 import sys
 
-sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/UniBa_Tesi')
+# sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/UniBa_Tesi')
+sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/UniBa_Tesi')
+
+from src.controller.attackPattern import get_attack_patter_from_mitre_id
 from src.controller.manualSearch import get_searched_obj
 
 app = Flask(__name__)
@@ -18,8 +21,8 @@ def searching_choice():
 
 
 @app.route('/manual_search/<int:page>', methods=['GET'])
-def manual_search_page(page):
-    list_of_filter_types = ['Attack', 'Campaign', 'Tools', 'Malware', 'Asset', 'Vulnerability']
+def manual_search(page):
+    list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Vulnerability']
     list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
     MAX_OBJS_PER_PAGE = 15
     start = page * MAX_OBJS_PER_PAGE
@@ -44,27 +47,27 @@ def manual_search_page(page):
     # check if the user has selected any type or domain
     all_result_filtered_type = []
     for types in checked_types:
-        print("types: ", types)
         all_result_filtered_type.extend([obj for obj in all_result if types.lower() in obj[0].lower()])
 
     all_result_filtered = []
     for domains in checked_domains:
-        print("domains: ", domains)
         all_result_filtered.extend([obj for obj in all_result_filtered_type if domains.lower() in obj[3].lower()])
 
     filters = "?search=" + search_term + "&type=" + ','.join(checked_types) + "&domain=" + ','.join(checked_domains)
-    print("filters: ", filters)
 
     result = all_result_filtered[start:start + 15]
 
-    print("result: ", len(result))
-
-    print("list_of_filter_types: ", list_of_filter_types)
-    print("list_of_filter_domains: ", list_of_filter_domains)
-
     return render_template('manual_search.html', result=result, page_number=page,
-                           last_page_nuber=len(all_result_filtered) // MAX_OBJS_PER_PAGE, list_of_filter_checked_types=checked_types, list_of_filter_types=list_of_filter_types,
-                           listf_of_filter_checked_domains=checked_domains, list_of_filter_domains=list_of_filter_domains, filters=filters)
+                           last_page_nuber=len(all_result_filtered) // MAX_OBJS_PER_PAGE,
+                           list_of_filter_checked_types=checked_types, list_of_filter_types=list_of_filter_types,
+                           listf_of_filter_checked_domains=checked_domains,
+                           list_of_filter_domains=list_of_filter_domains, filters=filters)
+
+
+@app.route('/attack_pattern/<string:searched_id>')
+def attack_pattern(searched_id):
+    searched_at = get_attack_patter_from_mitre_id(searched_id)
+    return render_template('attack_pattern.html', searched_at=searched_at)
 
 
 @app.route('/util/navbar')
@@ -84,5 +87,10 @@ def search_bar():
 
 # custom filter
 @app.template_filter('all_empty')
-def all_empty_filter(s):
+def all_empty(s):
     return all(x == '' for x in s)
+
+
+@app.template_filter('is_list')
+def is_list(value):
+    return isinstance(value, list)
