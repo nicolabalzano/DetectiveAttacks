@@ -58,7 +58,7 @@ def __get_search_stix(searched_str: str):
             obj.name,
             ', '.join([domain.split('-')[0] if '-' in domain else domain for domain in obj.x_mitre_domains]) or 'n/a'
         ]
-        for obj in searched_set_obj
+        for obj in searched_set_obj if obj.x_mitre_id and obj.name
     ]
 
     searched_list_obj = sorted(searched_list_obj, key=lambda obj: (obj[0], obj[2]))

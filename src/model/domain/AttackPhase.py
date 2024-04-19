@@ -31,7 +31,7 @@ class AttackPhase(Enum):
         formatted_name = formatted_name.upper().replace('-', '_')
         phase = getattr(cls, formatted_name, None)
         if phase:
-            return phase.value
+            return phase
         else:
             # Verifica se formatted_name è un alias
             if formatted_name in cls.__members__:

@@ -1,13 +1,10 @@
-import os
-from itertools import islice
-
 from flask import Flask, render_template, request
 import sys
 
 # sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/UniBa_Tesi')
 sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/UniBa_Tesi')
 
-from src.controller.attackPattern import get_attack_patter_from_mitre_id
+from src.controller.objectRender.attackPattern import get_attack_patter_from_mitre_id
 from src.controller.manualSearch import get_searched_obj
 
 app = Flask(__name__)
@@ -105,10 +102,10 @@ def is_list(value):
 
 
 # Important attributes to show in the mirror info rectangle
-LIST_OF_IMPORTANT_ATTRS = ['ID', 'Domains', 'Kill Chain phases', 'Platforms', 'Deprecated']
+LIST_OF_IMPORTANT_ATTRS = ['ID', 'Domains', 'Mitre Kill Chain phases', 'Kill Chain phases', 'Platforms', 'Deprecated']
 
 # Attributes already shown
-LIST_OF_ALREADY_SHOWN_ATTRS = LIST_OF_IMPORTANT_ATTRS + ['Name', 'Type', 'Description', 'Detection suggestions', 'Mitigations']
+LIST_OF_ALREADY_SHOWN_ATTRS = LIST_OF_IMPORTANT_ATTRS + ['Name', 'Type', 'Description', 'Detection suggestions', 'Mitigations', 'Procedure examples']
 
 
 @app.template_filter('remove_important_attr_to_dict')

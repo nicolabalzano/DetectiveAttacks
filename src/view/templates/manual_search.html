@@ -147,24 +147,24 @@
                     <p class="h4 text-secondary">No result found</p>
                 </div>
             {% else %}
-                <div class="justify-content-center align-items-center text-center mt-lg-3">
+                <div class="d-flex justify-content-center align-items-center text-center mt-lg-3">
                     {% if page_number > 0 %}
-                        <a href="{{0}}{{filters}}" class="btn ">
-                            <i class="h5 bi bi-chevron-double-left text-secondary"></i>
+                        <a href="{{0}}{{filters}}" class="text-decoration-none">
+                            <i class="h5 bi bi-chevron-double-left text-secondary me-1"></i>
                         </a>
-                        <a href="{{page_number-1}}{{filters}}" class="btn ">
-                            <i class="h5 bi bi-chevron-left text-secondary"></i>
+                        <a href="{{page_number-1}}{{filters}}" class="text-decoration-none ">
+                            <i class="h5 bi bi-chevron-left text-secondary me-2"></i>
                         </a>
                     {% endif %}
                     <span class="h3 text-secondary align-middle">
                         {{page_number+1}} of {{last_page_nuber+1}}
                     </span>
                     {% if page_number < last_page_nuber %}
-                        <a href="{{page_number+1}}{{filters}}" class="btn">
-                            <i class="h5 bi bi-chevron-right text-secondary"></i>
+                        <a href="{{page_number+1}}{{filters}}" class="text-decoration-none">
+                            <i class="h5 bi bi-chevron-right text-secondary ms-2"></i>
                         </a>
-                        <a href="{{last_page_nuber}}{{filters}}" class="btn ">
-                            <i class="h5 bi bi-chevron-double-right text-secondary"></i>
+                        <a href="{{last_page_nuber}}{{filters}}" class="text-decoration-none ">
+                            <i class="h5 bi bi-chevron-double-right text-secondary ms-1"></i>
                         </a>
                     {% endif %}
                 </div>
