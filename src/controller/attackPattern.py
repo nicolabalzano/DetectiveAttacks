@@ -18,7 +18,7 @@ def get_attack_patter_from_mitre_id(mitre_id: str):
     dict_at['Kill Chain phases'] = __format_kill_chain_phases(at.kill_chain_phases)
     dict_at['Impact type'] = __format_list_of_string(at.x_mitre_impact_type)
     dict_at['Platforms'] = __format_list_of_string(at.x_mitre_platforms)
-    dict_at['Detection'] = at.x_mitre_detection
+    dict_at['Detection suggestions'] = at.x_mitre_detection
     dict_at['Mitigations'] = [
         {
             'ID': coa.x_mitre_id,
@@ -54,14 +54,30 @@ def get_attack_patter_from_mitre_id(mitre_id: str):
         } for er in at.external_references
     ]
 
-    return dict_at
+    return replace_empty_values_with_na(dict_at)
 
 
 def __format_kill_chain_phases(kill_chain_phases):
     formatted_string = ""
     for phase in kill_chain_phases:
         formatted_string += "{1} ({0}), ".format(phase.kill_chain_name, phase.phase_name)
-    return formatted_string.rstrip(', ')
+    return formatted_string.rstrip('.\n')
 
 def __format_list_of_string(list_of_string):
     return ', '.join(list_of_string)
+
+# recursive function to set "n/a" for empty string
+def replace_empty_values_with_na(dictionary):
+    for key, value in dictionary.items():
+        if isinstance(value, dict):
+            replace_empty_values_with_na(value)
+        elif isinstance(value, list):
+            for item in value:
+                if isinstance(item, dict):
+                    replace_empty_values_with_na(item)
+                elif not item:
+                    index = value.index(item)
+                    value[index] = 'n/a'
+        elif not value:
+            dictionary[key] = 'n/a'
+    return dictionary

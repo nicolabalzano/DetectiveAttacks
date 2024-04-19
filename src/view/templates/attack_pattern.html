@@ -31,8 +31,18 @@
 </script>
 
 <div class="container-fluid px-lg-5 margin-top-50">
+
+    <div class="text-primary fw-bold text-center h1 mb-xl-3">
+        {{searched_at.get('Name')}}
+    </div>
+
     <!-- Var to store the draw line status -->
     {% set ns = namespace(draw_line=false) %}
+
+    <!-- Function to draw dropdown button-->
+    {% macro draw_dropdown_button() %}
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+    {% endmacro %}
 
     <!--Function to draw line-->
     {% macro draw_line() %}
@@ -47,13 +57,14 @@
             {% if value|is_list %}
                 <p class="px-lg-5">
                     <span class="text-secondary fw-bold me-2 h5">{{key}}:</span>
+                    {{draw_dropdown_button()}}
                 </p>
-                <div class="ms-5">
+                <div class="ms-5" aria-labelledby="dropdownMenuButton">
                     {{ render_list(value) }}
                 </div>
             {% else %}
                 <p class="px-lg-5">
-                    <span class="text-secondary fw-bold me-2">{{key}}:</span>
+                    <span class="text-secondary fw-bold me-2 ">{{key}}:</span>
                     <span>{{value}}</span>
                 </p>
                 {% set ns.draw_line = true %}
@@ -78,6 +89,7 @@
         <p>
             <span class="text-secondary fw-bold h4 me-2">{{key}}:</span>
             {% if value|is_list %}
+                {{draw_dropdown_button()}}
                 {{ render_list(value) }}
             {% else %}
                 <span>{{value}}</span>
