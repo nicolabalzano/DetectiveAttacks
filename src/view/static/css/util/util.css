@@ -8,10 +8,6 @@
   padding-right: 10px;
 }
 
-body {
-  margin-top: 50px;
-}
-
 .btn-primary {
   padding: 7.5px 50px;
 }
@@ -20,9 +16,10 @@ html, body {
   font-family: "Roboto Light", sans-serif;
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
+  margin-top: 50px;
 }
 
-/* Per Chrome, Edge e Safari */
+/* For Chrome, Edge and Safari */
 html::-webkit-scrollbar, body::-webkit-scrollbar {
   width: 0px;
 }

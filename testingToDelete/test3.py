@@ -1,6 +1,7 @@
 from pprint import pprint
 
 import nvdlib
+from mitreattack.stix20.MitreAttackData import MitreAttackData
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from transformers import AutoTokenizer, AutoModelForTokenClassification, pipeline
@@ -22,6 +23,5 @@ from src.model.interfaceToMitre.conversionType.stixConversionType.ToolsMalwareRe
 from src.model.interfaceToMitre.mitreData.FetchData import *
 from src.model.interfaceToMitre.mitreData.mitreAttackToCVE.SentenceSimilarityModel import SentenceSimilarityModel
 
-for key, value in get_attack_patter_from_mitre_id("T1110").items():
-    if isinstance(value, list):
-        print(f"{key}:")
+print(AttackPatternsContainer().get_object_from_data_by_mitre_id('T1453'))
+

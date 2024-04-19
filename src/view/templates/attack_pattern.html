@@ -16,115 +16,109 @@
 
     <!-- Custom import -->
     <link rel="stylesheet" href="../static/css/util/main.css">
-    <link rel="stylesheet" href="../static/css/util/util.css">
     <link rel="stylesheet" href="../static/css/util/overflow_showed.css">
+    <script src="../static/js/util/include_HTML.js"></script>
 </head>
 
 <body data-bs-theme="dark">
 
-<!-- Navbar -->
-<div id="nav-placeholder"></div>
-<script>
-    $(document).ready(function() {
-        $("#nav-placeholder").load("../util/navbar")
-    })
-</script>
+    <!-- Navbar -->
+    <div id="nav-placeholder" include-html="../util/navbar"></div>
+    <script>includeHTML("nav-placeholder")</script>
 
-<!--Code to generate view-->
-    <!-- Var to store the draw line status, occurrences of line divider, number of attributes -->
-    {% set ns = namespace(draw_line=false, count=0, num_attr=0, number_of_important_items=11) %}
+<!-- Code to geneerate view -->
 
-    <!-- Function to draw dropdown button-->
-    {% macro draw_dropdown_button(id) %}
-        <span class="text-secondary" role="button" id="{{id}}" onclick="$('#{{id|replace(' ', '_')}}_div').toggle();">
-            <i class="bi bi-caret-down-fill"></i>
-        </span>
-    {% endmacro %}
+    <!-- There is vars to store the draw line status, occurrences of line divider, number of attributes -->
+    {% set ns = namespace(draw_line=false, count=0, num_attr=0) %}
 
-    <!--Function to draw line-->
-    {% macro draw_line() %}
-        {% if ns.draw_line %}
-            <hr class="border border-1 border-secondary opacity-50 ms-5">
-        {% endif %}
-    {% endmacro %}
+    <!-- Function to rendering import -->
+    {% from 'util/object_shower_function.html' import set_namespace, render_dict, render_list, draw_dropdown_button, draw_line, first_rendering %}
 
-    <!-- Function to render dictionary -->
-    {% macro render_dict(item_dict) %}
-        {% for key, value in item_dict.items() %}
-            {% if value|is_list %}
-                <!-- Increment count -->
-                {% set ns.count = ns.count + 1 %}
-
-                <p class="px-lg-5">
-                    <span class="text-secondary fw-bold me-2 h5">{{key}}:</span>
-                    {{draw_dropdown_button(key + ns.count|string)}}
+    <!-- Render mitigations -->
+    {% macro render_mitigations(mitigations) %}
+        {% for mitigation in mitigations %}
+            <div class="ms-5 dropdown-div" id="mitigation_div">
+                <!-- Mitigation Name -->
+                <p>
+                    <span class="display-6 fs-3">{{mitigation.get('Name')}}</span>
+                    <span class="text-secondary fs-6">({{mitigation.get('ID')}})</span>
                 </p>
-                <div class="ms-5 dropdown-div" id="{{key|replace(' ', '_') + ns.count|string}}_div" style="display: none;">
-                    {{ render_list(value) }}
+
+                <!-- Mitigation info -->
+                <div class="ms-3">
+
+                    <!-- Description -->
+                    <p>{{mitigation.get('Description')}}</p>
+
+                    <!-- Purpose -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Purpose: </span>
+                        <span> {{mitigation.get('Type of relationship')}} </span>
+                    </p>
+                    <!-- Description of relationship -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Suggestion for this case: </span>
+                        <span> {{mitigation.get('Description of relationship')}} </span>
+                    </p>
+                    <!-- External references -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> External references: </span>
+                        <!-- Increment count for id -->
+                        {% set ns.count = ns.count + 1 %}
+                        {{draw_dropdown_button('External references' + ns.count|string)}}
+                        <div id="{{'External references'|replace(' ', '_') + ns.count|string}}_div" style="display: none"> {{render_list(mitigation.get('External references'))}}</div>
+                    </p>
                 </div>
-            {% else %}
-                <p class="px-lg-5">
-                     <span class="text-secondary fw-bold me-2 h5">{{key}}:</span>
-                    <span>{{value}}</span>
-                </p>
-                {% set ns.draw_line = true %}
-            {% endif %}
+                {{draw_line()}}
+            </div>
 
         {% endfor %}
-        {{draw_line()}}
-    {% endmacro %}
-
-    <!-- Function to render list -->
-    {% macro render_list(item_list) %}
-        {% for item in item_list %}
-            {% if item|is_list %}
-                {{ render_list(item) }}
-            {% else %}
-                {{render_dict(item)}}
-            {% endif %}
-        {% endfor %}
-    {% endmacro %}
-
-    <!-- First rendering -->
-    {% macro first_rendering(key, value) %}
-        <!-- Increment number of attr -->
-        {% set ns.num_attr = ns.num_attr + 1 %}
-        <p class="mb-4">
-            <span class="text-secondary fw-bold h4 me-2">{{key}}:</span>
-            {% if value|is_list %}
-                <!-- Increment count for id -->
-                {% set ns.count = ns.count + 1 %}
-
-                {{draw_dropdown_button(key + ns.count|string)}}
-                <div id="{{key|replace(' ', '_') + ns.count|string}}_div" class="dropdown-div" style="display: none;">
-                    {{ render_list(value) }}
-                </div>
-            {% else %}
-                <span>{{value}}</span>
-            {% endif %}
-        </p>
     {% endmacro %}
 
 <!-- Contents -->
 <div class="container-fluid px-lg-5 margin-top-100">
 
     <!-- Title -->
-    <div class="text-primary fw-bold text-center h1 mb-xl-5">
+    <div class="text-primary display-3 ">
         {{searched_result.get('Name')}}
+        <p class="text-secondary fs-4 mt-3">{{searched_result.get('Type')}}</p>
     </div>
 
-
-    <!-- Render the important attr of searched_result dictionary -->
     <div class="mb-4">
-        {% for key, value in (searched_result|get_dict_with_important_attr(ns.number_of_important_items)).items() %}
-            {{first_rendering(key, value)}}
-        {% endfor %}
+        <div class="row d-flex align-items-baseline ">
+
+            <!-- Descriptions -->
+            <div class="col">
+                <p class="fs-5">{{searched_result.get('Description')}}</p>
+            </div>
+
+            <!-- Rectangle mirror -->
+            <div class="col-2 border border-2 border-primary-subtle rounded py-3 shadow fs-6 ms-5">
+                {{render_dict(searched_result|get_dict_with_info_attr)}}
+            </div>
+        </div>
     </div>
+
+    <!-- Detection suggestions -->
+    {% if 'Detection suggestions' in searched_result %}
+        <div class="mb-4">
+            <p class="text-primary display-6 fs-3">Detection suggestions</p>
+            <div class="ms-2">{{searched_result.get('Detection suggestions')}} </div>
+        </div>
+    {% endif %}
+
+    <!-- Mitigations -->
+    {% if 'Mitigations' in searched_result %}
+        <div class="mb-4">
+            <p class="text-primary display-6 fs-3">Mitigations</p>
+            {{render_mitigations(searched_result.get('Mitigations'))}}
+        </div>
+    {% endif %}
 
     <!-- Render the rest of the dictionary -->
     <span class="text-secondary">Other attributes {{draw_dropdown_button('other_attr')}}</span>
     <div id="other_attr_div" class="dropdown-div mt-lg-3 ms-4" style="display: none;">
-        {% for key, value in (searched_result|get_dict_with_unimportant_attr(ns.number_of_important_items)).items() %}
+        {% for key, value in (searched_result|remove_important_attr_to_dict).items() %}
             {{first_rendering(key, value)}}
         {% endfor %}
     </div>

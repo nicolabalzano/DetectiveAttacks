@@ -15,21 +15,17 @@
   <!-- Custom import -->
   <link rel="icon" href="../static/images/logo.svg" type="image/x-icon">
   <link rel="stylesheet" href="../static/css/util/main.css">
-  <link rel="stylesheet" href="../static/css/util/util.css">
   <link rel="stylesheet" href="../static/css/index/index.css">
   <link rel="stylesheet" href="../static/css/index/scroll_anim.css">
   <script src="../static/js/index/index.js"></script>
+  <script src="../static/js/util/include_HTML.js"></script>
 </head>
 
 <body data-bs-theme="dark">
 
 <!-- Navbar -->
-<div id="nav-placeholder"></div>
-<script>
-    $(document).ready(function() {
-        $("#nav-placeholder").load("util/navbar")
-    })
-  </script>
+<div id="nav-placeholder" include-html="../util/navbar"></div>
+<script>includeHTML("nav-placeholder")</script>
 
 <div class="container-fluid">
 

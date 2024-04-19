@@ -1,0 +1,90 @@
+<!--Code to generate view-->
+    <!--
+    ***YOU HAVE TO IMPORT THIS VARS BEFOR IMPORT THIS FUNCTIONS***
+     There is vars to store the draw line status, occurrences of line divider, number of attributes
+        {% set ns = namespace(draw_line=false, count=0, num_attr=0) %}
+    -->
+
+    {% set ns = namespace(draw_line=false, count=200, num_attr=0) %}
+
+    <!-- Function to draw dropdown button-->
+    {% macro draw_dropdown_button(id) %}
+        <span class="text-secondary" role="button" id="{{id}}" onclick="$('#{{id|replace(' ', '_')}}_div').toggle();">
+            <i class="bi bi-caret-down-fill"></i>
+        </span>
+    {% endmacro %}
+
+    <!--Function to draw line-->
+    {% macro draw_line() %}
+        {% if ns.draw_line %}
+            <hr class="border border-1 border-primary shadow rounded ">
+        {% endif %}
+    {% endmacro %}
+
+    <!-- Function to render dictionary -->
+    {% macro render_dict(item_dict) %}
+        {% for key, value in item_dict.items() %}
+            {% if value|is_list %}
+                <p>
+                    <span class="text-secondary display-6 fs-6 me-2 h5">{{key}}:</span>
+                    <!-- Increment count for id -->
+                    {% set ns.count = ns.count + 1 %}
+
+                    {{draw_dropdown_button(key + ns.count|string)}}
+                </p>
+                <div class="ms-5 dropdown-div" id="{{key|replace(' ', '_') + ns.count|string}}_div" style="display: none;">
+                    {{ render_list(value) }}
+                </div>
+            {% else %}
+                <p>
+                     <span class="text-secondary display-6 fs-6 me-2 h5">{{key}}:</span>
+
+                    <!-- Check value for link -->
+                    {% if key == 'URL' %}
+                        <a href="{{value}}" target="_blank">{{value}}</a>
+                    {% else %}
+                        <span>{{value}}</span>
+                    {% endif %}
+                </p>
+                {% set ns.draw_line = true %}
+            {% endif %}
+
+        {% endfor %}
+    {% endmacro %}
+
+    <!-- Function to render list -->
+    {% macro render_list(item_list) %}
+        {% for item in item_list %}
+            {% if item|is_list %}
+                {{ render_list(item) }}
+            {% else %}
+                <div  class="px-lg-2">
+                    {{render_dict(item)}}
+                    {{draw_line()}}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endmacro %}
+
+    <!-- First rendering -->
+    {% macro first_rendering(key, value) %}
+        <!-- Increment number of attr -->
+        {% set ns.num_attr = ns.num_attr + 1 %}
+        <p class="mb-4">
+            <!-- First keys -->
+            <span class="text-secondary display-6 fs-3 me-2">{{key}}:</span>
+
+            <!-- Check if value is list -->
+            {% if value|is_list %}
+                <!-- Increment count for id -->
+                {% set ns.count = ns.count + 1 %}
+                {{draw_dropdown_button(key + ns.count|string)}}
+                <div id="{{key|replace(' ', '_') + ns.count|string}}_div" class="dropdown-div" style="display: none;">
+                    {{ render_list(value) }}
+                </div>
+            {% else %}
+                <span>{{value}}</span>
+            {% endif %}
+        </p>
+    {% endmacro %}
+

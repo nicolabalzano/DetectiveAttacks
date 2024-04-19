@@ -1,10 +1,11 @@
+import os
 from itertools import islice
 
 from flask import Flask, render_template, request
 import sys
 
-sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/UniBa_Tesi')
-# sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/UniBa_Tesi')
+# sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/UniBa_Tesi')
+sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/UniBa_Tesi')
 
 from src.controller.attackPattern import get_attack_patter_from_mitre_id
 from src.controller.manualSearch import get_searched_obj
@@ -87,6 +88,11 @@ def search_bar():
     return render_template('util/search_bar.html')
 
 
+@app.route('/util/object_shower_function')
+def object_shower_function():
+    return render_template('util/object_shower_function.html')
+
+
 # custom filter
 @app.template_filter('all_empty')
 def all_empty(s):
@@ -97,14 +103,30 @@ def all_empty(s):
 def is_list(value):
     return isinstance(value, list)
 
-@app.template_filter('get_dict_with_important_attr')
-def get_dict_with_important_attr(my_dict, n):
-    "Return first n items of iterable"
-    return dict(list(my_dict.items())[:n])
 
-@app.template_filter('get_dict_with_unimportant_attr')
-def get_dict_with_unimportant_attr(my_dict, n):
-    "Return the rest of the iterable"
-    return dict(list(my_dict.items())[n:])
+# Important attributes to show in the mirror info rectangle
+LIST_OF_IMPORTANT_ATTRS = ['ID', 'Domains', 'Kill Chain phases', 'Platforms', 'Deprecated']
 
+# Attributes already shown
+LIST_OF_ALREADY_SHOWN_ATTRS = LIST_OF_IMPORTANT_ATTRS + ['Name', 'Type', 'Description', 'Detection suggestions', 'Mitigations']
+
+
+@app.template_filter('remove_important_attr_to_dict')
+def remove_important_attr_to_dict(my_dict):
+    """Remove important attributes from dict"""
+    for important_attr in LIST_OF_ALREADY_SHOWN_ATTRS:
+        my_dict.pop(important_attr, None)
+
+    return my_dict
+
+
+@app.template_filter('get_dict_with_info_attr')
+def get_dict_with_info_attr(my_dict):
+    """Return dict with items for mirror info rectangle"""
+    dict_of_info = {}
+    for important_attr in LIST_OF_IMPORTANT_ATTRS:
+        if important_attr in my_dict:
+            dict_of_info[important_attr] = my_dict[important_attr]
+
+    return dict_of_info
 

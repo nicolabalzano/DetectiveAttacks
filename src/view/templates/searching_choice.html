@@ -14,23 +14,19 @@
 
   <!-- Custom import -->
   <link rel="stylesheet" href="../static/css/util/main.css">
-  <link rel="stylesheet" href="../static/css/util/util.css">
   <link rel="stylesheet" href="../static/css/searching_choice/searching_choice.css">
+  <script src="../static/js/util/include_HTML.js"></script>
 
 </head>
 
 <body data-bs-theme="dark">
 
 <!-- Navbar -->
-<div id="nav-placeholder"></div>
-<script>
-  $(document).ready(function() {
-    $("#nav-placeholder").load("util/navbar")
-  })
-</script>
+<div id="nav-placeholder" include-html="../util/navbar"></div>
+<script>includeHTML("nav-placeholder")</script>
 
 <div class="container text-center title" >
-  <h1 class="display-4 h1 text-primary fw-bold">Choose your searching method:</h1>
+  <h1 class="display-4 fw-bolder text-primary">Choose your searching method:</h1>
 </div>
 
 <div class="container text-center">
@@ -40,12 +36,10 @@
       <h3 class="fw-bold">UPLOAD REPORT</h3>
 
       <p class="m-lg-5 text-secondary">Here you can upload a report (now supported reports can come from: <b>Nessus</b>)!</p>
-      <div id="file-picker-placeholder"></div>
-      <script>
-        $(document).ready(function() {
-          $("#file-picker-placeholder").load("util/file_picker")
-        })
-      </script>
+
+      <!-- File picker -->
+      <div id="file-picker-placeholder" include-html="/util/file_picker"></div>
+      <script>includeHTML("file-picker-placeholder")</script>
 
     </div>
 
@@ -57,7 +51,7 @@
     <div class="col justify-content-center">
       <h3 class="fw-bold">MANUAL SEARCH</h3>
 
-      <p class="m-lg-5 text-secondary">Choose manual searching to explore the system in manual searching!</p>
+      <p class="m-lg-5 text-secondary">Choose manual searching to explore the system in manual mode!</p>
 
 
       <div class="row justify-content-center">

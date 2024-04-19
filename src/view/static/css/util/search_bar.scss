@@ -1,8 +1,6 @@
 @import "color";
-@import "../../../../../node_modules/bootstrap/scss/bootstrap";
 
 form {
-  transition: all 0.5s;
   margin-bottom: 30px;
 }
 
@@ -38,7 +36,6 @@ form {
     width: 100%;
   background-color: transparent;
   outline: none;
-  letter-spacing: 0.75px;
 }
 
 .finder__icon {
