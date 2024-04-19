@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../static/css/util/main.css">
     <link rel="stylesheet" href="../static/css/util/util.css">
     <link rel="stylesheet" href="../static/css/util/overflow_showed.css">
+    <script src="../static/js/object_view/object_view.js"></script>
 </head>
 
 <body data-bs-theme="dark">
@@ -31,17 +32,17 @@
 </script>
 
 <div class="container-fluid px-lg-5 margin-top-50">
-
-    <div class="text-primary fw-bold text-center h1 mb-xl-3">
-        {{searched_at.get('Name')}}
-    </div>
-
     <!-- Var to store the draw line status -->
     {% set ns = namespace(draw_line=false) %}
 
+    <!-- Var to count occurrences for id dropdown div -->
+    {% set ns = namespace(count=0) %}
+
     <!-- Function to draw dropdown button-->
-    {% macro draw_dropdown_button() %}
-        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+    {% macro draw_dropdown_button(id) %}
+        <button class="btn dropdown-toggle" type="button" id="{{id}}" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"
+                onclick="$('#{{id}}_div').toggle();"></button>
     {% endmacro %}
 
     <!--Function to draw line-->
@@ -55,16 +56,19 @@
     {% macro render_dict(item_dict) %}
         {% for key, value in item_dict.items() %}
             {% if value|is_list %}
+                <!-- Increment count -->
+                {% set ns.count = ns.count + 1 %}
+
                 <p class="px-lg-5">
                     <span class="text-secondary fw-bold me-2 h5">{{key}}:</span>
-                    {{draw_dropdown_button()}}
+                    {{draw_dropdown_button(key + ns.count|string)}}
                 </p>
-                <div class="ms-5" aria-labelledby="dropdownMenuButton">
+                <div class="ms-5" id="{{key + ns.count|string}}_div" style="display: none;">
                     {{ render_list(value) }}
                 </div>
             {% else %}
                 <p class="px-lg-5">
-                    <span class="text-secondary fw-bold me-2 ">{{key}}:</span>
+                     <span class="text-secondary fw-bold me-2 h5">{{key}}:</span>
                     <span>{{value}}</span>
                 </p>
                 {% set ns.draw_line = true %}
@@ -84,19 +88,29 @@
         {% endfor %}
     {% endmacro %}
 
+
+    <!-- Title -->
+    <div class="text-primary fw-bold text-center h1 mb-xl-3">
+        {{searched_at.get('Name')}}
+    </div>
+
     <!-- Render the searched_at dictionary -->
     {% for key, value in searched_at.items() %}
         <p>
             <span class="text-secondary fw-bold h4 me-2">{{key}}:</span>
             {% if value|is_list %}
-                {{draw_dropdown_button()}}
+                <!-- Increment count -->
+                {% set ns.count = ns.count + 1 %}
+
+                {{draw_dropdown_button(key + ns.count|string)}}
+            <div id="{{key + ns.count|string}}_div" style="display: none;">
                 {{ render_list(value) }}
+            </div>
             {% else %}
                 <span>{{value}}</span>
             {% endif %}
         </p>
     {% endfor %}
 </div>
-
 </body>
 </html>
