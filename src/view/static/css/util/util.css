@@ -44,8 +44,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   border-left: 3px solid;
 }
 
-.margin-top-50 {
+.margin-top-100 {
   margin-top: 100px;
+}
+
+.btn-no-outline {
+  outline: none;
 }
 
 /*# sourceMappingURL=util.css.map */

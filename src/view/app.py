@@ -1,3 +1,5 @@
+from itertools import islice
+
 from flask import Flask, render_template, request
 import sys
 
@@ -66,8 +68,8 @@ def manual_search(page):
 
 @app.route('/attack_pattern/<string:searched_id>')
 def attack_pattern(searched_id):
-    searched_at = get_attack_patter_from_mitre_id(searched_id)
-    return render_template('attack_pattern.html', searched_at=searched_at)
+    searched_result = get_attack_patter_from_mitre_id(searched_id)
+    return render_template('attack_pattern.html', searched_result=searched_result)
 
 
 @app.route('/util/navbar')
@@ -94,3 +96,15 @@ def all_empty(s):
 @app.template_filter('is_list')
 def is_list(value):
     return isinstance(value, list)
+
+@app.template_filter('get_dict_with_important_attr')
+def get_dict_with_important_attr(my_dict, n):
+    "Return first n items of iterable"
+    return dict(list(my_dict.items())[:n])
+
+@app.template_filter('get_dict_with_unimportant_attr')
+def get_dict_with_unimportant_attr(my_dict, n):
+    "Return the rest of the iterable"
+    return dict(list(my_dict.items())[n:])
+
+

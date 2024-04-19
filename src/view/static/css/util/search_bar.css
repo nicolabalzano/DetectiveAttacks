@@ -11845,8 +11845,8 @@ textarea.form-control-lg {
   }
 }
 form {
-  margin-top: 100px;
   transition: all 0.5s;
+  margin-bottom: 30px;
 }
 
 .finder {
