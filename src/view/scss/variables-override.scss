@@ -1,0 +1,30 @@
+// Options
+$enable-shadows:     true;
+$enable-gradients:   true;
+$min-contrast-ratio:   2;
+
+// colors
+$primary: #7027f3 ;
+$secondary: rgba(184, 184, 184, 0.88);
+$tertiary: #19171aa1;
+$highlight:     #d63384;
+$accent-1:      #fefefe;
+$accent-2:      #dee2e6;
+$accent-3:      #495057;
+$light:         #f1f3f5;
+$dark:          #343a40;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "highlight":  $highlight,
+  "accent-1":   $accent-1,
+  "accent-2":   $accent-2,
+  "accent-3":   $accent-3,
+  "light":      $light,
+  "dark":       $dark
+);
+
+
+$body-bg:       $light;
+$body-color:    $dark;

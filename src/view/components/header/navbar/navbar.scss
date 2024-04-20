@@ -1,0 +1,66 @@
+/* *********************************
+           Toolbar Logo
+  ********************************** */
+.small-logo-container {
+  height: 50px;
+  overflow: hidden;
+}
+
+.small-logo {
+  color: white;
+  text-decoration: none;
+  transition: all 0.2s ease-out;
+}
+
+/* *********************************
+           Big Logo
+  ********************************** */
+.big-logo {
+  text-align: center;
+  font-size: 100px;
+  transition: all 0.2s ease-out;
+}
+
+.big-logo-container{
+  width: auto;
+  padding-top: 150px;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.big-logo-container h1 {
+  margin: 0;
+  padding: 0 0 15px 0;
+}
+
+@media (min-width: 400px) {
+  .big-logo-container h1 {
+    font-size: 0.8em;
+  }
+}
+@media (min-width: 440px) {
+  .big-logo-container h1 {
+    font-size: 1em;
+  }
+}
+@media (min-width: 500px) {
+  .big-logo-container h1 {
+    font-size: 1.5em;
+  }
+}
+@media (min-width: 630px) {
+  .big-logo-container h1 {
+    font-size: 2em;
+  }
+}
+@media (min-width: 768px) {
+  .big-logo-container h1 {
+    font-size: 4em;
+    padding-bottom: 30px;
+  }
+}
+@media (min-width: 1200px) {
+  .big-logo-container h1 {
+    font-size: 8em;
+  }
+}
