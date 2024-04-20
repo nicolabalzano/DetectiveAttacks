@@ -18,16 +18,14 @@
     <link rel="stylesheet" href="../static/css/util/main.css">
     <link rel="stylesheet" href="../static/css/manual_search/manual_search.css">
     <link rel="stylesheet" href="../static/css/util/overflow_showed.css">
+    <script src="../static/js/util/include_HTML.js"></script>
 </head>
 
 <body data-bs-theme="dark">
-<!-- Navbar -->
-<div id="nav-placeholder"></div>
-<script>
-  $(document).ready(function() {
-    $("#nav-placeholder").load("../util/navbar")
-  })
-</script>
+
+    <!-- Navbar -->
+    <div id="nav-placeholder" include-html="../util/navbar"></div>
+    <script>includeHTML("nav-placeholder")</script>
 
 <div class="container-fluid mt-lg-5">
 
@@ -113,6 +111,12 @@
                 <form autocomplete="off" method="GET" action="{{ url_for('manual_search', page=0) }}">
                     <div id="search_bar-placeholder"></div>
                 </form>
+                {% if request.args.get('search', '') != '' %}
+                    <p id="sus">
+                        <span class="text-secondary display-6 fs-6">Results for: </span>
+                        <span class="text-secondary display-6 fs-5 fw-semibold">{{ request.args.get('search', '') }}</span>
+                    </p>
+                {% endif %}
             </div>
             <script>
                 $(document).ready(function() {
@@ -132,9 +136,9 @@
                 </thead>
                 <tbody class="table-group-divider">
                 {% for obj in result %}
-                <tr onclick="window.location.href='{{ url_for('attack_pattern', searched_id=obj[1]) }}'">
+                <tr onclick="window.location.href='{{ url_for(obj[0].replace('-','_'), searched_id=obj[1]) }}'">
                     <td>{{obj[0]}}</td>
-                    <td><a href="{{ url_for('attack_pattern', searched_id=obj[1]) }}">{{obj[1]}}</a></td>
+                    <td><a href="{{ url_for(obj[0].replace('-','_'), searched_id=obj[1]) }}">{{obj[1]}}</a></td>
                     <td>{{obj[2]}}</td>
                     <td>{{obj[3]}}</td>
                 </tr>
@@ -142,6 +146,7 @@
                 </tbody>
             </table>
 
+            <!-- Pagination (no result found or button to nav pages) -->
             {% if result|length == 0 %}
                 <div class="text-center">
                     <p class="h4 text-secondary">No result found</p>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Attack Prediction</title>
+
+    <!-- Bootstrap CSS JS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <!-- Custom import -->
+    <link rel="stylesheet" href="../../static/css/util/main.css">
+    <link rel="stylesheet" href="../../static/css/util/overflow_showed.css">
+    <script src="../../static/js/util/include_HTML.js"></script>
+</head>
+
+<body data-bs-theme="dark">
+
+    <!-- Navbar -->
+    <div id="nav-placeholder" include-html="../util/navbar"></div>
+    <script>includeHTML("nav-placeholder")</script>
+
+<!-- Code to generate view -->
+
+    <!-- There is vars to store the draw line status, occurrences of line divider, number of attributes -->
+    {% set ns = namespace(draw_line=false, count=0, num_attr=0) %}
+
+    <!-- Function to rendering import -->
+    {% from 'object_shower_function.html' import set_namespace, render_dict, render_list, draw_dropdown_button, draw_line, first_rendering %}
+
+    <!-- Render mitigations -->
+    {% macro render_mitigations(mitigations) %}
+        {% for mitigation in mitigations %}
+            <div class="ms-5 dropdown-div" id="mitigation_div">
+                <!-- Mitigation Name -->
+                <p>
+                    <span class="display-6 fs-3">{{mitigation.get('Name')}}</span>
+                    <span class="text-secondary fs-6">({{mitigation.get('ID')}})</span>
+                </p>
+
+                <!-- Mitigation info -->
+                <div class="ms-3">
+
+                    <!-- Description -->
+                    <p>{{mitigation.get('Description')}}</p>
+
+                    <!-- Purpose -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Purpose: </span>
+                        <span> {{mitigation.get('Purpose')}} </span>
+                    </p>
+                    <!-- Suggestion for this case -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Suggestion for this case: </span>
+                        <span> {{mitigation.get('Suggestion for this case')}} </span>
+                    </p>
+                    <!-- External references -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> External references: </span>
+                        <!-- Increment count for id -->
+                        {% set ns.count = ns.count + 1 %}
+                        {{draw_dropdown_button('External references' + ns.count|string)}}
+                        <div id="{{'External references'|replace(' ', '_') + ns.count|string}}_div" style="display: none"> {{render_list(mitigation.get('External references'))}}</div>
+                    </p>
+                </div>
+                {{draw_line()}}
+            </div>
+
+        {% endfor %}
+    {% endmacro %}
+
+    <!-- Render Procedure Examples -->
+    {% macro render_procedure_examples(procedure_examples) %}
+        {% for procedure_example in procedure_examples %}
+            <div class="ms-5 dropdown-div" id="procedure_example_div">
+                <!-- Procedure Example Name -->
+                <p>
+                    <span class="display-6 fs-3">{{procedure_example.get('Name')}}</span>
+                    <span class="text-secondary fs-6">({{procedure_example.get('ID')}})</span>
+                </p>
+
+                <!-- Procedure Example info -->
+                <div class="ms-3">
+
+                    <!-- Description -->
+                    <p>{{procedure_example.get('Description')}}</p>
+
+                    <!-- Purpose -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Purpose: </span>
+                        <span> {{procedure_example.get('Purpose')}} </span>
+                    </p>
+                    <!-- Description of relationship -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Suggestion for this case: </span>
+                        <span> {{procedure_example.get('Suggestion for this case')}} </span>
+                    </p>
+                    <!-- External references -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> External references: </span>
+                        <!-- Increment count for id dropdown -->
+                        {% set ns.count = ns.count + 1 %}
+                        {{draw_dropdown_button('External references' + ns.count|string)}}
+                        <div id="{{'External references'|replace(' ', '_') + ns.count|string}}_div" style="display: none"> {{render_list(procedure_example.get('External references'))}}</div>
+                    </p>
+                    <!-- Domains -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Domains: </span>
+                        <span> {{procedure_example.get('Domains')}} </span>
+                    </p>
+                    <!-- Platforms -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Platforms: </span>
+                        <span> {{procedure_example.get('Platforms')}} </span>
+                    </p>
+                    <!-- Alias -->
+                    <p class="text-secondary fs-6">
+                        <span class="fw-semibold"> Alias: </span>
+                        <span> {{procedure_example.get('Alias')}} </span>
+                    </p>
+                </div>
+                {{draw_line()}}
+            </div>
+
+        {% endfor %}
+    {% endmacro %}
+
+<!-- Contents -->
+<div class="container-fluid px-lg-5 margin-top-100">
+
+    <!-- Title -->
+    <div class="text-primary display-3 ">
+        {{searched_result.get('Name')}}
+        <p class="text-secondary fs-4 mt-3">{{searched_result.get('Type')}}</p>
+    </div>
+
+    <div class="mb-4">
+        <div class="row d-flex align-items-baseline ">
+
+            <!-- Descriptions -->
+            <div class="col">
+                <p class="fs-5">{{searched_result.get('Description')}}</p>
+            </div>
+
+            <!-- Rectangle mirror -->
+            <div class="col-2 border border-2 border-primary-subtle rounded py-3 shadow fs-6 ms-5">
+                {{render_dict(searched_result|get_dict_with_info_attr)}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Detection suggestions -->
+    {% if 'Detection suggestions' in searched_result %}
+        <div class="mb-4">
+            <p class="text-primary display-6 fs-3">Detection suggestions</p>
+            <div class="ms-2">{{searched_result.get('Detection suggestions')}} </div>
+        </div>
+    {% endif %}
+
+    <!-- Mitigations -->
+    {% if 'Mitigations' in searched_result %}
+            <p class="text-primary display-6 fs-3">
+                Mitigations
+                <!-- Increment count for id dropdown -->
+                {% set ns.count = ns.count + 1 %}
+                {{draw_dropdown_button('Mitigations' + ns.count|string, True)}}
+            </p>
+        <div class="mb-4" id="{{'Mitigations'|replace(' ', '_') + ns.count|string}}_div">
+            {{render_mitigations(searched_result.get('Mitigations'))}}
+        </div>
+    {% endif %}
+
+    <!-- Procedure examples -->
+    {% if 'Procedure examples' in searched_result %}
+        <p class="text-primary display-6 fs-3">
+            Procedure examples
+            <!-- Increment count for id dropdown -->
+            {% set ns.count = ns.count + 1 %}
+            {{draw_dropdown_button('Procedure examples' + ns.count|string, True)}}
+        </p>
+        <div class="mb-4" id="{{'Procedure examples'|replace(' ', '_') + ns.count|string}}_div">
+            <div class="ms-2">{{render_procedure_examples(searched_result.get('Procedure examples'))}} </div>
+        </div>
+    {% endif %}
+
+    <!-- Render the rest of the dictionary -->
+    <span class="text-secondary">Other attributes {{draw_dropdown_button('other_attr')}}</span>
+    <div id="other_attr_div" class="dropdown-div mt-lg-3 ms-4" style="display: none;">
+        {% for key, value in (searched_result|remove_important_attr_to_dict).items() %}
+            {{first_rendering(key, value)}}
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>

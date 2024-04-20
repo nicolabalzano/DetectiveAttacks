@@ -1,5 +1,5 @@
-default_path = "C:\\Users\\nikba\\OneDrive\\Desktop\\Tesi\\UniBa_Tesi\\src\\model\\interfaceToMitre\\mitreData\\files\\"
-# default_path = "C:\\Users\\nikba\\Desktop\\uni\\Tesi\\UniBa_Tesi\\src\\model\\interfaceToMitre\\mitreData\\files\\"
+default_path = "C:\\Users\\nikba\\OneDrive\\Desktop\\Tesi\\DetectiveAttack\\src\\model\\interfaceToMitre\\mitreData\\files\\"
+# default_path = "C:\\Users\\nikba\\Desktop\\uni\\Tesi\\DetectiveAttack\\src\\model\\interfaceToMitre\\mitreData\\files\\"
 
 ENTERPRISE_ATTACK = 'enterprise-attack'
 MOBILE_ATTACK = 'mobile-attack'
