@@ -1,3 +1,106 @@
+.big-logo {
+  text-align: center;
+  transition: all 0.2s ease-out;
+}
 
+.container-fluid {
+  padding: 0;
+}
+
+.sub-title {
+  margin-bottom: 20px;
+}
+
+.description {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.cyber-img {
+  max-height: 200px;
+  object-fit: contain;
+}
+
+@media (min-height: 900px) {
+  .big-logo-container {
+    margin-top: 180px;
+  }
+  .cyber-img {
+    max-height: 250px;
+  }
+}
+@media (min-height: 1200px) {
+  .big-logo-container {
+    margin-top: 500px;
+  }
+  .text-description {
+    margin-bottom: 800px;
+  }
+  .cyber-img {
+    max-height: 250px;
+  }
+}
+/* *********************************
+           Big Logo
+  ********************************** */
+.big-logo {
+  text-align: center;
+  font-size: 100px;
+  transition: all 0.2s ease-out;
+}
+
+.big-logo-container {
+  width: auto;
+  padding-top: 150px;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.big-logo-container h1 {
+  margin: 0;
+  padding: 0 0 15px 0;
+}
+
+@media (max-width: 400px) {
+  .big-logo-container h1 {
+    font-size: 2em;
+  }
+  .text-description {
+    margin-bottom: 250px;
+    font-size: 0.8em;
+    text-align: center;
+  }
+  .sub-title h2 {
+    font-size: 1.5em;
+  }
+  .cyber-img {
+    max-height: 200px;
+  }
+}
+@media (min-width: 440px) {
+  .big-logo-container h1 {
+    font-size: 2em;
+  }
+}
+@media (min-width: 500px) {
+  .big-logo-container h1 {
+    font-size: 2em;
+  }
+}
+@media (min-width: 630px) {
+  .big-logo-container h1 {
+    font-size: 2em;
+  }
+}
+@media (min-width: 768px) {
+  .big-logo-container h1 {
+    font-size: 4em;
+    padding-bottom: 30px;
+  }
+}
+@media (min-width: 1200px) {
+  .big-logo-container h1 {
+    font-size: 8em;
+  }
+}
 
 /*# sourceMappingURL=home.css.map */

@@ -1,9 +1,12 @@
 #theme-switch {
-  position: relative;
+  position: fixed;
   width: fit-content;
   height: fit-content;
   touch-action: pan-x;
   user-select: none;
+  bottom: 20px;
+  left: 20px;
+  transition: top 0.3s ease;
 }
 #theme-switch input {
   cursor: pointer;

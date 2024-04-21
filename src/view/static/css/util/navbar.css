@@ -12,27 +12,6 @@
   transition: all 0.2s ease-out;
 }
 
-/* *********************************
-           Big Logo
-  ********************************** */
-.big-logo {
-  text-align: center;
-  font-size: 100px;
-  transition: all 0.2s ease-out;
-}
-
-.big-logo-container{
-  width: auto;
-  padding-top: 150px;
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.big-logo-container h1 {
-  margin: 0;
-  padding: 0 0 15px 0;
-}
-
 @media (min-width: 400px) {
   .big-logo-container h1 {
     font-size: 0.8em;

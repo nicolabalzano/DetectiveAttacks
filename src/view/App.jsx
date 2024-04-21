@@ -11,7 +11,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="App p-3">
+    <div className="App">
       <div className="d-flex flex-column align-items-center">
           <ThemeProvider>
 

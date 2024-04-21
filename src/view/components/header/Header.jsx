@@ -6,8 +6,8 @@ import ThemeSwitch from "../theme_switch/themeSwitch.jsx";
 const Header = () => {
     return (
         <div>
-            <Navbar_/>
             <ThemeSwitch/>
+            <Navbar_/>
         </div>
     );
 }

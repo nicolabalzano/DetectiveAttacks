@@ -8,13 +8,39 @@ export default function ThemeSwitch() {
   const switchTheme = () => setDarkMode((prev) => !prev);
 
   useEffect(() => {
-    darkMode
-      ? document.documentElement.setAttribute("darkMode", "")
-      : document.documentElement.removeAttribute("darkMode", "");
+    // Set the theme mode on the document element
+    if (darkMode) {
+      document.documentElement.setAttribute("darkMode", "");
+    } else {
+      document.documentElement.removeAttribute("darkMode", "");
+    }
+
+    // Initialize scroll position
+    let prevScrollpos = window.pageYOffset;
+
+    // Handle scroll function to hide or show the theme switch based on scroll direction
+    const handleScroll = () => {
+      let currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+          console.log("scroll up")
+        document.getElementById("theme-switch").style.bottom = "20px";
+      } else {
+        document.getElementById("theme-switch").style.bottom = "-50px"; // Adjust this value based on your actual needs
+      }
+      prevScrollpos = currentScrollPos;
+    };
+
+    // Attach scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [darkMode]);
 
   return (
-    <div id="theme-switch" className="mt-3 fixed-top">
+    <div id="theme-switch" className="position-fixed mt-4">
       <div className="switch-track">
         <div className="switch-check">
           <span className="switch-icon">
