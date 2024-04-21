@@ -14,15 +14,19 @@ export default function ThemeSwitch() {
   }, [darkMode]);
 
   return (
-    <div id="theme-switch" className="me-5">
+    <div id="theme-switch" className="mt-3 fixed-top">
       <div className="switch-track">
         <div className="switch-check">
-          <span className="switch-icon">🌙</span>
+          <span className="switch-icon">
+              <i className="bi bi-moon-fill text-primary"></i>
+          </span>
         </div>
-        <div className="switch-x">
-          <span className="switch-icon">🌞</span>
+          <div className="switch-x">
+          <span className="switch-icon">
+              <i className="bi bi-brightness-high-fill text-white"></i>
+          </span>
         </div>
-        <div className="switch-thumb"></div>
+          <div className="switch-thumb"></div>
       </div>
 
       <input

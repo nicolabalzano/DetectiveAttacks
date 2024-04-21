@@ -15,7 +15,6 @@ function App() {
       <div className="d-flex flex-column align-items-center">
           <ThemeProvider>
 
-              <ThemeSwitch/>
               <Header/>
               <Home/>
 
