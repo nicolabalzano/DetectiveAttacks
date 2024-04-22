@@ -29,12 +29,15 @@
   }
 }
 @media (min-height: 1200px) {
+  /*
   .big-logo-container {
     margin-top: 500px;
   }
+
   .text-description {
     margin-bottom: 800px;
   }
+   */
   .cyber-img {
     max-height: 250px;
   }
@@ -45,12 +48,10 @@
 .big-logo {
   text-align: center;
   font-size: 100px;
-  transition: all 0.2s ease-out;
 }
 
 .big-logo-container {
   width: auto;
-  padding-top: 150px;
   margin-right: 0;
   margin-left: 0;
 }

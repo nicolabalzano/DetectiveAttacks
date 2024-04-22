@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import sys
+
+from flask_cors import CORS
 
 # sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/UniBa_Tesi')
 sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/UniBa_Tesi')
@@ -9,26 +11,20 @@ from src.controller.manualSearch import get_searched_obj
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+cors = CORS(app, origins='*')
 
 
-@app.route('/searching_choice')
-def searching_choice():
-    return render_template('searching_choice.html')
+@app.route('/api/get_data/', methods=["GET"])
+def manual_search_empty():
+    return manual_search('')
 
 
-@app.route('/manual_search/<int:page>', methods=['GET'])
-def manual_search(page):
+@app.route('/api/get_data/<string:search_terms>', methods=["GET"])
+def manual_search(search_terms):
     list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Vulnerability']
     list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
-    MAX_OBJS_PER_PAGE = 15
-    start = page * MAX_OBJS_PER_PAGE
 
-    search_term = request.args.get('search', '')
-    all_result = get_searched_obj(search_term)
+    all_result = get_searched_obj(search_terms)
 
     checked_types = request.args.get('type')
     checked_domains = request.args.get('domain')
@@ -53,15 +49,16 @@ def manual_search(page):
     for domains in checked_domains:
         all_result_filtered.extend([obj for obj in all_result_filtered_type if domains.lower() in obj[3].lower()])
 
-    filters = "?search=" + search_term + "&type=" + ','.join(checked_types) + "&domain=" + ','.join(checked_domains)
+    results = all_result_filtered
 
-    result = all_result_filtered[start:start + 15]
+    # filters = "?search=" + search_term + "&type=" + ','.join(checked_types) + "&domain=" + ','.join(checked_domains)
 
-    return render_template('manual_search.html', result=result, page_number=page,
-                           last_page_nuber=len(all_result_filtered) // MAX_OBJS_PER_PAGE,
-                           list_of_filter_checked_types=checked_types, list_of_filter_types=list_of_filter_types,
-                           listf_of_filter_checked_domains=checked_domains,
-                           list_of_filter_domains=list_of_filter_domains, filters=filters)
+    return jsonify({
+        'list_of_filter_types': list_of_filter_types,
+        'list_of_filter_domains': list_of_filter_domains,
+        'results': results,
+    })
+    # , filters=filters
 
 
 @app.route('/attack_pattern/<string:searched_id>')
@@ -105,7 +102,8 @@ def is_list(value):
 LIST_OF_IMPORTANT_ATTRS = ['ID', 'Domains', 'Mitre Kill Chain phases', 'Kill Chain phases', 'Platforms', 'Deprecated']
 
 # Attributes already shown
-LIST_OF_ALREADY_SHOWN_ATTRS = LIST_OF_IMPORTANT_ATTRS + ['Name', 'Type', 'Description', 'Detection suggestions', 'Mitigations', 'Procedure examples']
+LIST_OF_ALREADY_SHOWN_ATTRS = LIST_OF_IMPORTANT_ATTRS + ['Name', 'Type', 'Description', 'Detection suggestions',
+                                                         'Mitigations', 'Procedure examples']
 
 
 @app.template_filter('remove_important_attr_to_dict')

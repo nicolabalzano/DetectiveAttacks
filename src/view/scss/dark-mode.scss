@@ -4,16 +4,17 @@ html[darkmode] {
   $primary: #7027f3 ;
   $secondary: rgba(184, 184, 184, 0.88);
   $tertiary: #19171aa1;
+  $primary-opacity: rgba(182, 141, 248, 0.06);
   $accent-1:      #212529;
   $accent-2:      #414850;
   $accent-3:      #adb5bd;
 
   $theme-colors: (
-    "primary":    $primary,
-    "secondary":  $secondary,
-    "accent-1":   $accent-1,
-    "accent-2":   $accent-2,
-    "accent-3":   $accent-3,
+          "primary":    $primary,
+          "secondary":  $secondary,
+          "accent-1":   $accent-1,
+          "accent-2":   $accent-2,
+          "accent-3":   $accent-3,
   );
 
   @each $color, $value in $theme-colors {
@@ -32,5 +33,13 @@ html[darkmode] {
 
   --#{$variable-prefix}body-color-rgb: #{to-rgb($body-bg)};
   --#{$variable-prefix}body-bg-rgb: #{to-rgb($body-color)};
+
+  .table {
+    th,
+    td {
+      border-color: var(--#{$variable-prefix}secondary);
+      color: var(--#{$variable-prefix}body-color);
+    }
+  }
 
 }

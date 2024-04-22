@@ -22,7 +22,6 @@ export default function ThemeSwitch() {
     const handleScroll = () => {
       let currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
-          console.log("scroll up")
         document.getElementById("theme-switch").style.bottom = "20px";
       } else {
         document.getElementById("theme-switch").style.bottom = "-50px"; // Adjust this value based on your actual needs

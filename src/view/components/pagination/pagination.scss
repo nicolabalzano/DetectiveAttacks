@@ -1,0 +1,18 @@
+@import '../../scss/bootstrap';
+
+.page-nav:hover {
+  border-radius: 50%;
+  // background-color: rgba(123, 123, 123, 0.46);
+}
+
+.size-text-page-nav {
+    font-size: 18px;
+
+}
+
+
+.page-nav{
+  @extend .size-text-page-nav;
+  margin: 10px;
+  text-decoration: none;
+}

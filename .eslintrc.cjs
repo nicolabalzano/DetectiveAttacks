@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2020: true, IP_PORT_TO_FLASK:'http://192.168.1.204:5000'},
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',

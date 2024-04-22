@@ -3,26 +3,25 @@ import "./scroll_anim.css";
 import "./home.css";
 import "../../scss/util.scss"
 import cyber from "../../assets/cyber.png";
-import { scrollHideWhileDown, scrollHideWhileUp, scrollHideWhileDownMouse, scrollHideWhileUpDescription } from "./scrollAnim.js";
+import {handleScroll} from "./scrollAnim.js";
+import {Link} from "react-router-dom";
 
 const Home = () => {
     const [showLogo, setShowLogo] = useState(true);
     const [showMouse, setShowMouse] = useState(true);
     const [showDescription, setShowDescription] = useState(false);
 
-    const handleScroll = () => {
-        scrollHideWhileDownMouse();
-        scrollHideWhileUpDescription();
-        scrollHideWhileUp('.small-logo');
-        scrollHideWhileDown('.big-logo');
-    };
-
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
+
+      // Clean up the event listener when the component unmounts
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+      };
     }, []);
 
     return (
-        <div className="container-fluid big-logo-container d-flex flex-column justify-content-center align-items-center">
+        <div className="container-fluid big-logo-container d-flex flex-column justify-content-center align-items-center first-container">
             <div className={`container-fluid justify-content-center transition-element`}>
                 <h1 className="big-logo">Detective Attack</h1>
             </div>
@@ -30,7 +29,7 @@ const Home = () => {
                 <h2 className="mb-0 display-2 sub-title text-primary transition-element">Prevent attacks in your business</h2>
             </div>
 
-            <div className={`container-fluid d-flex justify-content-center align-items-center mb-5 mouse`}></div>
+            <div className={`container-fluid d-flex justify-content-center align-items-center mouse`}></div>
 
             <div className={`container-fluid transition-element description hide`}>
                 <div className="row justify-content-center align-items-center">
@@ -39,11 +38,11 @@ const Home = () => {
                             <p>Dolor sit amet, consectetur adipisicing elit. Id, sapiente. Dolor sit amet, consectetur adipisicing elit. Id, sapiente. Dolor sit amet, consectetur adipisicing elit. Id, sapiente.</p>
                             <p>Dolor sit amet, consectetur adipisicing elit. Id, sapiente.</p>
                             <div className="row justify-content-center align-items-center text-center">
-                                <a className="text-decoration-none" href="searching_choice">
+                                <Link to="searching_choice">
                                     <button type="button" className="btn btn-outline-primary fs-5 fw-bolder mt-2 shadow">
                                         Get started
                                     </button>
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <div className="row justify-content-center align-items-center">
