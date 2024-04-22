@@ -1,19 +1,21 @@
 import React, {useEffect, useRef, useState} from 'react';
 import SearchBar from "../../components/search_bar/SearchBar.jsx";
 import axios from "axios";
-import Pagination from "../../components/pagination/Pagination.jsx";
+// import Pagination from "../../components/pagination/Pagination.jsx";
 import './manual_search.scss';
-import {TablePagination} from "@mui/material";
+import {Pagination, Stack} from "@mui/material";
 
 const ManualSearch = () => {
-    const [searchTerm, setSearchTerm] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
     const [list_of_filter_types, setListOfFilterTypes] = useState([]);
     const [list_of_filter_domains, setListOfFilterDomains] = useState([]);
+    const [selectedTypes, setSelectedTypes] = useState([]);
+    const [selectedDomains, setSelectedDomains] = useState([]);
     const [results, setResults] = useState([]);
 
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage] = useState(20);
+    const [recordsPerPage] = useState(18);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -22,10 +24,14 @@ const ManualSearch = () => {
 
     const finderRef = useRef(null);
 
-    const fetchAPI = async (searchTerm) => {
-        console.log(import.meta.env.VITE_IP_PORT_TO_FLASK)
+    const fetchAPI = async () => {
         setLoading(true);
-        const response = await axios.get(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/${searchTerm}`);
+        // REQUEST TO FLASK API
+        let params = {search: searchTerm, types: selectedTypes, domains: selectedDomains};
+        let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data`);
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+        const response = await axios.get(url.toString());
+
         setListOfFilterTypes(response.data.list_of_filter_types);
         setListOfFilterDomains(response.data.list_of_filter_domains);
         setResults(response.data.results);
@@ -33,32 +39,46 @@ const ManualSearch = () => {
         console.log(response.data);
     };
 
+
     useEffect(() => {
-        const root_element = document.getElementById('root');
-        root_element.classList.remove('d-flex')
-        root_element.classList.remove('align-content-center')
-        root_element.classList.remove('justify-content-center')
-        root_element.classList.remove('align-items-center')
-        document.documentElement.style.margin = "0";
-        fetchAPI('')
+        const fetchData = async () => {
+            await fetchAPI();
+            setSelectedTypes(list_of_filter_types);
+            setSelectedDomains(list_of_filter_domains);
+        };
+
+        fetchData();
     }, []);
 
     const handleSearch = (term) => {
         setSearchTerm(term);
-        fetchAPI(term);
+        fetchAPI();
         console.log(`Searching for: ${term}`);
     };
 
-    function CheckboxComponent({ list_of_filter_types }) {
+    const handleChangeFilters = (event, [setSelected, selected]) => {
+        const id = event.target.id;
+        if (event.target.checked) {
+            setSelected([...selected, id]);
+                    console.log('selected');
+        } else {
+            setSelected(selected.filter((selectedId) => selectedId !== id));
+            console.log('deselected');
+        }
+        fetchAPI();
+    };
+
+    function CheckboxComponent({ list_of_filter, setSelected, selected }) {
         return (
             <div>
-                {list_of_filter_types.map((type) => (
+                {list_of_filter.map((type) => (
                     <div className="form-check text-secondary" key={type}>
                         <input
                             className="form-check-input checkbox-type"
                             type="checkbox"
                             id={type}
-                            defaultChecked={true}
+                            onChange={(event) => handleChangeFilters(event, [setSelected, selected])}
+                            defaultChecked
                         />
                         <label className="form-check-label" htmlFor={type}>
                             {type}
@@ -69,7 +89,14 @@ const ManualSearch = () => {
         );
     }
 
-    function TableComponent({ results }) {
+    function TableComponent({results}) {
+        if (results.length === 0) {
+            return (
+                <div className="text-center text-secondary mt-5">
+                    <h3>No results found</h3>
+                </div>
+            );
+        }
         return(
             <div>
                 <table className="table table-hover" >
@@ -108,11 +135,18 @@ const ManualSearch = () => {
                     <p className="h4 text-secondary fw-bold"  style={{marginTop:'50px'}}> Filters </p>
                     <div className="ms-3 me-3 mt-4">
                         <p className="h6 text-secondary">Object type:</p>
-                        <CheckboxComponent list_of_filter_types={list_of_filter_types}/>
+                        <CheckboxComponent
+                            list_of_filter={list_of_filter_types}
+                            setSelected={setSelectedTypes}
+                            selected={selectedTypes}
+                        />
 
                         <p className="h6 mt-3 text-secondary">Domain of search:</p>
-                        <CheckboxComponent list_of_filter_types={list_of_filter_domains}/>
-
+                        <CheckboxComponent
+                            list_of_filter={list_of_filter_domains}
+                            setSelected={setSelectedDomains}
+                            selected={selectedDomains}
+                        />
                     </div>
                 </div>
 
@@ -122,15 +156,21 @@ const ManualSearch = () => {
                 </div>
 
                 {/* SEARCH AND RESULTS */}
-                <div className="container-fluid" style={{marginTop:'50px'}}>
+                <div className="container-fluid" style={{marginTop: '50px'}}>
                     <SearchBar onSearch={handleSearch} finderRef={finderRef}/>
-                    <TableComponent results={currentRecords}/>
-                    <Pagination
-                        nPages={nPages}
-                        currentPage={currentPage}
-                        setCurrentPage={setCurrentPage}
-                    />
+
+                    <div className="search-result">
+                        <TableComponent results={currentRecords}/>
+                        <div className="d-flex justify-content-center text-primary mt-4">
+                            <Stack spacing={2}>
+                                <Pagination count={nPages} page={currentPage}
+                                            onChange={(event, page) => setCurrentPage(page)}
+                                            className="custom-pagination"/>
+                            </Stack>
+                        </div>
+                    </div>
                 </div>
+
 
             </div>
         </div>

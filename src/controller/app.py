@@ -14,29 +14,29 @@ app = Flask(__name__)
 cors = CORS(app, origins='*')
 
 
-@app.route('/api/get_data/', methods=["GET"])
-def manual_search_empty():
-    return manual_search('')
-
-
-@app.route('/api/get_data/<string:search_terms>', methods=["GET"])
-def manual_search(search_terms):
+@app.route('/api/get_data', methods=["GET"])
+def manual_search():
     list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Vulnerability']
     list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
 
-    all_result = get_searched_obj(search_terms)
+    search_terms = request.args.get('search')
+    checked_types = request.args.get('types')
+    checked_domains = request.args.get('domains')
 
-    checked_types = request.args.get('type')
-    checked_domains = request.args.get('domain')
+    all_result = get_searched_obj(search_terms)
 
     # if the user has not selected any type or domain, the default value is ['']
     if not checked_domains:
         checked_domains = ['']
+    #elif checked_domains == 'all':
+     #   checked_domains = list_of_filter_domains
     else:
         checked_domains = checked_domains.split(',')
 
     if not checked_types:
         checked_types = ['']
+    #elif checked_types == 'all':
+     #   checked_types = list_of_filter_types
     else:
         checked_types = checked_types.split(',')
 

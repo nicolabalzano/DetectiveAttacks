@@ -12,6 +12,14 @@ const Home = () => {
     const [showDescription, setShowDescription] = useState(false);
 
     useEffect(() => {
+        const root_element = document.getElementById('root');
+        root_element.classList.add('d-flex')
+        root_element.classList.add('align-content-center')
+        root_element.classList.add('justify-content-center')
+        root_element.classList.add('align-items-center')
+        root_element.style.margin = "0 auto";
+        root_element.style.height = "100.1vh";
+
         window.addEventListener("scroll", handleScroll);
 
       // Clean up the event listener when the component unmounts

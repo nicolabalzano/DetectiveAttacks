@@ -1,0 +1,13 @@
+@import "../../scss/bootstrap";
+
+.custom-pagination .MuiPaginationItem-root {
+  @extend .fs-6;
+  color: $primary ;
+  font-weight: bold;
+}
+
+.search-result{
+  overflow: auto;
+  max-height: 80vh;
+
+}
