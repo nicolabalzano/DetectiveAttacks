@@ -1,3 +1,7 @@
+input[type=checkbox] {
+  border-color: rgba(87, 87, 87, 0.88);
+}
+
 .field {
   display: flex;
   align-items: center;

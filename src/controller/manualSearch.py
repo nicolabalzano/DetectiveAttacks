@@ -29,7 +29,8 @@ def __get_searched_cve(searched_str: str):
         found_obj = False
 
     # RETURNED OBJECTS FORMAT: [type, x_mitre_id, name, x_mitre_domains]
-    searched_list_obj = [['vulnerability', obj['capability_id'], obj['capability_description'], 'CVE'] for obj in searched_list_obj]
+    searched_list_obj = [['vulnerability', obj['capability_id'], obj['capability_description'], 'CVE'] for obj in
+                         searched_list_obj]
 
     searched_list_obj = sorted(searched_list_obj, key=lambda obj: (obj[0], obj[2]))
 
@@ -53,7 +54,7 @@ def __get_search_stix(searched_str: str):
     # RETURNED OBJECTS FORMAT: [type, x_mitre_id, name, x_mitre_domains]
     searched_list_obj = [
         [
-            'attack-pattern',
+            obj.type,
             obj.x_mitre_id,
             obj.name,
             ', '.join([domain.split('-')[0] if '-' in domain else domain for domain in obj.x_mitre_domains]) or 'n/a'

@@ -25,18 +25,18 @@ def manual_search():
 
     all_result = get_searched_obj(search_terms)
 
-    # if the user has not selected any type or domain, the default value is ['']
+    # if the user has not selected any type or domain, the default value is ['----'] so nothing matches
     if not checked_domains:
-        checked_domains = ['']
-    #elif checked_domains == 'all':
-     #   checked_domains = list_of_filter_domains
+        checked_domains = ['----']
+    elif checked_domains == 'all':
+        checked_domains = list_of_filter_domains
     else:
         checked_domains = checked_domains.split(',')
 
     if not checked_types:
-        checked_types = ['']
-    #elif checked_types == 'all':
-     #   checked_types = list_of_filter_types
+        checked_types = ['----']
+    elif checked_types == 'all':
+        checked_types = list_of_filter_types
     else:
         checked_types = checked_types.split(',')
 

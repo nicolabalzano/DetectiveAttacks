@@ -36,7 +36,7 @@ const SearchBar = ({ onSearch, finderRef }) => {
           <div className="finder__icon" ref={inputRef}></div>
           <form onSubmit={handleSearch}>
             <input
-              className="finder__input"
+              className="finder__input text-light"
               type="search"
               id="input_search_bar"
               name="search"

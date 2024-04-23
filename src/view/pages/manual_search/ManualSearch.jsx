@@ -7,9 +7,9 @@ import {Pagination, Stack} from "@mui/material";
 
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [list_of_filter_types, setListOfFilterTypes] = useState([]);
-    const [list_of_filter_domains, setListOfFilterDomains] = useState([]);
+    const [listOfFilterTypes, setListOfFilterTypes] = useState(['all']);
     const [selectedTypes, setSelectedTypes] = useState([]);
+    const [listOfFilterDomains, setListOfFilterDomains] = useState(['all']);
     const [selectedDomains, setSelectedDomains] = useState([]);
     const [results, setResults] = useState([]);
 
@@ -31,44 +31,47 @@ const ManualSearch = () => {
         let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data`);
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         const response = await axios.get(url.toString());
-
-        setListOfFilterTypes(response.data.list_of_filter_types);
-        setListOfFilterDomains(response.data.list_of_filter_domains);
         setResults(response.data.results);
         setLoading(false);
         console.log(response.data);
+        return response;
     };
 
-
+    // FETCH DATA FROM API and SET FILTERS on startup
     useEffect(() => {
-        const fetchData = async () => {
-            await fetchAPI();
-            setSelectedTypes(list_of_filter_types);
-            setSelectedDomains(list_of_filter_domains);
+        const fetchFilters = async () => {
+            const response = await fetchAPI();
+
+            setListOfFilterTypes(response.data.list_of_filter_types);
+            setListOfFilterDomains(response.data.list_of_filter_domains);
+            setSelectedDomains(response.data.list_of_filter_domains);
+            setSelectedTypes(response.data.list_of_filter_types);
         };
 
-        fetchData();
+        fetchFilters();
     }, []);
+
+    useEffect(() => {
+        fetchAPI();
+    }, [searchTerm, selectedTypes, selectedDomains]);
 
     const handleSearch = (term) => {
         setSearchTerm(term);
-        fetchAPI();
-        console.log(`Searching for: ${term}`);
     };
 
-    const handleChangeFilters = (event, [setSelected, selected]) => {
-        const id = event.target.id;
-        if (event.target.checked) {
-            setSelected([...selected, id]);
-                    console.log('selected');
+    const handleCheckboxChange = (event, setSelected, selected) => {
+        const { checked, id } = event.target;
+        if (checked) {
+            setSelected((prevSelected) => [...prevSelected, id]);
         } else {
-            setSelected(selected.filter((selectedId) => selectedId !== id));
-            console.log('deselected');
+            setSelected((prevSelected) => prevSelected.filter((type) => type !== id));
         }
-        fetchAPI();
     };
 
-    function CheckboxComponent({ list_of_filter, setSelected, selected }) {
+    function CheckboxComponent({ list_of_filter, setSelected, selected}) {
+        useEffect(() => {
+        }, [selected]);
+
         return (
             <div>
                 {list_of_filter.map((type) => (
@@ -77,8 +80,8 @@ const ManualSearch = () => {
                             className="form-check-input checkbox-type"
                             type="checkbox"
                             id={type}
-                            onChange={(event) => handleChangeFilters(event, [setSelected, selected])}
-                            defaultChecked
+                            onChange={(event => handleCheckboxChange(event, setSelected, selected))}
+                            checked={selected.includes(type)}
                         />
                         <label className="form-check-label" htmlFor={type}>
                             {type}
@@ -87,6 +90,20 @@ const ManualSearch = () => {
                 ))}
             </div>
         );
+    }
+
+    function handleSort(index) {
+        const table = document.querySelector('.table-sorting');
+        const th = table.querySelectorAll('th')[index];
+        if (th.innerHTML.includes('bi-arrow-up')) {
+            th.innerHTML = th.innerHTML.replace('<i class="bi bi-arrow-up"></i>', '<i class="bi bi-arrow-down"></i>');
+            setResults([...results].sort((a, b) => a[index] > b[index] ? 1 : -1));
+        }
+        else {
+            th.innerHTML = th.innerHTML.replace('<i class="bi bi-arrow-down"></i>', '<i class="bi bi-arrow-up"></i>');
+            setResults([...results].sort((a, b) => a[index] < b[index] ? 1 : -1));
+        }
+        console.log('Sorting by index: ', index);
     }
 
     function TableComponent({results}) {
@@ -99,13 +116,13 @@ const ManualSearch = () => {
         }
         return(
             <div>
-                <table className="table table-hover" >
+                <table className="table table-hover table-sorting" >
                     <thead>
                     <tr>
-                        <th scope="col" className="text-secondary">Type</th>
-                        <th scope="col" className="text-secondary">ID</th>
-                        <th scope="col" className="text-secondary w-50">Name</th>
-                        <th scope="col" className="text-secondary">Domains</th>
+                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(0)}>Type<i className="bi bi-arrow-down"></i></th>
+                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(1)}>ID<i className="bi bi-arrow-down"></i></th>
+                        <th scope="col" role="button" className="text-secondary w-50" onClick={()=>handleSort(2)}>Name<i className="bi bi-arrow-down"></i></th>
+                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(3)}>Domains<i className="bi bi-arrow-down"></i></th>
                     </tr>
                     </thead>
 
@@ -136,14 +153,14 @@ const ManualSearch = () => {
                     <div className="ms-3 me-3 mt-4">
                         <p className="h6 text-secondary">Object type:</p>
                         <CheckboxComponent
-                            list_of_filter={list_of_filter_types}
+                            list_of_filter={listOfFilterTypes}
                             setSelected={setSelectedTypes}
                             selected={selectedTypes}
                         />
 
                         <p className="h6 mt-3 text-secondary">Domain of search:</p>
                         <CheckboxComponent
-                            list_of_filter={list_of_filter_domains}
+                            list_of_filter={listOfFilterDomains}
                             setSelected={setSelectedDomains}
                             selected={selectedDomains}
                         />

@@ -8,6 +8,9 @@
 
 .search-result{
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $primary transparent;
+
   max-height: 80vh;
 
 }

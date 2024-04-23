@@ -29,3 +29,7 @@ $theme-colors: (
 
 $body-bg:       $light;
 $body-color:    $dark;
+
+input[type="checkbox"] {
+    border-color: $secondary;
+}

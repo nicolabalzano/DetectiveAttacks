@@ -1,5 +1,9 @@
 @charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+input[type=checkbox] {
+  border-color: rgba(87, 87, 87, 0.88);
+}
+
 :root,
 [data-bs-theme=light] {
   --bs-blue: #0d6efd;
@@ -8343,6 +8347,8 @@ textarea.form-control-lg {
 
 .search-result {
   overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #7027f3 transparent;
   max-height: 80vh;
 }
 
