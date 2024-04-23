@@ -10,7 +10,25 @@
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: $primary transparent;
+  width: 100%;
+  max-height: 70vh;
 
-  max-height: 80vh;
+}
 
+input[type=number]::-webkit-inner-spin-button {
+}
+
+html{
+  color-scheme: dark !important;
+}
+
+.num-rows-selector{
+  background: $tertiary;
+  color: $light;
+  border: 1px $primary;
+  padding: 2px 10px;
+}
+
+.num-rows-selector:focus {
+  outline: 0;
 }

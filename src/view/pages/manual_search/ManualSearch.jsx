@@ -12,10 +12,11 @@ const ManualSearch = () => {
     const [listOfFilterDomains, setListOfFilterDomains] = useState(['all']);
     const [selectedDomains, setSelectedDomains] = useState([]);
     const [results, setResults] = useState([]);
+    const [arrowDirectionTabelOrder, setArrowDirectionTableOrder] = useState();
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const [recordsPerPage] = useState(18);
+    const [recordsPerPage, setRecordsPerPage] = useState(18);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -32,6 +33,12 @@ const ManualSearch = () => {
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
         const response = await axios.get(url.toString());
         setResults(response.data.results);
+        //set direction of arrows in table to default
+        if (response.data.results.length > 0) {
+            setArrowDirectionTableOrder(new Array(response.data.results[0].length).fill('down'));
+        } else {
+            setArrowDirectionTableOrder([]);
+        }
         setLoading(false);
         console.log(response.data);
         return response;
@@ -93,36 +100,30 @@ const ManualSearch = () => {
     }
 
     function handleSort(index) {
-        const table = document.querySelector('.table-sorting');
-        const th = table.querySelectorAll('th')[index];
-        if (th.innerHTML.includes('bi-arrow-up')) {
-            th.innerHTML = th.innerHTML.replace('<i class="bi bi-arrow-up"></i>', '<i class="bi bi-arrow-down"></i>');
+        let newArrowDirectionTableOrder = [...arrowDirectionTabelOrder];
+        if (arrowDirectionTabelOrder[index] === 'down') {
+            newArrowDirectionTableOrder[index] = 'up';
+            setArrowDirectionTableOrder(newArrowDirectionTableOrder);
             setResults([...results].sort((a, b) => a[index] > b[index] ? 1 : -1));
         }
         else {
-            th.innerHTML = th.innerHTML.replace('<i class="bi bi-arrow-down"></i>', '<i class="bi bi-arrow-up"></i>');
+            newArrowDirectionTableOrder[index] = 'down';
+            setArrowDirectionTableOrder(newArrowDirectionTableOrder);
             setResults([...results].sort((a, b) => a[index] < b[index] ? 1 : -1));
         }
         console.log('Sorting by index: ', index);
     }
 
     function TableComponent({results}) {
-        if (results.length === 0) {
-            return (
-                <div className="text-center text-secondary mt-5">
-                    <h3>No results found</h3>
-                </div>
-            );
-        }
         return(
-            <div>
+            <div className="search-result">
                 <table className="table table-hover table-sorting" >
                     <thead>
                     <tr>
-                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(0)}>Type<i className="bi bi-arrow-down"></i></th>
-                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(1)}>ID<i className="bi bi-arrow-down"></i></th>
-                        <th scope="col" role="button" className="text-secondary w-50" onClick={()=>handleSort(2)}>Name<i className="bi bi-arrow-down"></i></th>
-                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(3)}>Domains<i className="bi bi-arrow-down"></i></th>
+                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(0)}>Type<i className={`bi bi-arrow-${arrowDirectionTabelOrder[0]}`}></i></th>
+                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(1)}>ID<i className={`bi bi-arrow-${arrowDirectionTabelOrder[1]}`}></i></th>
+                        <th scope="col" role="button" className="text-secondary w-50" onClick={()=>handleSort(2)}>Name<i className={`bi bi-arrow-${arrowDirectionTabelOrder[2]}`}></i></th>
+                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(3)}>Domains<i className={`bi bi-arrow-${arrowDirectionTabelOrder[3]}`}></i></th>
                     </tr>
                     </thead>
 
@@ -164,6 +165,14 @@ const ManualSearch = () => {
                             setSelected={setSelectedDomains}
                             selected={selectedDomains}
                         />
+
+
+                        <div className="mt-5">
+                            <span className="fs-6">N° of rows</span>
+                            <input type="number" className="w-auto mt-3 border border-1 border-secondary rounded num-rows-selector" min="1" max="300"
+                                   defaultValue={recordsPerPage}
+                            onChange={(e)=>setRecordsPerPage(e.target.value)}/>
+                        </div>
                     </div>
                 </div>
 
@@ -173,22 +182,37 @@ const ManualSearch = () => {
                 </div>
 
                 {/* SEARCH AND RESULTS */}
-                <div className="container-fluid" style={{marginTop: '50px'}}>
-                    <SearchBar onSearch={handleSearch} finderRef={finderRef}/>
-
-                    <div className="search-result">
-                        <TableComponent results={currentRecords}/>
-                        <div className="d-flex justify-content-center text-primary mt-4">
-                            <Stack spacing={2}>
-                                <Pagination count={nPages} page={currentPage}
-                                            onChange={(event, page) => setCurrentPage(page)}
-                                            className="custom-pagination"/>
-                            </Stack>
+                {
+                    loading ? (
+                        <div className="text-center text-secondary mt-5 search-result">
+                            <div className="spinner-border text-primary" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    ) : (
 
-
+                        <div className="container-fluid" style={{marginTop: '50px'}}>
+                            <SearchBar onSearch={handleSearch} finderRef={finderRef}/>
+                            {results.length === 0 ? (
+                            <div className="text-center text-secondary mt-5 search-result">
+                                <h3>No results found</h3>
+                            </div>
+                            ) : (
+                            <div className="">
+                                <TableComponent results={currentRecords}/>
+                                <div className="d-flex justify-content-center text-primary mt-4">
+                                    <Stack spacing={2}>
+                                        {/* PAGINATION */}
+                                        <Pagination count={nPages} page={currentPage}
+                                                    onChange={(event, page) => setCurrentPage(page)}
+                                                    className="custom-pagination"/>
+                                    </Stack>
+                                </div>
+                            </div>
+                            )}
+                        </div>
+                    )
+                }
             </div>
         </div>
 
