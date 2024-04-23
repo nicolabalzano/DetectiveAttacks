@@ -2,6 +2,10 @@ input[type=checkbox] {
   border-color: rgba(87, 87, 87, 0.88);
 }
 
+html {
+  color-scheme: light !important;
+}
+
 .field {
   display: flex;
   align-items: center;

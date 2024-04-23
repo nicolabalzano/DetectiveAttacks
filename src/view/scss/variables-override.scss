@@ -6,14 +6,16 @@ $min-contrast-ratio:   2;
 // colors
 $primary: #7027f3 ;
 $secondary: rgba(87, 87, 87, 0.88);
-$tertiary: #19171aa1;
+$tertiary: rgba(255, 255, 255, 0.63);
 $primary-opacity: rgba(182, 141, 248, 0.06);
 $highlight:     #d63384;
 $accent-1:      #fefefe;
 $accent-2:      #dee2e6;
 $accent-3:      #495057;
-$light: #e2e2e2;
-$dark:          #343a40;
+$light: #dbdbdc;
+$dark:          #131417;
+$bg-opacity: rgba(93, 93, 93, 0.59);
+$bg-opacity-2: rgba(93, 93, 93, 0.8);
 
 $theme-colors: (
   "primary":    $primary,
@@ -32,4 +34,8 @@ $body-color:    $dark;
 
 input[type="checkbox"] {
     border-color: $secondary;
+}
+
+html{
+  color-scheme: light !important;
 }

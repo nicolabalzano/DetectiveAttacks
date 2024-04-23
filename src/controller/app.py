@@ -3,8 +3,8 @@ import sys
 
 from flask_cors import CORS
 
-sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/DetectiveAttack')
-# sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/DetectiveAttack')
+# sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/DetectiveAttack')
+sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/DetectiveAttack')
 
 from src.controller.objectRender.attackPattern import get_attack_patter_from_mitre_id
 from src.controller.manualSearch import get_searched_obj
@@ -12,13 +12,19 @@ from src.controller.manualSearch import get_searched_obj
 app = Flask(__name__)
 
 cors = CORS(app, origins='*')
+list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Vulnerability']
+list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
+
+
+@app.route('/api/get_filters', methods=["GET"])
+def get_filters():
+    return jsonify({
+        'list_of_filter_types': list_of_filter_types,
+        'list_of_filter_domains': list_of_filter_domains})
 
 
 @app.route('/api/get_data', methods=["GET"])
-def manual_search():
-    list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Vulnerability']
-    list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
-
+def get_data():
     search_terms = request.args.get('search')
     checked_types = request.args.get('types')
     checked_domains = request.args.get('domains')
@@ -54,8 +60,6 @@ def manual_search():
     # filters = "?search=" + search_term + "&type=" + ','.join(checked_types) + "&domain=" + ','.join(checked_domains)
 
     return jsonify({
-        'list_of_filter_types': list_of_filter_types,
-        'list_of_filter_domains': list_of_filter_domains,
         'results': results,
     })
     # , filters=filters

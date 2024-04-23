@@ -5,10 +5,10 @@ form {
 }
 
 .finder {
-  border: 1px solid $primary;
+  border: 2px solid $secondary;
   border-radius: 15px;
   padding: 2px;
-  background-color: $tertiary;
+  background-color: $tertiary opacity(0.5);
   margin: 0 0 20px 5px;
 }
 
@@ -38,6 +38,7 @@ form {
   width: 100%;
   background-color: transparent;
   outline: none;
+  color: var(--body-color) !important;
 }
 
 .finder__icon {
@@ -72,7 +73,7 @@ form {
 
     @at-root .active & {
       border-width: 10px;
-      background-color: $tertiary;
+      background-color: var(--body-bg);
     }
   }
 

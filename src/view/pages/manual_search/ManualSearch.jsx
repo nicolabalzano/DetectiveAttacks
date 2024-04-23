@@ -3,14 +3,14 @@ import SearchBar from "../../components/search_bar/SearchBar.jsx";
 import axios from "axios";
 // import Pagination from "../../components/pagination/Pagination.jsx";
 import './manual_search.scss';
-import {Pagination, Stack} from "@mui/material";
+import {Box, Pagination, Skeleton, Stack} from "@mui/material";
 
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [listOfFilterTypes, setListOfFilterTypes] = useState(['all']);
-    const [selectedTypes, setSelectedTypes] = useState([]);
+    const [selectedTypes, setSelectedTypes] = useState(['all']);
     const [listOfFilterDomains, setListOfFilterDomains] = useState(['all']);
-    const [selectedDomains, setSelectedDomains] = useState([]);
+    const [selectedDomains, setSelectedDomains] = useState(['all']);
     const [results, setResults] = useState([]);
     const [arrowDirectionTabelOrder, setArrowDirectionTableOrder] = useState();
 
@@ -25,7 +25,15 @@ const ManualSearch = () => {
 
     const finderRef = useRef(null);
 
-    const fetchAPI = async () => {
+    const fetchFilterAPI = async () => {
+        const response = await axios.get(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_filters`);
+        setListOfFilterTypes(response.data.list_of_filter_types);
+        setListOfFilterDomains(response.data.list_of_filter_domains);
+        setSelectedDomains(response.data.list_of_filter_domains);
+        setSelectedTypes(response.data.list_of_filter_types);
+    }
+
+    const fetchDataAPI = async () => {
         setLoading(true);
         // REQUEST TO FLASK API
         let params = {search: searchTerm, types: selectedTypes, domains: selectedDomains};
@@ -40,26 +48,20 @@ const ManualSearch = () => {
             setArrowDirectionTableOrder([]);
         }
         setLoading(false);
+        console.log(url.toString())
         console.log(response.data);
         return response;
     };
 
     // FETCH DATA FROM API and SET FILTERS on startup
     useEffect(() => {
-        const fetchFilters = async () => {
-            const response = await fetchAPI();
-
-            setListOfFilterTypes(response.data.list_of_filter_types);
-            setListOfFilterDomains(response.data.list_of_filter_domains);
-            setSelectedDomains(response.data.list_of_filter_domains);
-            setSelectedTypes(response.data.list_of_filter_types);
-        };
-
-        fetchFilters();
+        fetchFilterAPI().then(r=>console.log('1° useEffect'));
     }, []);
 
     useEffect(() => {
-        fetchAPI();
+
+        fetchDataAPI().then(r =>
+            console.log('Search term changed checkbox' + selectedDomains + selectedTypes));
     }, [searchTerm, selectedTypes, selectedDomains]);
 
     const handleSearch = (term) => {
@@ -76,9 +78,6 @@ const ManualSearch = () => {
     };
 
     function CheckboxComponent({ list_of_filter, setSelected, selected}) {
-        useEffect(() => {
-        }, [selected]);
-
         return (
             <div>
                 {list_of_filter.map((type) => (
@@ -119,7 +118,7 @@ const ManualSearch = () => {
             <div className="search-result">
                 <table className="table table-hover table-sorting" >
                     <thead>
-                    <tr>
+                    <tr >
                         <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(0)}>Type<i className={`bi bi-arrow-${arrowDirectionTabelOrder[0]}`}></i></th>
                         <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(1)}>ID<i className={`bi bi-arrow-${arrowDirectionTabelOrder[1]}`}></i></th>
                         <th scope="col" role="button" className="text-secondary w-50" onClick={()=>handleSort(2)}>Name<i className={`bi bi-arrow-${arrowDirectionTabelOrder[2]}`}></i></th>
@@ -129,7 +128,7 @@ const ManualSearch = () => {
 
                     <tbody className="table-group-divider ">
                     {results.map((result) => (
-                        <tr>
+                        <tr className="border-b border-secondary">
                             <td>{result[0]}</td>
                             <td>{result[1]}</td>
                             <td>{result[2]}</td>
@@ -169,9 +168,9 @@ const ManualSearch = () => {
 
                         <div className="mt-5">
                             <span className="fs-6">N° of rows</span>
-                            <input type="number" className="w-auto mt-3 border border-1 border-secondary rounded num-rows-selector" min="1" max="300"
+                            <input type="number" className="w-auto mt-3 rounded num-rows-selector" min="1" max="300"
                                    defaultValue={recordsPerPage}
-                            onChange={(e)=>setRecordsPerPage(e.target.value)}/>
+                                   onChange={(e)=>setRecordsPerPage(e.target.value)}/>
                         </div>
                     </div>
                 </div>
@@ -182,37 +181,39 @@ const ManualSearch = () => {
                 </div>
 
                 {/* SEARCH AND RESULTS */}
-                {
-                    loading ? (
-                        <div className="text-center text-secondary mt-5 search-result">
-                            <div className="spinner-border text-primary" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                    ) : (
-
-                        <div className="container-fluid" style={{marginTop: '50px'}}>
-                            <SearchBar onSearch={handleSearch} finderRef={finderRef}/>
-                            {results.length === 0 ? (
+                <div className="container-fluid" style={{marginTop: '50px'}}>
+                    <SearchBar onSearch={handleSearch} finderRef={finderRef}/>
+                    {
+                        loading ? (
                             <div className="text-center text-secondary mt-5 search-result">
-                                <h3>No results found</h3>
+                                <Box sx={{ width: 1 }}>
+                                    {[...Array(recordsPerPage)].map((_, index) => (
+                                        <Skeleton key={index} animation="wave" height="50px" />
+                                    ))}
+                                </Box>
                             </div>
-                            ) : (
-                            <div className="">
-                                <TableComponent results={currentRecords}/>
-                                <div className="d-flex justify-content-center text-primary mt-4">
-                                    <Stack spacing={2}>
-                                        {/* PAGINATION */}
-                                        <Pagination count={nPages} page={currentPage}
-                                                    onChange={(event, page) => setCurrentPage(page)}
-                                                    className="custom-pagination"/>
-                                    </Stack>
+                        ) : (
+                            results.length === 0 ? (
+                                <div className="text-center text-secondary mt-5 search-result">
+                                    <h3>No results found</h3>
                                 </div>
-                            </div>
-                            )}
-                        </div>
-                    )
-                }
+                            ) : (
+                                <div className="">
+                                    <TableComponent results={currentRecords}/>
+                                    <div className="d-flex justify-content-center text-primary mt-4">
+                                        <Stack spacing={2}>
+                                            {/* PAGINATION */}
+                                            <Pagination count={nPages} page={currentPage}
+                                                        onChange={(event, page) => setCurrentPage(page)}
+                                                        className="custom-pagination"/>
+                                        </Stack>
+                                    </div>
+                                </div>
+                            )
+                        )
+                    }
+                </div>
+
             </div>
         </div>
 

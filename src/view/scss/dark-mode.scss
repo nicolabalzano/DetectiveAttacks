@@ -42,5 +42,9 @@ html[darkmode] {
     }
   }
 
+  --#{$variable-prefix}tertiary: #{to-rgb($tertiary)};
+
+  color-scheme: dark !important;
+
 
 }
