@@ -56,6 +56,14 @@ const ManualSearch = () => {
     // FETCH DATA FROM API and SET FILTERS on startup
     useEffect(() => {
         fetchFilterAPI().then(r=>console.log('1° useEffect'));
+
+        const root_element = document.getElementById('root');
+        root_element.classList.remove('d-flex')
+        root_element.classList.remove('align-content-center')
+        root_element.classList.remove('justify-content-center')
+        root_element.classList.remove('align-items-center')
+        root_element.style.margin = "0";
+        root_element.style.height = "100vh";
     }, []);
 
     useEffect(() => {

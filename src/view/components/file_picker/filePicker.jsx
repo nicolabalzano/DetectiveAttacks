@@ -24,7 +24,7 @@ function FilePicker() {
                         <span className="file-name"> </span> | <span className="file-size">  </span></div>
                     <span className="material-icons remove-file-icon">delete</span>
                 </div>
-                <button type="button" className="btn btn-outline-primary mt-3 upload-button fw-semibold"> Upload</button>
+                <button type="button" className="btn btn-outline-primary mt-3 upload-button fw-semibold shadow"> Upload</button>
             </div>
         </form>
     )
