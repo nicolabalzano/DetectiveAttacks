@@ -29,7 +29,8 @@ def __get_searched_cve(searched_str: str):
         found_obj = False
 
     # RETURNED OBJECTS FORMAT: [type, x_mitre_id, name, x_mitre_domains]
-    searched_list_obj = [['vulnerability', obj['capability_id'], obj['capability_description'].strip(), 'CVE'] for obj in
+    searched_list_obj = [['vulnerability', obj['capability_id'], obj['capability_description'].strip(), 'CVE'] for obj
+                         in
                          searched_list_obj if obj['capability_id'] and obj['capability_description']]
 
     searched_list_obj = sorted(searched_list_obj, key=lambda obj: (obj[0], obj[2]))

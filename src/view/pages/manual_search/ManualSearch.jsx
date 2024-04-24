@@ -3,8 +3,8 @@ import SearchBar from "../../components/search_bar/SearchBar.jsx";
 import axios from "axios";
 import './manual_search.scss';
 import {Box, Pagination, Skeleton, Stack} from "@mui/material";
-import {Link} from "react-router-dom";
-
+import {Link, useNavigate} from "react-router-dom";
+import {fetchDataAPI, fetchFilterAPI} from "../../components/api/fetchAPI.jsx";
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [listOfFilterTypes, setListOfFilterTypes] = useState(['all']);
@@ -25,37 +25,17 @@ const ManualSearch = () => {
 
     const finderRef = useRef(null);
 
-    const fetchFilterAPI = async () => {
-        const response = await axios.get(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_filters`);
-        setListOfFilterTypes(response.data.list_of_filter_types);
-        setListOfFilterDomains(response.data.list_of_filter_domains);
-        setSelectedDomains(response.data.list_of_filter_domains);
-        setSelectedTypes(response.data.list_of_filter_types);
-    }
-
-    const fetchDataAPI = async () => {
-        setLoading(true);
-        // REQUEST TO FLASK API
-        let params = {search: searchTerm, types: selectedTypes, domains: selectedDomains};
-        let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data`);
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-        const response = await axios.get(url.toString());
-        setResults(response.data.results);
-        //set direction of arrows in table to default
-        if (response.data.results.length > 0) {
-            setArrowDirectionTableOrder(new Array(response.data.results[0].length).fill('down'));
-        } else {
-            setArrowDirectionTableOrder([]);
-        }
-        setLoading(false);
-        console.log(url.toString())
-        console.log(response.data);
-        return response;
-    };
+    const navigate = useNavigate();
 
     // FETCH DATA FROM API and SET FILTERS on startup
     useEffect(() => {
-        fetchFilterAPI().then(r=>console.log('1° useEffect'));
+        // FETCH FILTERS FROM API
+        fetchFilterAPI().then(r=>{
+            setListOfFilterTypes(r.data.list_of_filter_types);
+            setListOfFilterDomains(r.data.list_of_filter_domains);
+            setSelectedDomains(r.data.list_of_filter_domains);
+            setSelectedTypes(r.data.list_of_filter_types);
+        });
 
         const root_element = document.getElementById('root');
         root_element.classList.remove('d-flex')
@@ -67,9 +47,18 @@ const ManualSearch = () => {
     }, []);
 
     useEffect(() => {
-
-        fetchDataAPI().then(r =>
-            console.log('Search term changed checkbox' + selectedDomains + selectedTypes));
+        setLoading(true);
+        // FETCH DATA FROM API
+        fetchDataAPI(searchTerm, selectedTypes, selectedDomains).then(r =>{
+            setResults(r.data.results);
+            //set direction of arrows in table to default
+            if (r.data.results.length > 0) {
+                setArrowDirectionTableOrder(new Array(r.data.results[0].length).fill('down'));
+            } else {
+                setArrowDirectionTableOrder([]);
+            }
+            setLoading(false);
+        });
     }, [searchTerm, selectedTypes, selectedDomains]);
 
     const handleSearch = (term) => {
@@ -121,6 +110,10 @@ const ManualSearch = () => {
         console.log('Sorting by index: ', index);
     }
 
+    function handleClickRowOfTable(id) {
+        navigate('/attack', { state: { id: id }});
+    }
+
     function TableComponent({results}) {
         return(
             <div className="search-result">
@@ -136,22 +129,11 @@ const ManualSearch = () => {
 
                     <tbody className="table-group-divider ">
                     {results.map((result, index) => (
-                        <tr key={index} className="border-b border-secondary">
-                            <td>
-                                <Link
-                                    className="text-decoration-none text-color"
-                                    to={{
-                                        pathname: "/attack",
-                                        state: { searchedResult: 'suuuuuuuuuuuuuuuusssssssssssssssssss' }
-                                    }}
-                                >
-                                    {result[0]}
-                                </Link>
-                            </td>
-                            <td><Link className="" to="/render_attack">{result[1]}</Link></td>
-                            <td><Link className="text-decoration-none text-color" to="/render_attack">{result[2]}</Link></td>
-                            <td><Link className="text-decoration-none text-color" to="/render_attack">{result[3]}</Link></td>
-
+                        <tr key={index} className="border-b border-secondary" role="button" onClick={()=>handleClickRowOfTable(result[1])}>
+                            <td>{result[0]}</td>
+                            <td>{result[1]}</td>
+                            <td>{result[2]}</td>
+                            <td>{result[3]}</td>
                         </tr>
                     ))}
                     </tbody>
