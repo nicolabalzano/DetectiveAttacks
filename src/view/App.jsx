@@ -7,6 +7,7 @@ import "./scss/bootstrap.scss";
 import {createBrowserRouter, createRoutesFromElements, Outlet, Route, RouterProvider} from "react-router-dom";
 import SearchingChoice from "./pages/searching_choice/SearchingChoice.jsx";
 import ManualSearch from "./pages/manual_search/ManualSearch.jsx";
+import Attack from "./pages/threat_show/attack/Attack.jsx";
 
 
 const router = createBrowserRouter(
@@ -15,13 +16,13 @@ const router = createBrowserRouter(
       <Route path="" element={<Home />} />
         <Route path="searching_choice" element={<SearchingChoice />} />
         <Route path="manual_search" element={<ManualSearch />} />
+        <Route path="attack" element={<Attack />} />
         {/*  <Route path="register" element={<Register />}/> */}
     </Route>
   )
 )
 
-function App({routes}) {
-  const [count, setCount] = useState(0)
+function App() {
 
   return (
     <div className="App">

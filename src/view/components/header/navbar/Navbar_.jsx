@@ -2,7 +2,7 @@ import React from 'react';
 import './navbar.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import logo from '../../../assets/logo.svg';
+import LogoSvg from "../../../assets/LogoSvg.jsx";
 
 const Navbar_ = () => {
     return (
@@ -10,15 +10,17 @@ const Navbar_ = () => {
 
             {/* LOGO */}
             <Navbar.Brand className="d-flex justify-content-center align-items-center me-auto">
-                <a className="navbar-brand" href="/">
-                    <img src={logo} alt="Logo" width="30" height="24" className="logo-img d-inline-block align-text-top" />
-                </a>
+                <span className="text-color display-6 fs-5" href="/">
+                    NB Creations
+                </span>
             </Navbar.Brand>
 
             {/* SMALL TITLE */}
             <div className="d-flex justify-content-center align-items-center me-auto ms-auto">
-                <div className="container-fluid d-flex justify-content-center align-items-center small-logo-container ">
-                    <a className="small-logo h1 transition-element" href="/">Detective Attack</a>
+                <div className="container-fluid d-flex justify-content-center align-items-center small-logo-container small-logo transition-element">
+                    <a className="h1 m-0 text-decoration-none" href="/">ThreatExplorer</a>
+                    <LogoSvg w={'50px'} h={'50px'}/>
+
                 </div>
             </div>
 

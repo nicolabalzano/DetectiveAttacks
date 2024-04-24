@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
 import SearchBar from "../../components/search_bar/SearchBar.jsx";
 import axios from "axios";
-// import Pagination from "../../components/pagination/Pagination.jsx";
 import './manual_search.scss';
 import {Box, Pagination, Skeleton, Stack} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -135,12 +135,23 @@ const ManualSearch = () => {
                     </thead>
 
                     <tbody className="table-group-divider ">
-                    {results.map((result) => (
-                        <tr className="border-b border-secondary">
-                            <td>{result[0]}</td>
-                            <td>{result[1]}</td>
-                            <td>{result[2]}</td>
-                            <td>{result[3]}</td>
+                    {results.map((result, index) => (
+                        <tr key={index} className="border-b border-secondary">
+                            <td>
+                                <Link
+                                    className="text-decoration-none text-color"
+                                    to={{
+                                        pathname: "/attack",
+                                        state: { searchedResult: 'suuuuuuuuuuuuuuuusssssssssssssssssss' }
+                                    }}
+                                >
+                                    {result[0]}
+                                </Link>
+                            </td>
+                            <td><Link className="" to="/render_attack">{result[1]}</Link></td>
+                            <td><Link className="text-decoration-none text-color" to="/render_attack">{result[2]}</Link></td>
+                            <td><Link className="text-decoration-none text-color" to="/render_attack">{result[3]}</Link></td>
+
                         </tr>
                     ))}
                     </tbody>
@@ -175,7 +186,7 @@ const ManualSearch = () => {
 
 
                         <div className="mt-5">
-                            <span className="fs-6">N° of rows</span>
+                            <span className="fs-6 fw-semibold text-secondary">N° of rows</span>
                             <input type="number" className="w-auto mt-3 rounded num-rows-selector" min="1" max="300"
                                    defaultValue={recordsPerPage}
                                    onChange={(e)=>setRecordsPerPage(e.target.value)}/>

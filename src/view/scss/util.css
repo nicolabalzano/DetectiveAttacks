@@ -8409,4 +8409,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   outline: none;
 }
 
+.fill {
+  fill: var(--bs-body-color);
+}
+
+.text-color {
+  color: var(--bs-body-color);
+}
+
 /*# sourceMappingURL=util.css.map */

@@ -5,6 +5,7 @@ import "../../scss/util.scss"
 import cyber from "../../assets/cyber.png";
 import {handleScroll} from "./scrollAnim.js";
 import {Link} from "react-router-dom";
+import LogoSvg from "../../assets/LogoSvg.jsx";
 
 const Home = () => {
     const [showLogo, setShowLogo] = useState(true);
@@ -20,6 +21,8 @@ const Home = () => {
         root_element.style.margin = "0 auto";
         root_element.style.height = "100.1vh";
 
+        document.querySelector('.small-logo').classList.add('hide');
+
         window.addEventListener("scroll", handleScroll);
 
       // Clean up the event listener when the component unmounts
@@ -31,7 +34,8 @@ const Home = () => {
     return (
         <div className="container-fluid big-logo-container d-flex flex-column justify-content-center align-items-center first-container">
             <div className={`container-fluid justify-content-center transition-element`}>
-                <h1 className="big-logo">Detective Attack</h1>
+                <h1 className="big-logo">ThreatExplorer
+                <LogoSvg w={'180px'} h={'180px'}/></h1>
             </div>
             <div className="d-flex justify-content-center align-items-center sub-title">
                 <h2 className="mb-0 display-2 sub-title text-primary transition-element">Prevent attacks in your business</h2>

@@ -7,8 +7,7 @@
 }
 
 .small-logo {
-  color: white;
-  text-decoration: none;
+  color: var(--bs-body-color);
 }
 
 /*# sourceMappingURL=navbar.css.map */
