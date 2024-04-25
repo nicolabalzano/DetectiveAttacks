@@ -1,10 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import SearchBar from "../../components/search_bar/SearchBar.jsx";
-import axios from "axios";
 import './manual_search.scss';
 import {Box, Pagination, Skeleton, Stack} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import {fetchDataAPI, fetchFilterAPI} from "../../components/api/fetchAPI.jsx";
+import {handleClickRowOfTable} from "./HandleRoutingThreats.jsx";
+
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [listOfFilterTypes, setListOfFilterTypes] = useState(['all']);
@@ -107,11 +108,7 @@ const ManualSearch = () => {
             setArrowDirectionTableOrder(newArrowDirectionTableOrder);
             setResults([...results].sort((a, b) => a[index] < b[index] ? 1 : -1));
         }
-        console.log('Sorting by index: ', index);
-    }
 
-    function handleClickRowOfTable(id) {
-        navigate('/attack', { state: { id: id }});
     }
 
     function TableComponent({results}) {
@@ -129,7 +126,7 @@ const ManualSearch = () => {
 
                     <tbody className="table-group-divider ">
                     {results.map((result, index) => (
-                        <tr key={index} className="border-b border-secondary" role="button" onClick={()=>handleClickRowOfTable(result[1])}>
+                        <tr key={index} className="border-b border-secondary" role="button" onClick={()=>handleClickRowOfTable(result[1], result[0], navigate)}>
                             <td>{result[0]}</td>
                             <td>{result[1]}</td>
                             <td>{result[2]}</td>

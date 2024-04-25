@@ -1,3 +1,5 @@
+@import "../../scss/util";
+
 .title{
     font-weight: bold;
     margin-bottom: 50px;
@@ -8,4 +10,8 @@
     width: auto;
     height: 250px;
     object-fit: contain;
+}
+
+:root{
+  @extend .no-scrollbar;
 }

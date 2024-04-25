@@ -21,12 +21,7 @@
   transform: translateY(50px);
 }
 
-/*
-.hide {
-  opacity: 0;
-  transform: translateY(50px);
-}
- */
+
 
 .logo-img{
   margin-right: 10px;
@@ -59,6 +54,17 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 
 .margin-top-100{
   margin-top: 100px;
+}
+
+.scrollbar{
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $primary transparent;
+}
+
+.no-scrollbar{
+  overflow: hidden;
+  scrollbar-width: none;
 }
 
 .btn-no-outline{

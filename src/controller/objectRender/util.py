@@ -35,6 +35,27 @@ def format_external_references(external_references: list) -> list[dict]:
     return formatted_references
 
 
+def format_related_attack_patterns(related_attack_patterns_rel: dict) -> list[dict]:
+    formatted_attack_patterns = []
+
+    for attack_pattern, rel in related_attack_patterns_rel.items():
+        dict_ = {}
+        dict_['ID'] = attack_pattern.x_mitre_id
+        dict_['Name'] = attack_pattern.name
+        dict_['Type'] = attack_pattern.type
+        dict_['Description'] = attack_pattern.description
+        dict_['Purpose'] = format_list_of_string(rel.relationship_type)
+        dict_['Suggestion for this case'] = format_list_of_string(rel.description)
+        dict_['Kill Chain phases'] = format_kill_chain_phases(attack_pattern)
+        dict_['Mitre Kill Chain phases'] = format_mitre_kill_chain_phases(attack_pattern.kill_chain_phases)
+        dict_['Platforms'] = format_list_of_string(attack_pattern.x_mitre_platforms)
+        dict_['External references'] = format_external_references(attack_pattern.external_references)
+        dict_ = remove_empty_values(dict_)
+        formatted_attack_patterns.append(dict_)
+
+    return formatted_attack_patterns
+
+
 # recursive function to remove key for empty string values
 def remove_empty_values(dictionary):
     for key in list(dictionary.keys()):  # Use list to create a copy of the dictionary's keys

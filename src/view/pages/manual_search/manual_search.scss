@@ -1,4 +1,5 @@
 @import "../../scss/bootstrap";
+@import "../../scss/util";
 
 .custom-pagination .MuiPaginationItem-root {
   @extend .fs-6;
@@ -7,9 +8,8 @@
 }
 
 .search-result{
+  @extend .scrollbar;
   overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: $primary transparent;
   width: 100%;
   max-height: 70vh;
 
@@ -24,4 +24,8 @@
 
 .num-rows-selector:focus {
   outline: 0;
+}
+
+:root{
+  @extend .no-scrollbar;
 }

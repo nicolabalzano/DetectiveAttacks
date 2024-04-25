@@ -1,0 +1,35 @@
+@import "../../scss/bootstrap";
+@import "../../scss/util";
+
+.dropdown-my-content{
+  @extend .scrollbar;
+  @extend .rounded;
+  padding: 20px;
+  max-width: 80vw;
+  overflow: auto;
+  max-height: 50vh;
+  word-wrap: break-word;
+
+  background-image: linear-gradient(rgba(180, 180, 180, 0.11), rgba(180, 180, 180, 0.11));
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+.dropdown-menu{
+  padding: 0;
+}
+
+.dropdown-toggle {
+  background-color: var(--body-bg);
+  color: var(--body-color);
+  border: 0;
+  box-shadow: none;
+  background-image: none;
+  padding: 0;
+}
+
+:root{
+  @extend .scrollbar
+}

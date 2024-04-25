@@ -8366,12 +8366,6 @@ textarea.form-control-lg {
   transform: translateY(50px);
 }
 
-/*
-.hide {
-  opacity: 0;
-  transform: translateY(50px);
-}
- */
 .logo-img {
   margin-right: 10px;
 }
@@ -8403,6 +8397,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 
 .margin-top-100 {
   margin-top: 100px;
+}
+
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #7027f3 transparent;
 }
 
 .btn-no-outline {

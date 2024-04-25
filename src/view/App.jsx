@@ -8,6 +8,8 @@ import {createBrowserRouter, createRoutesFromElements, Outlet, Route, RouterProv
 import SearchingChoice from "./pages/searching_choice/SearchingChoice.jsx";
 import ManualSearch from "./pages/manual_search/ManualSearch.jsx";
 import Attack from "./pages/threat_show/attack/Attack.jsx";
+import Tool from "./pages/threat_show/tool/Tool.jsx";
+import Malware from "./pages/threat_show/malware/Malware.jsx";
 
 
 const router = createBrowserRouter(
@@ -17,6 +19,8 @@ const router = createBrowserRouter(
         <Route path="searching_choice" element={<SearchingChoice />} />
         <Route path="manual_search" element={<ManualSearch />} />
         <Route path="attack" element={<Attack />} />
+        <Route path="tool" element={<Tool />} />
+        <Route path="malware" element={<Malware />} />
         {/*  <Route path="register" element={<Register />}/> */}
     </Route>
   )

@@ -3,6 +3,8 @@ import sys
 
 from flask_cors import CORS
 
+from src.controller.objectRender.toolMalware import get_tool_malware_from_mitre_id
+
 # sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/DetectiveAttack')
 sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/DetectiveAttack')
 
@@ -14,33 +16,6 @@ app = Flask(__name__)
 cors = CORS(app, origins='*')
 list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Vulnerability']
 list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
-
-# Important attributes to show in the mirror info rectangle
-LIST_OF_IMPORTANT_ATTRS = ['ID', 'Domains', 'Mitre Kill Chain phases', 'Kill Chain phases', 'Platforms', 'Deprecated']
-
-# Attributes already shown
-LIST_OF_ALREADY_SHOWN_ATTRS = LIST_OF_IMPORTANT_ATTRS + ['Name', 'Type', 'Description', 'Detection suggestions',
-                                                         'Mitigations', 'Procedure examples']
-
-
-@app.template_filter('remove_important_attr_to_dict')
-def remove_important_attr_to_dict(my_dict):
-    """Remove important attributes from dict"""
-    for important_attr in LIST_OF_ALREADY_SHOWN_ATTRS:
-        my_dict.pop(important_attr, None)
-
-    return my_dict
-
-
-@app.template_filter('get_dict_with_info_attr')
-def get_dict_with_info_attr(my_dict):
-    """Return dict with items for mirror info rectangle"""
-    dict_of_info = {}
-    for important_attr in LIST_OF_IMPORTANT_ATTRS:
-        if important_attr in my_dict:
-            dict_of_info[important_attr] = my_dict[important_attr]
-
-    return dict_of_info
 
 
 @app.route('/api/get_filters', methods=["GET"])
@@ -93,7 +68,42 @@ def get_data():
 
 
 @app.route('/api/get_data/get_attack')
-def attack_pattern():
+def get_attack():
+    searched_id = request.args.get('id')
+    searched_result = get_attack_patter_from_mitre_id(searched_id)
+    return searched_result
+
+
+@app.route('/api/get_data/get_campaign')
+def get_campaign():
+    searched_id = request.args.get('id')
+    searched_result = get_attack_patter_from_mitre_id(searched_id)
+    return searched_result
+
+
+@app.route('/api/get_data/get_tool_malware')
+def get_tool_malware():
+    searched_id = request.args.get('id')
+    searched_result = get_tool_malware_from_mitre_id(searched_id)
+    return searched_result
+
+
+@app.route('/api/get_data/get_mitigation')
+def get_mitigation():
+    searched_id = request.args.get('id')
+    searched_result = get_attack_patter_from_mitre_id(searched_id)
+    return searched_result
+
+
+@app.route('/api/get_data/get_asset')
+def get_asset():
+    searched_id = request.args.get('id')
+    searched_result = get_attack_patter_from_mitre_id(searched_id)
+    return searched_result
+
+
+@app.route('/api/get_data/get_vulnerability')
+def get_vulnerability():
     searched_id = request.args.get('id')
     searched_result = get_attack_patter_from_mitre_id(searched_id)
     return searched_result
