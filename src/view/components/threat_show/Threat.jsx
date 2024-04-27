@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import RenderDict from './util/RenderDict';
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {fetchDataAttackAPI} from "../api/fetchAPI.jsx";
 import ImportantInfo from "./util/ImportantInfo.jsx";
-import OtherImportantInfo from "./util/OtherImoprtantInfo.jsx";
+import OtherImportantInfo from "./util/OtherImportantInfo.jsx";
 import CardView from "./util/CardView.jsx";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import('./threat.scss')
@@ -11,9 +11,8 @@ import('./threat.scss')
 
 const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunction}) => {
     const [searchedResult, setSearchedResult] = useState(null);
-    const location = useLocation();
-
-
+    // const location = useLocation();
+    const idObj = new URLSearchParams(useLocation().search).get('id');
 
     const [infoForCardViewDict, setInfoForCardViewDict] = useState(null);
     const [otherImportantInfoDict, setOtherImportantInfo] = useState(null);
@@ -21,7 +20,7 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
 
 
     useEffect(() => {
-        const idObj = location.state.id;
+        // const idObj = location.state.id;
 
         // FETCH DATA FROM API
         fetchDataFunction(idObj).then((r) => {
@@ -71,9 +70,15 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
                     <div className="row align-items-end">
                         <div className="col">
                             <ImportantInfo importantInfoDict={searchedResult}/>
-                            <DropdownButton title='Other info' variant="Secondary" drop="end" className="mt-3">
-                            <div className="dropdown-my-content"><RenderDict infoDict={otherInfoDict}/></div>
-                        </DropdownButton>
+
+                            {
+                                Object.keys(otherInfoDict).length !== 0 &&(
+                                    <DropdownButton title='Other info' variant="Secondary" drop="end" className="mt-3">
+                                        <div className="dropdown-my-content"><RenderDict infoDict={otherInfoDict}/></div>
+                                    </DropdownButton>
+                                )
+                            }
+
                         </div>
                         <div className="col-3 mt-xl-5 mb-auto">
                             <CardView infoDict={infoForCardViewDict}/>

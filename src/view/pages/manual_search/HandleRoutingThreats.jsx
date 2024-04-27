@@ -1,24 +1,29 @@
-export function handleClickRowOfTable(id, type, navigate) {
-
-        if(type === 'attack-pattern') {
-            navigate('/attack', { state: { id: id }});
-        }
-        else if(type === 'campaign') {
-            navigate('/campaign', { state: { id: id }});
-        }
-        else if(type === 'tool') {
-            navigate('/tool', { state: { id: id }});
-        }
-        else if(type === 'malware') {
-            navigate('/malware', { state: { id: id }});
-        }
-        else if(type === 'mitigation') {
-            navigate('/mitigation', { state: { id: id }});
-        }
-        else if(type.includes('asset')) {
-            navigate('/asset', { state: { id: id }});
-        }
-        else if(type.includes('vulnerability')) {
-            navigate('/vulnerability', { state: { id: id }});
-        }
+export function navigateToThreats(id, type) {
+    let url;
+    console.log(type);
+    if((type && type === 'attack-pattern') || (id[0] === 'T' || id.substring(0,3)==='AML')) {
+        url = '/attack';
     }
+    else if((type && type.includes('vulnerability')) || id.substring(0,3)==='CVE') {
+        url = '/vulnerability';
+    }
+    else if((type && type === 'campaign') || id[0] === 'C') {
+        url = '/campaign';
+    }
+    else if((type && type === 'tool') || id[0] === 'S') {
+        url = '/tool';
+    }
+    else if((type && type === 'malware') || id[0] === 'S') {
+        url = '/malware';
+    }
+    else if((type && type === 'mitigation') || id[0] === 'M') {
+        url = '/mitigation';
+    }
+    else if((type && type.includes('asset')) || id[0] === 'A') {
+        url = '/asset';
+    }
+
+    if (url) {
+        window.open(url + '?id=' + id, '_blank');
+    }
+}

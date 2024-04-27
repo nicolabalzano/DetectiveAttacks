@@ -4,7 +4,7 @@ import './manual_search.scss';
 import {Box, Pagination, Skeleton, Stack} from "@mui/material";
 import {Link, useNavigate} from "react-router-dom";
 import {fetchDataAPI, fetchFilterAPI} from "../../components/api/fetchAPI.jsx";
-import {handleClickRowOfTable} from "./HandleRoutingThreats.jsx";
+import {navigateToThreats} from "./HandleRoutingThreats.jsx";
 
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -126,7 +126,7 @@ const ManualSearch = () => {
 
                     <tbody className="table-group-divider ">
                     {results.map((result, index) => (
-                        <tr key={index} className="border-b border-secondary" role="button" onClick={()=>handleClickRowOfTable(result[1], result[0], navigate)}>
+                        <tr key={index} className="border-b border-secondary" role="button" onClick={()=>navigateToThreats(result[1], result[0])}>
                             <td>{result[0]}</td>
                             <td>{result[1]}</td>
                             <td>{result[2]}</td>
