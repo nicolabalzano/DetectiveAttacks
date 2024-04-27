@@ -11,7 +11,12 @@ function ImportantInfo({importantInfoDict}){
                     {importantInfoDict.Type}
                 </p>
             </div>
-            <p className="fs-5">{importantInfoDict['Description']}</p>
+            {
+                importantInfoDict.Description &&
+                <div className="text-secondary fs-5 mt-3">
+                    {importantInfoDict.Description}
+                </div>
+            }
         </>
     );
 }

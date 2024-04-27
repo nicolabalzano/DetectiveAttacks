@@ -23,7 +23,9 @@ function RenderValue({ subDict }) {
         <div className="ms-5">
             <p>
                 <span className="display-6 fs-3">{subDict.Name} </span>
-                <span className="text-secondary fs-6">({subDict.ID})</span>
+                {
+                    subDict.ID && <span className="text-secondary fs-6">({subDict.ID})</span>
+                }
             </p>
             <div className="ms-3 mb-3">
                 <p>{subDict.Description}</p>

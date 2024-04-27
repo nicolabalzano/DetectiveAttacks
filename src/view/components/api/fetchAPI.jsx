@@ -43,13 +43,6 @@ export const fetchDataMalwareAPI = async (id) => {
     return await axios.get(url.toString());
 }
 
-export const fetchDataMitigationAPI = async (id) => {
-    let params = {id: id};
-    let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_mitigation`);
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    return await axios.get(url.toString());
-}
-
 export const fetchDataAssetAPI = async (id) => {
     let params = {id: id};
     let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_asset`);

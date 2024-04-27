@@ -71,19 +71,23 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
                     <div className="row align-items-end">
                         <div className="col">
                             <ImportantInfo importantInfoDict={searchedResult}/>
+                            <DropdownButton title='Other info' variant="Secondary" drop="end" className="mt-3">
+                            <div className="dropdown-my-content"><RenderDict infoDict={otherInfoDict}/></div>
+                        </DropdownButton>
                         </div>
                         <div className="col-3 mt-xl-5 mb-auto">
                             <CardView infoDict={infoForCardViewDict}/>
                         </div>
                     </div>
-                    <div className="ms-5">
+                    {
+                        otherImportantInfoDict && (
+                            <div className="ms-5">
 
-                        <OtherImportantInfo otherImportantInfoDict={otherImportantInfoDict}/>
-                        <DropdownButton title='Other info' variant="Secondary" drop="end" className="mt-3">
-                            <div className="dropdown-my-content"><RenderDict infoDict={otherInfoDict}/></div>
-                        </DropdownButton>
-                        {/*<RenderDict infoDict={otherInfoDict}/>*/}
-                    </div>
+                                <OtherImportantInfo otherImportantInfoDict={otherImportantInfoDict}/>
+                                {/*<RenderDict infoDict={otherInfoDict}/>*/}
+                            </div>
+                        )
+                    }
                 </>
             )}
         </div>

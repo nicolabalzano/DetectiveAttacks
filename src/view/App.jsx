@@ -10,6 +10,9 @@ import ManualSearch from "./pages/manual_search/ManualSearch.jsx";
 import Attack from "./pages/threat_show/attack/Attack.jsx";
 import Tool from "./pages/threat_show/tool/Tool.jsx";
 import Malware from "./pages/threat_show/malware/Malware.jsx";
+import Campaign from "./pages/threat_show/campaign/Campaign.jsx";
+import Asset from "./pages/threat_show/asset/Asset.jsx";
+import Vulnerability from "./pages/threat_show/vulnerability/Vulnerability.jsx";
 
 
 const router = createBrowserRouter(
@@ -21,6 +24,9 @@ const router = createBrowserRouter(
         <Route path="attack" element={<Attack />} />
         <Route path="tool" element={<Tool />} />
         <Route path="malware" element={<Malware />} />
+        <Route path="campaign" element={<Campaign />} />
+        <Route path="asset" element={<Asset />}/>
+        <Route path="vulnerability" element={<Vulnerability />}/>
         {/*  <Route path="register" element={<Register />}/> */}
     </Route>
   )

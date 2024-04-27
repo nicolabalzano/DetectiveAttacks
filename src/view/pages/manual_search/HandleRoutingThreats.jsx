@@ -15,10 +15,10 @@ export function handleClickRowOfTable(id, type, navigate) {
         else if(type === 'mitigation') {
             navigate('/mitigation', { state: { id: id }});
         }
-        else if('asset' in type) {
+        else if(type.includes('asset')) {
             navigate('/asset', { state: { id: id }});
         }
-        else if(type === 'vulnerability') {
+        else if(type.includes('vulnerability')) {
             navigate('/vulnerability', { state: { id: id }});
         }
     }

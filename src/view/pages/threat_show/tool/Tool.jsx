@@ -3,7 +3,7 @@ import {fetchDataToolAPI} from "../../../components/api/fetchAPI.jsx";
 
 const Tool = () => {
 
-    const primaryInfo = ['Name', 'ID', 'Type', 'Description'];
+    const primaryInfo = ['Name', 'Type', 'Description'];
     const infoForCardView = ['ID','Aliases', 'Domains', 'Platforms', 'Revoked']
     const otherImportantInfo = ['Related Attack Patterns'];
 

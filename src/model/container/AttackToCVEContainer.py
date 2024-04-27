@@ -35,6 +35,23 @@ class AttackToCVEContainer:
                     searched_obj.append(obj)
         return searched_obj
 
+    def get_objects_from_data_by_cve_id(self, target_id: str):
+        searched_obj = []
+        for obj in self.__objects['mapping_objects']:
+            if target_id.lower() in obj['capability_id'].lower():
+                searched_obj.append(obj)
+                """
+                # if cve is not yet in the list
+                searched_obj_in_list_searched = False
+                for obj_in_searched_list in searched_obj:
+                    if obj['capability_id'] == obj_in_searched_list['capability_id']:
+                        searched_obj_in_list_searched = True
+
+                if not searched_obj_in_list_searched:
+                    searched_obj.append(obj)
+                    """
+        return searched_obj
+
     def get_object_from_data_by_cve_id(self, target_id: str):
         searched_obj = []
         for obj in self.__objects['mapping_objects']:
@@ -48,6 +65,7 @@ class AttackToCVEContainer:
 
                 if not searched_obj_in_list_searched:
                     searched_obj.append(obj)
+
         return searched_obj
 
     def __get_attack_pattern_by_cve_id_in_mapped(self, target_id: str):
@@ -71,34 +89,35 @@ class AttackToCVEContainer:
     def get_attack_pattern_by_cve_id(self, target_id: str) -> dict:
         dict_result = self.__get_attack_pattern_by_cve_id_in_mapped(target_id)
 
-        cve = nvdlib.searchCVE(cveId=target_id)[0]
-        print(cve.descriptions[0].value)
-
-        at_related = []
-
-        # if CVE isn't map in MITRE ENGENUITY use SMET to determinate
+        # if the cve is not mapped
         if not dict_result:
-            # if cosine similarity is >= 0.5 add attack to related list of attacks
-            """
-            at_related = [at for at in AttackPatternsContainer().get_data() if
-                          AttackBert().check_similarity(cve.descriptions[0].value, at.description) >= MIN_SIMILARITY]
-            """
-            for at in AttackPatternsContainer().get_data():
-                self.i += 1
-                print(self.i)
-                sim = SentenceSimilarityModel().check_similarity(cve.descriptions[0].value, at.description)
-                if sim >= self.MIN_SIMILARITY:
-                    print(at.name, sim)
-                    at_related.append(at)
+            cve = nvdlib.searchCVE(cveId=target_id)[0]
 
-            self.i = 0
-            dict_result = {'uncategorized': at_related}
+            at_related = []
 
-            # save new mapping for future research
-            SentenceSimilarityModel().save_new_mapping(cve, at_related)
+            # if CVE isn't map in MITRE ENGENUITY use SMET to determinate
+            if not dict_result:
+                # if cosine similarity is >= 0.5 add attack to related list of attacks
+                """
+                at_related = [at for at in AttackPatternsContainer().get_data() if
+                              AttackBert().check_similarity(cve.descriptions[0].value, at.description) >= MIN_SIMILARITY]
+                """
+                for at in AttackPatternsContainer().get_data():
+                    self.i += 1
+                    print(self.i)
+                    sim = SentenceSimilarityModel().check_similarity(cve.descriptions[0].value, at.description)
+                    if sim >= self.MIN_SIMILARITY:
+                        print(at.name, sim)
+                        at_related.append(at)
 
-            # update the dataset with new mapping
-            self.reset_dataset(AttackToCVERetriever().get_all_objects())
+                self.i = 0
+                dict_result = {'uncategorized': at_related}
+
+                # save new mapping for future research
+                SentenceSimilarityModel().save_new_mapping(cve, at_related)
+
+                # update the dataset with new mapping
+                self.reset_dataset(AttackToCVERetriever().get_all_objects())
 
         return dict_result
 

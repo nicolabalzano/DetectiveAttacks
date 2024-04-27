@@ -15,27 +15,25 @@ def get_searched_obj(searched_str: str):
 
 
 def __get_searched_cve(searched_str: str):
-    searched_list_obj = AttackToCVEContainer().get_object_from_data_by_name(searched_str)
-    found_obj = False
+    # Retrieve objects based on CVE ID
+    objects = AttackToCVEContainer().get_objects_from_data_by_cve_id(searched_str)
 
-    for obj in AttackToCVEContainer().get_object_from_data_by_cve_id(searched_str):
-        for obj_in_list in searched_list_obj:
-            if obj['capability_id'] != obj_in_list['capability_id']:
-                found_obj = True
+    # Create a dictionary with unique 'capability_id' as keys
+    unique_objects = {obj['capability_id']: obj for obj in objects if obj['capability_id']}
 
-        # if CVE is not in set
-        if found_obj is False:
-            searched_list_obj.append(obj)
-        found_obj = False
+    # Convert dictionary values to a list
+    unique_list = list(unique_objects.values())
 
-    # RETURNED OBJECTS FORMAT: [type, x_mitre_id, name, x_mitre_domains]
-    searched_list_obj = [['vulnerability', obj['capability_id'], obj['capability_description'].strip(), 'CVE'] for obj
-                         in
-                         searched_list_obj if obj['capability_id'] and obj['capability_description']]
+    # Format the objects and sort them
+    formatted_list = sorted(
+        [
+            ['mapped vulnerability', obj['capability_id'], obj['capability_description'].strip(), 'CVE']
+            for obj in unique_list if obj['capability_description']
+        ],
+        key=lambda obj: (obj[0], obj[2])
+    )
 
-    searched_list_obj = sorted(searched_list_obj, key=lambda obj: (obj[0], obj[2]))
-
-    return searched_list_obj
+    return formatted_list
 
 
 def __get_search_stix(searched_str: str):

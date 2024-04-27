@@ -3,7 +3,10 @@ import sys
 
 from flask_cors import CORS
 
+from src.controller.objectRender.asset import get_asset_from_mitre_id
+from src.controller.objectRender.campaign import get_campaign_from_mitre_id
 from src.controller.objectRender.toolMalware import get_tool_malware_from_mitre_id
+from src.controller.objectRender.vulnerability import get_vulnerability_from_cve_id
 
 # sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/DetectiveAttack')
 sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/DetectiveAttack')
@@ -14,7 +17,7 @@ from src.controller.manualSearch import get_searched_obj
 app = Flask(__name__)
 
 cors = CORS(app, origins='*')
-list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Vulnerability']
+list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Mapped Vulnerability']
 list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
 
 
@@ -77,7 +80,7 @@ def get_attack():
 @app.route('/api/get_data/get_campaign')
 def get_campaign():
     searched_id = request.args.get('id')
-    searched_result = get_attack_patter_from_mitre_id(searched_id)
+    searched_result = get_campaign_from_mitre_id(searched_id)
     return searched_result
 
 
@@ -88,22 +91,15 @@ def get_tool_malware():
     return searched_result
 
 
-@app.route('/api/get_data/get_mitigation')
-def get_mitigation():
-    searched_id = request.args.get('id')
-    searched_result = get_attack_patter_from_mitre_id(searched_id)
-    return searched_result
-
-
 @app.route('/api/get_data/get_asset')
 def get_asset():
     searched_id = request.args.get('id')
-    searched_result = get_attack_patter_from_mitre_id(searched_id)
+    searched_result = get_asset_from_mitre_id(searched_id)
     return searched_result
 
 
 @app.route('/api/get_data/get_vulnerability')
 def get_vulnerability():
     searched_id = request.args.get('id')
-    searched_result = get_attack_patter_from_mitre_id(searched_id)
+    searched_result = get_vulnerability_from_cve_id(searched_id)
     return searched_result
