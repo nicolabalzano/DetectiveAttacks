@@ -142,12 +142,12 @@ const ManualSearch = () => {
 
 
     return (
-        <div className="container-fluid mt-lg-5">
+        <div className="container-fluid">
             <div className="d-flex px-4" >
 
                 {/* FILTERS */}
-                <div className="col text-start">
-                    <p className="h4 text-secondary fw-bold"  style={{marginTop:'50px'}}> Filters </p>
+                <div className="col text-start" style={{marginTop:'70px'}}>
+                    <p className="h4 text-secondary fw-bold"> Filters </p>
                     <div className="ms-3 me-3 mt-4">
                         <p className="h6 text-secondary">Object type:</p>
                         <CheckboxComponent
@@ -164,9 +164,9 @@ const ManualSearch = () => {
                         />
 
 
-                        <div className="mt-5">
+                        <div className="mt-3">
                             <span className="fs-6 fw-semibold text-secondary">N° of rows</span>
-                            <input type="number" className="w-auto mt-3 rounded num-rows-selector" min="1" max="300"
+                            <input type="number" className="w-auto rounded num-rows-selector" min="1" max="300"
                                    defaultValue={recordsPerPage}
                                    onChange={(e)=>setRecordsPerPage(e.target.value)}/>
                         </div>
@@ -179,7 +179,7 @@ const ManualSearch = () => {
                 </div>
 
                 {/* SEARCH AND RESULTS */}
-                <div className="container-fluid" style={{marginTop: '50px'}}>
+                <div className="container-fluid" style={{marginTop: '70px'}}>
                     <SearchBar onSearch={handleSearch} finderRef={finderRef}/>
                     {
                         loading ? (

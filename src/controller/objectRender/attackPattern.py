@@ -1,3 +1,5 @@
+from src.controller.objectRender.asset import get_asset_from_ass_rel_dict
+from src.controller.objectRender.campaign import get_campaign_from_camp_rel_dict
 from src.controller.objectRender.toolMalware import get_tool_malware_from_tw_rel_dict
 from src.controller.objectRender.util import format_list_of_string, remove_empty_values, format_kill_chain_phases, \
     format_mitre_kill_chain_phases, format_external_references
@@ -33,8 +35,14 @@ def get_attack_patter_from_mitre_id(mitre_id: str):
             'External references': format_external_references(coa.external_references),
         } for coa, rel in at.courses_of_action_and_relationship.items()
     ]
+
     dict_at['Procedure examples'] = get_tool_malware_from_tw_rel_dict(
         ToolsMalwareContainer().get_object_using_attack_pattern_by_attack_pattern_id(at.id))
+    dict_at['Campaigns that exploit this attack pattern'] = get_campaign_from_camp_rel_dict(
+        CampaignsContainer().get_object_using_attack_pattern_by_attack_pattern_id(at.id))
+    dict_at['Targeted assets'] = get_asset_from_ass_rel_dict(
+        AssetContainer().get_object_using_attack_pattern_by_attack_pattern_id(at.id))
+
     dict_at['Permission requirements'] = format_list_of_string(at.x_mitre_permissions_required)
     dict_at['Effective permissions'] = format_list_of_string(at.x_mitre_effective_permissions)
     dict_at['System requirements'] = format_list_of_string(at.x_mitre_system_requirements)
@@ -52,7 +60,7 @@ def get_attack_patter_from_mitre_id(mitre_id: str):
     dict_at['Attacks patterns that can lead to this'] = __get_related_attacks(AttackPatternsContainer().get_probably_happened_attack_patterns_grouped_by_phase, at)
     dict_at['Attacks patterns that may occur after this'] = __get_related_attacks(AttackPatternsContainer().get_futured_attack_patterns_grouped_by_phase, at)
 
-    return (dict_at)
+    return remove_empty_values(dict_at)
 
 
 def __get_related_attacks(function_futured_or_past, attack_pattern):
@@ -63,6 +71,7 @@ def __get_related_attacks(function_futured_or_past, attack_pattern):
                     'Name': '\"' + future_at.name + '\"' + ' from ' + __get_source_relationships(rel.source_ref).type + ' \"' + __get_source_relationships(rel.source_ref).name + '\"' ,
                     'Description': rel.description,
                     'ID': future_at.x_mitre_id,
+                    'Attack name': future_at.name,
                     'Relationship Source ID': __get_source_relationships(rel.source_ref).x_mitre_id,
                 }
                 for future_at, rel in future_ats.items()

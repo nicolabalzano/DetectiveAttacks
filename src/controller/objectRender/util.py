@@ -8,8 +8,7 @@ def format_mitre_kill_chain_phases(kill_chain_phases):
 
 
 def format_kill_chain_phases(obj):
-    return [__format_kill_chain_phase(AttackPhase.get_enum_from_string(kcp.phase_name).get_phase_name())
-            for kcp in obj.kill_chain_phases][0]
+    return [AttackPhase.get_phase_from_CKC(__format_kill_chain_phase(kcp.phase_name)) for kcp in obj.kill_chain_phases]
 
 
 def __format_kill_chain_phase(kill_chain_phase: str):

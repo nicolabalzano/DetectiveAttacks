@@ -27,6 +27,17 @@ class AttackPatternsContainer(AbstractContainerMyStix):
 
         return related_attack_patterns
 
+    def get_probably_happened_attack_patterns_grouped_by_KCPhase(self, attacks_pattern: MyAttackPattern)->dict:
+        phase__at_rel = self.get_probably_happened_attack_patterns_grouped_by_phase(attacks_pattern)
+        kcphase__at_rel = {}
+        for phase, at_rel in phase__at_rel:
+            for at, rel in at_rel.items():
+                if phase not in kcphase__at_rel:
+                    kcphase__at_rel[phase] = {}
+                kcphase__at_rel[phase][at] = rel
+
+
+
     def get_probably_happened_attack_patterns_grouped_by_phase(self, attacks_pattern: MyAttackPattern) -> dict:
         return self.__get_probably_happened_or_futured_attack_patterns_grouped_by_phase(attacks_pattern, False)
 
@@ -56,6 +67,13 @@ class AttackPatternsContainer(AbstractContainerMyStix):
                                 atp1.phase_name) <= AttackPhase.get_phase_value_from_name(atp2.phase_name):
                             dict_kill_chain_phases = self.__update_dict_grouped_by_kcp(atp1, dict_kill_chain_phases, at,
                                                                                        rel)
+
+        # Remove the searched attack pattern from the dictionary
+        for phase in list(dict_kill_chain_phases.keys()):
+            if attack_pattern in dict_kill_chain_phases[phase]:
+                del dict_kill_chain_phases[phase][attack_pattern]
+                if not dict_kill_chain_phases[phase]:
+                    del dict_kill_chain_phases[phase]
 
         return dict_kill_chain_phases
 

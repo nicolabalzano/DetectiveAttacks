@@ -5,7 +5,7 @@ function ImportantInfo({importantInfoDict}){
     // render of Name, Type and Description
     return (
         <>
-            <div className="text-primary display-3">
+            <div className="text-primary display-3 margin-top-100">
                 {importantInfoDict['Name']}
                 <p className="text-secondary fs-4 mt-3">
                     {importantInfoDict.Type}

@@ -64,7 +64,7 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
     }, [searchedResult]);
 
     return (
-        <div className="container-fluid  px-lg-5 pb-3 margin-top-100">
+        <div className="container-fluid  px-lg-5 pb-3">
             {searchedResult && otherImportantInfoDict && (
                 <>
                     <div className="row align-items-end">
@@ -80,7 +80,7 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
                             }
 
                         </div>
-                        <div className="col-3 mt-xl-5 mb-auto">
+                        <div className="col-3  mb-auto margin-top-100">
                             <CardView infoDict={infoForCardViewDict}/>
                         </div>
                     </div>
