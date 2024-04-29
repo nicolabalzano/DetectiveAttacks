@@ -22,14 +22,13 @@
 }
 
 .dropdown-toggle {
+  @extend .fw-semibold;
+
   background-color: var(--body-bg);
-  color: var(--body-color);
+  color: var(--bs-secondary);
   border: 0;
   box-shadow: none;
   background-image: none;
   padding: 0;
 }
 
-:root{
-  @extend .scrollbar
-}

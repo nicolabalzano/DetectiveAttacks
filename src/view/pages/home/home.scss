@@ -1,9 +1,11 @@
 @import "../../scss/bootstrap";
+@import "../../scss/util";
 
 .big-logo {
   text-align: center;
   transition: all 0.2s ease-out;
 }
+
 
 .container-fluid {
   padding: 0;

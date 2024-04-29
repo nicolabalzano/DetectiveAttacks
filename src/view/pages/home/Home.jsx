@@ -8,9 +8,6 @@ import {Link} from "react-router-dom";
 import LogoSvg from "../../assets/LogoSvg.jsx";
 
 const Home = () => {
-    const [showLogo, setShowLogo] = useState(true);
-    const [showMouse, setShowMouse] = useState(true);
-    const [showDescription, setShowDescription] = useState(false);
 
     useEffect(() => {
         const root_element = document.getElementById('root');
@@ -20,6 +17,7 @@ const Home = () => {
         root_element.classList.add('align-items-center')
         root_element.style.margin = "0 auto";
         root_element.style.height = "100.1vh";
+
 
         document.querySelector('.small-logo').classList.add('hide');
 
@@ -32,7 +30,7 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="container-fluid big-logo-container d-flex flex-column justify-content-center align-items-center first-container">
+        <div className="container-fluid big-logo-container d-flex flex-column justify-content-center align-items-center first-container no-scrollbar text-center">
             <div className={`container-fluid justify-content-center transition-element`}>
                 <h1 className="big-logo">ThreatExplorer
                 <LogoSvg w={'180px'} h={'180px'}/></h1>

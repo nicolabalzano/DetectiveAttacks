@@ -27,16 +27,34 @@ class AttackPatternsContainer(AbstractContainerMyStix):
 
         return related_attack_patterns
 
-    def get_probably_happened_attack_patterns_grouped_by_KCPhase(self, attacks_pattern: MyAttackPattern)->dict:
+    def get_probably_happened_attack_patterns_grouped_by_CKCPhase(self, attacks_pattern: MyAttackPattern) -> dict:
         phase__at_rel = self.get_probably_happened_attack_patterns_grouped_by_phase(attacks_pattern)
-        kcphase__at_rel = {}
-        for phase, at_rel in phase__at_rel:
+        return self.__group_by_CKC_phase(phase__at_rel)
+
+    def get_futured_attack_patterns_grouped_by_CKCPhase(self, attacks_pattern: MyAttackPattern) -> dict:
+        phase__at_rel = self.get_futured_attack_patterns_grouped_by_phase(attacks_pattern)
+        return self.__group_by_CKC_phase(phase__at_rel)
+
+    @classmethod
+    def __group_by_CKC_phase(cls, phase__at_rel):
+        """
+        Group attack patterns by CKC phase
+        :param phase__at_rel: dict of {phase: {attack_pattern: relationship}}
+        :return: dict of {CKC_phase: {attack_pattern: relationship}}
+        """
+        ckc_phase__at_rel = {}
+
+        # generate the dictionary with all the CKC phases
+        for kckp in AttackPhase.get_CKC_mapping_to_phases():
+            ckc_phase__at_rel[kckp] = {}
+
+        for phase, at_rel in phase__at_rel.items():
             for at, rel in at_rel.items():
-                if phase not in kcphase__at_rel:
-                    kcphase__at_rel[phase] = {}
-                kcphase__at_rel[phase][at] = rel
+                ckc_phase = AttackPhase.get_CKC_phase_from_phase(AttackPhase.get_enum_from_string(phase))
+                if at not in ckc_phase__at_rel[ckc_phase]:
+                    ckc_phase__at_rel[ckc_phase][at] = rel
 
-
+        return ckc_phase__at_rel
 
     def get_probably_happened_attack_patterns_grouped_by_phase(self, attacks_pattern: MyAttackPattern) -> dict:
         return self.__get_probably_happened_or_futured_attack_patterns_grouped_by_phase(attacks_pattern, False)
@@ -92,3 +110,5 @@ class AttackPatternsContainer(AbstractContainerMyStix):
             dict_kill_chain_phases[atp.phase_name].update(at_rel)
 
         return dict_kill_chain_phases
+
+

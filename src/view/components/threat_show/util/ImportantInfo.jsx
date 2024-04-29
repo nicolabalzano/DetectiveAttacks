@@ -2,6 +2,9 @@ import React from "react";
 
 function ImportantInfo({importantInfoDict}){
 
+    // set the title of page
+    document.title = importantInfoDict['Name'] + " " + importantInfoDict.Type + " " + importantInfoDict['ID'] ;
+
     // render of Name, Type and Description
     return (
         <>
@@ -12,9 +15,9 @@ function ImportantInfo({importantInfoDict}){
                 </p>
             </div>
             {
-                importantInfoDict.Description &&
-                <div className="text-secondary fs-5 mt-3">
-                    {importantInfoDict.Description}
+                importantInfoDict['Description'] &&
+                <div className="fs-5 mt-3">
+                    {importantInfoDict['Description']}
                 </div>
             }
         </>

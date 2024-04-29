@@ -4,12 +4,17 @@
 :root {
   line-height: 1.5;
   font-family: 'Roboto Light', sans-serif;
-  scrollbar-width: none;
   scrollbar-color: transparent transparent;
   caret-color: transparent;
   letter-spacing: 0.75px;
   height: 100vh;
-  overflow: auto;
+  scrollbar-width: none;
+}
+
+/* For Chrome, Edge and Safari */
+root::-webkit-scrollbar, root::-webkit-scrollbar {
+  width: 0;
+  scrollbar-width: none;
 }
 
 input{

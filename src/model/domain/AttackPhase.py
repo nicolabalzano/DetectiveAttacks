@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any
 
 
 class AttackPhase(Enum):
@@ -23,27 +24,50 @@ class AttackPhase(Enum):
     IMPACT = 18
 
     @classmethod
-    def get_phase_from_CKC(cls, kill_chain_phase):
-        CKC_phases = {
-            'RECONNAISSANCE': [1],
-            'WEAPONIZATION': [2],
-            'DELIVERY': [3, 4],
-            'EXPLOITATION': [5],
-            'INSTALLATION': [6, 7, 8],
-            'COMMAND_AND_CONTROL': [9, 10, 11, 12, 13, 14],
-            'ACTIONS_ON_OBJECTIVES': [15, 16, 17, 18],
+    def get_CKC_mapping_to_phases(cls) -> dict:
+        """
+        Get the mapping of the phases to the Cyber Kill Chain
+        :return: dict
+        """
+        return {
+            'Reconnaissance': [1],
+            'Weaponization': [2],
+            'Delivery': [3, 4],
+            'Exploitation': [5],
+            'Installation': [6, 7, 8],
+            'Command&Control': [9, 10, 11, 12, 13, 14],
+            'Action on Objectives': [15, 16, 17, 18],
         }
-        for kc_phase, phases_value in CKC_phases.items():
-            if kill_chain_phase in phases_value:
+
+    @classmethod
+    def get_CKC_phase_from_phase(cls, kill_chain_phase: Enum) -> str:
+        """
+            This function is used to manage the mapping of phase to the Cyber Kill Chain
+            :param kill_chain_phase: the phase of AttackPhase enum
+            :return: the phase of the Cyber Kill Chain
+        """
+
+        for kc_phase, phases_value in cls.get_CKC_mapping_to_phases().items():
+            if kill_chain_phase.value in phases_value:
                 return kc_phase
 
     def get_phase_name(self):
-        return self.name.lower().replace('_', '-')
+        return self.name.lower().replace('_', ' ').title()
 
     @classmethod
-    def get_enum_from_string(cls, name):
+    def __get_formatted_name_for_enum(cls, name: str) -> str:
         formatted_name = name.upper().replace(' ', '_')
         formatted_name = formatted_name.upper().replace('-', '_')
+        return formatted_name
+
+    @classmethod
+    def get_enum_from_string(cls, name) -> Enum | None:
+        """
+        Get the phase enum from the name of the phase
+        :param name:
+        :return: enum of the phase or None if the phase doesn't exist
+        """
+        formatted_name = cls.__get_formatted_name_for_enum(name)
         phase = getattr(cls, formatted_name, None)
         if phase:
             return phase
@@ -54,14 +78,18 @@ class AttackPhase(Enum):
         return None
 
     @classmethod
-    def get_phase_value_from_name(cls, name):
-        formatted_name = name.upper().replace(' ', '_')
-        formatted_name = formatted_name.upper().replace('-', '_')
+    def get_phase_value_from_name(cls, name: str) -> int:
+        """
+        Get the value of the phase from the name of the phase
+        :param name:
+        :return: value of the phase in enum
+        """
+        formatted_name = cls.__get_formatted_name_for_enum(name)
         phase = getattr(cls, formatted_name, None)
         if phase:
             return phase.value
         else:
-            # Verifica se formatted_name è un alias
+            # Verify if formatted_name is an alias
             if formatted_name in cls.__members__:
                 return cls.__members__[formatted_name].value
             return None

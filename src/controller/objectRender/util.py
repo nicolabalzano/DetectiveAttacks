@@ -8,11 +8,20 @@ def format_mitre_kill_chain_phases(kill_chain_phases):
 
 
 def format_kill_chain_phases(obj):
-    return [AttackPhase.get_phase_from_CKC(__format_kill_chain_phase(kcp.phase_name)) for kcp in obj.kill_chain_phases]
+    ckc_phases = []
+    for kcp in obj.kill_chain_phases:
+        ckc_phase = __format_kill_chain_phase(
+            AttackPhase.get_CKC_phase_from_phase(AttackPhase.get_enum_from_string(kcp.phase_name)).title())
+        if ckc_phase not in ckc_phases:
+            ckc_phases.append(ckc_phase)
+    return ckc_phases
 
 
-def __format_kill_chain_phase(kill_chain_phase: str):
-    return kill_chain_phase.replace('-', ' ').title()
+def __format_kill_chain_phase(kill_chain_phase: str) -> str:
+    new_str = kill_chain_phase.replace('-', ' ').title()
+    new_str = new_str.replace('_', ' ').title()
+
+    return new_str
 
 
 def format_list_of_string(list_of_string):
@@ -45,7 +54,7 @@ def format_related_attack_patterns(related_attack_patterns_rel: dict) -> list[di
         dict_['Description'] = attack_pattern.description
         dict_['Purpose'] = format_list_of_string(rel.relationship_type)
         dict_['Suggestion for this case'] = format_list_of_string(rel.description)
-        dict_['Kill Chain phases'] = format_kill_chain_phases(attack_pattern)
+        dict_['Kill Chain phases'] = format_list_of_string(format_kill_chain_phases(attack_pattern))
         dict_['Mitre Kill Chain phases'] = format_mitre_kill_chain_phases(attack_pattern.kill_chain_phases)
         dict_['Platforms'] = format_list_of_string(attack_pattern.x_mitre_platforms)
         dict_['External references'] = format_external_references(attack_pattern.external_references)
@@ -55,20 +64,37 @@ def format_related_attack_patterns(related_attack_patterns_rel: dict) -> list[di
     return formatted_attack_patterns
 
 
-# recursive function to remove key for empty string values
-def remove_empty_values(dictionary):
-    for key in list(dictionary.keys()):  # Use list to create a copy of the dictionary's keys
-        value = dictionary[key]
+def check_if_all_values_in_dict_list_are_empty(dict_list):
+    """
+    Check if all values in a list of dictionaries are empty
+    :param dict_list: List of dictionaries
+    :return: True if all values are empty, False otherwise
+    """
+    for dict_ in dict_list:
+        for value in dict_.values():
+            if value is not None and value != '' and value != []:
+                return dict_list
+    return None
+
+
+def remove_empty_values(dict_):
+    """
+    Recursive function to remove key for empty string values
+    :param dict_: dict
+    :return: dict with empty values removed
+    """
+    for key in list(dict_.keys()):  # Use list to create a copy of the dictionary's keys
+        value = dict_[key]
         if isinstance(value, dict):
             remove_empty_values(value)
             if not value:  # If the nested dictionary is now empty, remove it
-                del dictionary[key]
+                del dict_[key]
         elif isinstance(value, list):
             new_list = [item for item in value if item]  # Create a new list excluding empty items
             if new_list:  # If the new list is not empty, update the value in the dictionary
-                dictionary[key] = new_list
+                dict_[key] = new_list
             else:  # If the new list is empty, remove the key from the dictionary
-                del dictionary[key]
+                del dict_[key]
         elif not value:  # If the value is an empty string or None, remove the key from the dictionary
-            del dictionary[key]
-    return dictionary
+            del dict_[key]
+    return dict_

@@ -5,7 +5,7 @@ const TableView = ({ infoDict }) => {
 
 
     return (
-        <div className="col-sm-1 p-0">
+        <div className="col p-0">
             {
                 Object.entries(infoDict).map(([key, value]) => (
                     <div key={key} className="border border-secondary px-1 text-center text-break">

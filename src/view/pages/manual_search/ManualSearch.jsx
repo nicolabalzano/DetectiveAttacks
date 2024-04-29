@@ -64,6 +64,7 @@ const ManualSearch = () => {
 
     const handleSearch = (term) => {
         setSearchTerm(term);
+        setCurrentPage(1);
     };
 
     const handleCheckboxChange = (event, setSelected, selected) => {
@@ -73,6 +74,7 @@ const ManualSearch = () => {
         } else {
             setSelected((prevSelected) => prevSelected.filter((type) => type !== id));
         }
+        setCurrentPage(1);
     };
 
     function CheckboxComponent({ list_of_filter, setSelected, selected}) {

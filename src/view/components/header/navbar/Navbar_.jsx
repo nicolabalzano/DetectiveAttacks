@@ -8,7 +8,7 @@ const Navbar_ = () => {
     return (
         <Navbar className="navbar navbar-expand-lg navbar-inverse bg-body ps-3 pe-3" fixed="top">
 
-            {/* LOGO */}
+            {/* LOGO Company*/}
             <Navbar.Brand className="d-flex justify-content-center align-items-center me-auto">
                 <span className="text-color display-6 fs-5" href="/">
                     NB Creations

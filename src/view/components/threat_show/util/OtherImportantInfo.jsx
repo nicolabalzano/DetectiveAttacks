@@ -39,13 +39,13 @@ function checkIfDictsHaveSameKeys(dict1, dict2) {
 
 }
 
-function RenderValue({ subDict }) {
+function RenderValue({ subDict, keyForSameIdWords }) {
     const [subOtherImportantInfo, setSubOtherImportantInfo] = useState({});
+
     useEffect(() => {
 
         // delete manual rendered info from subDict
-        setSubOtherImportantInfo(deleteManualRenderedInfoFromDict(subDict)) ;
-
+        setSubOtherImportantInfo(deleteManualRenderedInfoFromDict(subDict));
     }, [subDict]); // Depends on subDict
 
 
@@ -57,13 +57,15 @@ function RenderValue({ subDict }) {
                 (
                     <>
 
-                        {Object.entries(subDict).map(([subTitle, subValue], subIndex) => (
+                        {
+                            Object.entries(subDict).map(([subTitle, subValue], subIndex) => (
+                            subValue && subValue.length > 0 &&
                             <p className="ms-5">
                                 <span className="display-6 fs-3">{subTitle} </span>
-                                <span> <i className="bi bi-caret-down-fill" role="button" id={subTitle}
+                                <span> <i className="bi bi-caret-down-fill" role="button" id={subTitle + keyForSameIdWords}
                                           onClick={(e) => handleDropdown(e)}></i></span>
 
-                                <div className="d-none" id={subTitle + '_div'}>
+                                <div className="d-none" id={subTitle + keyForSameIdWords + '_div'}>
 
                                     {
                                         Array.isArray(subValue) ?
@@ -103,8 +105,7 @@ function RenderValue({ subDict }) {
                             {/*Name*/}
                             <span className="display-6 fs-3">{subDict.Name} </span>
 
-                            {/*ID*/
-                            }
+                            {/*ID*/}
                             {
                                 // if ID is not empty and Type does not contain 'course-of-action' (for Mitigations), then it is a link
                                 subDict.ID && subDict.Type && !subDict.Type.includes('course-of-action') ? (
@@ -126,8 +127,7 @@ function RenderValue({ subDict }) {
                             <span> <i className="bi bi-caret-down-fill" role="button" id={subDict.Name} onClick={(e) => handleDropdown(e)}></i></span>
                         </p>
 
-                        {/*Info*/
-                        }
+                        {/*Info*/}
                         <div className="ms-3 mb-3 d-none" id={subDict.Name + '_div'}>
 
                             {/*Description*/}
@@ -216,7 +216,7 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                                 </div>
 
                                                 {/*Table view*/}
-                                                <div className="row ms-5 d-none" id={title + '_table'}>
+                                                <div className="row ms-5 d-none d-flex justify-content-center " id={title + '_table'}>
                                                     {Array.isArray(value) ?
                                                         value.map((subDict, subIndex) => (
 
@@ -235,7 +235,10 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                 <div id={title + '_hierarchic'}>
                                     {Array.isArray(value) ?
                                         value.map((subDict, subIndex) => (
-                                            <RenderValue key={subIndex} subDict={subDict}/>
+                                            <>
+                                                <RenderValue key={subIndex} subDict={subDict} keyForSameIdWords={index}/>
+                                            </>
+
                                         ))
                                         :
                                         <div>{value}</div>

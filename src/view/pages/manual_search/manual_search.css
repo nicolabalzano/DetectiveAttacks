@@ -16751,9 +16751,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #7027f3 transparent;
 }
+.scrollbar::-webkit-scrollbar-thumb, .search-result::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #7027f3;
+}
 
 .no-scrollbar, :root {
-  overflow: hidden;
   scrollbar-width: none;
 }
 

@@ -60,10 +60,15 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: $primary transparent;
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px; // Adjust this value to your liking
+    background-color: $primary;
+  }
+
 }
 
 .no-scrollbar{
-  overflow: hidden;
   scrollbar-width: none;
 }
 
