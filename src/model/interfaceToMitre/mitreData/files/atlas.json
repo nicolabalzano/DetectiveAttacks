@@ -289,7 +289,7 @@
                     "id": "AML.T0008",
                     "name": "Acquire Infrastructure",
                     "object-type": "technique",
-                    "description": "Adversaries may buy, lease, or rent infrastructure for use throughout their operation.\nA wide variety of infrastructure exists for hosting and orchestrating adversary operations.\nInfrastructure solutions include physical or cloud servers, models, mobile devices, and third-party web services.\nFree resources may also be used, but they are typically limited.\n\nUse of these infrastructure solutions allows an adversary to stage, launch, and execute an operation.\nSolutions may help adversary operations blend in with traffic that is seen as normal, such as contact to third-party web services.\nDepending on the implementation, adversaries may use infrastructure that makes it difficult to physically tie back to them as well as utilize infrastructure that can be rapidly provisioned, modified, and shut down.\n",
+                    "description": "Adversaries may buy, lease, or rent infrastructure for use throughout their operation.\nA wide variety of infrastructure exists for hosting and orchestrating adversary operations.\nInfrastructure solutions include physical or cloud servers, domains, mobile devices, and third-party web services.\nFree resources may also be used, but they are typically limited.\n\nUse of these infrastructure solutions allows an adversary to stage, launch, and execute an operation.\nSolutions may help adversary operations blend in with traffic that is seen as normal, such as contact to third-party web services.\nDepending on the implementation, adversaries may use infrastructure that makes it difficult to physically tie back to them as well as utilize infrastructure that can be rapidly provisioned, modified, and shut down.\n",
                     "tactics": [
                         "AML.TA0003"
                     ]
@@ -376,7 +376,7 @@
                     "id": "AML.T0041",
                     "name": "Physical Environment Access",
                     "object-type": "technique",
-                    "description": "In addition to the attacks that take place purely in the digital model, adversaries may also exploit the physical environment for their attacks.\nIf the model is interacting with data collected from the real world in some way, the adversary can influence the model through access to wherever the data is being collected.\nBy modifying the data in the collection process, the adversary can perform modified versions of attacks designed for digital access.\n",
+                    "description": "In addition to the attacks that take place purely in the digital domain, adversaries may also exploit the physical environment for their attacks.\nIf the model is interacting with data collected from the real world in some way, the adversary can influence the model through access to wherever the data is being collected.\nBy modifying the data in the collection process, the adversary can perform modified versions of attacks designed for digital access.\n",
                     "tactics": [
                         "AML.TA0000"
                     ]
@@ -846,8 +846,8 @@
                         "AML.TA0013"
                     ],
                     "ATT&CK-reference": {
-                        "id": "T1152",
-                        "url": "https://attack.mitre.org/techniques/T1152/"
+                        "id": "T1552",
+                        "url": "https://attack.mitre.org/techniques/T1552/"
                     }
                 },
                 {
@@ -1540,7 +1540,7 @@
         },
         {
             "id": "AML.CS0001",
-            "name": "Botnet model Generation Algorithm (DGA) Detection Evasion",
+            "name": "Botnet Domain Generation Algorithm (DGA) Detection Evasion",
             "object-type": "case-study",
             "case-study-type": "exercise",
             "actor": "Palo Alto Networks AI Research Team",

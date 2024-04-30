@@ -23,6 +23,8 @@ function handleDropdown(e) {
     }
 }
 
+
+
 function deleteManualRenderedInfoFromDict(dict) {
     const primaryInfo = ['Name', 'ID', 'Description'];
     let newDict = {};
@@ -217,14 +219,7 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
 
                                                 {/*Table view*/}
                                                 <div className="row ms-5 d-none d-flex justify-content-center " id={title + '_table'}>
-                                                    {Array.isArray(value) ?
-                                                        value.map((subDict, subIndex) => (
-
-                                                            <TableView key={subIndex} infoDict={subDict}/>
-
-                                                        )) :
-                                                        <div>{value}</div>
-                                                    }
+                                                    <TableView infoList={value}/>
                                                 </div>
                                             </>
                                         ) : null
