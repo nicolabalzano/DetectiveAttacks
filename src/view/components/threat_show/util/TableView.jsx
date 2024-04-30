@@ -44,7 +44,7 @@ const TableView = ({ infoList }) => {
                     infoList.map((subDict, subIndex) => (
                         Object.entries(subDict).map(([key, value]) => (
                             <div key={key} className="col p-0 text-center text-break">
-                                <p className="m-0 py-2 border">
+                                <p className="m-0 py-2 border border-secondary">
                                     <span className="fw-semibold fs-6 ">{key} </span>
                                 </p>
                                 {
