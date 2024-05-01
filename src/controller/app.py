@@ -8,8 +8,8 @@ from src.controller.objectRender.Campaign import get_campaign_from_mitre_id
 from src.controller.objectRender.ToolMalware import get_tool_malware_from_mitre_id
 from src.controller.objectRender.Vulnerability import get_vulnerability_from_cve_id
 
-# sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/DetectiveAttack')
-sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/DetectiveAttack')
+sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/DetectiveAttack')
+# sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/DetectiveAttack')
 
 from src.controller.objectRender.AttackPattern import get_attack_patter_from_mitre_id
 from src.controller.ManualSearch import get_searched_obj
