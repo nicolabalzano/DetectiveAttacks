@@ -5,8 +5,10 @@ ENTERPRISE_ATTACK = 'enterprise-attack'
 MOBILE_ATTACK = 'mobile-attack'
 ICS_ATTACK = 'ics-attack'
 ATLAS = 'atlas'
-ATTACK_TO_CVE = 'attack_to_cve'
-ATTACK_TO_CVE_SSM_HISTORY = 'attack_to_cve_ssm_history'
+MITRE_TO_CVE = 'mitre-to-cve'
+MITRE_TO_CVE_SSM_HISTORY = 'mitre-to_cve-ssm-history'
+MITRE_TO_CWE = 'mitre-to-cwe'
+MITRE_TO_CWE_SSM_HISTORY = 'mitre-to-cwe_ssm-history'
 json_format = '.json'
 
 default_repos = {
@@ -14,5 +16,5 @@ default_repos = {
     MOBILE_ATTACK: "https://github.com/mitre/cti.git",
     ICS_ATTACK: "https://github.com/mitre/cti.git",
     ATLAS: "https://github.com/mitre-atlas/atlas-data.git",
-    ATTACK_TO_CVE: "https://github.com/center-for-threat-informed-defense/mappings-explorer.git"
+    MITRE_TO_CVE: "https://github.com/center-for-threat-informed-defense/mappings-explorer.git"
 }

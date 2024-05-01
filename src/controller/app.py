@@ -3,16 +3,16 @@ import sys
 
 from flask_cors import CORS
 
-from src.controller.objectRender.asset import get_asset_from_mitre_id
-from src.controller.objectRender.campaign import get_campaign_from_mitre_id
-from src.controller.objectRender.toolMalware import get_tool_malware_from_mitre_id
-from src.controller.objectRender.vulnerability import get_vulnerability_from_cve_id
+from src.controller.objectRender.Asset import get_asset_from_mitre_id
+from src.controller.objectRender.Campaign import get_campaign_from_mitre_id
+from src.controller.objectRender.ToolMalware import get_tool_malware_from_mitre_id
+from src.controller.objectRender.Vulnerability import get_vulnerability_from_cve_id
 
 # sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/DetectiveAttack')
 sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/DetectiveAttack')
 
-from src.controller.objectRender.attackPattern import get_attack_patter_from_mitre_id
-from src.controller.manualSearch import get_searched_obj
+from src.controller.objectRender.AttackPattern import get_attack_patter_from_mitre_id
+from src.controller.ManualSearch import get_searched_obj
 
 app = Flask(__name__)
 

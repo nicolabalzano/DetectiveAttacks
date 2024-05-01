@@ -1,5 +1,5 @@
 # INITIALIZE DATA
-from src.model.interfaceToMitre.mitreData.mitreAttackToCVE.SentenceSimilarityModel import SentenceSimilarityModel
+from src.model.interfaceToMitre.mitreData.mitreAttackToCVE.SentenceSimilarityModelAPI import SentenceSimilarityModelAPI
 import nvdlib
 from src.model.container.mySTIXContainer.AssetContainer import AssetContainer
 from src.model.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
@@ -41,7 +41,7 @@ def count_fake_positive(threshold: float):
             counter += 1
             print("*", counter)
             if at.x_mitre_id not in [mitre_id for mitre_id in data_extracted]:
-                sim = SentenceSimilarityModel().check_similarity(cve_desc, at.description)
+                sim = SentenceSimilarityModelAPI().check_similarity(cve_desc, at.description)
                 if sim >= threshold:
                     count += 1
                     new_mapping = {

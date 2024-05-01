@@ -8,7 +8,7 @@ from os.path import exists
 import yaml
 
 from src.model.interfaceToMitre.mitreData.utils.Path import ENTERPRISE_ATTACK, \
-    MOBILE_ATTACK, ICS_ATTACK, ATLAS, default_path, default_repos, ATTACK_TO_CVE
+    MOBILE_ATTACK, ICS_ATTACK, ATLAS, default_path, default_repos, MITRE_TO_CVE
 from src.model.interfaceToMitre.mitreData.utils.FileUtils import save_to_json_file, read_from_json, \
     extension_check, conversion_csv_string_to_json_string
 
@@ -48,11 +48,11 @@ def fetch_atlas_data() -> bool:
                         "https://raw.githubusercontent.com/mitre-atlas/atlas-data/main/dist/ATLAS.yaml", 'main')
 
 
-def fetch_attack_to_cve_data():
+def fetch_mitre_to_cve_data():
     """
         Metodo che permette di ottenere la mappatura CVE to ATTACK mediante request.
         """
-    return __fetch_file(ATTACK_TO_CVE,
+    return __fetch_file(MITRE_TO_CVE,
                         'https://raw.githubusercontent.com/center-for-threat-informed-defense/mappings-explorer/main/mappings/cve/attack-9.0/cve-10.21.2021/enterprise/cve-10.21.2021_attack-9.0-enterprise.json', 'main')
 
 

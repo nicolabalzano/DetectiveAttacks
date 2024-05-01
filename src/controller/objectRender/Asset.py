@@ -7,7 +7,7 @@ def get_asset_from_ass_rel_dict(dict_ass_rel):
     """
         Get asset from dict of {tool_malware: relationship}
 
-        :param dict_ass_rel: [{asset: relationship}]
+        :param dict_ass_rel: {asset: relationship}
         :return: list
         """
     list_tw = []

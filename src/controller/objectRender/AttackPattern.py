@@ -1,6 +1,6 @@
-from src.controller.objectRender.asset import get_asset_from_ass_rel_dict
-from src.controller.objectRender.campaign import get_campaign_from_camp_rel_dict
-from src.controller.objectRender.toolMalware import get_tool_malware_from_tw_rel_dict
+from src.controller.objectRender.Asset import get_asset_from_ass_rel_dict
+from src.controller.objectRender.Campaign import get_campaign_from_camp_rel_dict
+from src.controller.objectRender.ToolMalware import get_tool_malware_from_tw_rel_dict
 from src.controller.objectRender.util import format_list_of_string, remove_empty_values, format_kill_chain_phases, \
     format_mitre_kill_chain_phases, format_external_references, check_if_all_values_in_dict_list_are_empty
 from src.model.container import AttackPatternsContainer, ToolsMalwareContainer, CampaignsContainer, AssetContainer

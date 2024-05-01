@@ -1,5 +1,5 @@
 from src.model.container import AttackPatternsContainer, CampaignsContainer, ToolsMalwareContainer, AssetContainer, \
-    AttackToCVEContainer
+    MitreToCVEContainer
 
 
 def get_searched_obj(searched_str: str):
@@ -16,7 +16,7 @@ def get_searched_obj(searched_str: str):
 
 def __get_searched_cve(searched_str: str):
     # Retrieve objects based on CVE ID
-    objects = AttackToCVEContainer().get_objects_from_data_by_cve_id(searched_str)
+    objects = MitreToCVEContainer().get_objects_from_data_by_vuln_id(searched_str)
 
     # Create a dictionary with unique 'capability_id' as keys
     unique_objects = {obj['capability_id']: obj for obj in objects if obj['capability_id']}

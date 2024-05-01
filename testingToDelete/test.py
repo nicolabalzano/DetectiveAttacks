@@ -1,6 +1,6 @@
 import nvdlib
 
-from src.model.container.AttackToCVEContainer import AttackToCVEContainer
+from src.model.container.vulnerabilityContainer.MitreToCVEContainer import MitreToCVEContainer
 from src.model.container.mySTIXContainer.AssetContainer import AssetContainer
 from src.model.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.model.container.mySTIXContainer.CampaignsContainer import CampaignsContainer
@@ -34,12 +34,12 @@ print("\nSearch AttackToCVE by cve id:")
 for cve in ['CVE-2024-3388']:
     print("* ", cve)
     print("Description: ", nvdlib.searchCVE(cveId=cve)[0].descriptions[0].value)
-    for key, value in AttackToCVEContainer().get_attack_pattern_by_cve_id(cve).items():
+    for key, value in MitreToCVEContainer().get_attack_pattern_by_vuln_id(cve).items():
         print("-", key)
         print([at_name.name for at_name in value])
 
 print("\nSearch cve id by attack pattern mitre id:")
-for dict_at in AttackToCVEContainer().get_cve_id_by_attack_pattern_mitre_id(
+for dict_at in MitreToCVEContainer().get_vuln_id_by_attack_pattern_mitre_id(
         AttackPatternsContainer().get_object_from_data_by_name('Malicious File')[0].x_mitre_id):
     for key, value in dict_at.items():
         print(key)
