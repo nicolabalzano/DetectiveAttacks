@@ -1,26 +1,11 @@
-dict_ = {
-    'ID': 'ID',
-    'Name': 'Name',
-    'Type': 'Type',
-    'Description': 'Description',
-    'Suggestion for this case': 'Suggestion for this case',
-    'Purpose': 'Purpose',
-    'Domains': 'Domains',
-    'Aliases': 'Aliases',
-    'Revoked': 'Revoked',
-    'External references': 'External references',
-    'Related Attack Patterns': 'Related Attack Patterns'
-}
+import json
 
-empty_dict = {}
+file = open('./attack_pattern_validation.jsonl', "rb")
+print(file)
 
-dict_2 = {
-    's': ''
-}
+data = file.read()
 
-if not None:
-    print('not None')
-if not empty_dict:
-    print('Empty Dict')
-if not dict_2['s']:
-    print('Empty string')
+for line in json.loads(data):
+    with open('attack_pattern_validation_formatted.jsonl', 'a') as f:
+        f.write(json.dumps(line))
+        f.write('\n')
