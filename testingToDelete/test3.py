@@ -32,14 +32,17 @@ deployment_name = 'gpt-fine-tuning-test'
 # This will correspond to the custom name you chose for your deployment when you deployed a model. Use a gpt-35-turbo-instruct deployment.
 
 response = client.chat.completions.create(
-  model=deployment_name,
-  messages=[
-    {
-      "role": "user",
-      "content": "What is the attack pattern Id AML.T0050?"
-
-    }
-  ],
+    model=deployment_name,
+    messages=[
+        {
+            "role": "system",
+            "content": "You are a helpful chatbot that specializes in cybersecurity. When people ask you a question: 'What is the domain of this vulnerability description? Description: <vulnerability_description>', you respond with one of these possible domains ['Machine Learning', 'Industrial Control System', 'Enterprise', 'Mobile']."
+        },
+        {
+            "role": "user",
+            "content": "What is the domain of this vulnerability description? Description: TensorFlow is an Open Source Machine Learning Framework. In versions prior to 2.11.1 a malicious invalid input crashes a tensorflow model (Check Failed) and can be used to trigger a denial of service attack. A proof of concept can be constructed with the `Convolution3DTranspose` function. This Convolution3DTranspose layer is a very common API in modern neural networks. The ML models containing such vulnerable components could be deployed in ML applications or as cloud services. This failure could be potentially used to trigger a denial of service attack on ML cloud services. An attacker must have privilege to provide input to a `Convolution3DTranspose` call. This issue has been patched and users are advised to upgrade to version 2.11.1. There are no known workarounds for this vulnerability."
+        }
+    ],
 )
 
 print(response.choices[0].message.content)

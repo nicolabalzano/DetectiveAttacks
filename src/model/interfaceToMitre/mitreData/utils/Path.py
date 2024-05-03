@@ -1,5 +1,11 @@
 # default_path = "C:\\Users\\nikba\\OneDrive\\Desktop\\Tesi\\DetectiveAttack\\src\\model\\interfaceToMitre\\mitreData\\files\\"
-default_path = "C:\\Users\\nikba\\Desktop\\uni\\Tesi\\DetectiveAttack\\src\\model\\interfaceToMitre\\mitreData\\files\\"
+# default_path = "C:\\Users\\nikba\\Desktop\\uni\\Tesi\\DetectiveAttack\\src\\model\\interfaceToMitre\\mitreData\\files\\"
+import os
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
+directories_up = os.path.dirname(current_directory)
+
+default_path = directories_up+"\\files\\"
 
 ENTERPRISE_ATTACK = 'enterprise-attack'
 MOBILE_ATTACK = 'mobile-attack'

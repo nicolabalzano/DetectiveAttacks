@@ -1,8 +1,14 @@
+import os
+
 from flask import Flask, render_template, request, jsonify
 import sys
 
-sys.path.append('C:/Users/nikba/Desktop/uni/Tesi/DetectiveAttack')
-# sys.path.append('C:/Users/nikba/OneDrive/Desktop/Tesi/DetectiveAttack')
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
+two_directories_up = os.path.dirname(os.path.dirname(current_directory))
+
+sys.path.append(two_directories_up)
+
 from flask_cors import CORS
 
 from src.controller.objectRender.Asset import get_asset_from_mitre_id
