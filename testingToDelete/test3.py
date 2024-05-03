@@ -28,7 +28,7 @@ client = AzureOpenAI(
     azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
 )
 
-deployment_name = 'cti-mapping'
+deployment_name = 'gpt-fine-tuning-test'
 # This will correspond to the custom name you chose for your deployment when you deployed a model. Use a gpt-35-turbo-instruct deployment.
 
 response = client.chat.completions.create(
@@ -36,11 +36,10 @@ response = client.chat.completions.create(
   messages=[
     {
       "role": "user",
-      "content": "Cos'è top_p nei tuoi parametri?"
+      "content": "What is the attack pattern Id AML.T0050?"
 
     }
   ],
-  temperature=0,
 )
 
 print(response.choices[0].message.content)
