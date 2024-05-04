@@ -1,15 +1,15 @@
 import nvdlib
 
+from src.model.container.mySTIXContainer.IntrusionSetsContainer import IntrusionSetsContainer
 from src.model.container.vulnerabilityContainer.MitreToCVEContainer import MitreToCVEContainer
 from src.model.container.mySTIXContainer.AssetContainer import AssetContainer
 from src.model.container.mySTIXContainer.AttackPatternsContainer import AttackPatternsContainer
 from src.model.container.mySTIXContainer.CampaignsContainer import CampaignsContainer
 from src.model.container.mySTIXContainer.ToolsMalwareContainer import ToolsMalwareContainer
+from src.model.vulnerabilityAPI.CVE import search_CVE_by_id
 
 campaign_stix_id = "campaign--b4e5a4a9-f3be-4631-ba8f-da6ebb067fac"
 tool_malware_stix_id = "tool--b76b2d94-60e4-4107-a903-4a3a7622fb3b"
-
-
 
 attack_pattern_stix_id = AttackPatternsContainer().get_object_from_data_by_mitre_id('T1053.005').id
 
@@ -19,21 +19,24 @@ print("\n\nName of searched attack:", attack_pattern_stix_id)
 attack_set_by_campaign = CampaignsContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
 attack_set_by_tool = ToolsMalwareContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
 attack_set_by_asset = AssetContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
+attack_set_by_intrusion_set = IntrusionSetsContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
 attack_set = AttackPatternsContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_stix_id)
 
 print("\n* Related attacks: ")
 print("By Campaigns", len(attack_set_by_campaign))
 print("By ToolMalware", len(attack_set_by_tool))
 print("By Asset", len(attack_set_by_asset))
+print("By IntrusionSet", len(attack_set_by_intrusion_set))
+
 print("--> By All", len(attack_set))
 
 print("\nSearch AttackToCVE by cve id:")
 
 # 'CVE-2024-3570', 'CVE-2024-3569', 'CVE-2024-3568',
 
-for cve in ['CVE-2024-3388']:
+for cve in ['CVE-2019-15243']:
     print("* ", cve)
-    print("Description: ", nvdlib.searchCVE(cveId=cve)[0].descriptions[0].value)
+    print("Description: ", search_CVE_by_id(cve).descriptions[0].value)
     for key, value in MitreToCVEContainer().get_attack_pattern_by_vuln_id(cve).items():
         print("-", key)
         print([at_name.name for at_name in value])
@@ -100,4 +103,3 @@ for key in dict_futured:
     print("   e", len(enterprise), "  m", len(mobile), "  i", len(ics), "  a", len(atlas), "\n")
 
 print(key_set)
-

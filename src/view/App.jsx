@@ -13,6 +13,7 @@ import Malware from "./pages/threat_show/malware/Malware.jsx";
 import Campaign from "./pages/threat_show/campaign/Campaign.jsx";
 import Asset from "./pages/threat_show/asset/Asset.jsx";
 import Vulnerability from "./pages/threat_show/vulnerability/Vulnerability.jsx";
+import IntrusionSet from "./pages/threat_show/intrusion_set/IntrusionSet.jsx";
 
 
 const router = createBrowserRouter(
@@ -21,11 +22,12 @@ const router = createBrowserRouter(
       <Route path="" element={<Home />} />
         <Route path="searching_choice" element={<SearchingChoice />} />
         <Route path="manual_search" element={<ManualSearch />} />
-        <Route path="attack" element={<Attack />} />
+        <Route path="attack_pattern" element={<Attack />} />
         <Route path="tool" element={<Tool />} />
         <Route path="malware" element={<Malware />} />
         <Route path="campaign" element={<Campaign />} />
         <Route path="asset" element={<Asset />}/>
+        <Route path="intrusion_set" element={<IntrusionSet />}/>
         <Route path="vulnerability" element={<Vulnerability />}/>
         {/*  <Route path="register" element={<Register />}/> */}
     </Route>

@@ -44,24 +44,40 @@ def format_external_references(external_references: list) -> list[dict]:
 
 
 def format_related_attack_patterns(related_attack_patterns_rel: dict) -> list[dict]:
-    formatted_attack_patterns = []
+    if related_attack_patterns_rel:
+        formatted_attack_patterns_by_phases = {}
+        formatted_attack_patterns_by_phases_list = []
 
-    for attack_pattern, rel in related_attack_patterns_rel.items():
-        dict_ = {}
-        dict_['ID'] = attack_pattern.x_mitre_id
-        dict_['Name'] = attack_pattern.name
-        dict_['Type'] = attack_pattern.type
-        dict_['Description'] = attack_pattern.description
-        dict_['Purpose'] = format_list_of_string(rel.relationship_type)
-        dict_['Suggestion for this case'] = format_list_of_string(rel.description)
-        dict_['Kill Chain phases'] = format_list_of_string(format_kill_chain_phases(attack_pattern))
-        dict_['Mitre Kill Chain phases'] = format_mitre_kill_chain_phases(attack_pattern.kill_chain_phases)
-        dict_['Platforms'] = format_list_of_string(attack_pattern.x_mitre_platforms)
-        dict_['External references'] = format_external_references(attack_pattern.external_references)
-        dict_ = remove_empty_values(dict_)
-        formatted_attack_patterns.append(dict_)
+        for attack_pattern, rel in related_attack_patterns_rel.items():
 
-    return formatted_attack_patterns
+            # Grouping the information in a dictionary by Cyber Kill Chain Phase
+            KillChainPhases = format_kill_chain_phases(attack_pattern)
+            for phase in KillChainPhases:
+                if phase not in formatted_attack_patterns_by_phases:
+                    formatted_attack_patterns_by_phases[phase] = []
+
+                dict_ = {}
+                dict_['ID'] = attack_pattern.x_mitre_id
+                dict_['Name'] = attack_pattern.name
+                dict_['Type'] = attack_pattern.type
+                dict_['Description'] = attack_pattern.description
+                dict_['Purpose'] = format_list_of_string(rel.relationship_type)
+                dict_['Suggestion for this case'] = format_list_of_string(rel.description)
+                dict_['Kill Chain phases'] = format_list_of_string(KillChainPhases)
+                dict_['Mitre Kill Chain phases'] = format_mitre_kill_chain_phases(attack_pattern.kill_chain_phases)
+                dict_['Platforms'] = format_list_of_string(attack_pattern.x_mitre_platforms)
+                dict_ = remove_empty_values(dict_)
+
+                formatted_attack_patterns_by_phases[phase].append(dict_)
+
+        # because React can't render a dictionary, we need to convert it to a list
+        for phase, attack_patterns in formatted_attack_patterns_by_phases.items():
+            formatted_attack_patterns_by_phases_list.append({
+                phase: attack_patterns
+            })
+        return formatted_attack_patterns_by_phases_list
+
+    return []
 
 
 def check_if_all_values_in_dict_list_are_empty(dict_list):

@@ -1,7 +1,7 @@
-from src.controller.objectRender.Asset import get_asset_from_ass_rel_dict
-from src.controller.objectRender.Campaign import get_campaign_from_camp_rel_dict
-from src.controller.objectRender.ToolMalware import get_tool_malware_from_tw_rel_dict
-from src.controller.objectRender.util import format_list_of_string, remove_empty_values, format_kill_chain_phases, \
+from src.controller.objectsController.stixController.AssetController import get_asset_from_ass_rel_dict
+from src.controller.objectsController.stixController.CampaignController import get_campaign_from_camp_rel_dict
+from src.controller.objectsController.stixController.ToolMalwareController import get_tool_malware_from_tw_rel_dict
+from src.controller.objectsController.util import format_list_of_string, remove_empty_values, format_kill_chain_phases, \
     format_mitre_kill_chain_phases, format_external_references, check_if_all_values_in_dict_list_are_empty
 from src.model.container import AttackPatternsContainer, ToolsMalwareContainer, CampaignsContainer, AssetContainer
 
@@ -37,11 +37,11 @@ def get_attack_patter_from_mitre_id(mitre_id: str):
     ]
 
     dict_at['Procedure examples'] = get_tool_malware_from_tw_rel_dict(
-        ToolsMalwareContainer().get_object_using_attack_pattern_by_attack_pattern_id(at.id))
+        ToolsMalwareContainer().get_objects_related_by_attack_pattern_id(at.id))
     dict_at['Campaigns that exploit this attack pattern'] = get_campaign_from_camp_rel_dict(
-        CampaignsContainer().get_object_using_attack_pattern_by_attack_pattern_id(at.id))
+        CampaignsContainer().get_objects_related_by_attack_pattern_id(at.id))
     dict_at['Targeted assets'] = get_asset_from_ass_rel_dict(
-        AssetContainer().get_object_using_attack_pattern_by_attack_pattern_id(at.id))
+        AssetContainer().get_objects_related_by_attack_pattern_id(at.id))
 
     dict_at['Permission requirements'] = format_list_of_string(at.x_mitre_permissions_required)
     dict_at['Effective permissions'] = format_list_of_string(at.x_mitre_effective_permissions)

@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import RenderList from './RenderList';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {navigateToThreats} from "../../../pages/manual_search/HandleRoutingThreats.jsx";
 import RenderDict from "./RenderDict.jsx";
 import Line from "./Line.jsx";
 import TableView from "./TableView.jsx";
-import("./otherImportantInfo.scss");
+import SwitchView from "../../switch_view_selector/SwitchView.jsx";
 
 function handleDropdown(e) {
     const dropdown_id = e.target.id;
@@ -61,42 +60,42 @@ function RenderValue({ subDict, keyForSameIdWords }) {
 
                         {
                             Object.entries(subDict).map(([subTitle, subValue], subIndex) => (
-                            subValue && subValue.length > 0 &&
-                            <p className="ms-5">
-                                <span className="display-6 fs-3">{subTitle} </span>
-                                <span> <i className="bi bi-caret-down-fill" role="button" id={subTitle + keyForSameIdWords}
-                                          onClick={(e) => handleDropdown(e)}></i></span>
+                                subValue && subValue.length > 0 &&
+                                <p className="ms-5">
+                                    <span className="display-6 fs-3">{subTitle} </span>
+                                    <span> <i className="bi bi-caret-down-fill" role="button" id={subTitle + keyForSameIdWords}
+                                              onClick={(e) => handleDropdown(e)}></i></span>
 
-                                <div className="d-none" id={subTitle + keyForSameIdWords + '_div'}>
+                                    <div className="d-none" id={subTitle + keyForSameIdWords + '_div'}>
 
-                                    {
-                                        Array.isArray(subValue) ?
-                                            subValue.map((subSubDict, subIndex) => (
-                                                <>
-                                                    {(() => {
-                                                        // delete manual rendered info from subDict (Name and Description, and Type but is used only to generate clickable ID link)
-                                                        const {
-                                                            Name,
-                                                            Description,
-                                                            Type,
-                                                            ...dictWithNoNameAndDescription
-                                                        } = subSubDict;
-                                                        return <div className="ms-5 mt-3">
-                                                            <p className="">{Name}</p>
-                                                            <p className="">{Description}</p>
-                                                            <RenderDict infoDict={dictWithNoNameAndDescription}/>
-                                                            <Line/>
-                                                        </div>;
-                                                    })()}
-                                                </>
-                                            ))
-                                            :
-                                            <div>{subValue}</div>
-                                    }
-                                </div>
+                                        {
+                                            Array.isArray(subValue) ?
+                                                subValue.map((subSubDict, subIndex) => (
+                                                    <>
+                                                        {(() => {
+                                                            // delete manual rendered info from subDict (Name and Description, and Type but is used only to generate clickable ID link)
+                                                            const {
+                                                                Name,
+                                                                Description,
+                                                                Type,
+                                                                ...dictWithNoNameAndDescription
+                                                            } = subSubDict;
+                                                            return <div className="ms-5 mt-3">
+                                                                <p className="">{Name}</p>
+                                                                <p className="">{Description}</p>
+                                                                <RenderDict infoDict={dictWithNoNameAndDescription}/>
+                                                                <Line/>
+                                                            </div>;
+                                                        })()}
+                                                    </>
+                                                ))
+                                                :
+                                                <div>{subValue}</div>
+                                        }
+                                    </div>
 
-                            </p>
-                        ))}
+                                </p>
+                            ))}
                     </>
                 )
 
@@ -174,20 +173,6 @@ function RenderValue({ subDict, keyForSameIdWords }) {
 
 function OtherImportantInfo({ otherImportantInfoDict }) {
 
-    function handleChangeView(e){
-        // delete last char because it's the number of the radio button
-        const id = e.target.id.slice(0, -1);
-        const table = document.getElementById(id + '_table');
-        const hierarchic = document.getElementById(id + '_hierarchic');
-        if (e.target.value === '1'){
-            table.classList.add('d-none');
-            hierarchic.classList.remove('d-none');
-        } else {
-            table.classList.remove('d-none');
-            hierarchic.classList.add('d-none');
-        }
-    }
-
     return (
         <>
             {Object.entries(otherImportantInfoDict).map(([title, value], index) => (
@@ -205,17 +190,8 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                         ? // If it's an array like Related Attack Patterns to show Phases
                                         checkIfDictsHaveSameKeys(value[0], deleteManualRenderedInfoFromDict(value[0])) ? (
                                             <>
-                                                {/*Switch*/}
-                                                <div className="switch">
-                                                    <input id={title + '1'} name={title} type="radio" value="1" className="switch-input"
-                                                           onClick={(e)=>handleChangeView(e)}/>
-                                                    <label htmlFor={title + '1'} className="switch-label switch-label-y">Hierarchic
-                                                        view</label>
-                                                    <input id={title + '2'} name={title} type="radio" value="2" className="switch-input"
-                                                           onClick={(e)=>handleChangeView(e)}/>
-                                                    <label htmlFor={title + '2'} className="switch-label switch-label-n">Table view</label>
-                                                    <span className="switch-selector"></span>
-                                                </div>
+                                                {/*Switch view*/}
+                                                <SwitchView startId={title}/>
 
                                                 {/*Table view*/}
                                                 <div className="row ms-5 d-none d-flex justify-content-center " id={title + '_table'}>

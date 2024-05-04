@@ -16,6 +16,8 @@ class AttackPatternsContainer(AbstractContainerMyStix):
     def get_related_attack_patterns_by_attack_pattern_id(self, attack_pattern_id: str) -> dict:
         related_attack_patterns = {}
 
+        # get related attack patterns from campaigns, tools and malware, and assets
+        # (no groups, because groups contains campaigns, tools and malware like a russian doll)
         from_campaigns = CampaignsContainer().get_related_attack_patterns_by_attack_pattern_id(attack_pattern_id)
         related_attack_patterns.update(from_campaigns)
 

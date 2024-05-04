@@ -1,4 +1,4 @@
-from src.controller.objectRender.util import format_list_of_string, format_external_references, \
+from src.controller.objectsController.util import format_list_of_string, format_external_references, \
     format_related_attack_patterns, remove_empty_values
 from src.model.container import AssetContainer
 
@@ -30,7 +30,7 @@ def get_asset_from_ass_rel_dict(dict_ass_rel):
 
 def get_asset_from_mitre_id(mitre_id: str):
     """
-    Get tool malware from mitre id
+    Get asset from mitre id
 
     :param mitre_id: str
     :return: list
@@ -46,7 +46,7 @@ def get_asset_from_mitre_id(mitre_id: str):
     dict_a['x_mitre_version'] = asset.x_mitre_version
     dict_a['External references'] = format_external_references(asset.external_references)
     dict_a['Revoked'] = asset.revoked
-    dict_a['Related Attack Patterns'] = format_related_attack_patterns(asset.attack_patterns_and_relationships)
+    dict_a['Related Attack Patterns'] = format_related_attack_patterns(asset.attack_patterns_and_relationship)
     dict_a['Sectors'] = format_list_of_string(asset.x_mitre_sectors)
     dict_a['Related Assets'] = [{
         'Name': ass['name'],

@@ -36,7 +36,7 @@ def count_fake_positive(threshold: float):
         print(mapping['cve_id'])
         counter = 0
         cve_desc = nvdlib.searchCVE(cveId=mapping['cve_id'])[0].descriptions[0].value
-        for at in AttackPatternsContainer().get_data():
+        for at in AttackPatternsContainer().get_tuple_data():
             # if attack pattern is not in the mapping check if is a fake positive
             counter += 1
             print("*", counter)

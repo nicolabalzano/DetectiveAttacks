@@ -2,7 +2,7 @@ export function navigateToThreats(id, type) {
     let url;
     console.log(type);
     if((type && type === 'attack-pattern') || (id[0] === 'T' || id.substring(0,5)==='AML.T')) {
-        url = '/attack';
+        url = '/attack_pattern';
     }
     else if((type && type.includes('vulnerability')) || id.substring(0,3)==='CVE') {
         url = '/vulnerability';
@@ -21,6 +21,9 @@ export function navigateToThreats(id, type) {
     }
     else if((type && type.includes('asset')) || id[0] === 'A') {
         url = '/asset';
+    }
+    else if((type && type === 'APT') || id[0] === 'G') {
+        url = '/intrusion_set';
     }
 
     if (url) {

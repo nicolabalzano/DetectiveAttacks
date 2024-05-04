@@ -21,17 +21,14 @@ class AttackPatternsRetriever(_AbstractObjectRetriever):
         courses_of_action_dict = {}
 
         # create Dict[MyCourseOfAction, list[Relationship]]
-        for ca in (MITRE_ATTACK_ENTERPRISE_DATA.get_mitigations_mitigating_technique(stix_object['id'])
-                   + MITRE_ATTACK_MOBILE_DATA.get_mitigations_mitigating_technique(stix_object['id'])
-                   + MITRE_ATTACK_ICS_DATA.get_mitigations_mitigating_technique(stix_object['id'])
-                   + MITRE_ATLAS_DATA.get_mitigations_mitigating_technique(stix_object['id'])):
+        for ca in self.get_mitigation_relationship_using_object_id(stix_object['id']):
             my_relationships_value = RelationshipRetriever.get_my_relationships(ca)
             my_course_of_action_key = CourseOfActionRetriever().get_my_courses_of_action(ca)
             courses_of_action_dict[my_course_of_action_key] = my_relationships_value
 
         added_dict = {'courses_of_action_and_relationship': courses_of_action_dict}
 
-        # if there isn't domain isn't ATLAS (because MitreAtlasData is home-made)
+        # if there isn't domain is ATLAS (because MitreAtlasData is home-made)
         if not hasattr(stix_object, 'x_mitre_domains'):
             added_dict['x_mitre_domains'] = ['atlas']
 
@@ -44,3 +41,9 @@ class AttackPatternsRetriever(_AbstractObjectRetriever):
                 + MITRE_ATTACK_MOBILE_DATA.get_techniques()
                 + MITRE_ATTACK_ICS_DATA.get_techniques()
                 + MITRE_ATLAS_DATA.get_techniques())
+
+    def get_mitigation_relationship_using_object_id(self, object_stix_id: str) -> list:
+        return (MITRE_ATTACK_ENTERPRISE_DATA.get_mitigations_mitigating_technique(object_stix_id)
+                + MITRE_ATTACK_MOBILE_DATA.get_mitigations_mitigating_technique(object_stix_id)
+                + MITRE_ATTACK_ICS_DATA.get_mitigations_mitigating_technique(object_stix_id)
+                + MITRE_ATLAS_DATA.get_mitigations_mitigating_technique(object_stix_id))

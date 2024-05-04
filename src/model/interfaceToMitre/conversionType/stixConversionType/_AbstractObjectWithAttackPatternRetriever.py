@@ -31,7 +31,7 @@ class _AbstractObjectWithAttackPatternsRetriever(_AbstractObjectRetriever, Gener
                 f"{AttackPatternsContainer.__name__} must initialized before, otherwise there are no AttackPatterns in data structure!")
         '''
 
-        attack_patterns_and_relationships = {'attack_patterns_and_relationships': att_rel_dict}
+        attack_patterns_and_relationships = {'attack_patterns_and_relationship': att_rel_dict}
         my_stix_object = self.my_stix_type(**stix_object, **attack_patterns_and_relationships)
 
         return my_stix_object

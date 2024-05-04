@@ -17,7 +17,7 @@ export const fetchFilterAPI = async () => {
 // FETCH ATTACK DATA
 export const fetchDataAttackAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_attack`);
+    let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_attack_pattern`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -49,6 +49,15 @@ export const fetchDataAssetAPI = async (id) => {
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
+
+
+export const fetchDataIntrusionSetAPI = async (id) => {
+    let params = {id: id};
+    let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_intrusion_set`);
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    return await axios.get(url.toString());
+}
+
 
 export const fetchDataVulnerabilityAPI = async (id) => {
     let params = {id: id};

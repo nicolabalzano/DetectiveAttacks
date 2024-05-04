@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request, jsonify
 import sys
 
+from src.controller.objectsController.stixController.IntrusionSetController import get_intrusion_set_from_mitre_id
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 two_directories_up = os.path.dirname(os.path.dirname(current_directory))
@@ -11,26 +12,34 @@ sys.path.append(two_directories_up)
 
 from flask_cors import CORS
 
-from src.controller.objectRender.Asset import get_asset_from_mitre_id
-from src.controller.objectRender.Campaign import get_campaign_from_mitre_id
-from src.controller.objectRender.ToolMalware import get_tool_malware_from_mitre_id
-from src.controller.objectRender.Vulnerability import get_vulnerability_from_cve_id
+from src.controller.objectsController.stixController.AssetController import get_asset_from_mitre_id
+from src.controller.objectsController.stixController.CampaignController import get_campaign_from_mitre_id
+from src.controller.objectsController.stixController.ToolMalwareController import get_tool_malware_from_mitre_id
+from src.controller.objectsController.VulnerabilityController import get_vulnerability_from_cve_id
 
-from src.controller.objectRender.AttackPattern import get_attack_patter_from_mitre_id
+from src.controller.objectsController.stixController.AttackPatternController import get_attack_patter_from_mitre_id
 from src.controller.ManualSearch import get_searched_obj
 
 app = Flask(__name__)
 
 cors = CORS(app, origins='*')
-list_of_filter_types = ['Attack', 'Campaign', 'Tool', 'Malware', 'Asset', 'Mapped Vulnerability']
-list_of_filter_domains = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'n/a']
+DICT_OF_FILTER_TYPES = {
+    'Attack': 'attack-pattern',
+    'Campaign': 'campaign',
+    'Tool': 'tool',
+    'Malware': 'malware',
+    'Asset': 'x-mitre-asset',
+    'Group': 'intrusion-set',
+    'Mapped Vulnerability': 'mapped_vulnerability'
+}
+LIST_OF_FILTER_DOMAINS = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'CWE', 'n/a']
 
 
 @app.route('/api/get_filters', methods=["GET"])
 def get_filters():
     return jsonify({
-        'list_of_filter_types': list_of_filter_types,
-        'list_of_filter_domains': list_of_filter_domains})
+        'list_of_filter_types': list(DICT_OF_FILTER_TYPES.keys()),
+        'list_of_filter_domains': LIST_OF_FILTER_DOMAINS})
 
 
 @app.route('/api/get_data', methods=["GET"])
@@ -45,22 +54,24 @@ def get_data():
     if not checked_domains:
         checked_domains = ['----']
     elif checked_domains == 'all':
-        checked_domains = list_of_filter_domains
+        checked_domains = LIST_OF_FILTER_DOMAINS
     else:
         checked_domains = checked_domains.split(',')
 
     if not checked_types:
         checked_types = ['----']
     elif checked_types == 'all':
-        checked_types = list_of_filter_types
+        checked_types = DICT_OF_FILTER_TYPES.values()
     else:
         checked_types = checked_types.split(',')
+        checked_types = [DICT_OF_FILTER_TYPES[types] for types in checked_types]
 
-    # check if the user has selected any type or domain
+    # filter the result by the types
     all_result_filtered_type = []
     for types in checked_types:
         all_result_filtered_type.extend([obj for obj in all_result if types.lower() in obj[0].lower()])
 
+    # filter the result by the domains
     all_result_filtered = []
     for domains in checked_domains:
         all_result_filtered.extend([obj for obj in all_result_filtered_type if domains.lower() in obj[3].lower()])
@@ -75,8 +86,8 @@ def get_data():
     # , filters=filters
 
 
-@app.route('/api/get_data/get_attack')
-def get_attack():
+@app.route('/api/get_data/get_attack_pattern')
+def get_attack_pattern():
     searched_id = request.args.get('id')
     searched_result = get_attack_patter_from_mitre_id(searched_id)
     return searched_result
@@ -100,6 +111,13 @@ def get_tool_malware():
 def get_asset():
     searched_id = request.args.get('id')
     searched_result = get_asset_from_mitre_id(searched_id)
+    return searched_result
+
+
+@app.route('/api/get_data/get_intrusion_set')
+def get_intrusion_set():
+    searched_id = request.args.get('id')
+    searched_result = get_intrusion_set_from_mitre_id(searched_id)
     return searched_result
 
 
