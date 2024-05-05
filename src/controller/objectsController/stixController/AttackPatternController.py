@@ -64,8 +64,40 @@ def get_attack_patter_from_mitre_id(mitre_id: str):
     dict_at['Attacks patterns that may occur after this'] = (
         check_if_all_values_in_dict_list_are_empty(
             __get_related_attacks(AttackPatternsContainer().get_futured_attack_patterns_grouped_by_CKCPhase, at)))
+    dict_at['All related attack patterns'] = (
+        check_if_all_values_in_dict_list_are_empty(
+            __get_related_attacks(AttackPatternsContainer().get_all_related_attack_patterns_grouped_by_CKCPhase, at)))
 
     return remove_empty_values(dict_at)
+
+
+def get_all_attack_patterns_grouped_by_CKCP():
+    """
+    Get all attack patterns grouped by CKC phases
+    :return: dict of {CKC_phase: [attack_pattern]}
+    """
+    return [
+        {
+            phase: [
+                {
+                    'Name': at.name,
+                    'ID': at.x_mitre_id,
+                    'Domains': format_list_of_string(at.x_mitre_domains),
+                    'Platforms': format_list_of_string(at.x_mitre_platforms),
+                }
+                for at in ats
+            ]
+        }
+        for phase, ats in AttackPatternsContainer().get_attack_patterns_grouped_by_CKCPhase().items()
+    ]
+
+
+def get_all_platforms():
+    """
+    Get all platforms
+    :return: list of platforms
+    """
+    return AttackPatternsContainer().get_all_platforms()
 
 
 def __get_related_attacks(function_futured_or_past, attack_pattern):

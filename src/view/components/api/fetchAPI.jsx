@@ -14,11 +14,27 @@ export const fetchFilterAPI = async () => {
     return await axios.get(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_filters`);
 }
 
-// FETCH ATTACK DATA
+// FETCH PLATFORMS DATA
+export const fetchDataPlatforms = async () => {
+    return await axios.get(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_platforms`);
+}
+
+// FETCH DOMAINS DATA
+export const fetchDataDomains = async () => {
+    return await axios.get(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_domains`);
+}
+
+// FETCH ATTACK PATTERNS DATA
 export const fetchDataAttackAPI = async (id) => {
     let params = {id: id};
     let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_attack_pattern`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    return await axios.get(url.toString());
+}
+
+// FETCH ATTACK PATTERNS GROUPED BY CKC PHASES
+export const fetchDataAttackPatternsGroupedByPhaseAPI = async () => {
+    let url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_attack_patterns_grouped_by_CKCP`);
     return await axios.get(url.toString());
 }
 

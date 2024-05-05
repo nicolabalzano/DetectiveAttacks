@@ -22,6 +22,9 @@ class AttackPhase(Enum):
     IMPAIR_PROCESS_CONTROL = 16
     EXFILTRATION = 17
     IMPACT = 18
+    NETWORK_EFFECTS = 18
+    REMOTE_SERVICE_EFFECTS = 18
+
 
     @classmethod
     def get_CKC_mapping_to_phases(cls) -> dict:

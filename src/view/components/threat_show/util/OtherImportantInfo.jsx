@@ -5,6 +5,7 @@ import RenderDict from "./RenderDict.jsx";
 import Line from "./Line.jsx";
 import TableView from "./TableView.jsx";
 import SwitchView from "../../switch_view_selector/SwitchView.jsx";
+import {useNavigate} from "react-router-dom";
 
 function handleDropdown(e) {
     const dropdown_id = e.target.id;
@@ -172,6 +173,10 @@ function RenderValue({ subDict, keyForSameIdWords }) {
 }
 
 function OtherImportantInfo({ otherImportantInfoDict }) {
+    // store of the attack patterns selected by the user
+    const [selectedAt, setSelectedAt] = useState([])
+    const navigate= useNavigate();
+
 
     return (
         <>
@@ -193,9 +198,13 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                                 {/*Switch view*/}
                                                 <SwitchView startId={title}/>
 
-                                                {/*Table view*/}
                                                 <div className="row ms-5 d-none d-flex justify-content-center " id={title + '_table'}>
-                                                    <TableView infoList={value}/>
+                                                    {/*Button go to Big table view*/}
+                                                    <button className="btn btn-outline-primary px-2 w-100 mt-3 text-uppercase fw-semibold"
+                                                            onClick={() => {navigate('/attack_patterns_by_phase', {state: {alreadySelected: selectedAt }})}}
+                                                    >Continue to generate the report</button>
+                                                    {/*Table view*/}
+                                                    <TableView infoList={value} selectedAt={selectedAt} setSelectedAt={setSelectedAt}/>
                                                 </div>
                                             </>
                                         ) : null

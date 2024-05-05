@@ -2,8 +2,9 @@ import React, { useState, useRef } from 'react';
 import './search_bar.scss';
 
 
-const SearchBar = ({ onSearch, finderRef }) => {
+const SearchBar = ({ onSearch }) => {
   const inputRef = useRef(null);
+  const finderRef = useRef(null);
 
   const handleFocus = () => {
     finderRef.current.classList.add("active");

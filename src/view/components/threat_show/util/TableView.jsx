@@ -1,9 +1,25 @@
 import {navigateToThreats} from "../../../pages/manual_search/HandleRoutingThreats.jsx";
-import React from "react";
+import React, {useEffect} from "react";
 import {useState} from "react";
+import {useLocation} from "react-router-dom";
 
-const TableView = ({ infoList }) => {
-    const [colorMapSource, setColorMapSource] = useState({})
+const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
+
+    // store of the color assigned to each source of relationship
+    const [colorMapSource, setColorMapSource] = useState({});
+
+    // store of the attack patterns already selected by the user
+    const location = useLocation();
+    let alreadySelected = location.state ? location.state.alreadySelected : null;
+
+
+    useEffect(() => {
+        const root_element = document.getElementById('root');
+        root_element.classList.add('scrollbar')
+        if (alreadySelected)
+            setSelectedAt(alreadySelected);
+            alreadySelected = null;
+    }, []);
 
     function generateRandomColor() {
         const red = Math.floor(Math.random() * 256);
@@ -22,8 +38,44 @@ const TableView = ({ infoList }) => {
         }
     }
 
+    function formatContentId(content_id) {
+        content_id = content_id.replace('.', '\\.');
+        content_id = content_id.replace('&', '\\&');
+        return content_id;
+    }
+
+    function handleSelectedCell(event) {
+        const content = event.target;
+        const elements = document.querySelectorAll('#' + formatContentId(content.id));
+
+        if (selectedAt && selectedAt.includes(content.id)) {
+            setSelectedAt(selectedAt.filter(at => at !== content.id));
+            elements.forEach(element => {
+                element.classList.remove("bg-primary-subtle");
+                element.classList.remove("text-dark");
+            });
+        }
+        else {
+            setSelectedAt([...selectedAt, content.id]);
+            elements.forEach(element => {
+                element.classList.add("bg-primary-subtle");
+                element.classList.add("text-dark");
+            });
+        }
+        console.log(event.target.id);
+
+    }
+
+    useEffect(() => {
+        console.log(selectedAt);
+    }, [selectedAt]);
+
     return (
         <div className="row d-flex justify-content-center">
+            <div className="mt-3 mb-4  text-center lead">You can select the attack patterns identified through
+                your analysis to find out if the attacks you have suffered can be linked to a known group of attackers.
+            </div>
+
             {Object.keys(colorMapSource).length > 0 && (
                 <>
                     <div className="fw-bold text-secondary">Source of relationship:</div>
@@ -57,8 +109,14 @@ const TableView = ({ infoList }) => {
                             {Array.isArray(value) ? (
                                 value.map((subItem, subIndex) => (
                                     <div
-                                        className="m-0 border-bottom border-start border-end border-secondary py-2"
-                                        style={{ fontSize: '12px' }}
+                                        className={
+                                            (selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)
+                                                ? 'm-0 border-bottom border-start border-end border-secondary py-2 bg-primary-subtle text-dark'
+                                                : 'm-0 border-bottom border-start border-end border-secondary py-2')}
+                                        style={{fontSize: '12px'}}
+                                        id={key.replaceAll(' ', '_') + '__' + subItem.ID}
+                                        role="button"
+                                        onClick={(e) => handleSelectedCell(e)}
                                     >
                                         {subItem.hasOwnProperty('Attack name') ? subItem['Attack name'] : subItem['Name']}
                                         <p
@@ -85,9 +143,8 @@ const TableView = ({ infoList }) => {
                         </div>
                     ))
                 ))
-            ) : (
-                <div>{value}</div>
-            )}
+            ) : null
+            }
         </div>
     );
 

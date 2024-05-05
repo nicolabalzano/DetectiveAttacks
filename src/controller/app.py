@@ -17,7 +17,8 @@ from src.controller.objectsController.stixController.CampaignController import g
 from src.controller.objectsController.stixController.ToolMalwareController import get_tool_malware_from_mitre_id
 from src.controller.objectsController.VulnerabilityController import get_vulnerability_from_cve_id
 
-from src.controller.objectsController.stixController.AttackPatternController import get_attack_patter_from_mitre_id
+from src.controller.objectsController.stixController.AttackPatternController import get_attack_patter_from_mitre_id, \
+    get_all_attack_patterns_grouped_by_CKCP, get_all_platforms
 from src.controller.ManualSearch import get_searched_obj
 
 app = Flask(__name__)
@@ -32,8 +33,9 @@ DICT_OF_FILTER_TYPES = {
     'Group': 'intrusion-set',
     'Mapped Vulnerability': 'mapped_vulnerability'
 }
-LIST_OF_FILTER_DOMAINS = ['Enterprise', 'Mobile', 'ICS', 'ATLAS', 'CVE', 'CWE', 'n/a']
 
+LIST_OF_FILTER_MITRE_DOMAINS = ['Enterprise', 'Mobile', 'ICS', 'ATLAS']
+LIST_OF_FILTER_DOMAINS = LIST_OF_FILTER_MITRE_DOMAINS + ['CVE', 'CWE', 'n/a']
 
 @app.route('/api/get_filters', methods=["GET"])
 def get_filters():
@@ -86,43 +88,66 @@ def get_data():
     # , filters=filters
 
 
-@app.route('/api/get_data/get_attack_pattern')
+@app.route('/api/get_data/get_attack_pattern', methods=["GET"])
 def get_attack_pattern():
     searched_id = request.args.get('id')
     searched_result = get_attack_patter_from_mitre_id(searched_id)
     return searched_result
 
 
-@app.route('/api/get_data/get_campaign')
+@app.route('/api/get_data/get_attack_patterns_grouped_by_CKCP', methods=["GET"])
+def get_attack_patterns_grouped_by_CKCP():
+    """
+    Get all attack patterns grouped by CKC phases
+    :return: dict of {CKC_phase: [attack_pattern]}
+    """
+    return get_all_attack_patterns_grouped_by_CKCP()
+
+
+@app.route('/api/get_data/get_campaign', methods=["GET"])
 def get_campaign():
     searched_id = request.args.get('id')
     searched_result = get_campaign_from_mitre_id(searched_id)
     return searched_result
 
 
-@app.route('/api/get_data/get_tool_malware')
+@app.route('/api/get_data/get_tool_malware', methods=["GET"])
 def get_tool_malware():
     searched_id = request.args.get('id')
     searched_result = get_tool_malware_from_mitre_id(searched_id)
     return searched_result
 
 
-@app.route('/api/get_data/get_asset')
+@app.route('/api/get_data/get_asset', methods=["GET"])
 def get_asset():
     searched_id = request.args.get('id')
     searched_result = get_asset_from_mitre_id(searched_id)
     return searched_result
 
 
-@app.route('/api/get_data/get_intrusion_set')
+@app.route('/api/get_data/get_intrusion_set', methods=["GET"])
 def get_intrusion_set():
     searched_id = request.args.get('id')
     searched_result = get_intrusion_set_from_mitre_id(searched_id)
     return searched_result
 
 
-@app.route('/api/get_data/get_vulnerability')
+@app.route('/api/get_data/get_vulnerability', methods=["GET"])
 def get_vulnerability():
     searched_id = request.args.get('id')
     searched_result = get_vulnerability_from_cve_id(searched_id)
     return searched_result
+
+
+@app.route('/api/get_data/get_platforms', methods=["GET"])
+def get_platforms():
+    """
+    Get all platforms
+    :return: list of platforms
+    """
+    return get_all_platforms()
+
+
+@app.route('/api/get_data/get_domains', methods=["GET"])
+def get_domains():
+    return LIST_OF_FILTER_MITRE_DOMAINS

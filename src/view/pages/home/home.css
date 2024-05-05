@@ -16747,7 +16747,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 }
 
 .scrollbar {
-  overflow: auto;
+  overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #7027f3 transparent;
 }

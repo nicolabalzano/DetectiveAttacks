@@ -14,6 +14,8 @@ import Campaign from "./pages/threat_show/campaign/Campaign.jsx";
 import Asset from "./pages/threat_show/asset/Asset.jsx";
 import Vulnerability from "./pages/threat_show/vulnerability/Vulnerability.jsx";
 import IntrusionSet from "./pages/threat_show/intrusion_set/IntrusionSet.jsx";
+import TableAttackPatternsGroupedByPhases
+    from "./pages/all_attack_patterns_by_phase/TableAttackPatternsGroupedByPhases.jsx";
 
 
 const router = createBrowserRouter(
@@ -23,6 +25,7 @@ const router = createBrowserRouter(
         <Route path="searching_choice" element={<SearchingChoice />} />
         <Route path="manual_search" element={<ManualSearch />} />
         <Route path="attack_pattern" element={<Attack />} />
+        <Route path="attack_patterns_by_phase" element={<TableAttackPatternsGroupedByPhases />} />
         <Route path="tool" element={<Tool />} />
         <Route path="malware" element={<Malware />} />
         <Route path="campaign" element={<Campaign />} />

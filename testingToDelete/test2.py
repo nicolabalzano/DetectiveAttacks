@@ -1,6 +1,8 @@
 from pprint import pprint
 
-from src.controller.app import DICT_OF_FILTER_TYPES
+from src.controller.app import DICT_OF_FILTER_TYPES, get_attack_patterns_grouped_by_CKCP
+from src.controller.objectsController.stixController.AttackPatternController import \
+    get_all_attack_patterns_grouped_by_CKCP
 from src.model.container import AttackPatternsContainer, MitreToCVEContainer, IntrusionSetsContainer
 from src.model.container.vulnerabilityContainer.AbstractMitreToVulnerabilityContainer import \
     AbstractMitreToVulnerabilityContainer
@@ -13,5 +15,5 @@ TensorFlow is an Open Source Machine Learning Framework. In versions prior to 2.
 
 """
 # MitreToCVEContainer().get_attack_pattern_by_vuln_id('CVE-2023-25661')
-g = IntrusionSetsContainer().get_object_from_data_by_mitre_id('G0006')
-pprint(g.attack_patterns_and_relationship)
+
+print([at.x_mitre_platforms for at in AttackPatternsContainer().get_tuple_data() if 'atlas' in at.x_mitre_domains])

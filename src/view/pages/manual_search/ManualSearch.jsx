@@ -24,10 +24,6 @@ const ManualSearch = () => {
     const currentRecords = results.slice(indexOfFirstRecord, indexOfLastRecord);
     const nPages = Math.ceil(results.length / recordsPerPage)
 
-    const finderRef = useRef(null);
-
-    const navigate = useNavigate();
-
     // FETCH DATA FROM API and SET FILTERS on startup
     useEffect(() => {
         // FETCH FILTERS FROM API
@@ -182,7 +178,7 @@ const ManualSearch = () => {
 
                 {/* SEARCH AND RESULTS */}
                 <div className="container-fluid" style={{marginTop: '70px'}}>
-                    <SearchBar onSearch={handleSearch} finderRef={finderRef}/>
+                    <SearchBar onSearch={handleSearch} />
                     {
                         loading ? (
                             <div className="text-center text-secondary mt-5 search-result">

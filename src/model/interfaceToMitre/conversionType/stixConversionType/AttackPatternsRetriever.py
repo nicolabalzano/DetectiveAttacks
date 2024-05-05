@@ -31,6 +31,7 @@ class AttackPatternsRetriever(_AbstractObjectRetriever):
         # if there isn't domain is ATLAS (because MitreAtlasData is home-made)
         if not hasattr(stix_object, 'x_mitre_domains'):
             added_dict['x_mitre_domains'] = ['atlas']
+            added_dict['x_mitre_platforms'] = ['Machine Learning platforms']
 
         my_stix_object = self.my_stix_type(**stix_object, **added_dict)
 
