@@ -14,8 +14,8 @@ def generate_pdf_from_html(html_file_path, pdf_file_path):
     print(os.path.abspath(__file__))
     parent_path = os.path.dirname(os.path.abspath(__file__))
     print(parent_path+'\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
-    # config = pdfkit.configuration(wkhtmltopdf=parent_path + '\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
-    # , configuration=config
-    pdfkit.from_file(html_file_path, pdf_file_path)
+    config = pdfkit.configuration(wkhtmltopdf=parent_path + '\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+
+    pdfkit.from_file(html_file_path, pdf_file_path, configuration=config)
 
     return pdf_file_path
