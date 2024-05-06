@@ -30,9 +30,9 @@ class IntrusionSetsRetriever(_AbstractObjectWithAttackPatternsRetriever):
         added_dict = {'tool_malware_and_relationship': tool_malware_rel_dict,
                       'campaigns_and_relationship': campaign_rel_dict}
 
-        my_stix_object = self.my_stix_type(**stix_object, **added_dict)
+        # my_stix_object = self.my_stix_type(**stix_object, **added_dict)
 
-        return my_stix_object
+        return super()._get_object_from_stix({**stix_object, **added_dict})
 
     def _get_all(self):
         return (MITRE_ATTACK_ENTERPRISE_DATA.get_groups()

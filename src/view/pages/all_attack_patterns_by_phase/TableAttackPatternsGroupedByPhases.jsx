@@ -1,12 +1,13 @@
 import TableView from "../../components/threat_show/util/TableView.jsx";
 import {
     fetchDataAttackPatternsGroupedByPhaseAPI,
-    fetchDataDomains,
+    fetchDataDomains, fetchDataReportGroupsAPI,
     fetchDataPlatforms
 } from "../../components/api/fetchAPI.jsx";
 import React, {useEffect, useState} from "react";
 import SearchBar from "../../components/search_bar/SearchBar.jsx";
 import {Skeleton} from "@mui/material";
+import('../../scss/util.scss')
 
 const TableAttackPatternsGroupedByPhases = () => {
 
@@ -153,8 +154,23 @@ const TableAttackPatternsGroupedByPhases = () => {
                                                                                         animation="wave"
                                                                                         width={1100} height={1000}/>
                         </div>
-                        : <TableView infoList={atGroupByPhaseInView} selectedAt={selectedAt}
+                        :
+                        <div>
+
+                            {/* Button to generate the report */}
+                            <button className="position-fixed bottom-0 end-0 me-3 mb-3 btn btn-primary px-3 shadow reduce-font"
+                                onClick={() => {
+                                    console.log(selectedAt)
+                                    fetchDataReportGroupsAPI(selectedAt).then(response => {
+                                        console.log(response.data)
+                                    })
+                                }}
+                            >Generate the report</button>
+
+                            {/* Big table */}
+                            <TableView infoList={atGroupByPhaseInView} selectedAt={selectedAt}
                                      setSelectedAt={setSelectedAt}/>
+                        </div>
                 }
             </div>
         </div>

@@ -83,3 +83,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 .text-color{
   color: var(--bs-body-color);
 }
+
+.reduce-font{
+  font-size: 0.8em;
+}
+
+.bg-primary-opacity{
+  background-color: rgba($primary-bg-subtle, 0.5);
+  background-image: unset;
+}

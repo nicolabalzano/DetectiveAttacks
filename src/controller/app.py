@@ -1,9 +1,12 @@
+import json
 import os
 
 from flask import Flask, render_template, request, jsonify
 import sys
 
-from src.controller.objectsController.stixController.IntrusionSetController import get_intrusion_set_from_mitre_id
+from src.controller.objectsController.stixController.IntrusionSetController import get_intrusion_set_from_mitre_id, \
+    __get_intrusion_set_probability_from_attack_patterns, fetch_report_of_intrusion_set_probability_from_attack_patterns
+from src.controller.objectsController.util import download_file
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 two_directories_up = os.path.dirname(os.path.dirname(current_directory))
@@ -24,6 +27,7 @@ from src.controller.ManualSearch import get_searched_obj
 app = Flask(__name__)
 
 cors = CORS(app, origins='*')
+
 DICT_OF_FILTER_TYPES = {
     'Attack': 'attack-pattern',
     'Campaign': 'campaign',
@@ -151,3 +155,10 @@ def get_platforms():
 @app.route('/api/get_data/get_domains', methods=["GET"])
 def get_domains():
     return LIST_OF_FILTER_MITRE_DOMAINS
+
+
+@app.route('/api/get_data/get_report_groups', methods=["GET"])
+def get_report_groups():
+    id_list = request.args.get('id_list')
+    return download_file(fetch_report_of_intrusion_set_probability_from_attack_patterns(id_list))
+

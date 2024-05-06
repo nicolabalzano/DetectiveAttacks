@@ -16772,6 +16772,15 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   color: var(--bs-body-color);
 }
 
+.reduce-font {
+  font-size: 0.8em;
+}
+
+.bg-primary-opacity {
+  background-color: rgba(226, 212, 253, 0.5);
+  background-image: unset;
+}
+
 .dropdown-my-content {
   padding: 20px;
   max-width: 80vw;

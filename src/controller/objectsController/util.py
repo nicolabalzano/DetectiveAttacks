@@ -1,3 +1,5 @@
+from flask import send_file
+
 from src.model.domain.AttackPhase import AttackPhase
 
 
@@ -114,3 +116,9 @@ def remove_empty_values(dict_):
         elif not value:  # If the value is an empty string or None, remove the key from the dictionary
             del dict_[key]
     return dict_
+
+
+def download_file(file_path):
+    return send_file(file_path, as_attachment=True, download_name=file_path.split('/')[-1])
+
+

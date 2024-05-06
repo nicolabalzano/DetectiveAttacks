@@ -14,7 +14,7 @@ class _AbstractObjectWithAttackPatternsRetriever(_AbstractObjectRetriever, Gener
         super().__init__(my_stix_type, stix_type)
 
     # override method to add list of dict of attack_patterns and list of relationship
-    def _get_object_from_stix(self, stix_object: T_STIX) -> T_MY_STIX:
+    def _get_object_from_stix(self, stix_object) -> T_MY_STIX:
         # TODO SICURAMENTE USARE L'ECCEZIZONE NON è LA SCELTA MIGLIORE
         # try:
         att_rel_dict = {}

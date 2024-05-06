@@ -10,4 +10,4 @@ from src.model.domain.mySTIXObject.MyAttackPattern import MyAttackPattern
 @dataclass(eq=False, frozen=True, slots=True)
 class AbstractMySTIXObjectWithAttackPatterns(AbstractMySTIXObjectWithContributors, ABC):
     attack_patterns_and_relationship: dict[MyAttackPattern, Relationship] = field(
-        default_factory=tuple)
+        default_factory=dict)

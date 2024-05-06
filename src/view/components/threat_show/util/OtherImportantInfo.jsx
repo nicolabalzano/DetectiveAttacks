@@ -6,6 +6,7 @@ import Line from "./Line.jsx";
 import TableView from "./TableView.jsx";
 import SwitchView from "../../switch_view_selector/SwitchView.jsx";
 import {useNavigate} from "react-router-dom";
+import {navigateToThreats} from "../../../pages/manual_search/HandleRoutingThreats.jsx";
 
 function handleDropdown(e) {
     const dropdown_id = e.target.id;

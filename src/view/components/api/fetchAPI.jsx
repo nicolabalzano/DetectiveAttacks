@@ -24,6 +24,39 @@ export const fetchDataDomains = async () => {
     return await axios.get(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_domains`);
 }
 
+// GET GROUPS REPORT DATA
+export const fetchDataReportGroupsAPI = async (idList) => {
+    const params = { id_list: idList };
+    const url = new URL(`${import.meta.env.VITE_IP_PORT_TO_FLASK}/api/get_data/get_report_groups`);
+
+    // Appending parameters to the URL
+    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+
+    try {
+        const response = await axios.get(url.toString(), { responseType: 'blob' }); // Ensure you set responseType to 'blob'
+
+        if (response.data.size > 0) {
+            const downloadUrl = window.URL.createObjectURL(response.data);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = downloadUrl;
+            // Set the default filename for the download
+            const now = new Date();
+            a.download = 'report_groups_' + now.toISOString().replace(/:/g, '-') + '.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(downloadUrl);
+        } else {
+            console.log('No file was returned from the server.');
+        }
+    } catch (error) {
+        console.error('Error downloading the file:', error.response || error);
+    }
+}
+
+
+
 // FETCH ATTACK PATTERNS DATA
 export const fetchDataAttackAPI = async (id) => {
     let params = {id: id};

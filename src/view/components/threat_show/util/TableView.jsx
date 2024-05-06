@@ -2,6 +2,7 @@ import {navigateToThreats} from "../../../pages/manual_search/HandleRoutingThrea
 import React, {useEffect} from "react";
 import {useState} from "react";
 import {useLocation} from "react-router-dom";
+import('../../../scss/util.scss')
 
 const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
 
@@ -51,15 +52,13 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
         if (selectedAt && selectedAt.includes(content.id)) {
             setSelectedAt(selectedAt.filter(at => at !== content.id));
             elements.forEach(element => {
-                element.classList.remove("bg-primary-subtle");
-                element.classList.remove("text-dark");
+                element.classList.remove("bg-primary-opacity");
             });
         }
         else {
             setSelectedAt([...selectedAt, content.id]);
             elements.forEach(element => {
-                element.classList.add("bg-primary-subtle");
-                element.classList.add("text-dark");
+                element.classList.add("bg-primary-opacity");
             });
         }
         console.log(event.target.id);
@@ -73,7 +72,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
     return (
         <div className="row d-flex justify-content-center">
             <div className="mt-3 mb-4  text-center lead">You can select the attack patterns identified through
-                your analysis to find out if the attacks you have suffered can be linked to a known group of attackers.
+                your analysis to find out if the attacks you have suffered can be linked to a known Group.
             </div>
 
             {Object.keys(colorMapSource).length > 0 && (
@@ -111,7 +110,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                     <div
                                         className={
                                             (selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)
-                                                ? 'm-0 border-bottom border-start border-end border-secondary py-2 bg-primary-subtle text-dark'
+                                                ? 'm-0 border-bottom border-start border-end border-secondary py-2 bg-primary-opacity'
                                                 : 'm-0 border-bottom border-start border-end border-secondary py-2')}
                                         style={{fontSize: '12px'}}
                                         id={key.replaceAll(' ', '_') + '__' + subItem.ID}
