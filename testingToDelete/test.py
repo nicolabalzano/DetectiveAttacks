@@ -1,4 +1,10 @@
 import nvdlib
+import os
+import sys
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
+directories_up = os.path.dirname(current_directory)
+sys.path.append(directories_up)
 
 from src.model.container.mySTIXContainer.IntrusionSetsContainer import IntrusionSetsContainer
 from src.model.container.vulnerabilityContainer.MitreToCVEContainer import MitreToCVEContainer

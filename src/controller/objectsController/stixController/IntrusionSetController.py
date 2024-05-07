@@ -41,7 +41,7 @@ def __get_intrusion_set_probability_from_attack_patterns(attack_pattern_id_list)
     """
     Get the intrusion set probability from the attack pattern id list
     :param attack_pattern_id_list: the list of attack patterns
-    :return: the list of (intrusion set, probability)
+    :return: the list of (intrusion set, probability) and the list of attack patterns selected
     """
     real_id_of_attack_pattern_list = [at.split('__')[1] for at in attack_pattern_id_list.split(',')]
 
@@ -56,6 +56,7 @@ def __get_intrusion_set_probability_from_attack_patterns(attack_pattern_id_list)
     list_ins_prob = [[
         {
             'ID': item.x_mitre_id,
+            'stix id': item.id,
             'Name': item.name,
             'Aliases': format_list_of_string(item.aliases),
             'Domains': format_list_of_string(item.x_mitre_domains),
@@ -67,19 +68,25 @@ def __get_intrusion_set_probability_from_attack_patterns(attack_pattern_id_list)
 
     # collapse list in dict
     list_of_results = []
+
+    total = 0
+
     for item in list_:
         dict_ = {**item[0], 'Probability': round(item[1] * 100, 2)}
         list_of_results.append(dict_)
+        total += dict_['Probability']
+    print(total)
 
     if len(list_of_results) > 5:
-        return list_of_results[:5]
+        return list_of_results[:5], attack_patterns_list
 
-    return list_of_results
+    return list_of_results, attack_patterns_list
 
 
 def fetch_report_of_intrusion_set_probability_from_attack_patterns(attack_pattern_id_list):
-    report_data = __get_intrusion_set_probability_from_attack_patterns(attack_pattern_id_list)
-    html_output = __get_intrusion_set_prob_dicts_to_html(report_data)
+    report_data, attack_patterns_list = __get_intrusion_set_probability_from_attack_patterns(attack_pattern_id_list)
+    html_output = __get_intrusion_set_prob_dicts_to_html(report_data, attack_patterns_list)
+
     filename = 'report_groups_'+datetime.now().time().strftime("%H-%M-%S")
     html_filename = filename + '.html'
     pdf_filename = filename+'.pdf'
@@ -90,7 +97,7 @@ def fetch_report_of_intrusion_set_probability_from_attack_patterns(attack_patter
     return generate_pdf_from_html(path+html_filename, path+pdf_filename)
 
 
-def __get_intrusion_set_prob_dicts_to_html(dicts):
+def __get_intrusion_set_prob_dicts_to_html(dicts, selected_attack_patterns):
     # HTML document start
     html_content = """
     <!DOCTYPE html>
@@ -109,7 +116,15 @@ def __get_intrusion_set_prob_dicts_to_html(dicts):
     </head>
     <body>
         <h1>Groups Detected</h1>
+        
+        <div class='info-content'>
+            <h3>For selected Attack Patterns</h2>
     """
+    # Adding information based on the selected attack patterns
+    for attack_pattern in selected_attack_patterns:
+        html_content += f"<div><b>{attack_pattern.name}</b> ({attack_pattern.id}) ({attack_pattern.x_mitre_id}) </div>"
+    html_content += "</div>"
+
     # Adding information based on dictionary data
     for data in dicts:
         # Format the title as "Name (ID): Probability"
@@ -122,7 +137,6 @@ def __get_intrusion_set_prob_dicts_to_html(dicts):
                 if key not in ['Name', 'ID', 'Probability', 'Description']:  # Exclude fields used in the title
                     html_content += f"<p><strong>{key}:</strong> {value}</p>"
             html_content += "</div>"
-
     # HTML document end
     html_content += """
     </body>

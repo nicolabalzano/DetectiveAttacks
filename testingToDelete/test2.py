@@ -1,5 +1,11 @@
 import json
 from pprint import pprint
+import os
+import sys
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
+directories_up = os.path.dirname(current_directory)
+sys.path.append(directories_up)
 
 from src.controller.app import DICT_OF_FILTER_TYPES, get_attack_patterns_grouped_by_CKCP, get_report_groups
 from src.controller.objectsController.stixController.AttackPatternController import \
@@ -13,6 +19,8 @@ from src.model.container.vulnerabilityContainer.AbstractMitreToVulnerabilityCont
 from src.model.gptAPI.gptAPI import GPT_API
 from src.model.interfaceToMitre.mitreData.MitreData import MITRE_ATTACK_ENTERPRISE_DATA
 from src.model.pdfGeneration.pdf import generate_pdf_from_html
+from src.controller.objectsController.stixController.IntrusionSetController import get_intrusion_set_from_mitre_id, \
+    __get_intrusion_set_probability_from_attack_patterns, fetch_report_of_intrusion_set_probability_from_attack_patterns
 
 vuln_desc = """
 
@@ -27,17 +35,10 @@ print([obj[0].name + ' ' + str(obj[1]) for obj in
 """
 
 # Dizionario di esempio
-data = __get_intrusion_set_probability_from_attack_patterns(
-    'Command%26Control__T1205.002,Action_on_Objectives__T1561.002,Action_on_Objectives__T1498.001,Command%26Control__T1113')
-print(type(data[0]))
+data = fetch_report_of_intrusion_set_probability_from_attack_patterns(
+    'Command%26Control__T1592,Action_on_Objectives__T1593')
 
 
-def get_report_groups2():
-    id_list = 'Command%26Control__T1205.002,Action_on_Objectives__T1561.002,Action_on_Objectives__T1498.001,Command%26Control__T1113'
-    return download_file(fetch_report_of_intrusion_set_probability_from_attack_patterns(id_list))
-
-
-get_report_groups2()
 
 """
 print(set([g.name for g in IntrusionSetsContainer().get_tuple_data() if
