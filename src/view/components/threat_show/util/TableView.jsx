@@ -106,7 +106,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                 <span className="fw-semibold fs-6">{key}</span>
                             </p>
                             {Array.isArray(value) ? (
-                                value.map((subItem, subIndex) => (
+                                value.sort((a,b)=> a['Name'].localeCompare(b['Name'])).map((subItem, subIndex) => (
                                     <div
                                         className={
                                             (selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)
