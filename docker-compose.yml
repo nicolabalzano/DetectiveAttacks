@@ -1,7 +1,7 @@
 version: '3.8'
 services:
-  react_app:
-    build: ./react_app
+  react_interface:
+    build: ./react_interface
     ports:
       - "80:3001"
     networks:
@@ -28,7 +28,7 @@ services:
     networks:
       - app_network
     depends_on:
-      - react_app
+      - react_interface
       - flask_stix_vulnerability
       - flask_vulnerability
 
