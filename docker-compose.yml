@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  react_app:
+    build: ./react_app
+    ports:
+      - "80:3001"
+    networks:
+      - app_network
+
+  flask_stix_vulnerability:
+    build: ./flask_stix_vulnerability
+    ports:
+      - "5000:5001"
+    networks:
+      - app_network
+
+  flask_vulnerability:
+    build: ./flask_vulnerability
+    ports:
+      - "5001:5002"
+    networks:
+      - app_network
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    networks:
+      - app_network
+    depends_on:
+      - react_app
+      - flask_stix_vulnerability
+      - flask_vulnerability
+
+networks:
+  app_network:
+    driver: bridge
