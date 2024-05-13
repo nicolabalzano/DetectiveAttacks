@@ -6,7 +6,7 @@
   font-family: 'Roboto Light', sans-serif;
   scrollbar-color: transparent transparent;
   caret-color: transparent;
-  letter-spacing: 0.75px;
+  letter-spacing: 0.75px; 
   height: 100vh;
   scrollbar-width: none;
 }
@@ -15,9 +15,9 @@
 root::-webkit-scrollbar, root::-webkit-scrollbar {
   width: 0;
   scrollbar-width: none;
-}
+} 
 
-input{
+input{ 
   caret-color: $primary;
 }
 

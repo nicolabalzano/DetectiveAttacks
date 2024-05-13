@@ -1,9 +1,13 @@
 #theme-switch {
   position: fixed;
+  width: -moz-fit-content;
   width: fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   touch-action: pan-x;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   bottom: 20px;
   left: 20px;
   transition: top 0.3s ease;
@@ -61,7 +65,8 @@
   border-width: 1px;
   border-style: solid;
   border-color: rgb(77, 77, 77);
-  border-image: initial;
+  -o-border-image: initial;
+     border-image: initial;
   border-radius: 50%;
   transition: all 0.25s ease 0s;
 }
@@ -77,6 +82,4 @@
 }
 [darkmode] #theme-switch .switch-thumb {
   left: 27px;
-}
-
-/*# sourceMappingURL=theme-switch.css.map */
+}/*# sourceMappingURL=theme-switch.css.map */

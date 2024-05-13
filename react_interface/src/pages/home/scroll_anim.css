@@ -42,12 +42,4 @@ html {
     opacity: 0;
     top: 60px;
   }
-}
-@-webkit-keyframes wheel {
-  to {
-    opacity: 0;
-    top: 60px;
-  }
-}
-
-/*# sourceMappingURL=scroll_anim.css.map */
+}/*# sourceMappingURL=scroll_anim.css.map */
