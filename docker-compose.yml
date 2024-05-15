@@ -1,4 +1,4 @@
-version: '3.8'
+version: 'v2.26.1'
 services:
   web_interface:
     build: ./web_interface
@@ -10,14 +10,14 @@ services:
   flask_stix_vulnerability:
     build: ./flask_stix_vulnerability
     ports:
-      - "5000:5001"
+      - "5002:5002"
     networks:
       - app_network
 
   flask_vulnerability:
     build: ./flask_vulnerability
     ports:
-      - "5001:5002"
+      - "5001:5001"
     networks:
       - app_network
 

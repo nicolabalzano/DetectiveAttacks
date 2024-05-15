@@ -5,7 +5,7 @@ FROM node:16-alpine
 WORKDIR /src
 
 # Copia i file di progetto
-COPY package.json package-lock.json ./
+COPY ./package.json ./package-lock.json ./
 
 # Installa le dipendenze usando npm
 RUN npm install
@@ -20,4 +20,4 @@ RUN npm run build
 RUN npm install -g serve
 
 # Avvia il server
-CMD ["serve", "-s", "build", "-l", "3001"]
+CMD ["npm", "run", "dev", "--", "--host"]
