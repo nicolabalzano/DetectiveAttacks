@@ -2,7 +2,7 @@
 FROM node:16-alpine
 
 # Imposta la directory di lavoro
-WORKDIR /app
+WORKDIR /src
 
 # Copia i file di progetto
 COPY package.json package-lock.json ./
