@@ -17029,4 +17029,9 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
 
 .num-rows-selector:focus {
   outline: 0;
+}
+
+.bg-blur {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }/*# sourceMappingURL=manual_search.css.map */

@@ -29,3 +29,16 @@
 :root{
   @extend .no-scrollbar;
 }
+
+.bg-blur{
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.bg-mapping{
+  background-color: transparent;
+}
+
+#insert_cve_cwe::placeholder {
+  color: var(--body-color);
+}

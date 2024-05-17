@@ -18,13 +18,13 @@ const Navbar_ = () => {
             {/* SMALL TITLE */}
             <div className="d-flex justify-content-center align-items-center me-auto ms-auto">
                 <div className="container-fluid d-flex justify-content-center align-items-center small-logo-container small-logo transition-element">
-                    <a className="h1 m-0 text-decoration-none" href="/">ThreatExplorer</a>
+                    <a className="h1 m-0 text-decoration-none" href="/">DetectiveAttacks</a>
                     <LogoSvg w={'50px'} h={'50px'}/>
 
                 </div>
             </div>
 
-            {/* MENU */}
+            {/* ABOUT */}
             <Nav className="ms-auto">
                 <Nav.Link className="collapse navbar-collapse container-fluid align-items-center me-auto">
                     <a className="nav-link text-primary" href="searching_choice">About</a>

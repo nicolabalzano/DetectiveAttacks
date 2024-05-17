@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SearchBar from "../../components/search_bar/SearchBar.jsx";
 import './manual_search.scss';
-import {Box, Pagination, Skeleton, Stack} from "@mui/material";
-import {fetchDataAPI, fetchFilterAPI} from "../../components/api/fetchAPI.jsx";
-import {navigateToThreats} from "./HandleRoutingThreats.jsx";
+import { Box, Button, Pagination, Skeleton, Stack } from "@mui/material";
+import { fetchDataAPI, fetchFilterAPI } from "../../components/api/fetchAPI.jsx";
+import { navigateToThreats } from "./HandleRoutingThreats.jsx";
 
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -26,7 +26,7 @@ const ManualSearch = () => {
     // FETCH DATA FROM API and SET FILTERS on startup
     useEffect(() => {
         // FETCH FILTERS FROM API
-        fetchFilterAPI().then(r=>{
+        fetchFilterAPI().then(r => {
             setListOfFilterTypes(r.data.list_of_filter_types);
             setListOfFilterDomains(r.data.list_of_filter_domains);
             setSelectedDomains(r.data.list_of_filter_domains);
@@ -45,7 +45,7 @@ const ManualSearch = () => {
     useEffect(() => {
         setLoading(true);
         // FETCH DATA FROM API
-        fetchDataAPI(searchTerm, selectedTypes, selectedDomains).then(r =>{
+        fetchDataAPI(searchTerm, selectedTypes, selectedDomains).then(r => {
             setResults(r.data.results);
             //set direction of arrows in table to default
             if (r.data.results.length > 0) {
@@ -72,7 +72,7 @@ const ManualSearch = () => {
         setCurrentPage(1);
     };
 
-    function CheckboxComponent({ list_of_filter, setSelected, selected}) {
+    function CheckboxComponent({ list_of_filter, setSelected, selected }) {
         return (
             <div>
                 {list_of_filter.map((type) => (
@@ -108,33 +108,43 @@ const ManualSearch = () => {
 
     }
 
-    function TableComponent({results}) {
-        return(
+    function TableComponent({ results }) {
+        return (
             <div className="search-result">
                 <table className="table table-hover table-sorting" >
                     <thead>
-                    <tr >
-                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(0)}>Type<i className={`bi bi-arrow-${arrowDirectionTabelOrder[0]}`}></i></th>
-                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(1)}>ID<i className={`bi bi-arrow-${arrowDirectionTabelOrder[1]}`}></i></th>
-                        <th scope="col" role="button" className="text-secondary w-50" onClick={()=>handleSort(2)}>Name<i className={`bi bi-arrow-${arrowDirectionTabelOrder[2]}`}></i></th>
-                        <th scope="col" role="button" className="text-secondary" onClick={()=>handleSort(3)}>Domains<i className={`bi bi-arrow-${arrowDirectionTabelOrder[3]}`}></i></th>
-                    </tr>
+                        <tr >
+                            <th scope="col" role="button" className="text-secondary" onClick={() => handleSort(0)}>Type<i className={`bi bi-arrow-${arrowDirectionTabelOrder[0]}`}></i></th>
+                            <th scope="col" role="button" className="text-secondary" onClick={() => handleSort(1)}>ID<i className={`bi bi-arrow-${arrowDirectionTabelOrder[1]}`}></i></th>
+                            <th scope="col" role="button" className="text-secondary w-50" onClick={() => handleSort(2)}>Name<i className={`bi bi-arrow-${arrowDirectionTabelOrder[2]}`}></i></th>
+                            <th scope="col" role="button" className="text-secondary" onClick={() => handleSort(3)}>Domains<i className={`bi bi-arrow-${arrowDirectionTabelOrder[3]}`}></i></th>
+                        </tr>
                     </thead>
 
                     <tbody className="table-group-divider ">
-                    {results.map((result, index) => (
-                        <tr key={index} className="border-b border-secondary" role="button" onClick={()=>navigateToThreats(result[1], result[0])}>
-                            <td>{result[0]}</td>
-                            <td>{result[1]}</td>
-                            <td>{result[2]}</td>
-                            <td>{result[3]}</td>
-                        </tr>
-                    ))}
+                        {results.map((result, index) => (
+                            <tr key={index} className="border-b border-secondary" role="button" onClick={() => navigateToThreats(result[1], result[0])}>
+                                <td>{result[0]}</td>
+                                <td>{result[1]}</td>
+                                <td>{result[2]}</td>
+                                <td>{result[3]}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
 
             </div>
         )
+    }
+
+    const handleClickNewCVWE = () => {
+        const div_blur = document.getElementById('blur-div')
+        if (div_blur && !div_blur.classList.contains('d-none')) {
+            div_blur.classList.add('d-none')
+        }
+        else {
+            div_blur.classList.remove('d-none')
+        }
     }
 
 
@@ -143,7 +153,7 @@ const ManualSearch = () => {
             <div className="d-flex px-4" >
 
                 {/* FILTERS */}
-                <div className="col text-start" style={{marginTop:'70px'}}>
+                <div className="col text-start" style={{ marginTop: '70px' }}>
                     <p className="h4 text-secondary fw-bold"> Filters </p>
                     <div className="ms-3 me-3 mt-4">
                         <p className="h6 text-secondary">Object type:</p>
@@ -164,19 +174,19 @@ const ManualSearch = () => {
                         <div className="mt-3">
                             <span className="fs-6 fw-semibold text-secondary">N° of rows</span>
                             <input type="number" className="w-auto rounded num-rows-selector" min="1" max="300"
-                                   defaultValue={recordsPerPage}
-                                   onChange={(e)=>setRecordsPerPage(e.target.value)}/>
+                                defaultValue={recordsPerPage}
+                                onChange={(e) => setRecordsPerPage(e.target.value)} />
                         </div>
                     </div>
                 </div>
 
                 <div className="d-flex col-1 justify-content-center align-items-center p-0"
-                     style={{height: 'auto', width: '15px'}}>
+                    style={{ height: 'auto', width: '15px' }}>
                     <div className="vr thick-vr border-primary"></div>
                 </div>
 
                 {/* SEARCH AND RESULTS */}
-                <div className="container-fluid" style={{marginTop: '70px'}}>
+                <div className="container-fluid" style={{ marginTop: '70px' }}>
                     <SearchBar onSearch={handleSearch} />
                     {
                         loading ? (
@@ -194,13 +204,13 @@ const ManualSearch = () => {
                                 </div>
                             ) : (
                                 <div className="">
-                                    <TableComponent results={currentRecords}/>
+                                    <TableComponent results={currentRecords} />
                                     <div className="d-flex justify-content-center text-primary mt-4">
                                         <Stack spacing={2}>
                                             {/* PAGINATION */}
                                             <Pagination count={nPages} page={currentPage}
-                                                        onChange={(event, page) => setCurrentPage(page)}
-                                                        className="custom-pagination"/>
+                                                onChange={(event, page) => setCurrentPage(page)}
+                                                className="custom-pagination" />
                                         </Stack>
                                     </div>
                                 </div>
@@ -208,6 +218,36 @@ const ManualSearch = () => {
                         )
                     }
                 </div>
+
+                {/* MAPPING BUTTON */}
+                <button type='button'
+                    className='btn btn-primary position position-fixed bottom-0 end-0 mb-4 me-4 px-4'
+                    onClick={handleClickNewCVWE}>
+                    New CVE/CWE Mapping
+                </button>
+
+                {/* BLUR BACKGROUND */}
+                <div
+                    id='blur-div'
+                    className='d-flex flex-column justify-content-center  d-none position-absolute top-50 start-50 translate-middle w-100 h-100 z-2 bg-blur d-flex flex-column justify-content-center align-items-center'
+                    >
+                    <div onClick={handleClickNewCVWE} className=' position-absolute top-50 start-50 translate-middle w-100 h-100 z-2'></div>
+
+                    {/* INSERT NEW CVE CWE TO MAP */}
+                    <div className="position-absolute top-50 start-50 translate-middle w-75 bg-mapping regular-lg rounded z-3">
+                        <p className='text-center display-6 fw-semibold text-uppercase mb-5'>
+                            Insert the CVE or CWE id to know the related attack pattern
+                        </p>
+                        <div className="input-group flex-nowrap px-5 mt-5 mx-5">
+                            <input type="text" id='insert_cve_cwe' className="form-control" placeholder="e.g. Insert CVE or CWE ID" aria-label="text" aria-describedby="addon-wrapping" />
+                        </div>
+                        <div className="d-flex justify-content-center mt-5">
+                            <button className='btn btn-primary px-4 fs-5'>Search related Attack Patterns</button>
+                        </div>
+                    </div>
+                </div>
+
+
 
             </div>
         </div>

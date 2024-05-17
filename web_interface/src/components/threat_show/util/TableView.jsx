@@ -1,5 +1,5 @@
 import {navigateToThreats} from "../../../pages/manual_search/HandleRoutingThreats.jsx";
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import {useState} from "react";
 import {useLocation} from "react-router-dom";
 import('../../../scss/util.scss')
@@ -106,8 +106,9 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                 <span className="fw-semibold fs-6">{key}</span>
                             </p>
                             {Array.isArray(value) ? (
-                                value.sort((a,b)=> a['Name'].localeCompare(b['Name'])).map((subItem, subIndex) => (
+                                value.sort((a,b)=> a['ID'].localeCompare(b['ID'])).map((subItem, subIndex) => (
                                     <div
+                                        key={subIndex}
                                         className={
                                             (selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)
                                                 ? 'm-0 border-bottom border-start border-end border-secondary py-2 bg-primary-opacity'

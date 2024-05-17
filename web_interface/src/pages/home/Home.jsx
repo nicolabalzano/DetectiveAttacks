@@ -32,7 +32,7 @@ const Home = () => {
     return (
         <div className="container-fluid big-logo-container d-flex flex-column justify-content-center align-items-center first-container no-scrollbar text-center">
             <div className={`container-fluid justify-content-center transition-element`}>
-                <h1 className="big-logo">ThreatExplorer
+                <h1 className="big-logo">DetectiveAttacks
                 <LogoSvg w={'180px'} h={'180px'}/></h1>
             </div>
             <div className="d-flex justify-content-center align-items-center sub-title">
