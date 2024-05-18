@@ -1,20 +1,10 @@
-- spiegare il perchè della similiratà coseno
+- runnare docker
 
-- rifare figura 11 e 14
+- testare la libreria cvwlib 
 
-- non ha molto senso chiedere la correlazione con le altre tecniche, sono quelle confermata da 	mitre, al massimo posso chiedere la correlazione tra cve e tecniche?
-confronto tra gpt e il mio algoritmo, gpt fa cacare nel nostro caso
-confronto tra gpt e bert
+- cambiare in vulnerapilityAPI del model di stix&vulnerability le directory per le richieste
 
-- fare mvc
+- cambiare in fetchAPI di api di webInterface i return delle ultime 2 funzioni, e i path per le richieste
 
-- owasp?
-vedi se c'è qualcosa ch può servire
-
-non ho gpt?
-mandare link per acquisto 
-
-esiste un server?
-lunedì mi da vpn e credenziali per poter lavorare 
-
+- in VulnerabilityController cambiare le chiavi e i valori
 

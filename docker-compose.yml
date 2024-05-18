@@ -7,15 +7,15 @@ services:
     networks:
       - app_network
 
-  flask_stix_vulnerability:
-    build: ./flask_stix_vulnerability
+  stix&vulnerability:
+    build: ./stix&vulnerability
     ports:
       - "5002:5002"
     networks:
       - app_network
 
-  flask_vulnerability:
-    build: ./flask_vulnerability
+  cvwelib:
+    build: ./cvwelib
     ports:
       - "5001:5001"
     networks:
@@ -28,9 +28,9 @@ services:
     networks:
       - app_network
     depends_on:
-      - web_interface
-      - flask_stix_vulnerability
-      - flask_vulnerability
+      - webInterface
+      - stix&vulnerability
+      - cvwelib
 
 networks:
   app_network:
