@@ -1,4 +1,4 @@
-- runnare docker
+- fare il fork del repo cvwelib
 
 - testare la libreria cvwlib 
 
@@ -7,4 +7,6 @@
 - cambiare in fetchAPI di api di webInterface i return delle ultime 2 funzioni, e i path per le richieste
 
 - in VulnerabilityController cambiare le chiavi e i valori
+
+- runnare docker
 
