@@ -3,7 +3,8 @@ import SearchBar from "../../components/search_bar/SearchBar.jsx";
 import './manual_search.scss';
 import { Box, Button, Pagination, Skeleton, Stack } from "@mui/material";
 import { fetchDataAPI, fetchFilterAPI } from "../../components/api/fetchAPI.jsx";
-import { navigateToThreats } from "./HandleRoutingThreats.jsx";
+import { navigateToThreats } from "../../components/handle_routing_threats/HandleRoutingThreats.jsx";
+import VulnerabilityMapping from "../../components/vulnerability_mapping/VulnerabilityMapping.jsx";
 
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -98,12 +99,12 @@ const ManualSearch = () => {
         if (arrowDirectionTabelOrder[index] === 'down') {
             newArrowDirectionTableOrder[index] = 'up';
             setArrowDirectionTableOrder(newArrowDirectionTableOrder);
-            setResults([...results].sort((a, b) => a[index] > b[index] ? 1 : -1));
+            setResults([...results].sort((a, b) => a[index] < b[index] ? 1 : -1));
         }
         else {
             newArrowDirectionTableOrder[index] = 'down';
             setArrowDirectionTableOrder(newArrowDirectionTableOrder);
-            setResults([...results].sort((a, b) => a[index] < b[index] ? 1 : -1));
+            setResults([...results].sort((a, b) => a[index] > b[index] ? 1 : -1));
         }
 
     }
@@ -136,17 +137,6 @@ const ManualSearch = () => {
             </div>
         )
     }
-
-    const handleClickNewCVWE = () => {
-        const div_blur = document.getElementById('blur-div')
-        if (div_blur && !div_blur.classList.contains('d-none')) {
-            div_blur.classList.add('d-none')
-        }
-        else {
-            div_blur.classList.remove('d-none')
-        }
-    }
-
 
     return (
         <div className="container-fluid">
@@ -220,34 +210,7 @@ const ManualSearch = () => {
                 </div>
 
                 {/* MAPPING BUTTON */}
-                <button type='button'
-                    className='btn btn-primary position position-fixed bottom-0 end-0 mb-4 me-4 px-4'
-                    onClick={handleClickNewCVWE}>
-                    New CVE/CWE Mapping
-                </button>
-
-                {/* BLUR BACKGROUND */}
-                <div
-                    id='blur-div'
-                    className='d-flex flex-column justify-content-center  d-none position-absolute top-50 start-50 translate-middle w-100 h-100 z-2 bg-blur d-flex flex-column justify-content-center align-items-center'
-                    >
-                    <div onClick={handleClickNewCVWE} className=' position-absolute top-50 start-50 translate-middle w-100 h-100 z-2'></div>
-
-                    {/* INSERT NEW CVE CWE TO MAP */}
-                    <div className="position-absolute top-50 start-50 translate-middle w-75 bg-mapping regular-lg rounded z-3">
-                        <p className='text-center display-6 fw-semibold text-uppercase mb-5'>
-                            Insert the CVE or CWE id to know the related attack pattern
-                        </p>
-                        <div className="input-group flex-nowrap px-5 mt-5 mx-5">
-                            <input type="text" id='insert_cve_cwe' className="form-control" placeholder="e.g. Insert CVE or CWE ID" aria-label="text" aria-describedby="addon-wrapping" />
-                        </div>
-                        <div className="d-flex justify-content-center mt-5">
-                            <button className='btn btn-primary px-4 fs-5'>Search related Attack Patterns</button>
-                        </div>
-                    </div>
-                </div>
-
-
+                <VulnerabilityMapping />
 
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import RenderList from './RenderList';
 import Line from "./Line.jsx";
-import {navigateToThreats} from "../../../pages/manual_search/HandleRoutingThreats.jsx";
+import { navigateToThreats } from "../../handle_routing_threats/HandleRoutingThreats.jsx";
 
 function RenderDict({ infoDict }) {
 

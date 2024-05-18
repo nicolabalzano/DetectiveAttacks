@@ -1,7 +1,7 @@
-import {navigateToThreats} from "../../../pages/manual_search/HandleRoutingThreats.jsx";
 import {useEffect} from "react";
 import {useState} from "react";
 import {useLocation} from "react-router-dom";
+import {navigateToThreats} from "../../handle_routing_threats/HandleRoutingThreats";
 import('../../../scss/util.scss')
 
 const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
