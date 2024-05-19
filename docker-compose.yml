@@ -1,13 +1,13 @@
 version: 'v2.26.1'
 services:
   web_interface:
-    build: ./web_interface
+    build: ./webInterface
     ports:
       - "80:3001"
     networks:
       - app_network
 
-  stix&vulnerability:
+  stix_and_vulnerability:
     build: ./stix&vulnerability
     ports:
       - "5002:5002"
@@ -28,8 +28,8 @@ services:
     networks:
       - app_network
     depends_on:
-      - webInterface
-      - stix&vulnerability
+      - web_interface
+      - stix_and_vulnerability
       - cvwelib
 
 networks:

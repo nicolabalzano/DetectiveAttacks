@@ -1,12 +1,8 @@
-- fare il fork del repo cvwelib
-
-- testare la libreria cvwlib 
-
-- cambiare in vulnerapilityAPI del model di stix&vulnerability le directory per le richieste
-
-- cambiare in fetchAPI di api di webInterface i return delle ultime 2 funzioni, e i path per le richieste
-
-- in VulnerabilityController cambiare le chiavi e i valori
-
 - runnare docker
+
+- in cweController cambiare la chiave Description e decommenta la chiave Related Attack Patters
+
+- testare se la mappatura di una nuova vuln funziona
+
+- capire se vale la pena inserire demostrative example in cwe
 

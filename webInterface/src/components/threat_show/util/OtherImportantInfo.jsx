@@ -111,7 +111,8 @@ function RenderValue({ subDict, keyForSameIdWords }) {
                             {/*ID*/}
                             {
                                 // if ID is not empty and Type does not contain 'course-of-action' (for Mitigations), then it is a link
-                                subDict.ID && subDict.Type && !subDict.Type.includes('course-of-action') ? (
+                                subDict.ID && subDict.Type && !subDict.Type.includes('course-of-action') ? 
+                                (
                                     <>
                                         <span className="text-secondary fs-6">(</span>
                                         <span className="fs-6 text-decoration-underline link-primary
@@ -119,13 +120,17 @@ function RenderValue({ subDict, keyForSameIdWords }) {
                                               role="button" onClick={() => navigateToThreats(subDict.ID, subDict.Type)}>{subDict.ID}</span>
                                         <span className="text-secondary fs-6">)</span>
                                     </>
-                                ) : (
-                                    <>
-                                        <span className="text-secondary fs-6">(</span>
-                                        <span className="fs-6 text-secondary">{subDict.ID}</span>
-                                        <span className="text-secondary fs-6">)</span>
-                                    </>
-                                )
+                                ) :(
+                                    subDict.ID
+                                )   ? 
+                                    (
+                                        <>
+                                            <span className="text-secondary fs-6">(</span>
+                                            <span className="fs-6 text-secondary">{subDict.ID}</span>
+                                            <span className="text-secondary fs-6">)</span>
+                                        </>
+                                    )
+                                    : null
                             }
                             <span> <i className="bi bi-caret-down-fill" role="button" id={subDict.Name} onClick={(e) => handleDropdown(e)}></i></span>
                         </p>

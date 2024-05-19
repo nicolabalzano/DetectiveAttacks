@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_stix_vulnerability = "http://127.0.0.1:8080/api/stix&vulnerability"
+//const API_stix_vulnerability = "http://127.0.0.1:80/api/stix_and_vulnerability"
+const API_stix_vulnerability = "http://127.0.0.1:5002"
 
 // FETCH ALL THREATS
 export const fetchDataAPI = async (searchTerm, selectedTypes, selectedDomains) => {
@@ -8,6 +9,7 @@ export const fetchDataAPI = async (searchTerm, selectedTypes, selectedDomains) =
     let params = {search: searchTerm, types: selectedTypes, domains: selectedDomains};
     let url = new URL(`${API_stix_vulnerability}/api/get_data`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    console.log(url.toString());
     return await axios.get(url.toString());
 };
 
@@ -122,26 +124,21 @@ export const fetchDataVulnerabilityAPI = async (id) => {
 }
 
 
-const API_vulnerability = "http://127.0.0.1:8080/api/cvwelib"
+// const API_vulnerability = "http://127.0.0.1:80/api/cvwelib"
+const API_vulnerability = "http://127.0.0.1:5001"
 
 // FETCH CVE DATA
 export const fetchDataCVEAPI = async (id) => {
-    let params = {id: id};
-    // TODO: Change the path to check existence
-    let url = new URL(`${API_vulnerability}/PATH-----------------------`);
+    let params = {'cveId': id};
+    let url = new URL(`${API_vulnerability}/api/get_cve`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    return {};
-    // TODO: DELETE THE RETURN STATEMENT AND UNCOMMENT THE FOLLOWING LINE
     return await axios.get(url.toString());
 }
 
 // FETCH CWE DATA
 export const fetchDataCWEAPI = async (id) => {
-    let params = {id: id};
-    // TODO: Change the path to check existence
-    let url = new URL(`${API_vulnerability}/PATH-----------------------`);
+    let params = {'cweId': id};
+    let url = new URL(`${API_vulnerability}/api/get_cwe`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    return {};
-    // TODO: DELETE THE RETURN STATEMENT AND UNCOMMENT THE FOLLOWING LINE
     return await axios.get(url.toString());
 }
