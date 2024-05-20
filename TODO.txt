@@ -1,5 +1,7 @@
 - runnare docker
 
+- cambiare i nomi dei file visto che non uso più SSM
+
 - in cweController cambiare la chiave Description e decommenta la chiave Related Attack Patters
 
 - testare se la mappatura di una nuova vuln funziona
