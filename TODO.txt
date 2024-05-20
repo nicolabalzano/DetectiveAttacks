@@ -6,5 +6,11 @@
 
 - testare se la mappatura di una nuova vuln funziona
 
+- decommentare la chiave nel docker file 
+
+- usare per le CWE la Description e non la extended description, altrimenti se c'è solo la extended tagliala al massimo numero di token per gpt
+
 - capire se vale la pena inserire demostrative example in cwe
+
+--- TESI rivedere da pagina 43
 
