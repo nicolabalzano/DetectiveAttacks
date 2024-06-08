@@ -1,5 +1,7 @@
 - runnare docker
 
+- rinomina il package attackToVulnerability in mitreToVulnerability
+
 - cambiare i nomi dei file visto che non uso più SSM
 
 - in cweController cambiare la chiave Description e decommenta la chiave Related Attack Patters
@@ -12,5 +14,8 @@
 
 - capire se vale la pena inserire demostrative example in cwe
 
---- TESI rivedere da pagina 43
-
+--- TESI 
+- rivedere da pagina 64
+- modificare quando dici solo ATT&Ck, in realtà so anche di atlas
+- inserire figura 19
+- modifica imagine 14 e testo dopo aver modificato il nome del package
