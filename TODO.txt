@@ -1,7 +1,3 @@
-- runnare docker
-
-- rinomina il package attackToVulnerability in mitreToVulnerability
-
 - cambiare i nomi dei file visto che non uso più SSM
 
 - in cweController cambiare la chiave Description e decommenta la chiave Related Attack Patters
@@ -12,7 +8,7 @@
 
 - usare per le CWE la Description e non la extended description, altrimenti se c'è solo la extended tagliala al massimo numero di token per gpt
 
-- capire se vale la pena inserire demostrative example in cwe
+- cancellare /stix&vulnerability/src/model/InterfaceToMitre/mitreData/mitreToVulnerability/SentenceSimilarityModelAPI
 
 --- TESI 
 - rivedere da pagina 64

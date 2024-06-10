@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const API_stix_vulnerability = "http://127.0.0.1:80/api/stix_and_vulnerability"
-const API_stix_vulnerability = "http://127.0.0.1:5002"
+const API_stix_vulnerability = "http://127.0.0.1:8080/api/stix_and_vulnerability"
+//const API_stix_vulnerability = "http://127.0.0.1:5002"
 
 // FETCH ALL THREATS
 export const fetchDataAPI = async (searchTerm, selectedTypes, selectedDomains) => {
@@ -124,8 +124,8 @@ export const fetchDataVulnerabilityAPI = async (id) => {
 }
 
 
-// const API_vulnerability = "http://127.0.0.1:80/api/cvwelib"
-const API_vulnerability = "http://127.0.0.1:5001"
+const API_vulnerability = "http://127.0.0.1:8080/api/cvwelib"
+//const API_vulnerability = "http://127.0.0.1:5001"
 
 // FETCH CVE DATA
 export const fetchDataCVEAPI = async (id) => {
