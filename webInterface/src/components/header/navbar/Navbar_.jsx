@@ -3,6 +3,7 @@ import './navbar.css';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import LogoSvg from "../../../assets/LogoSvg.jsx";
+import Menu from "../../lateral_menu/Menu.jsx";
 
 const Navbar_ = () => {
     return (
@@ -27,7 +28,7 @@ const Navbar_ = () => {
             {/* ABOUT */}
             <Nav className="ms-auto">
                 <Nav.Link className="collapse navbar-collapse container-fluid align-items-center me-auto">
-                    <a className="nav-link text-primary" href="searching_choice">About</a>
+                    <Menu/>               
                 </Nav.Link>
             </Nav>
 

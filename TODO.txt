@@ -1,5 +1,3 @@
-- cambiare i nomi dei file visto che non uso più SSM
-
 - in cweController cambiare la chiave Description e decommenta la chiave Related Attack Patters
 
 - testare se la mappatura di una nuova vuln funziona
@@ -8,10 +6,7 @@
 
 - usare per le CWE la Description e non la extended description, altrimenti se c'è solo la extended tagliala al massimo numero di token per gpt
 
-- cancellare /stix&vulnerability/src/model/InterfaceToMitre/mitreData/mitreToVulnerability/SentenceSimilarityModelAPI
-
 --- TESI 
 - rivedere da pagina 64
-- modificare quando dici solo ATT&Ck, in realtà so anche di atlas
+- modificare quando dici solo ATT&CK, in realtà so anche di atlas
 - inserire figura 19
-- modifica imagine 14 e testo dopo aver modificato il nome del package
