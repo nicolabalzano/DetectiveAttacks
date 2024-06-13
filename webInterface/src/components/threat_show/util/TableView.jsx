@@ -40,8 +40,8 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
     }
 
     function formatContentId(content_id) {
-        content_id = content_id.replace('.', '\\.');
-        content_id = content_id.replace('&', '\\&');
+        content_id = content_id.replace(/\./g, '\\.');       
+        content_id = content_id.replace(/\&/g, '\\&');
         return content_id;
     }
 
@@ -61,18 +61,16 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                 element.classList.add("bg-primary-opacity");
             });
         }
-        console.log(event.target.id);
 
     }
 
     useEffect(() => {
-        console.log(selectedAt);
     }, [selectedAt]);
 
     return (
         <div className="row d-flex justify-content-center">
             <div className="mt-3 mb-4  text-center lead">You can select the attack patterns identified through
-                your analysis to find out if the attacks you have suffered can be linked to a known Group.
+                your analysis to find out if the attacks you have suffered can be linked to a known Threat Agets/Groups.
             </div>
 
             {Object.keys(colorMapSource).length > 0 && (

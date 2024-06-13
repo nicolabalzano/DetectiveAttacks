@@ -160,10 +160,7 @@ const TableAttackPatternsGroupedByPhases = () => {
                             {/* Button to generate the report */}
                             <button className="position-fixed bottom-0 end-0 me-3 mb-3 btn btn-primary px-3 shadow reduce-font"
                                 onClick={() => {
-                                    console.log(selectedAt)
-                                    fetchDataReportGroupsAPI(selectedAt).then(response => {
-                                        console.log(response.data)
-                                    })
+                                    fetchDataReportGroupsAPI(selectedAt)
                                 }}
                             >Generate the report</button>
 

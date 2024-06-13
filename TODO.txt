@@ -6,7 +6,7 @@
 
 - usare per le CWE la Description e non la extended description, altrimenti se c'è solo la extended tagliala al massimo numero di token per gpt
 
-- fare il report più bello
+- eliminare temp ogni 5 minuti
 
 --- TESI 
 - PAGINA 78 fare i test di gpt

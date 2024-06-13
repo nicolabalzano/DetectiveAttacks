@@ -9,7 +9,7 @@ export const fetchDataAPI = async (searchTerm, selectedTypes, selectedDomains) =
     let params = {search: searchTerm, types: selectedTypes, domains: selectedDomains};
     let url = new URL(`${API_stix_vulnerability}/api/get_data`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    console.log(url.toString());
+    consoe.log(url.toString());
     return await axios.get(url.toString());
 };
 
