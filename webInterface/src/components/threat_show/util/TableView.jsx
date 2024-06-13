@@ -213,8 +213,12 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                         {/* Exapand attack patterns for child */}
                                         {
                                             !isChildPattern && value.length-1 > subIndex && nextIdIsParent(value[subIndex+1]['ID'], subItem['ID'] ) && (
-                                                <div style={{ flex: '10%' }} onClick={(e)=>{handleDropdown(e, key.replaceAll(' ', '_') + '__' + subItem.ID)}}>
-                                                    <i id={key + '_' + parentIdForRendering} className="bi bi-caret-down-fill text-secondary" ></i>
+                                                <div style={{ flex: '10%' }}>
+                                                    <i 
+                                                        id={key + '_' + parentIdForRendering} 
+                                                        className="bi bi-caret-down-fill text-secondary" 
+                                                        role="button"
+                                                        onClick={(e)=>{handleDropdown(e, key.replaceAll(' ', '_') + '__' + subItem.ID)}}></i>
                                                 </div>
                                             )
                                         }
