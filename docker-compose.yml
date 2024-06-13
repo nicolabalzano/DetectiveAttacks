@@ -6,8 +6,8 @@ services:
         source: ./webInterface/src
         target: /webInterface/src
     build: ./webInterface
-    ports:
-      - "80:3001"
+    #ports:
+    #  - "80:3001"
     networks:
       - app_network
 
@@ -17,8 +17,8 @@ services:
           source: ./stix&vulnerability
           target: /stix&vulnerability
     build: ./stix&vulnerability
-    ports:
-      - "5002:5002"
+    #ports:
+    #  - "5002:5002"
     networks:
       - app_network
 
@@ -28,8 +28,8 @@ services:
         source: ./cvwelib
         target: /cvwelib
     build: ./cvwelib
-    ports:
-      - "5001:5001"
+    #ports:
+    #  - "5001:5001"
     networks:
       - app_network
 
