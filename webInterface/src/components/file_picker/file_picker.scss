@@ -45,22 +45,15 @@
 	font-size: 17px;
 	align-items: center;
 	margin: 5px 0;
-	padding: 5px 10px 5px 30px;
+	padding: 5px 10px 5px 10px;
 	border-radius: 5px;
 	color: #BB0000;
-	display: none;
 }
 @keyframes fadeIn {
   0% {opacity: 0;}
   100% {opacity: 1;}
 }
-.cannot-upload-message span, .upload-button-icon {
-	padding-right: 10px;
-}
-.cannot-upload-message span:last-child {
-	padding-left: 20px;
-	cursor: pointer;
-}
+
 .file-block {
 	color: #f7fff7;
 	background-color: $primary;

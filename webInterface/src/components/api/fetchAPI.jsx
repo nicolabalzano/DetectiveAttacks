@@ -9,7 +9,6 @@ export const fetchDataAPI = async (searchTerm, selectedTypes, selectedDomains) =
     let params = {search: searchTerm, types: selectedTypes, domains: selectedDomains};
     let url = new URL(`${API_stix_vulnerability}/api/get_data`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    consoe.log(url.toString());
     return await axios.get(url.toString());
 };
 
@@ -121,6 +120,13 @@ export const fetchDataVulnerabilityAPI = async (id) => {
     let url = new URL(`${API_stix_vulnerability}/api/get_data/get_vulnerability`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
+}
+
+// UPLOAD REPORT FROM CLIENT
+export const uploadReportAPI = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return await axios.post(`${API_stix_vulnerability}/api/upload_report`, formData);
 }
 
 

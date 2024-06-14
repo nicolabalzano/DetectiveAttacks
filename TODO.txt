@@ -7,7 +7,18 @@
 - usare per le CWE la Description e non la extended description, altrimenti se c'è solo la extended tagliala al massimo numero di token per gpt
 
 - eliminare temp ogni 5 minuti
+ 
+- TO DELETE in AbstractMitreToVulnerabilityContainer
+
+- commentare le porte nel compose tranne di nginx
+
+- togliere i print e console.log
+
+- fare la funzione per estrarre il testo dal report uploadato
+
+- fare il modulo per estrarre il testo dal pdf
 
 --- TESI 
 - PAGINA 78 fare i test di gpt
 - modificare quando dici solo ATT&CK, in realtà so anche di atlas
+- cambiare figura 24
