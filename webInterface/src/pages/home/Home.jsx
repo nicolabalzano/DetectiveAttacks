@@ -32,7 +32,7 @@ const Home = () => {
     return (
         <div className="container-fluid big-logo-container d-flex flex-column justify-content-center align-items-center first-container no-scrollbar text-center">
             <div className={`container-fluid justify-content-center transition-element`}>
-                <h1 className="big-logo">DetectiveAttacks
+                <h1 className="big-logo fw-bolder">DetectiveAttacks
                 <LogoSvg w={'180px'} h={'180px'}/></h1>
             </div>
             <div className="d-flex justify-content-center align-items-center sub-title">
@@ -44,11 +44,13 @@ const Home = () => {
             <div className={`container-fluid transition-element description hide`}>
                 <div className="row justify-content-center align-items-center">
                     <div className="col-md-6 justify-content-center text-center">
-                        <div className="text-description">
-                            <p>Dolor sit amet, consectetur adipisicing elit. Id, sapiente. Dolor sit amet, consectetur adipisicing elit. Id, sapiente. Dolor sit amet, consectetur adipisicing elit. Id, sapiente.</p>
-                            <p>Dolor sit amet, consectetur adipisicing elit. Id, sapiente.</p>
+                        <div className="text-description lead fs-5">
+                            <p className="m-0 mb-1">DetetectiveAttacks is a tool that lets you explore knowledge of <b>CTI</b> including <b>CVE</b>, <b>CWE</b>, <b>attack patterns</b>, <b>mitigations</b>, <b>assets</b>, <b>tools</b>, <b>malware</b>, <b>campaigns</b> and <b>intrusion</b> sets from the <b>Enterprise</b>, <b>Mobile</b>, <b>ICS</b> and <b>AML</b> domains.
+                                </p>
+                                <p className="m-0 ">It allows to obtain the <b>relationships</b> between the various objects, providing detection and mitigation suggestions for specific cases and the possibility to learn the vulnerabilities through procedures examples. </p>
+                                <p>By selecting the attack patterns found it is possible to get a <b>report</b> that indicates the probability with which you are suffering an attack by the known threat agents/groups</p>
                             <div className="row justify-content-center align-items-center text-center">
-                                <Link to="searching_choice">
+                                <Link to="searching_choices">
                                     <button type="button" className="btn btn-outline-primary fs-5 fw-bolder mt-2 shadow">
                                         Get started
                                     </button>

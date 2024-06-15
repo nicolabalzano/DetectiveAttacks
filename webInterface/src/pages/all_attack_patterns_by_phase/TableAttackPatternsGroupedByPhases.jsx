@@ -57,6 +57,7 @@ const TableAttackPatternsGroupedByPhases = () => {
 
     useEffect(() => {
         if (Object.keys(atGroupedByPhase).length > 0) {
+            console.log(selectedDomains, selectedPlatforms, searchTerm)
             setAtGroupByPhaseInView(
                 atGroupedByPhase.map(phaseObj => {
                     const phase = Object.keys(phaseObj)[0];
@@ -67,7 +68,10 @@ const TableAttackPatternsGroupedByPhases = () => {
                         selectedPlatforms.some(platform =>
                             at.Platforms.toLowerCase().includes(platform.toLowerCase())
                         ) &&
-                        at.Name.toLowerCase().includes(searchTerm.toLowerCase())
+                        (
+                            (at.Name && at.Name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                            (at.ID && at.ID.toLowerCase().includes(searchTerm.toLowerCase()))
+                        )
                     );
                     return { [phase]: filteredAts };
                 }).filter(phaseObj => phaseObj[Object.keys(phaseObj)[0]].length > 0)

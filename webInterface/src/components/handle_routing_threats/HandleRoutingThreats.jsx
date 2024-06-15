@@ -1,4 +1,4 @@
-export function navigateToThreats(id, type) {
+export function navigateToThreats(id, type, returnLink = false) {
     let url;
     if((type && type === 'attack-pattern') || (id[0] === 'T' || id.substring(0,5)==='AML.T')) {
         url = '/attack_pattern';
@@ -25,7 +25,11 @@ export function navigateToThreats(id, type) {
         url = '/intrusion_set';
     }
 
-    if (url) {
-        window.open(url + '?id=' + id, '_blank');
+    const finalUrl = url ? url + '?id=' + id : null;
+
+    if (returnLink) {
+        return finalUrl;
+    } else if (finalUrl) {
+        window.open(finalUrl, '_blank');
     }
 }

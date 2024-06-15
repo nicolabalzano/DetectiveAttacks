@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import search_lens from '../../assets/search_lens.png';
-import './searching_choice.scss';
+import './searching_choices.scss';
 import FilePicker from "../../components/file_picker/filePicker.jsx";
 
-function SearchingChoice() {
+function SearchingChoices() {
 
     useEffect(() => {
         const root_element = document.getElementById('root');
@@ -39,7 +39,7 @@ function SearchingChoice() {
 
                     <div className="col justify-content-center">
                         <h3 className="fw-bold">MANUAL SEARCH</h3>
-                        <p className="mt-2 text-secondary">Choose manual searching to explore the system in manual mode!</p>
+                        <p className="mt-2 text-secondary">Choose manual searching to explore manully the CTI knowledge!</p>
                         <div className="row justify-content-center">
                             <img className="lens" src={search_lens} alt="lens"/>
                         </div>
@@ -55,4 +55,4 @@ function SearchingChoice() {
     );
 }
 
-export default SearchingChoice;
+export default SearchingChoices;

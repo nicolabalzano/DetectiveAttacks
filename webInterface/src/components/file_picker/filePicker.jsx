@@ -1,11 +1,13 @@
 import './file_picker.scss'
 import React, { useState } from 'react';
 import { uploadReportAPI } from '../api/fetchAPI';
-
+import {navigateToThreats} from '../handle_routing_threats/HandleRoutingThreats.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function FilePicker() {
     const [dragActive, setDragActive] = useState(true);
     const [file, setFile] = useState(null);
+    const navigate = useNavigate();
 
     const uploadFile = (file_) => {
         const fileName = file_.name;
@@ -39,7 +41,7 @@ function FilePicker() {
 
             // If the response contains the word 'successfully', the file was uploaded successfully
             // change the text color to green
-            if (response.data.includes('successfully')) {
+            if (response.data.message.includes('successfully')) {
                 uploadError.classList.remove('text-danger');
                 uploadError.classList.add('text-success');
                 setFile(null);
@@ -48,19 +50,29 @@ function FilePicker() {
             uploadError.innerHTML = response.data.message;
 
             // open page of vulnerabilities encountered in the report
+            console.log(response.data.data);
+            let vulnerabilitiesLink = {};
+            response.data.data.forEach((vuln) => {
+                console.log(vuln);
+                vulnerabilitiesLink[vuln] = navigateToThreats(vuln, 'vulnerability', true);
+            });
+            console.log(vulnerabilitiesLink);
+            navigate('/report_results', {state: vulnerabilitiesLink})
 
             setTimeout(() => {
                 uploadError.classList.add('d-none');
+                uploadError.classList.remove('text-success');
+                uploadError.classList.add('text-danger');
             }, 5000);
         }). catch((error) => {
             console.error('Error uploading the file:', error.response || error);
             uploadError.classList.remove('d-none');
+            uploadError.classList.remove('text-success');
+            uploadError.classList.add('text-danger')
             uploadError.innerHTML = "Error uploading the file!";
             setFile(null);
             setTimeout(() => {
                 uploadError.classList.add('d-none');
-                uploadError.classList.remove('text-success');
-                uploadError.classList.add('text-danger')
             }, 5000);
         });
     }
@@ -97,6 +109,7 @@ function FilePicker() {
         document.getElementById('dnd').classList.remove('bg-primary-opacity');
         if (e.dataTransfer.files && e.dataTransfer.files[0]) {
             uploadFile(e.dataTransfer.files[0]);
+            e.dataTransfer.clearData();
         }
     };
 
@@ -141,7 +154,7 @@ function FilePicker() {
                     <span className="text-center">
                         <p id="notUploaded" className='text-danger lead fw-bolder d-none m-0'> Please upload a file first! </p>
                         <p id="incorrectExtension" className='text-danger lead fw-bolder d-none m-0'> Please upload .pdf or .txt file! </p>
-                        <p id="uploadError" className='text-danger lead fw-bolder d-none m-0'> Error uploading the file! </p>     
+                        <p id="uploadError" className='text-danger lead fw-bolder d-none m-0'> Error uploading the file, may be a server problem. Try again later! </p>     
                     </span>
                     <button type="button" className="btn btn-outline-primary mt-3 upload-button fw-semibold shadow" onClick={(e) => { postRequestReportAPI() }}> Upload</button>
                 </div>

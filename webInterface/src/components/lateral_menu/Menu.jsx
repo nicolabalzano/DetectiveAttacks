@@ -51,18 +51,18 @@ const Menu = () => {
                         <ListItemText primary='Home' />
                     </ListItemButton>
                 </Link>
-                {/* Searching option */}
-                <Link to="/searching_choice" className='text-decoration-none text-color'>
+                {/* Searching options */}
+                <Link to="/searching_choices" className='text-decoration-none text-color'>
                     <ListItemButton>
                         <ListItemIcon> <QuestionMark/> </ListItemIcon>
-                        <ListItemText primary='Searching option' />
+                        <ListItemText primary='Searching options' />
                     </ListItemButton>
                 </Link>
                 {/* Search page */}
                 <Link to="/manual_search" className='text-decoration-none text-color'>
                     <ListItemButton>
                         <ListItemIcon> <img src={search} alt='search' width={'30px'} height={'30px'} /> </ListItemIcon>
-                        <ListItemText primary='Search page' />
+                        <ListItemText primary='Manual search' />
                     </ListItemButton>
                 </Link>
                 {/* Attack Patterns by phase */}

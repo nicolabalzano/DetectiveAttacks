@@ -7,30 +7,30 @@ const API_stix_vulnerability = "http://127.0.0.1:8080/api/stix_and_vulnerability
 export const fetchDataAPI = async (searchTerm, selectedTypes, selectedDomains) => {
     // REQUEST TO FLASK API
     let params = {search: searchTerm, types: selectedTypes, domains: selectedDomains};
-    let url = new URL(`${API_stix_vulnerability}/api/get_data`);
+    let url = new URL(`${API_stix_vulnerability}/get_data`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 };
 
 // FETCH FILTERS FOR RESEARCH
 export const fetchFilterAPI = async () => {
-    return await axios.get(`${API_stix_vulnerability}/api/get_filters`);
+    return await axios.get(`${API_stix_vulnerability}/get_filters`);
 }
 
 // FETCH PLATFORMS DATA
 export const fetchDataPlatforms = async () => {
-    return await axios.get(`${API_stix_vulnerability}/api/get_data/get_platforms`);
+    return await axios.get(`${API_stix_vulnerability}/get_data/get_platforms`);
 }
 
 // FETCH DOMAINS DATA
 export const fetchDataDomains = async () => {
-    return await axios.get(`${API_stix_vulnerability}/api/get_data/get_domains`);
+    return await axios.get(`${API_stix_vulnerability}/get_data/get_domains`);
 }
 
 // GET GROUPS REPORT DATA
 export const fetchDataReportGroupsAPI = async (idList) => {
     const params = { id_list: idList };
-    const url = new URL(`${API_stix_vulnerability}/api/get_data/get_report_groups`);
+    const url = new URL(`${API_stix_vulnerability}/get_data/get_report_groups`);
 
     // Appending parameters to the URL
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -63,21 +63,21 @@ export const fetchDataReportGroupsAPI = async (idList) => {
 // FETCH ATTACK PATTERNS DATA
 export const fetchDataAttackAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/api/get_data/get_attack_pattern`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_attack_pattern`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
 
 // FETCH ATTACK PATTERNS GROUPED BY CKC PHASES
 export const fetchDataAttackPatternsGroupedByPhaseAPI = async () => {
-    let url = new URL(`${API_stix_vulnerability}/api/get_data/get_attack_patterns_grouped_by_CKCP`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_attack_patterns_grouped_by_CKCP`);
     return await axios.get(url.toString());
 }
 
 // FETCH CAMPAGIN DATA
 export const fetchDataCampaignAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/api/get_data/get_campaign`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_campaign`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -85,7 +85,7 @@ export const fetchDataCampaignAPI = async (id) => {
 // FETCH TOOL DATA
 export const fetchDataToolAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/api/get_data/get_tool_malware`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_tool_malware`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -93,7 +93,7 @@ export const fetchDataToolAPI = async (id) => {
 // FETCH MALWARE DATA
 export const fetchDataMalwareAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/api/get_data/get_tool_malware`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_tool_malware`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -101,7 +101,7 @@ export const fetchDataMalwareAPI = async (id) => {
 // FETCH ASSET DATA
 export const fetchDataAssetAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/api/get_data/get_asset`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_asset`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -109,7 +109,7 @@ export const fetchDataAssetAPI = async (id) => {
 // FETCH INTRUSION SET DATA
 export const fetchDataIntrusionSetAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/api/get_data/get_intrusion_set`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_intrusion_set`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -117,7 +117,7 @@ export const fetchDataIntrusionSetAPI = async (id) => {
 // FETCH VULNERABILITY DATA
 export const fetchDataVulnerabilityAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/api/get_data/get_vulnerability`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_vulnerability`);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -126,7 +126,7 @@ export const fetchDataVulnerabilityAPI = async (id) => {
 export const uploadReportAPI = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    return await axios.post(`${API_stix_vulnerability}/api/upload_report`, formData);
+    return await axios.post(`${API_stix_vulnerability}/upload_report`, formData);
 }
 
 
