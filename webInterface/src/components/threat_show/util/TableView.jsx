@@ -15,6 +15,21 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
 
     var parentIdForRendering = '*****';
 
+    const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
+    const [popupVisible, setPopupVisible] = useState(false);
+
+    function handleMouseMove(event) {
+        setPopupPosition({ x: event.clientX, y: event.clientY });
+        const elementChild = event.target.querySelectorAll('div')[0]
+        elementChild.innerHTML = event.target.getAttribute('name');
+        elementChild.style.position = 'fixed';
+        elementChild.style.left = `${popupPosition.x + 10}px`;
+        elementChild.style.top = `${popupPosition.y + 10}px`;
+        elementChild.style.padding = '5px';
+        elementChild.style.zIndex = 1000;
+        
+    }
+
     useEffect(() => {
         const root_element = document.getElementById('root');
         root_element.classList.add('scrollbar')
@@ -67,8 +82,8 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
         if (selectedAt && selectedAt.includes(contentId)) {
             setSelectedAt(selectedAt.filter(at => at !== contentId));
             elements.forEach(element => {
-                {/* Avoid to change the color of the caret icon */}
-                if(element.tagName !== 'I'){ 
+                {/* Avoid to change the color of the caret icon */ }
+                if (element.tagName !== 'I') {
                     element.classList.remove("bg-primary-opacity");
                 }
             });
@@ -76,8 +91,8 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
         else {
             setSelectedAt([...selectedAt, contentId]);
             elements.forEach(element => {
-                {/* Avoid to change the color of the caret icon */}
-                if(element.tagName !== 'I'){
+                {/* Avoid to change the color of the caret icon */ }
+                if (element.tagName !== 'I') {
                     element.classList.add("bg-primary-opacity");
                 }
             });
@@ -91,7 +106,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
         let i = event.target.closest('i')
 
         allElements.forEach(element => {
-            if ( !element.id.endsWith(contentId) && element.id.includes(contentId)) {
+            if (!element.id.endsWith(contentId) && element.id.includes(contentId)) {
                 if (element.classList.contains('d-none')) {
                     element.classList.remove('d-none');
                     i.classList.remove('bi-caret-down-fill');
@@ -115,6 +130,20 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
         return false;
     }
 
+    function onMouseEnter(id) {
+        document.querySelectorAll('.' + id).forEach(element => {
+            element.classList.add('bg-primary-opacity');
+            setPopupVisible(true)
+        });
+    }
+
+    function onMouseLeave(id) {
+        document.querySelectorAll('.' + id).forEach(element => {
+            element.classList.remove('bg-primary-opacity');
+            setPopupVisible(false)
+        });
+    }
+
     useEffect(() => {
     }, [selectedAt]);
 
@@ -124,19 +153,25 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                 your analysis to find out if the attacks you have suffered can be linked to a known Threat Agents/Groups.
             </div>
 
+            {/* leged of relationships */}
             {Object.keys(colorMapSource).length > 0 && (
                 <>
                     <div className="fw-bold text-secondary">Source of relationship:</div>
                     <div className="mb-3 mt-1">
                         {Object.entries(colorMapSource).map(([key, value]) => (
-                            <div key={key} className="d-inline-block justify-content-start">
+                            <div key={key} className={"d-inline-block justify-content-start m-0 ms-1 ms-4 " + key.split(' ')[0]}>
+                                <span className="">
+                                    {key.split(' ').slice(1).join(' ')}
+                                </span>
+                                <span> </span>
                                 <span
-                                    className="m-0 ms-1 ms-4 text-decoration-underline link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                    className="text-decoration-underline link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
                                     role="button"
                                     onClick={() => navigateToThreats(key)}
                                 >
-                                    {key}
+                                    {key.split(' ')[0]}
                                 </span>
+
                                 <span
                                     className="d-inline-block ms-1"
                                     style={{ background: value, width: '10px', height: '10px' }}
@@ -147,6 +182,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                 </>
             )}
 
+            {/* Table of attack patterns */}
             {Array.isArray(infoList) ? (
                 infoList.map((subDict, subIndex) => (
                     Object.entries(subDict).map(([key, value]) => (
@@ -157,72 +193,81 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                             {Array.isArray(value) ? (
                                 value.sort((a, b) => a['ID'].localeCompare(b['ID'])).map((subItem, subIndex) => {
 
-                                    {/* If the attack pattern is a child, hidden that to show when client click on caret down */}
-                                    const isChildPattern=isChild(subItem['ID'])
-                                    var classesForChild='ms-0'
-                                    if(isChildPattern && isClickedDropdown(key + '_' + parentIdForRendering)){
-                                        classesForChild='ms-3'
+                                    {/* If the attack pattern is a child, hidden that to show when client click on caret down */ }
+                                    const isChildPattern = isChild(subItem['ID'])
+                                    var classesForChild = 'ms-0'
+                                    if (isChildPattern && isClickedDropdown(key + '_' + parentIdForRendering)) {
+                                        classesForChild = 'ms-3'
                                     }
-                                    else if (isChildPattern && !selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)){
-                                        classesForChild='ms-3 d-none'
-                                    }           
-                                    else if(isChildPattern){
-                                        classesForChild='ms-3'
+                                    else if (isChildPattern && !selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)) {
+                                        classesForChild = 'ms-3 d-none'
+                                    }
+                                    else if (isChildPattern) {
+                                        classesForChild = 'ms-3'
                                     }
 
                                     return (
-                                    <div
-                                        key={subIndex}
-                                        className={
-                                            (selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)
-                                                ? 'm-0 border-bottom border-top border-start border-end border-secondary bg-primary-opacity d-flex align-items-center py-2'
-                                                : 'm-0 border-bottom border-top border-start border-end border-secondary d-flex align-items-center py-2') + ' ' + classesForChild}
-                                        style={{ fontSize: '12px' }}
-                                        id={key.replaceAll(' ', '_') + '__' + subItem.ID}
-                                    >
-                                        <div 
-                                            style={{ flex: '90%' }} 
-                                            role="button"
-                                            onClick={(e) => handleSelectedCell(key.replaceAll(' ', '_') + '__' + subItem.ID)}
-                                        > 
-                                            <div onClick={(e) => { e.currentTarget.parentNode.click() }}> {/* Click on the row perform click on parent to select cell*/}
-                                                {subItem.hasOwnProperty('Attack name') ? subItem['Attack name'] : subItem['Name']}
-                                            </div>
-                                            <p
-                                                className="text-decoration-underline link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-0"
+                                        <div
+                                            key={subIndex}
+                                            className={
+                                                (selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)
+                                                    ? 'm-0 border-bottom border-top border-start border-end border-secondary bg-primary-opacity d-flex align-items-center py-2'
+                                                    : 'm-0 border-bottom border-top border-start border-end border-secondary d-flex align-items-center py-2') + ' ' + classesForChild}
+                                            style={{ fontSize: '12px' }}
+                                            id={key.replaceAll(' ', '_') + '__' + subItem.ID}
+                                        >
+                                            <div
+                                                style={{ flex: '90%' }}
                                                 role="button"
-                                                onClick={() => navigateToThreats(subItem['ID'])}
+                                                onClick={(e) => handleSelectedCell(key.replaceAll(' ', '_') + '__' + subItem.ID)}
                                             >
-                                                {subItem['ID']}
-                                            </p>
-
-                                            {/* If there is a relationship, put a color for that */}
-                                            <div className="d-flex justify-content-end me-1">
-                                                {subItem.hasOwnProperty('Relationship Source ID') && (
-                                                    <div
-                                                        style={{
-                                                            background: getColorForSource(subItem['Relationship Source ID']),
-                                                            width: '10px',
-                                                            height: '10px'
-                                                        }}
-                                                    ></div>
-                                                )}
-                                            </div>
-                                        </div>
-                                        
-                                        {/* Exapand attack patterns for child */}
-                                        {
-                                            !isChildPattern && value.length-1 > subIndex && nextIdIsParent(value[subIndex+1]['ID'], subItem['ID'] ) && (
-                                                <div style={{ flex: '10%' }}>
-                                                    <i 
-                                                        id={key + '_' + parentIdForRendering} 
-                                                        className="bi bi-caret-down-fill text-secondary" 
-                                                        role="button"
-                                                        onClick={(e)=>{handleDropdown(e, key.replaceAll(' ', '_') + '__' + subItem.ID)}}></i>
+                                                <div onClick={(e) => { e.currentTarget.parentNode.click() }}> {/* Click on the row perform click on parent to select cell*/}
+                                                    {subItem.hasOwnProperty('Attack pattern name') ? subItem['Attack pattern name'] : subItem['Name']}
                                                 </div>
-                                            )
-                                        }
-                                    </div>
+                                                <p
+                                                    className="text-decoration-underline link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-0"
+                                                    role="button"
+                                                    onClick={() => navigateToThreats(subItem['ID'])}
+                                                >
+                                                    {subItem['ID']}
+                                                </p>
+
+                                                {/* If there is a relationship, put a color for that */}
+                                                <div className="d-flex justify-content-end me-1">
+                                                    {subItem.hasOwnProperty('Relationship Source ID') && Object.values(subItem['Relationship Source ID']).map((relSource) => (
+                                                        <div
+                                                            style={{
+                                                                background: getColorForSource(relSource + ' ' + subItem['Relationship type'].join(', ')),
+                                                                width: '10px',
+                                                                height: '10px'
+                                                            }}
+                                                            onMouseMove={(e) => handleMouseMove(e)}
+                                                            onMouseEnter={() => { onMouseEnter(relSource) }}
+                                                            onMouseLeave={() => { onMouseLeave(relSource) }}
+                                                            name={relSource + ' ' + subItem['Relationship type'].join(', ')}
+                                                        >
+                                                            {popupVisible && (
+                                                                <div className="text-secondary bg-color rounded shadow-sm">
+                                                                </div>
+                                                            )}
+                                                    </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Exapand attack patterns for child */}
+                                            {
+                                                !isChildPattern && value.length - 1 > subIndex && nextIdIsParent(value[subIndex + 1]['ID'], subItem['ID']) && (
+                                                    <div style={{ flex: '10%' }}>
+                                                        <i
+                                                            id={key + '_' + parentIdForRendering}
+                                                            className="bi bi-caret-down-fill text-secondary"
+                                                            role="button"
+                                                            onClick={(e) => { handleDropdown(e, key.replaceAll(' ', '_') + '__' + subItem.ID) }}></i>
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
                                     )
                                 })
                             ) : null}

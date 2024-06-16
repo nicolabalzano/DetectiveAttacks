@@ -24,11 +24,19 @@ function UploadedReportResults() {
         <div className="display-2 fw-bolder text-primary">Uploaded Report Results</div>
         <div className="mt-5 text-center display-5">Vulnerabilities found in the report:</div>
         <div className='display-6 mt-5 text-center'>
-        {vulnerabilitiesLink && Object.keys(vulnerabilitiesLink).length > 0 && Object.entries(vulnerabilitiesLink).map(([vuln, link]) => {
+        {vulnerabilitiesLink && Object.keys(vulnerabilitiesLink).length > 0 && Object.entries(vulnerabilitiesLink).slice(0, -1).map(([vuln, link]) => {
             return (
                 <span><a target='_blank' href={link}>{vuln}</a>, </span>
             )
           })}
+          {/* for the last: no , */}
+          {
+            Object.entries(vulnerabilitiesLink).slice(-1).map(([vuln, link]) => {
+              return (
+                <span><a target='_blank' href={link}>{vuln}</a></span>
+              )
+            })
+          }
         </div>
       </div>
     </>

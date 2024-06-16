@@ -133,7 +133,7 @@ function FilePicker() {
                             ? <div>
                                 <span className="material-icons-outlined upload-icon"> file_uploaded </span>
                                 <h3 className="dynamic-message"> {file.name} </h3>
-                                <span id="deleteFile" role='button' className="btn btn-outline-primary border-0 shadow-none" onClick={(e) => { deleteFile() }}>Delete <i class="bi bi-trash-fill"></i></span>
+                                <span id="deleteFile" role='button' className="btn btn-outline-primary border-0 shadow-none" onClick={(e) => { deleteFile() }}>Delete <i className="bi bi-trash-fill"></i></span>
                             </div>
                             :
                             <div>

@@ -84,6 +84,10 @@ html::-webkit-scrollbar, body::-webkit-scrollbar {
   color: var(--bs-body-color);
 }
 
+.bg-color{
+  background-color: var(--bs-body-bg);
+}
+
 .reduce-font{
   font-size: 0.8em;
 }

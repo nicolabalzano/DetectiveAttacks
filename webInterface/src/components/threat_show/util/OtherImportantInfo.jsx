@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import RenderList from './RenderList';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import RenderDict from "./RenderDict.jsx";
 import Line from "./Line.jsx";
 import TableView from "./TableView.jsx";
 import SwitchView from "../../switch_view_selector/SwitchView.jsx";
-import {useNavigate} from "react-router-dom";
-import {navigateToThreats} from "../../handle_routing_threats/HandleRoutingThreats.jsx";
+import { useNavigate } from "react-router-dom";
+import { navigateToThreats } from "../../handle_routing_threats/HandleRoutingThreats.jsx";
 
 function handleDropdown(e) {
     const dropdown_id = e.target.id;
-    const id = dropdown_id+'_div';
+    const id = dropdown_id + '_div';
+    console.log(id);
     const element = document.getElementById(id);
+    console.log(element);
     const dropdown = document.getElementById(dropdown_id);
     if (element.classList.contains('d-none')) {
         element.classList.remove('d-none');
@@ -66,7 +68,7 @@ function RenderValue({ subDict, keyForSameIdWords }) {
                                 <p className="ms-5">
                                     <span className="display-6 fs-3">{subTitle} </span>
                                     <span> <i className="bi bi-caret-down-fill" role="button" id={subTitle + keyForSameIdWords}
-                                              onClick={(e) => handleDropdown(e)}></i></span>
+                                        onClick={(e) => handleDropdown(e)}></i></span>
 
                                     <div className="d-none" id={subTitle + keyForSameIdWords + '_div'}>
 
@@ -83,10 +85,10 @@ function RenderValue({ subDict, keyForSameIdWords }) {
                                                                 ...dictWithNoNameAndDescription
                                                             } = subSubDict;
                                                             return <div className="ms-5 mt-3">
-                                                                <p className="">{Name}</p>
+                                                                <p className="lead">{Name}</p>
                                                                 <p className="">{Description}</p>
-                                                                <RenderDict infoDict={dictWithNoNameAndDescription}/>
-                                                                <Line/>
+                                                                <RenderDict infoDict={dictWithNoNameAndDescription} />
+                                                                <Line />
                                                             </div>;
                                                         })()}
                                                     </>
@@ -111,26 +113,26 @@ function RenderValue({ subDict, keyForSameIdWords }) {
                             {/*ID*/}
                             {
                                 // if ID is not empty and Type does not contain 'course-of-action' (for Mitigations), then it is a link
-                                subDict.ID && subDict.Type && !subDict.Type.includes('course-of-action') ? 
-                                (
-                                    <>
-                                        <span className="text-secondary fs-6">(</span>
-                                        <span className="fs-6 text-decoration-underline link-primary
-                            link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-                                              role="button" onClick={() => navigateToThreats(subDict.ID, subDict.Type)}>{subDict.ID}</span>
-                                        <span className="text-secondary fs-6">)</span>
-                                    </>
-                                ) :(
-                                    subDict.ID
-                                )   ? 
+                                subDict.ID && subDict.Type && !subDict.Type.includes('course-of-action') ?
                                     (
                                         <>
                                             <span className="text-secondary fs-6">(</span>
-                                            <span className="fs-6 text-secondary">{subDict.ID}</span>
+                                            <span className="fs-6 text-decoration-underline link-primary
+                            link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                                role="button" onClick={() => navigateToThreats(subDict.ID, subDict.Type)}>{subDict.ID}</span>
                                             <span className="text-secondary fs-6">)</span>
                                         </>
-                                    )
-                                    : null
+                                    ) : (
+                                        subDict.ID
+                                    ) ?
+                                        (
+                                            <>
+                                                <span className="text-secondary fs-6">(</span>
+                                                <span className="fs-6 text-secondary">{subDict.ID}</span>
+                                                <span className="text-secondary fs-6">)</span>
+                                            </>
+                                        )
+                                        : null
                             }
                             <span> <i className="bi bi-caret-down-fill" role="button" id={subDict.Name} onClick={(e) => handleDropdown(e)}></i></span>
                         </p>
@@ -154,7 +156,7 @@ function RenderValue({ subDict, keyForSameIdWords }) {
                                                     <>
                                                         <DropdownButton title={subTitle} variant="Secondary" drop="end">
                                                             <div className="dropdown-my-content">
-                                                                <RenderList itemList={subValue}/>
+                                                                <RenderList itemList={subValue} />
                                                             </div>
                                                         </DropdownButton>
                                                     </>
@@ -181,7 +183,7 @@ function RenderValue({ subDict, keyForSameIdWords }) {
 function OtherImportantInfo({ otherImportantInfoDict }) {
     // store of the attack patterns selected by the user
     const [selectedAt, setSelectedAt] = useState([])
-    const navigate= useNavigate();
+    const navigate = useNavigate();
 
 
     return (
@@ -189,8 +191,9 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
             {Object.entries(otherImportantInfoDict).map(([title, value], index) => (
                 <div key={index}>
                     <p className="text-primary display-6 fs-3 mt-4">{title}
-                        <span> <i className="bi bi-caret-down-fill fs-5" role="button" id={title}
-                                  onClick={(e) => handleDropdown(e)}></i></span>
+                        <span>
+                            <i className="bi bi-caret-down-fill fs-5" role="button" id={title} onClick={(e) => handleDropdown(e)}></i>
+                        </span>
                     </p>
                     {
                         value && (
@@ -202,19 +205,19 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                         checkIfDictsHaveSameKeys(value[0], deleteManualRenderedInfoFromDict(value[0])) ? (
                                             <>
                                                 {/*Switch view*/}
-                                                <SwitchView startId={title}/>
+                                                <SwitchView startId={title} />
 
                                                 <div className="row ms-5 d-none d-flex justify-content-center " id={title + '_table'}>
                                                     {/*Button go to Big table view*/}
                                                     <button className="btn btn-outline-primary px-2 w-100 mt-3 text-uppercase fw-semibold"
-                                                            onClick={() => {navigate('/attack_patterns_by_phase', {state: {alreadySelected: selectedAt }})}}
+                                                        onClick={() => { navigate('/attack_patterns_by_phase', { state: { alreadySelected: selectedAt } }) }}
                                                     >Continue to generate the report</button>
                                                     {/*Table view*/}
-                                                    <TableView infoList={value} selectedAt={selectedAt} setSelectedAt={setSelectedAt}/>
+                                                    <TableView infoList={value} selectedAt={selectedAt} setSelectedAt={setSelectedAt} />
                                                 </div>
                                             </>
                                         ) : null
-                                        :null
+                                        : null
                                 }
 
                                 {/*Hierarchic view*/}
@@ -222,7 +225,7 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                     {Array.isArray(value) ?
                                         value.map((subDict, subIndex) => (
                                             <>
-                                                <RenderValue key={subIndex} subDict={subDict} keyForSameIdWords={index}/>
+                                                <RenderValue key={subIndex} subDict={subDict} keyForSameIdWords={index} />
                                             </>
 
                                         ))
