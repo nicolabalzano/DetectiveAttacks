@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { navigateToThreats } from "../../handle_routing_threats/HandleRoutingThreats";
 import('../../../scss/util.scss')
 
-const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
+const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
 
     // store of the color assigned to each source of relationship
     const [colorMapSource, setColorMapSource] = useState({});
@@ -13,7 +13,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
     const location = useLocation();
     let alreadySelected = location.state ? location.state.alreadySelected : null;
 
-    var parentIdForRendering = '*****';
+    var parentAttackPatternIdForRendering = '*****';
 
     const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
     const [popupVisible, setPopupVisible] = useState(false);
@@ -21,7 +21,6 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
     function handleMouseMove(event) {
         setPopupPosition({ x: event.clientX, y: event.clientY });
         const elementChild = event.target.querySelectorAll('div')[0]
-        console.log(elementChild)
         elementChild.innerHTML = event.target.getAttribute('name');
         elementChild.style.position = 'fixed';
         elementChild.style.left = `${popupPosition.x + 10}px`;
@@ -40,10 +39,10 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
     }, []);
 
     function isChild(idChild) {
-        if (idChild.includes(parentIdForRendering)) {
+        if (idChild.includes(parentAttackPatternIdForRendering)) {
             return true;
         }
-        parentIdForRendering = idChild;
+        parentAttackPatternIdForRendering = idChild;
         return false;
     }
     function nextIdIsParent(idParent, idChild) {
@@ -60,11 +59,26 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
         return `rgb(${red}, ${green}, ${blue})`;
     }
 
+    function checkColorUse(color){
+        if (Object.values(colorMapSource).includes(color)){
+            return true;
+        }
+        return false;
+    }
+
     function getColorForSource(source) {
         if (source in colorMapSource) {
             return colorMapSource[source];
         } else {
-            colorMapSource[source] = generateRandomColor();
+            
+            let color;
+
+            do {
+                color = generateRandomColor();
+            } while(checkColorUse(color));
+            
+            colorMapSource[source] = color;
+
             setColorMapSource(colorMapSource);
             return colorMapSource[source];
         }
@@ -78,7 +92,6 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
 
     function handleSelectedCell(contentId) {
         const elements = document.querySelectorAll('#' + formatContentId(contentId));
-        console.log(selectedAt);
 
         if (selectedAt && selectedAt.includes(contentId)) {
             setSelectedAt(selectedAt.filter(at => at !== contentId));
@@ -124,8 +137,9 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
 
     function isClickedDropdown(dropdown_id) {
         const dropdown = document.getElementById(dropdown_id);
-
         if (dropdown && dropdown.classList.contains('bi-caret-up-fill')) {
+            console.log(dropdown.id)
+
             return true;
         }
         return false;
@@ -145,6 +159,14 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
         });
     }
 
+    function formatAttackPatternParentId(phase){
+        return tableCount + '_' + phase.replaceAll(' ', '_') + '_' + parentAttackPatternIdForRendering
+    }
+
+    function formatAttackPatternCellId(phase, attackPatternsId){
+        return tableCount + '_' + phase.replaceAll(' ', '_') + '_' + attackPatternsId
+    }
+
     useEffect(() => {
     }, [selectedAt]);
 
@@ -160,7 +182,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                     <div className="fw-bold text-secondary">Source of relationship:</div>
                     <div className="mb-3 mt-1">
                         {Object.entries(colorMapSource).map(([key, value]) => (
-                            <div key={key} className={"d-inline-block justify-content-start m-0 ms-1 ms-4 " + key.split(' ')[0]}>
+                            <div key={key} className={"d-inline-block justify-content-start m-0 ms-1 ms-2 rounded px-2 py-1 " + key.split(' ')[0]}>
                                 <span className="">
                                     {key.split(' ').slice(1).join(' ')}
                                 </span>
@@ -197,10 +219,10 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                     {/* If the attack pattern is a child, hidden that to show when client click on caret down */ }
                                     const isChildPattern = isChild(subItem['ID'])
                                     var classesForChild = 'ms-0'
-                                    if (isChildPattern && isClickedDropdown(key + '_' + parentIdForRendering)) {
+                                    if (isChildPattern && isClickedDropdown(formatAttackPatternParentId(key))) {
                                         classesForChild = 'ms-3'
                                     }
-                                    else if (isChildPattern && (!selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID))) {
+                                    else if (isChildPattern && !isClickedDropdown(formatAttackPatternParentId(key))) {
                                         classesForChild = 'ms-3 d-none'
                                     }
                                     else if (isChildPattern){
@@ -211,16 +233,16 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                         <div
                                             key={subIndex}
                                             className={
-                                                (selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)
+                                                (selectedAt.includes(formatAttackPatternCellId(key, subItem.ID))
                                                     ? 'm-0 border-bottom border-top border-start border-end border-secondary bg-primary-opacity d-flex align-items-center py-2'
                                                     : 'm-0 border-bottom border-top border-start border-end border-secondary d-flex align-items-center py-2') + ' ' + classesForChild}
                                             style={{ fontSize: '12px' }}
-                                            id={key.replaceAll(' ', '_') + '__' + subItem.ID}
+                                            id={formatAttackPatternCellId(key, subItem.ID)}
                                         >
                                             <div
                                                 style={{ flex: '90%' }}
                                                 role="button"
-                                                onClick={(e) => handleSelectedCell(key.replaceAll(' ', '_') + '__' + subItem.ID)}
+                                                onClick={(e) => handleSelectedCell(formatAttackPatternCellId(key, subItem.ID))}
                                             >
                                                 <div onClick={(e) => { e.currentTarget.parentNode.click() }}> {/* Click on the row perform click on parent to select cell*/}
                                                     {subItem.hasOwnProperty('Attack pattern name') ? subItem['Attack pattern name'] : subItem['Name']}
@@ -248,7 +270,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                                             name={relSource + ' ' + subItem['Relationship type'].join(', ')}
                                                         >
                                                             {popupVisible && (
-                                                                <div className="text-secondary bg-color rounded shadow-sm">
+                                                                <div className="text-secondary bg-color rounded shadow ">
                                                                 </div>
                                                             )}
                                                     </div>
@@ -261,10 +283,10 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                                 !isChildPattern && value.length - 1 > subIndex && nextIdIsParent(value[subIndex + 1]['ID'], subItem['ID']) && (
                                                     <div style={{ flex: '10%' }}>
                                                         <i
-                                                            id={key + '_' + parentIdForRendering}
+                                                            id={formatAttackPatternParentId(key)}
                                                             className="bi bi-caret-down-fill text-secondary"
                                                             role="button"
-                                                            onClick={(e) => { handleDropdown(e, key.replaceAll(' ', '_') + '__' + subItem.ID) }}></i>
+                                                            onClick={(e) => { handleDropdown(e, formatAttackPatternCellId(key, subItem.ID)) }}></i>
                                                     </div>
                                                 )
                                             }

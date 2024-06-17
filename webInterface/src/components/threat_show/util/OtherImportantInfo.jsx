@@ -185,6 +185,7 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
     const [selectedAt, setSelectedAt] = useState([])
     const navigate = useNavigate();
 
+    let tableCounter = 0;
 
     return (
         <>
@@ -206,14 +207,14 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                             <>
                                                 {/*Switch view*/}
                                                 <SwitchView startId={title} />
-
                                                 <div className="row ms-5 d-none d-flex justify-content-center " id={title + '_table'}>
                                                     {/*Button go to Big table view*/}
                                                     <button className="btn btn-outline-primary px-2 w-100 mt-3 text-uppercase fw-semibold"
                                                         onClick={() => { navigate('/attack_patterns_by_phase', { state: { alreadySelected: selectedAt } }) }}
                                                     >Continue to generate the report</button>
                                                     {/*Table view*/}
-                                                    <TableView infoList={value} selectedAt={selectedAt} setSelectedAt={setSelectedAt} />
+                                                    <TableView infoList={value} selectedAt={selectedAt} setSelectedAt={setSelectedAt} tableCount={tableCounter} />
+                                                    {tableCounter++}
                                                 </div>
                                             </>
                                         ) : null
