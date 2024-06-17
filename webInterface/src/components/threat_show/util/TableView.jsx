@@ -45,7 +45,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
         parentAttackPatternIdForRendering = idChild;
         return false;
     }
-    function nextIdIsParent(idParent, idChild) {
+    function nextIdIsChild(idParent, idChild) {
         if (idParent.includes(idChild)) {
             return true;
         }
@@ -111,16 +111,33 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
                 }
             });
         }
-
     }
 
-    function handleDropdown(event, parentId) {
-        const contentId = parentId;
+    function formatAttackPatternParentId(phase){
+        return 'dropdown_' +  phase.replaceAll(' ', '_') + '_' + parentAttackPatternIdForRendering + '_' + tableCount
+    }
+
+    function formatAttackPatternCellId(phase, attackPatternsId){
+        return 'cell_' +  phase.replaceAll(' ', '_') + '_' + attackPatternsId + '_' + tableCount
+    }
+
+    function formatAttackPatternIdNoTableCount(attackPatternIdWithTableCount){
+        // change this function if formatAttackPatternParentId and formatAttackPatternCellId change
+        const lastUnderscoreIndex = attackPatternIdWithTableCount.lastIndexOf('_');
+        
+        const firstPart = attackPatternIdWithTableCount.substring(0, lastUnderscoreIndex);
+        const secondPart = attackPatternIdWithTableCount.substring(lastUnderscoreIndex + 1);
+        
+        return [firstPart, secondPart];
+    }
+
+    function handleDropdown(event, parentIdWithCounTable) {
         const allElements = document.querySelectorAll('*');
         let i = event.target.closest('i')
+        const [parentId, end] = formatAttackPatternIdNoTableCount(parentIdWithCounTable)
 
         allElements.forEach(element => {
-            if (!element.id.endsWith(contentId) && element.id.includes(contentId)) {
+            if (!element.id.endsWith(parentIdWithCounTable) && element.id.includes(parentId) && element.id.endsWith(end)) {
                 if (element.classList.contains('d-none')) {
                     element.classList.remove('d-none');
                     i.classList.remove('bi-caret-down-fill');
@@ -137,9 +154,8 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
 
     function isClickedDropdown(dropdown_id) {
         const dropdown = document.getElementById(dropdown_id);
-        if (dropdown && dropdown.classList.contains('bi-caret-up-fill')) {
-            console.log(dropdown.id)
 
+        if (dropdown && dropdown.classList.contains('bi-caret-up-fill')) {
             return true;
         }
         return false;
@@ -157,14 +173,6 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
             element.classList.remove('bg-primary-opacity');
             setPopupVisible(false)
         });
-    }
-
-    function formatAttackPatternParentId(phase){
-        return tableCount + '_' + phase.replaceAll(' ', '_') + '_' + parentAttackPatternIdForRendering
-    }
-
-    function formatAttackPatternCellId(phase, attackPatternsId){
-        return tableCount + '_' + phase.replaceAll(' ', '_') + '_' + attackPatternsId
     }
 
     useEffect(() => {
@@ -280,7 +288,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
 
                                             {/* Exapand attack patterns for child */}
                                             {
-                                                !isChildPattern && value.length - 1 > subIndex && nextIdIsParent(value[subIndex + 1]['ID'], subItem['ID']) && (
+                                                !isChildPattern && value.length - 1 > subIndex && nextIdIsChild(value[subIndex + 1]['ID'], subItem['ID']) && (
                                                     <div style={{ flex: '10%' }}>
                                                         <i
                                                             id={formatAttackPatternParentId(key)}
