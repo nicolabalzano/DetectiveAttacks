@@ -1,33 +1,33 @@
 version: 'v2.26.1'
 services:
   web_interface:
+    build: ./webInterface
     volumes:
       - type: bind
         source: ./webInterface/src
         target: /webInterface/src
-    build: ./webInterface
     #ports:
     #  - "80:3001"
     networks:
       - app_network
 
   stix_and_vulnerability:
+    build: ./stix&vulnerability
     volumes:
         - type: bind
           source: ./stix&vulnerability
           target: /stix&vulnerability
-    build: ./stix&vulnerability
     #ports:
     #  - "5002:5002"
     networks:
       - app_network
 
   cvwelib:
+    build: ./cvwelib
     volumes:
       - type: bind
         source: ./cvwelib
         target: /cvwelib
-    build: ./cvwelib
     #ports:
     #  - "5001:5001"
     networks:

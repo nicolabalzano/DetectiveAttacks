@@ -14,6 +14,8 @@
 
 - bug child in table view mostrata con relationship, quando selezioni e deselezioni scompare 
 
+- add auto download for cvwelib
+
 --- TESI 
 - PAGINA 78 fare i test di gpt
 - modificare quando dici solo ATT&CK, in realtà so anche di atlas

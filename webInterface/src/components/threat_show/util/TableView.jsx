@@ -21,6 +21,7 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
     function handleMouseMove(event) {
         setPopupPosition({ x: event.clientX, y: event.clientY });
         const elementChild = event.target.querySelectorAll('div')[0]
+        console.log(elementChild)
         elementChild.innerHTML = event.target.getAttribute('name');
         elementChild.style.position = 'fixed';
         elementChild.style.left = `${popupPosition.x + 10}px`;
@@ -199,10 +200,10 @@ const TableView = ({ infoList, selectedAt, setSelectedAt }) => {
                                     if (isChildPattern && isClickedDropdown(key + '_' + parentIdForRendering)) {
                                         classesForChild = 'ms-3'
                                     }
-                                    else if (isChildPattern && !selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID)) {
+                                    else if (isChildPattern && (!selectedAt.includes(key.replaceAll(' ', '_') + '__' + subItem.ID))) {
                                         classesForChild = 'ms-3 d-none'
                                     }
-                                    else if (isChildPattern) {
+                                    else if (isChildPattern){
                                         classesForChild = 'ms-3'
                                     }
 
