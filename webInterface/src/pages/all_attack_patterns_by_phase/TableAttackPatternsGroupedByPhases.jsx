@@ -2,11 +2,11 @@ import TableView from "../../components/threat_show/util/TableView.jsx";
 import {
     fetchDataAttackPatternsGroupedByPhaseAPI,
     fetchDataDomains, fetchDataReportGroupsAPI,
-    fetchDataPlatforms
+    fetchDataPlatforms, fetchDataCKCPhases
 } from "../../components/api/fetchAPI.jsx";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../../components/search_bar/SearchBar.jsx";
-import {Skeleton} from "@mui/material";
+import { Skeleton } from "@mui/material";
 import('../../scss/util.scss')
 
 const TableAttackPatternsGroupedByPhases = () => {
@@ -35,15 +35,24 @@ const TableAttackPatternsGroupedByPhases = () => {
         Promise.all([
             fetchDataAttackPatternsGroupedByPhaseAPI(),
             fetchDataPlatforms(),
-            fetchDataDomains()
-        ]).then(([attackPatternsResponse, platformsResponse, domainsResponse]) => {
-            setAtGroupedByPhase(attackPatternsResponse.data);
-            setAtGroupByPhaseInView(attackPatternsResponse.data);
+            fetchDataDomains(),
+            fetchDataCKCPhases()
+        ]).then(([attackPatternsResponse, platformsResponse, domainsResponse, ckcPhasesResponse]) => {
+            const cyberKillChainPhases = ckcPhasesResponse.data;
+            const atsOrdered = Object.fromEntries(
+                cyberKillChainPhases
+                    .filter(phase => phase in attackPatternsResponse.data)
+                    .map(phase => [phase, attackPatternsResponse.data[phase]])
+                )
+            setAtGroupedByPhase(atsOrdered);
+            setAtGroupByPhaseInView(atsOrdered);
             setListOfFilterPlatforms(platformsResponse.data.sort());
             setSelectedPlatforms(platformsResponse.data.sort());
             setListOfFilterDomains(domainsResponse.data);
             setSelectedDomains(domainsResponse.data);
             setLoading(false);
+        }).catch((e) => {
+            console.error(e);
         });
     }, []);
 
@@ -56,30 +65,35 @@ const TableAttackPatternsGroupedByPhases = () => {
     }
 
     useEffect(() => {
+        let filteredAtGroupedByPhase = {};
+
         if (Object.keys(atGroupedByPhase).length > 0) {
-            console.log(selectedDomains, selectedPlatforms, searchTerm)
-            setAtGroupByPhaseInView(
-                atGroupedByPhase.map(phaseObj => {
-                    const phase = Object.keys(phaseObj)[0];
-                    const filteredAts = phaseObj[phase].filter(at =>
-                        selectedDomains.some(selectedDomain =>
-                            at.Domains.toLowerCase().includes(selectedDomain.toLowerCase())
-                        ) &&
-                        selectedPlatforms.some(platform =>
-                            at.Platforms.toLowerCase().includes(platform.toLowerCase())
-                        ) &&
-                        (
-                            (at.Name && at.Name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                            (at.ID && at.ID.toLowerCase().includes(searchTerm.toLowerCase()))
-                        )
-                    );
-                    return { [phase]: filteredAts };
-                }).filter(phaseObj => phaseObj[Object.keys(phaseObj)[0]].length > 0)
-            );
+            const filteredAtGroupedByPhase = Object.entries(atGroupedByPhase).reduce((acc, [phase, ats]) => {
+                const filteredAts = ats.filter(at =>
+                    selectedDomains.some(selectedDomain =>
+                        at.Domains.toLowerCase().includes(selectedDomain.toLowerCase())
+                    ) &&
+                    selectedPlatforms.some(platform =>
+                        at.Platforms.toLowerCase().includes(platform.toLowerCase())
+                    ) &&
+                    (
+                        (at.Name && at.Name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                        (at.ID && at.ID.toLowerCase().includes(searchTerm.toLowerCase()))
+                    )
+                );
+    
+                if (filteredAts.length > 0) {
+                    acc[phase] = filteredAts;
+                }
+    
+                return acc;
+            }, {});
+    
+            setAtGroupByPhaseInView(filteredAtGroupedByPhase);
         }
     }, [selectedDomains, selectedPlatforms, searchTerm, atGroupedByPhase]);
 
-    function CheckboxComponent({ list_of_filter, setSelected, selected}) {
+    function CheckboxComponent({ list_of_filter, setSelected, selected }) {
 
         const handleCheckboxChange = (event, setSelected, selected) => {
             const { checked, id } = event.target;
@@ -118,7 +132,7 @@ const TableAttackPatternsGroupedByPhases = () => {
         <div className="margin-top-100 mx-5 d-flex justify-content-center align-items-center">
             <div className="">
                 <h1 className="text-center h1 mb-5">Attack Patterns grouped by Cyber Kill Chain Phases</h1>
-                <SearchBar onSearch={handleSearch}/>
+                <SearchBar onSearch={handleSearch} />
                 <div className="row d-flex mb-3 px-5 ">
                     {/* Filter of platforms */}
                     <div className="row text-secondary ">
@@ -126,12 +140,12 @@ const TableAttackPatternsGroupedByPhases = () => {
                         {loading
                             ?
                             <div className="d-flex justify-content-center w-auto mt-3">
-                                <Skeleton variant="rounded" animation="wave" width={1100} height={80}/></div>
+                                <Skeleton variant="rounded" animation="wave" width={1100} height={80} /></div>
                             :
-                        <div className="ms-3 fs-6">
-                            <CheckboxComponent list_of_filter={listOfFilterPlatforms} setSelected={setSelectedPlatforms}
-                                               selected={selectedPlatforms}/>
-                        </div>
+                            <div className="ms-3 fs-6">
+                                <CheckboxComponent list_of_filter={listOfFilterPlatforms} setSelected={setSelectedPlatforms}
+                                    selected={selectedPlatforms} />
+                            </div>
                         }
 
                     </div>
@@ -141,11 +155,11 @@ const TableAttackPatternsGroupedByPhases = () => {
                         {loading
                             ?
                             <div className="d-flex justify-content-center w-auto mt-3">
-                                <Skeleton variant="rounded" animation="wave" width={1100} height={50}/></div>
+                                <Skeleton variant="rounded" animation="wave" width={1100} height={50} /></div>
                             :
                             <div className="ms-3 fs-6">
                                 <CheckboxComponent list_of_filter={listOfFilterDomains} setSelected={setSelectedDomains}
-                                                   selected={selectedDomains}/>
+                                    selected={selectedDomains} />
                             </div>
 
                         }
@@ -155,8 +169,8 @@ const TableAttackPatternsGroupedByPhases = () => {
                 {
                     loading ?
                         <div className="d-flex justify-content-center w-auto mt-5"><Skeleton variant="rounded"
-                                                                                        animation="wave"
-                                                                                        width={1100} height={1000}/>
+                            animation="wave"
+                            width={1100} height={1000} />
                         </div>
                         :
                         <div>
@@ -169,8 +183,8 @@ const TableAttackPatternsGroupedByPhases = () => {
                             >Generate the report</button>
 
                             {/* Big table */}
-                            <TableView infoList={atGroupByPhaseInView} selectedAt={selectedAt}
-                                     setSelectedAt={setSelectedAt}/>
+                            <TableView infoDict={atGroupByPhaseInView} selectedAt={selectedAt}
+                                setSelectedAt={setSelectedAt} />
                         </div>
                 }
             </div>

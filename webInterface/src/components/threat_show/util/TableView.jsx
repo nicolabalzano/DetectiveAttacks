@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { navigateToThreats } from "../../handle_routing_threats/HandleRoutingThreats";
 import('../../../scss/util.scss')
 
-const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
+const TableView = ({ infoDict, selectedAt, setSelectedAt, tableCount = 0 }) => {
 
     // store of the color assigned to each source of relationship
     const [colorMapSource, setColorMapSource] = useState({});
@@ -27,7 +27,6 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
         elementChild.style.top = `${popupPosition.y + 10}px`;
         elementChild.style.padding = '5px';
         elementChild.style.zIndex = 1000;
-        
     }
 
     useEffect(() => {
@@ -36,6 +35,9 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
         if (alreadySelected)
             setSelectedAt(alreadySelected);
         alreadySelected = null;
+
+        // fetch ckc phases to ordered the list
+
     }, []);
 
     function isChild(idChild) {
@@ -59,8 +61,8 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
         return `rgb(${red}, ${green}, ${blue})`;
     }
 
-    function checkColorUse(color){
-        if (Object.values(colorMapSource).includes(color)){
+    function checkColorUse(color) {
+        if (Object.values(colorMapSource).includes(color)) {
             return true;
         }
         return false;
@@ -70,13 +72,13 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
         if (source in colorMapSource) {
             return colorMapSource[source];
         } else {
-            
+
             let color;
 
             do {
                 color = generateRandomColor();
-            } while(checkColorUse(color));
-            
+            } while (checkColorUse(color));
+
             colorMapSource[source] = color;
 
             setColorMapSource(colorMapSource);
@@ -113,21 +115,21 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
         }
     }
 
-    function formatAttackPatternParentId(phase){
-        return 'dropdown_' +  phase.replaceAll(' ', '_') + '_' + parentAttackPatternIdForRendering + '_' + tableCount
+    function formatAttackPatternParentId(phase) {
+        return 'dropdown_' + phase.replaceAll(' ', '_') + '_' + parentAttackPatternIdForRendering + '_' + tableCount
     }
 
-    function formatAttackPatternCellId(phase, attackPatternsId){
-        return 'cell_' +  phase.replaceAll(' ', '_') + '_' + attackPatternsId + '_' + tableCount
+    function formatAttackPatternCellId(phase, attackPatternsId) {
+        return 'cell_' + phase.replaceAll(' ', '_') + '_' + attackPatternsId + '_' + tableCount
     }
 
-    function formatAttackPatternIdNoTableCount(attackPatternIdWithTableCount){
+    function formatAttackPatternIdNoTableCount(attackPatternIdWithTableCount) {
         // change this function if formatAttackPatternParentId and formatAttackPatternCellId change
         const lastUnderscoreIndex = attackPatternIdWithTableCount.lastIndexOf('_');
-        
+
         const firstPart = attackPatternIdWithTableCount.substring(0, lastUnderscoreIndex);
         const secondPart = attackPatternIdWithTableCount.substring(lastUnderscoreIndex + 1);
-        
+
         return [firstPart, secondPart];
     }
 
@@ -214,98 +216,96 @@ const TableView = ({ infoList, selectedAt, setSelectedAt, tableCount = 0 }) => {
             )}
 
             {/* Table of attack patterns */}
-            {Array.isArray(infoList) ? (
-                infoList.map((subDict, subIndex) => (
-                    Object.entries(subDict).map(([key, value]) => (
-                        <div key={key} className="col p-0 text-center text-break">
-                            <p className="m-0 py-2 border border-secondary">
-                                <span className="fw-semibold fs-6">{key}</span>
-                            </p>
-                            {Array.isArray(value) ? (
-                                value.sort((a, b) => a['ID'].localeCompare(b['ID'])).map((subItem, subIndex) => {
+            {
+                Object.entries(infoDict).map(([key, value]) => (
 
-                                    {/* If the attack pattern is a child, hidden that to show when client click on caret down */ }
-                                    const isChildPattern = isChild(subItem['ID'])
-                                    var classesForChild = 'ms-0'
-                                    if (isChildPattern && isClickedDropdown(formatAttackPatternParentId(key))) {
-                                        classesForChild = 'ms-3'
-                                    }
-                                    else if (isChildPattern && !isClickedDropdown(formatAttackPatternParentId(key))) {
-                                        classesForChild = 'ms-3 d-none'
-                                    }
-                                    else if (isChildPattern){
-                                        classesForChild = 'ms-3'
-                                    }
+                    <div key={key} className="col p-0 text-center text-break">
+                        <p className="m-0 py-2 border border-secondary">
+                            <span className="fw-semibold fs-6">{key}</span>
+                        </p>
+                        {Array.isArray(value) ? (
+                            value.sort((a, b) => a['ID'].localeCompare(b['ID'])).map((subItem, subIndex) => {
 
-                                    return (
+                                {/* If the attack pattern is a child, hidden that to show when client click on caret down */ }
+                                const isChildPattern = isChild(subItem['ID'])
+                                var classesForChild = 'ms-0'
+                                if (isChildPattern && isClickedDropdown(formatAttackPatternParentId(key))) {
+                                    classesForChild = 'ms-3'
+                                }
+                                else if (isChildPattern && !isClickedDropdown(formatAttackPatternParentId(key))) {
+                                    classesForChild = 'ms-3 d-none'
+                                }
+                                else if (isChildPattern) {
+                                    classesForChild = 'ms-3'
+                                }
+
+                                return (
+                                    <div
+                                        key={subIndex}
+                                        className={
+                                            (selectedAt.includes(formatAttackPatternCellId(key, subItem.ID))
+                                                ? 'm-0 border-bottom border-top border-start border-end border-secondary bg-primary-opacity d-flex align-items-center py-2'
+                                                : 'm-0 border-bottom border-top border-start border-end border-secondary d-flex align-items-center py-2') + ' ' + classesForChild}
+                                        style={{ fontSize: '12px' }}
+                                        id={formatAttackPatternCellId(key, subItem.ID)}
+                                    >
                                         <div
-                                            key={subIndex}
-                                            className={
-                                                (selectedAt.includes(formatAttackPatternCellId(key, subItem.ID))
-                                                    ? 'm-0 border-bottom border-top border-start border-end border-secondary bg-primary-opacity d-flex align-items-center py-2'
-                                                    : 'm-0 border-bottom border-top border-start border-end border-secondary d-flex align-items-center py-2') + ' ' + classesForChild}
-                                            style={{ fontSize: '12px' }}
-                                            id={formatAttackPatternCellId(key, subItem.ID)}
+                                            style={{ flex: '90%' }}
+                                            role="button"
+                                            onClick={(e) => handleSelectedCell(formatAttackPatternCellId(key, subItem.ID))}
                                         >
-                                            <div
-                                                style={{ flex: '90%' }}
-                                                role="button"
-                                                onClick={(e) => handleSelectedCell(formatAttackPatternCellId(key, subItem.ID))}
-                                            >
-                                                <div onClick={(e) => { e.currentTarget.parentNode.click() }}> {/* Click on the row perform click on parent to select cell*/}
-                                                    {subItem.hasOwnProperty('Attack pattern name') ? subItem['Attack pattern name'] : subItem['Name']}
-                                                </div>
-                                                <p
-                                                    className="text-decoration-underline link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-0"
-                                                    role="button"
-                                                    onClick={() => navigateToThreats(subItem['ID'])}
-                                                >
-                                                    {subItem['ID']}
-                                                </p>
-
-                                                {/* If there is a relationship, put a color for that */}
-                                                <div className="d-flex justify-content-end me-1">
-                                                    {subItem.hasOwnProperty('Relationship Source ID') && Object.values(subItem['Relationship Source ID']).map((relSource) => (
-                                                        <div
-                                                            style={{
-                                                                background: getColorForSource(relSource + ' ' + subItem['Relationship type'].join(', ')),
-                                                                width: '10px',
-                                                                height: '10px'
-                                                            }}
-                                                            onMouseMove={(e) => handleMouseMove(e)}
-                                                            onMouseEnter={() => { onMouseEnter(relSource) }}
-                                                            onMouseLeave={() => { onMouseLeave(relSource) }}
-                                                            name={relSource + ' ' + subItem['Relationship type'].join(', ')}
-                                                        >
-                                                            {popupVisible && (
-                                                                <div className="text-secondary bg-color rounded shadow ">
-                                                                </div>
-                                                            )}
-                                                    </div>
-                                                    ))}
-                                                </div>
+                                            <div onClick={(e) => { e.currentTarget.parentNode.click() }}> {/* Click on the row perform click on parent to select cell*/}
+                                                {subItem.hasOwnProperty('Attack pattern name') ? subItem['Attack pattern name'] : subItem['Name']}
                                             </div>
+                                            <p
+                                                className="text-decoration-underline link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-0"
+                                                role="button"
+                                                onClick={() => navigateToThreats(subItem['ID'])}
+                                            >
+                                                {subItem['ID']}
+                                            </p>
 
-                                            {/* Exapand attack patterns for child */}
-                                            {
-                                                !isChildPattern && value.length - 1 > subIndex && nextIdIsChild(value[subIndex + 1]['ID'], subItem['ID']) && (
-                                                    <div style={{ flex: '10%' }}>
-                                                        <i
-                                                            id={formatAttackPatternParentId(key)}
-                                                            className="bi bi-caret-down-fill text-secondary"
-                                                            role="button"
-                                                            onClick={(e) => { handleDropdown(e, formatAttackPatternCellId(key, subItem.ID)) }}></i>
+                                            {/* If there is a relationship, put a color for that */}
+                                            <div className="d-flex justify-content-end me-1">
+                                                {subItem.hasOwnProperty('Relationship Source ID') && Object.values(subItem['Relationship Source ID']).map((relSource) => (
+                                                    <div
+                                                        style={{
+                                                            background: getColorForSource(relSource + ' ' + subItem['Relationship type'].join(', ')),
+                                                            width: '10px',
+                                                            height: '10px'
+                                                        }}
+                                                        onMouseMove={(e) => handleMouseMove(e)}
+                                                        onMouseEnter={() => { onMouseEnter(relSource) }}
+                                                        onMouseLeave={() => { onMouseLeave(relSource) }}
+                                                        name={relSource + ' ' + subItem['Relationship type'].join(', ')}
+                                                    >
+                                                        {popupVisible && (
+                                                            <div className="text-secondary bg-color rounded shadow "></div>
+                                                        )}
                                                     </div>
-                                                )
-                                            }
+                                                ))}
+                                            </div>
                                         </div>
-                                    )
-                                })
-                            ) : null}
-                        </div>
-                    ))
+
+                                        {/* Exapand attack patterns for child */}
+                                        {
+                                            !isChildPattern && value.length - 1 > subIndex && nextIdIsChild(value[subIndex + 1]['ID'], subItem['ID']) && (
+                                                <div style={{ flex: '10%' }}>
+
+                                                    <i
+                                                        id={formatAttackPatternParentId(key)}
+                                                        className="bi bi-caret-down-fill text-secondary"
+                                                        role="button"
+                                                        onClick={(e) => { handleDropdown(e, formatAttackPatternCellId(key, subItem.ID)) }}></i>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                )
+                            })
+                        ) : null}
+                    </div>
                 ))
-            ) : null
             }
         </div>
     );

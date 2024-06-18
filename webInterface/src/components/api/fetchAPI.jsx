@@ -27,6 +27,12 @@ export const fetchDataDomains = async () => {
     return await axios.get(`${API_stix_vulnerability}/get_data/get_domains`);
 }
 
+// FETCH CKC PHASES DATA
+export const fetchDataCKCPhases = async () => {
+    return await axios.get(`${API_stix_vulnerability}/get_data/get_CKC_phases`);
+}
+
+
 // GET GROUPS REPORT DATA
 export const fetchDataReportGroupsAPI = async (idList) => {
     const params = { id_list: idList };
@@ -126,7 +132,7 @@ export const fetchDataVulnerabilityAPI = async (id) => {
 export const uploadReportAPI = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    return await axios.post(`${API_stix_vulnerability}/upload_report`, formData);
+    return await axios.post(`${API_stix_vulnerability}/api/upload_report`, formData);
 }
 
 

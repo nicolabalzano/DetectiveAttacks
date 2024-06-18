@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import RenderDict from './util/RenderDict';
-import {useLocation, useParams} from "react-router-dom";
-import {fetchDataAttackAPI} from "../api/fetchAPI.jsx";
+import { useLocation, useParams } from "react-router-dom";
+import { fetchDataAttackAPI } from "../api/fetchAPI.jsx";
 import ImportantInfo from "./util/ImportantInfo.jsx";
 import OtherImportantInfo from "./util/OtherImportantInfo.jsx";
 import CardView from "./util/CardView.jsx";
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {Box, Skeleton} from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
 import('./threat.scss')
 import('../../scss/util.scss')
 
 
-const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunction}) => {
+const Threat = ({ primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunction }) => {
     const [searchedResult, setSearchedResult] = useState(null);
     // const location = useLocation();
     const idObj = new URLSearchParams(useLocation().search).get('id');
@@ -31,8 +31,11 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
         fetchDataFunction(idObj).then((r) => {
             setSearchedResult(r.data);
             setLoading(false)
+        }).catch((e) => {
+            console.log(e);
+            document.getElementById('Threat_Contaier').innerHTML = 'Error loading data, check conosole for more info';
         });
-    } , []);
+    }, []);
 
     // SET OTHER IMPORTANT INFO DICT
     useEffect(() => {
@@ -70,7 +73,7 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
     }, [searchedResult]);
 
     return (
-        <div className="container-fluid  px-lg-5 pb-3">
+        <div id="Threat_Contaier" className="container-fluid px-lg-5 pb-3">
 
             {loading ? (
                 <>
@@ -84,7 +87,7 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
                             <Skeleton className="mt-5 me-5" animation="wave" variant="rounded" height={500} />
                         </div>
                         {/*CardView*/}
-                        <Skeleton className="col-2 me-3" animation="wave" variant="rounded" height={400}  />
+                        <Skeleton className="col-2 me-3" animation="wave" variant="rounded" height={400} />
 
                     </div>
                 </>
@@ -93,26 +96,28 @@ const Threat = ({primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunc
                     <>
                         <div className="row align-items-end">
                             <div className="col">
-                                <ImportantInfo importantInfoDict={searchedResult}/>
+                                <ImportantInfo importantInfoDict={searchedResult} />
 
                                 {
-                                    Object.keys(otherInfoDict).length !== 0 &&(
+                                    Object.keys(otherInfoDict).length !== 0 && (
                                         <DropdownButton title='Other info' variant="Secondary" drop="end" className="">
-                                            <div className="dropdown-my-content"><RenderDict infoDict={otherInfoDict}/></div>
+                                            <div className="dropdown-my-content">
+                                                <RenderDict infoDict={otherInfoDict} />
+                                            </div>
                                         </DropdownButton>
                                     )
                                 }
 
                             </div>
                             <div className="col-3  mb-auto margin-top-100">
-                                <CardView infoDict={infoForCardViewDict}/>
+                                <CardView infoDict={infoForCardViewDict} />
                             </div>
                         </div>
                         {
                             otherImportantInfoDict && (
                                 <div className="ms-5">
 
-                                    <OtherImportantInfo otherImportantInfoDict={otherImportantInfoDict}/>
+                                    <OtherImportantInfo otherImportantInfoDict={otherImportantInfoDict} />
                                     {/*<RenderDict infoDict={otherInfoDict}/>*/}
                                 </div>
                             )
