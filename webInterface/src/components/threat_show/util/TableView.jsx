@@ -244,8 +244,8 @@ const TableView = ({ infoDict, selectedAt, setSelectedAt, tableCount = 0 }) => {
                                         key={subIndex}
                                         className={
                                             (selectedAt.includes(formatAttackPatternCellId(key, subItem.ID))
-                                                ? 'm-0 border-bottom border-top border-start border-end border-secondary bg-primary-opacity d-flex align-items-center py-2'
-                                                : 'm-0 border-bottom border-top border-start border-end border-secondary d-flex align-items-center py-2') + ' ' + classesForChild}
+                                                ? 'm-0 border-bottom border-top border-start border-end border-secondary bg-primary-opacity d-flex align-items-center py-2 px-1'
+                                                : 'm-0 border-bottom border-top border-start border-end border-secondary d-flex align-items-center py-2 px-1') + ' ' + classesForChild}
                                         style={{ fontSize: '12px' }}
                                         id={formatAttackPatternCellId(key, subItem.ID)}
                                     >
