@@ -60,6 +60,7 @@ export const fetchDataReportGroupsAPI = async (idList) => {
             console.log('No file was returned from the server.');
         }
     } catch (error) {
+        alert("An error occurred while generating the report. Please try again later or check console for more info.");
         console.error('Error downloading the file:', error.response || error);
     }
 }
@@ -132,7 +133,7 @@ export const fetchDataVulnerabilityAPI = async (id) => {
 export const uploadReportAPI = async (file) => {
     const formData = new FormData();
     formData.append('file', file);
-    return await axios.post(`${API_stix_vulnerability}/api/upload_report`, formData);
+    return await axios.post(`${API_stix_vulnerability}/upload_report`, formData);
 }
 
 
