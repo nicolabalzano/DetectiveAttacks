@@ -179,28 +179,30 @@ const TableAttackPatternsGroupedByPhases = () => {
                             <button className="position-fixed bottom-0 end-0 me-3 mb-3 btn btn-primary px-3 shadow reduce-font"
                                 onClick={() => {
                                     let selectedAtFormatted = [];
-                                    const T = /T\d+/;
-                                    const AML = /AML.T\d+/;
+                                    // const T = /T\d+/;
+                                    // const AML = /AML.T\d+/;
                                     // Reformat the id to take only the id
                                     console.log(selectedAt)
                                     selectedAt.forEach((at) => {
-                                        const atFormatted = at.replace(/_/g, '.')
+                                        // const atFormatted = at.replace(/_/g, '.')
   
-                                        const matchT = atFormatted.match(T);
-                                        const matchAML = atFormatted.match(AML);
+                                        // const matchT = atFormatted.match(T);
+                                        // const matchAML = atFormatted.match(AML);
 
-                                        if (matchAML) {
-                                            const indexOfAML = atFormatted.indexOf(matchAML[0]);
-                                            console.log(atFormatted.substring(indexOfAML).replace(/\.0$/, ''))
-                                            selectedAtFormatted.push(atFormatted.substring(indexOfAML).replace(/\.0$/, ''));
-                                        }
-                                        else if (matchT) {
-                                            const indexOfT = atFormatted.indexOf(matchT[0]);
-                                            console.log(atFormatted.substring(indexOfT).replace(/\.0$/, ''))
-                                            selectedAtFormatted.push(atFormatted.substring(indexOfT).replace(/\.0$/, ''));
-                                        }
-                                        
-
+                                        // if (matchAML) {
+                                        //     const indexOfAML = atFormatted.indexOf(matchAML[0]);
+                                        //     console.log(atFormatted.substring(indexOfAML).replace(/\.0$/, ''))
+                                        //     selectedAtFormatted.push(atFormatted.substring(indexOfAML).replace(/\.0$/, ''));
+                                        // }
+                                        // else if (matchT) {
+                                        //     const indexOfT = atFormatted.indexOf(matchT[0]);
+                                        //     console.log(atFormatted.substring(indexOfT).replace(/\.0$/, ''))
+                                        //     selectedAtFormatted.push(atFormatted.substring(indexOfT).replace(/\.0$/, ''));
+                                        // }
+                                        const indexToSplit = at.indexOf("__");
+                                        const atFormatted = at.substring(indexToSplit + 2).replace(/_/g, '.').replace(/\.0$/, '');
+                                        selectedAtFormatted.push(atFormatted);
+                                        console.log(atFormatted)
                                     });
                                     fetchDataReportGroupsAPI(selectedAtFormatted).catch((e) => {
                                         alert("An error occurred while generating the report. Please try again later or check console for more info.");

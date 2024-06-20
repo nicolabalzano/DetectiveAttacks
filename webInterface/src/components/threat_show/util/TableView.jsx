@@ -116,11 +116,11 @@ const TableView = ({ infoDict, selectedAt, setSelectedAt, tableCount = 0 }) => {
     }
 
     function formatAttackPatternParentId(phase) {
-        return 'dropdown_' + phase.replaceAll(' ', '_') + '_' + parentAttackPatternIdForRendering + '_' + tableCount
+        return 'dropdown_' + phase.replaceAll(' ', '_') + '__' + parentAttackPatternIdForRendering + '_' + tableCount
     }
 
     function formatAttackPatternCellId(phase, attackPatternsId) {
-        return 'cell_' + phase.replaceAll(' ', '_') + '_' + attackPatternsId + '_' + tableCount
+        return 'cell_' + phase.replaceAll(' ', '_') + '__' + attackPatternsId + '_' + tableCount
     }
 
     function formatAttackPatternIdNoTableCount(attackPatternIdWithTableCount) {

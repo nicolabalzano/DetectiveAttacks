@@ -14,7 +14,7 @@
 
 - add auto download for cvwelib
 
-- rinominare interfaceToMitre in interfaceToCTI
+- rinominare interfaceToCTI in interfaceToCTI
 
 - runnare il mapping per tutte le cve in mapping explorer
 
@@ -24,6 +24,6 @@
 - PAGINA 78 fare i test di gpt
 - modificare quando dici solo ATT&CK, in realtà so anche di atlas
 - cambiare figura 24
-- rinominare interfaceToMitre in interfaceToCTI
+- rinominare interfaceToCTI in interfaceToCTI
 - cancellato mitreToVulnerability
 - cancellato mitreToVulnerbailityRetriever
