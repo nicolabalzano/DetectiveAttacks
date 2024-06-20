@@ -1,12 +1,4 @@
-- togliere i TODO
-
-- in CWEAPI cambiare la chiave Description e decommenta la chiave Related Attack Patters
-
-- testare se la mappatura di una nuova vuln funziona
-
-- decommentare la chiave nel docker file 
-
-- usare per le CWE la Description e non la extended description, altrimenti se c'è solo la extended tagliala al massimo numero di token per gpt
+- togliere test
 
 - eliminare temp ogni 5 minuti
  
@@ -16,7 +8,7 @@
 
 - runnare il mapping per tutte le cve in mapping explorer e magari anche le capec CWE
 
-- togliere test
+- modificare il mapping dei CAPEC inserendo anche la relationship source
 
 --- TESI 
 - PAGINA 78 fare i test di gpt
