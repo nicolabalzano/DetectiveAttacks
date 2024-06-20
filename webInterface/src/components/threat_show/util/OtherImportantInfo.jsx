@@ -62,8 +62,7 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                                     >Continue to generate the report</button>
 
                                                     {/* Table view */}
-                                                    <TableView infoDict={reorderDictCKCPhases(value)} selectedAt={selectedAt} setSelectedAt={setSelectedAt} tableCount={tableCounter} />
-                                                    {tableCounter++}
+                                                    <TableView infoDict={reorderDictCKCPhases(value)} selectedAt={selectedAt} setSelectedAt={setSelectedAt} tableCount={++tableCounter} />
                                                 </div>
                                             </>
                                         ) : null

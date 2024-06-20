@@ -14,11 +14,9 @@
 
 - add auto download for cvwelib
 
-- rinominare interfaceToCTI in interfaceToCTI
+- runnare il mapping per tutte le cve in mapping explorer e magari anche le capec CWE
 
-- runnare il mapping per tutte le cve in mapping explorer
-
-- controllare i TODO
+- togliere test
 
 --- TESI 
 - PAGINA 78 fare i test di gpt

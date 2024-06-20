@@ -182,7 +182,6 @@ const TableAttackPatternsGroupedByPhases = () => {
                                     // const T = /T\d+/;
                                     // const AML = /AML.T\d+/;
                                     // Reformat the id to take only the id
-                                    console.log(selectedAt)
                                     selectedAt.forEach((at) => {
                                         // const atFormatted = at.replace(/_/g, '.')
   
@@ -191,18 +190,15 @@ const TableAttackPatternsGroupedByPhases = () => {
 
                                         // if (matchAML) {
                                         //     const indexOfAML = atFormatted.indexOf(matchAML[0]);
-                                        //     console.log(atFormatted.substring(indexOfAML).replace(/\.0$/, ''))
                                         //     selectedAtFormatted.push(atFormatted.substring(indexOfAML).replace(/\.0$/, ''));
                                         // }
                                         // else if (matchT) {
                                         //     const indexOfT = atFormatted.indexOf(matchT[0]);
-                                        //     console.log(atFormatted.substring(indexOfT).replace(/\.0$/, ''))
                                         //     selectedAtFormatted.push(atFormatted.substring(indexOfT).replace(/\.0$/, ''));
                                         // }
                                         const indexToSplit = at.indexOf("__");
                                         const atFormatted = at.substring(indexToSplit + 2).replace(/_/g, '.').replace(/\.0$/, '');
                                         selectedAtFormatted.push(atFormatted);
-                                        console.log(atFormatted)
                                     });
                                     fetchDataReportGroupsAPI(selectedAtFormatted).catch((e) => {
                                         alert("An error occurred while generating the report. Please try again later or check console for more info.");

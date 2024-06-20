@@ -50,13 +50,10 @@ function FilePicker() {
             uploadError.innerHTML = response.data.message;
 
             // open page of vulnerabilities encountered in the report
-            console.log(response.data.data);
             let vulnerabilitiesLink = {};
             response.data.data.forEach((vuln) => {
-                console.log(vuln);
                 vulnerabilitiesLink[vuln] = navigateToThreats(vuln, 'vulnerability', true);
             });
-            console.log(vulnerabilitiesLink);
             navigate('/report_results', {state: vulnerabilitiesLink})
 
             setTimeout(() => {
