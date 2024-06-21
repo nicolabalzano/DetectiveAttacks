@@ -1,5 +1,6 @@
 version: 'v2.26.1'
 services:
+
   web_interface:
     build: ./webInterface
     volumes:
@@ -12,7 +13,15 @@ services:
       - app_network
 
   stix_and_vulnerability:
-    build: ./stix&vulnerability
+    build: 
+      context: ./stix&vulnerability
+      dockerfile: Dockerfile
+      args:
+        - AZURE_OPENAI_API_KEY=${AZURE_OPENAI_API_KEY}
+        - AZURE_OPENAI_ENDPOINT=${AZURE_OPENAI_ENDPOINT}
+        - AZURE_OPENAI_MODEL_ID=${AZURE_OPENAI_MODEL_ID}
+    env_file:
+    - .env
     volumes:
         - type: bind
           source: ./stix&vulnerability

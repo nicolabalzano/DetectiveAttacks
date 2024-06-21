@@ -11,9 +11,5 @@
 - modificare il mapping dei CAPEC inserendo anche la relationship source
 
 --- TESI 
-- PAGINA 78 fare i test di gpt
+- PAGINA 81 fare i test di gpt
 - modificare quando dici solo ATT&CK, in realtà so anche di atlas
-- cambiare figura 24
-- rinominare interfaceToCTI in interfaceToCTI
-- cancellato mitreToVulnerability
-- cancellato mitreToVulnerbailityRetriever
