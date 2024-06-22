@@ -26,3 +26,14 @@ class CapecData:
                 related_attack_pattern_mitre_ids.append(er_for_at['external_id'])
 
         return related_attack_pattern_mitre_ids
+    
+    
+    def get_CWE_ids_by_CAPEC_id(self, CAPEC_id):
+        
+        related_cwe_ids = []
+        
+        for er_for_at in self.get_capec_by_capec_id(CAPEC_id)['external_references']:
+            if er_for_at['source_name'] == 'cwe':
+                related_cwe_ids.append(er_for_at['external_id'])
+
+        return related_cwe_ids

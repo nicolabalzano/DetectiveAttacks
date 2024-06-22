@@ -29,10 +29,16 @@ def get_capec():
 @__app.route('/get_attack_patterns_mitre_ids_by_capec', methods=["GET"])
 def get_attack_patterns_mitre_ids_by_CAPEC():
     capec_id = request.args.get('id')
-    attack_patterns_mitre_ids = CapecData().get_attack_patterns_mitre_id_by_CAPEC(capec_id)
+    attack_patterns_mitre_ids = CapecData().get_attack_patterns_mitre_ids_by_CAPEC(capec_id)
+    return jsonify(attack_patterns_mitre_ids)
+
+@__app.route('/get_cwe_ids_by_capec', methods=["GET"])
+def get_attack_patterns_mitre_ids_by_CWE():
+    cwe_id = request.args.get('id')
+    attack_patterns_mitre_ids = CapecData().get_CWE_ids_by_CAPEC_id(cwe_id)
     return jsonify(attack_patterns_mitre_ids)
 
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5003))
-    __app.run(host='0.0.0.0', port=port, debug=True)
+    __app.run(host='0.0.0.0', port=port, debug=False)
