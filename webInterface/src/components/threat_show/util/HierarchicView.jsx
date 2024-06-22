@@ -36,7 +36,7 @@ function HierarchicView({ subDict, keyForSameIdWords }) {
         <>
             {checkIfDictsHaveSameKeys(subDict, subOtherImportantInfo)
 
-                ? // If it's an array like Related Attack Patterns to show Phases
+                ? // If it's an array like Realetd ATT&CK and ATLAS techniques to show Phases
                 (
                     <>
 

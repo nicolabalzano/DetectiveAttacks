@@ -1,8 +1,6 @@
-from stix2 import FileSystemSource
-from stix2 import Filter
-from src.dataProvider.utils.Singleton import singleton
-from src.dataProvider.utils.FileUtils import read_from_json
-from src.dataProvider.interfaceToCTI.utils.Path import default_path, CAPEC
+from src.utils.Singleton import singleton
+from src.utils.FileUtils import read_from_json
+from src.utils.Path import default_path, CAPEC
 
 @singleton
 class CapecData:
@@ -19,7 +17,7 @@ class CapecData:
                     if er['source_name'] == 'capec' and er['external_id'] == capec_id:
                         return object
     
-    def get_attack_patterns_mitre_id_by_CAPEC(self, CAPEC_id):
+    def get_attack_patterns_mitre_ids_by_CAPEC(self, CAPEC_id):
         
         related_attack_pattern_mitre_ids = []
         
@@ -28,4 +26,3 @@ class CapecData:
                 related_attack_pattern_mitre_ids.append(er_for_at['external_id'])
 
         return related_attack_pattern_mitre_ids
-

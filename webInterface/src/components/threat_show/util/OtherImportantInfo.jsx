@@ -49,7 +49,7 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
 
                                 {
                                     isDict(value)
-                                        ? // If it's an array like Related Attack Patterns to show Phases
+                                        ? // If it's an array like Realetd ATT&CK and ATLAS techniques to show Phases
                                         (
                                             <>
                                                 {/* Switch view */}
@@ -75,7 +75,7 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                         value.map((subDict, subIndex) => (
                                             <HierarchicView key={subIndex} subDict={subDict} keyForSameIdWords={index} />
                                         ))
-                                        // If it's a dict like Related Attack Patterns to show Phases
+                                        // If it's a dict like Realetd ATT&CK and ATLAS techniques to show Phases
                                         : isDict(value) ? 
                                             Object.entries(reorderDictCKCPhases(value)).map(([phase, subValue], subIndex) => (
                                                 <HierarchicView key={subIndex} subDict={{[phase]: subValue}} keyForSameIdWords={index} />
