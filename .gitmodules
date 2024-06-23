@@ -1,0 +1,6 @@
+[submodule "cvwelib"]
+	path = cvwelib
+	url = https://github.com/nicolabalzano/cvwelib.git
+[submodule "capeclib"]
+	path = capeclib
+	url = https://github.com/nicolabalzano/capeclib.git
