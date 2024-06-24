@@ -4,12 +4,6 @@
  
 - togliere i print e console.log
 
-- add auto download for cvwelib
-
-- runnare il mapping per tutte le cve in mapping explorer e magari anche le capec CWE
-
-- modificare il mapping dei CAPEC inserendo anche la relationship source
-
 --- TESI 
 - PAGINA 81 fare i test di gpt
 - modificare quando dici solo ATT&CK, in realtà so anche di atlas
