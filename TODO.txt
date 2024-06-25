@@ -1,9 +1,0 @@
-- togliere test
-
-- eliminare temp ogni 5 minuti
- 
-- togliere i print e console.log
-
---- TESI 
-- PAGINA 81 fare i test di gpt
-- modificare quando dici solo ATT&CK, in realtà so anche di atlas

@@ -107,7 +107,7 @@ The API avilable from this container are:
 127.0.0.1:8080/api/stix_and_vulnearbility/get_data/get_related_cves_and_assets_of_cve?id=<CVE-ID>
 ```
 > [!TIP]
-> There are also other API to get other unimportant info, but usefull to create interface, check the `/stix&vulnearbility/app.py` file to see them.
+> There are also other API to get other unimportant info, but usefull to create interface, check the `/stix&vulnearbility/stix&vulnerability.py` file to see them.
 
 > [!NOTE] 
 > If you need more info or some other methods from one library contact me or open an issue, I will be happy to help you.
