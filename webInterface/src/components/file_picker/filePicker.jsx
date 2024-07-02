@@ -21,7 +21,7 @@ function FilePicker() {
                 notUploadedElement.classList.add('d-none');
             }, 5000);
         }
-        else if (fileExtension != 'pdf' && fileExtension != 'txt') {
+        else if (fileExtension != 'pdf' && fileExtension != 'txt' && fileExtension != 'csv') {
             setFile(null);  
             const incorrectExtension = document.getElementById('incorrectExtension');
             incorrectExtension.classList.remove('d-none');
@@ -150,7 +150,7 @@ function FilePicker() {
                     {/* Error Message */}
                     <span className="text-center">
                         <p id="notUploaded" className='text-danger lead fw-bolder d-none m-0'> Please upload a file first! </p>
-                        <p id="incorrectExtension" className='text-danger lead fw-bolder d-none m-0'> Please upload .pdf or .txt file! </p>
+                        <p id="incorrectExtension" className='text-danger lead fw-bolder d-none m-0'> Please upload .pdf, .csv or .txt file! </p>
                         <p id="uploadError" className='text-danger lead fw-bolder d-none m-0'> Error uploading the file, may be a server problem. Try again later! </p>     
                     </span>
                     <button type="button" className="btn btn-outline-primary mt-3 upload-button fw-semibold shadow" onClick={(e) => { postRequestReportAPI() }}> Upload</button>

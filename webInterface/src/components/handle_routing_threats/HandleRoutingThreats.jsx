@@ -1,4 +1,9 @@
 export function navigateToThreats(id, type, returnLink = false) {
+    
+    if (id.includes(' ')) {
+        id = id.plit(' ')[0]
+    }
+
     let url;
     if((type && type === 'attack-pattern') || (id[0] === 'T' || id.substring(0,5)==='AML.T')) {
         url = '/attack_pattern';

@@ -27,7 +27,7 @@ function SearchingChoices() {
                     <div className="col justify-content-center">
                         <h3 className="fw-bold">UPLOAD REPORT</h3>
                         <p className="mt-2 text-secondary">
-                            Here you can upload a report with .pdf or .txt, that contains a CWEs or CVEs id in text!</p>
+                            Here you can upload a report with .pdf, .csv or .txt, that contains a CWEs or CVEs id in text!</p>
                         <div id="file-picker-placeholder">
                             <FilePicker/>
                         </div>
