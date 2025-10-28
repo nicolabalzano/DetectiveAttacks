@@ -43,7 +43,7 @@ const SearchBar = ({ onSearch }) => {
               name="search"
               placeholder="Search threats..."
               ref={inputRef}
-              onChange={handleSearch}
+              //onChange={handleSearch} TODO: search while typing disable for now
               onFocus={handleFocus}
               onBlur={handleBlur}
             />
