@@ -1,6 +1,3 @@
-anche se è mapped_vulnerablity l'algoritmo in SearchAPI.py lo mette come unmapped, però se poi lo apro esce mapped_vulnerablity, con la mappatura corretta
-(forse è in __get_searched_vulnerability)
-
 bisogna mettere un tasto per il mapping tramite AI per vulnerabilità cercate
 
 il mapping deve essere automatico ma l'esperto deve confermare il mapping manualmente per ogni vulnerabilità, per non fidarsi dell'AI
