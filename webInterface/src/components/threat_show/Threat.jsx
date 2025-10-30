@@ -11,7 +11,7 @@ import('./threat.scss')
 import('../../scss/util.scss')
 
 
-const Threat = ({ primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunction }) => {
+const Threat = ({ primaryInfo, infoForCardView, otherImportantInfo, fetchDataFunction, renderIfNonMapped }) => {
     const [searchedResult, setSearchedResult] = useState(null);
     // const location = useLocation();
     const idObj = new URLSearchParams(useLocation().search).get('id');
@@ -94,7 +94,7 @@ const Threat = ({ primaryInfo, infoForCardView, otherImportantInfo, fetchDataFun
             ) : (
                 searchedResult && otherImportantInfoDict && (
                     <>
-                        <div className="row align-items-end">
+                        <div className="row align-items-start">
                             <div className="col">
                                 <ImportantInfo importantInfoDict={searchedResult} />
 
@@ -127,6 +127,8 @@ const Threat = ({ primaryInfo, infoForCardView, otherImportantInfo, fetchDataFun
             )
             }
 
+
+            {searchedResult?.Type === 'non_mapped_vulnerability' && renderIfNonMapped ? renderIfNonMapped : null}
 
         </div>
     );

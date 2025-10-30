@@ -21,8 +21,7 @@ const SwitchView = ({ startId }) => {
         <div className="switch">
             <input id={startId + '1'} name={startId} type="radio" value="1" className="switch-input"
                    onClick={(e)=>handleChangeView(e)}/>
-            <label htmlFor={startId + '1'} className="switch-label switch-label-y">Hierarchic
-                view</label>
+            <label htmlFor={startId + '1'} className="switch-label switch-label-y">Hierarchical</label>
             <input id={startId + '2'} name={startId} type="radio" value="2" className="switch-input"
                    onClick={(e)=>handleChangeView(e)}/>
             <label htmlFor={startId + '2'} className="switch-label switch-label-n">Table view</label>

@@ -1,6 +1,4 @@
-nei mapping con attack l'interfaccia è buggata
-
-bisogna mettere un tasto per il mapping tramite AI per vulnerabilità cercate nella UI
+controllare che la ricerca funzioni sull'any match
 
 il mapping deve essere automatico ma l'esperto deve confermare il mapping manualmente per ogni vulnerabilità, per non fidarsi dell'AI
 
@@ -8,4 +6,8 @@ deployare il modello localmente
 
 cambiare il prompt dando la descrione estesa
 
-integrare la roba di lorenzo, vedere se si riesce ad ottimizzare la ricerca ancora di più
+possibilità di aggiungere gli asset custom
+
+integrare la roba di lorenzo
+
+vedere se si riesce ad ottimizzare la ricerca ancora di più 
