@@ -159,4 +159,5 @@ def get_cve_count():
 # App start up
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 7777))
-    __app.run(host='0.0.0.0', port=port, debug=True)
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    __app.run(host='0.0.0.0', port=port, debug=debug_mode)
