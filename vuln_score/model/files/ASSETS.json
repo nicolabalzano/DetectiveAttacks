@@ -1,0 +1,86 @@
+[
+    {
+        "id": "A0008",
+        "name": "Application Servers",
+        "description": "Application servers are used across many different sectors to host various diverse software applications necessary to supporting the ICS. Example functions can include data analytics and reporting, alarm management, and the management/coordination of different control servers. The application server typically runs on a modern server operating system (e.g., MS Windows Server).",
+        "score": 1
+    },
+    {
+        "id": "A0007",
+        "name": "Control Server",
+        "description": "Control servers are typically a software platform that runs on a modern server operating system (e.g., MS Windows Server). The server typically uses one or more automation protocols (e.g., Modbus, DNP3) to communicate with the various low-level control devices such as Remote Terminal Units (RTUs) and Programmable Logic Controllers (PLCs). The control server also usually provides an interface/network service to connect with an HMI.",
+        "score": 1
+    },
+    {
+        "id": "A0009",
+        "name": "Data Gateway",
+        "description": "Data Gateway is a device that supports the communication and exchange of data between different systems, networks, or protocols within the ICS. Different types of data gateways are used to perform various functions, including:\n\t- Protocol Translation: Enable communication to devices that support different or incompatible protocols by translating information from one protocol to another.\n\t- Media Converter: Convert data across different Layer 1 and 2 network protocols / mediums, for example, converting from Serial to Ethernet.\n\t- Data Aggregation: Collect and combine data from different devices into one consistent format and protocol interface.\nData gateways are often critical to the forwarding/transmission of critical control or monitoring data within the ICS. Further, these devices often have remote various network services that are used to communicate across different zones or networks. These assets may focus on a single function listed below or combinations of these functions to best fit the industry use-case.",
+        "score": 1
+    },
+    {
+        "id": "A0006",
+        "name": "Data Historian",
+        "description": "Data historians, or historian, are systems used to collect and store data, including telemetry, events, alerts, and alarms about the operational process and supporting devices. The historian typically utilizes a database to store this data, and commonly provide tools and interfaces to support the analysis of the data. Data historians are often used to support various engineering or business analysis functions and therefore commonly needs access from the corporate network. Data historians often work in a hierarchical paradigm where lower/site level historians collect and store data which is then aggregated into a site/plant level historian. Therefore, data historians often have remote services that can be accessed externally from the ICS network.",
+        "score": 1
+    },
+    {
+        "id": "A0013",
+        "name": "Field I/O",
+        "description": "Field I/O are devices that communicate with a controller or data aggregator to either send input data or receive output data. Input data may include readings about a given environment/device state from sensors, while output data may include data sent back to actuators for them to either undertake actions or change parameter values. These devices are frequently embedded devices running on lightweight embedded operating systems or RTOSes.",
+        "score": 1
+    },
+    {
+        "id": "A0002",
+        "name": "Human-Machine Interface (HMI)",
+        "description": "Human-Machine Interfaces (HMIs) are systems used by an operator to monitor the real-time status of an operational process and to perform necessary control functions, including the adjustment of device parameters. An HMI can take various forms, including a dedicated screen or control panel integrated with a specific device/controller, or a customizable software GUI application running on a standard operating system (e.g., MS Windows) that interfaces with a control/SCADA server. The HMI is critical to ensuring operators have sufficient visibility and control over the operational process.",
+        "score": 1
+    },
+    {
+        "id": "A0005",
+        "name": "Intelligent Electronic Device (IED)",
+        "description": "An Intelligent Electronic Device (IED) is a type of specialized field device that is designed to perform specific operational functions, frequently for protection, monitoring, or control within the electric sector. IEDs are typically used to both acquire telemetry and execute tailored control algorithms/actions based on customizable parameters/settings. An IED is usually implemented as a dedicated embedded device and supports various network automation protocols to communicate with RTUs and Control Servers.",
+        "score": 1
+    },
+    {
+        "id": "A0012",
+        "name": "Jump Host",
+        "description": "Jump hosts are devices used to support remote management sessions into ICS networks or devices. The system is used to access the ICS environment securely from external networks, such as the corporate network. The user must first remote into the jump host before they can access ICS devices. The jump host may be a customized Windows server using common remote access protocols (e.g., RDP) or a dedicated access management device. The jump host typically performs various security functions to ensure the authenticity of remote sessions, including authentication, enforcing access controls/permissions, and auditing all access attempts.",
+        "score": 1
+    },
+    {
+        "id": "A0003",
+        "name": "Programmable Logic Controller (PLC)",
+        "description": "A Programmable Logic Controller (PLC) is an embedded programmable control device. PLCs typically utilize a modular architecture with separate modules used to support its processing capabilities, communication mediums, and I/O interfaces. PLCs allow for the deployment of customized programs/logic to control or monitor an operational process. This logic is defined using industry specific programming languages, such as IEC 61131 , which define the set of tasks and program organizational units (POUs) included in the device\u2019s programs. PLCs also typically have distinct operating modes (e.g., Remote, Run, Program, Stop) which are used to determine when the device can be programmed or whether it should execute the custom logic.",
+        "score": 1
+    },
+    {
+        "id": "A0004",
+        "name": "Remote Terminal Unit (RTU)",
+        "description": "A Remote Terminal Unit (RTU) is a device that typically resides between field devices (e.g., PLCs, IEDs) and control/SCADA servers and supports various communication interfacing and data aggregation functions. RTUs are typically responsible for forwarding commands from the control server and the collection of telemetry, events, and alerts from the field devices. An RTU can be implemented as a dedicated embedded device, as software platform that runs on a hardened/ruggedized computer, or using a custom application program on a PLC.",
+        "score": 1
+    },
+    {
+        "id": "A0014",
+        "name": "Routers",
+        "description": "A computer that is a gateway between two networks at OSI layer 3 and that relays and directs data packets through that inter-network. The most common form of router operates on IP packets.",
+        "score": 1
+    },
+    {
+        "id": "A0010",
+        "name": "Safety Controller",
+        "description": "Safety controllers are typically a type of field device used to perform the safety critical function. Safety controllers often support the deployment of custom programs/logic, similar to a PLC, but can also be tailored for sector specific functions/applications. The safety controllers typically utilize redundant hardware and processors to ensure they operate reliably if a component fails.",
+        "score": 1
+    },
+    {
+        "id": "A0011",
+        "name": "Virtual Private Network (VPN) Server",
+        "description": "A VPN server is a device that is used to establish a secure network tunnel between itself and other remote VPN devices, including field VPNs. VPN servers can be used to establish a secure connection with a single remote device, or to securely bridge all traffic between two separate networks together by encapsulating all data between those networks. VPN servers typically support remote network services that are used by field VPNs to initiate the establishment of the secure VPN tunnel between the field device and server.",
+        "score": 1
+    },
+    {
+        "id": "A0001",
+        "name": "Workstation",
+        "description": "Workstations are devices used by human operators or engineers to perform various configuration, programming, maintenance, diagnostic, or operational tasks. Workstations typically utilize standard desktop or laptop hardware and operating systems (e.g., MS Windows), but run dedicated control system applications or diagnostic/management software to support interfacing with the control servers or field devices. Some workstations have a fixed location within the network architecture, while others are transient devices that are directly connected to various field devices to support local management activities.",
+        "score": 1
+    }
+]

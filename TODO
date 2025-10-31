@@ -1,5 +1,7 @@
 controllare che la ricerca funzioni sull'any match
 
+integrare la roba di lorenzo
+
 il mapping deve essere automatico ma l'esperto deve confermare il mapping manualmente per ogni vulnerabilità, per non fidarsi dell'AI
 
 deployare il modello localmente
@@ -8,6 +10,6 @@ cambiare il prompt dando la descrione estesa
 
 possibilità di aggiungere gli asset custom
 
-integrare la roba di lorenzo
-
 vedere se si riesce ad ottimizzare la ricerca ancora di più 
+
+far inserire asset custom e correrarli manualmente
