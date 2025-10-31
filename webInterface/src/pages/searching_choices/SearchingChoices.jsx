@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import search_lens from '../../assets/search_lens.png';
+import score_plus from '../../assets/score_plus_logo.svg';
 import './searching_choices.scss';
 import FilePicker from "../../components/file_picker/filePicker.jsx";
 
@@ -49,6 +50,20 @@ function SearchingChoices() {
                             </Link>
                         </div>
                     </div>
+                </div>
+                <div className="row mt-3">
+                    <hr className="border-primary border-2 opacity-75" />
+                    <div className="row">
+                        <div className="d-flex justify-content-center align-items-center gap-2">
+                            <h3 className="fw-bold mb-0">Vulnerability</h3>
+                            <img style={{height: '1.5em', width: 'auto'}} src={score_plus} alt="score"/>
+                            <h3 className="fw-bold mb-0">dashboard</h3>
+                        </div>
+                    </div>
+                    
+                    <Link to="/vuln_dashboard">
+                        <button type="button" className="btn btn-outline-primary fw-semibold v mt-2">Start scoring</button>
+                    </Link>
                 </div>
             </div>
         </div>
