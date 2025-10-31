@@ -20,11 +20,27 @@ function SearchingChoices() {
     return (
         <div style={{marginTop: '40px'}}>
             <div className="container text-center title">
-                <h1 className="display-4 fw-bolder text-primary">Choose your searching method:</h1>
+                <h1 className="display-4 fw-bolder text-primary">Choose the feature:</h1>
             </div>
 
             <div className="container text-center">
-                <div className="row">
+
+                <div className="row mt-3">
+                    <div className="row">
+                        <div className="d-flex justify-content-center align-items-center gap-2">
+                            <h3 className="fw-bold mb-0">VULNERABILITY</h3>
+                            <img style={{height: '1.5em', width: 'auto'}} src={score_plus} alt="score"/>
+                            <h3 className="fw-bold mb-0">DASHBOARD</h3>
+                        </div>
+                    </div>
+                    
+                    <Link to="/vuln_dashboard">
+                        <button type="button" className="btn btn-outline-primary fw-semibold v mt-4">Start scoring</button>
+                    </Link>
+                    <hr className="border-primary border-2 opacity-50 mt-4" />
+                </div>
+
+                <div className="row mt-4">
                     <div className="col justify-content-center">
                         <h3 className="fw-bold">UPLOAD REPORT</h3>
                         <p className="mt-2 text-secondary">
@@ -50,20 +66,6 @@ function SearchingChoices() {
                             </Link>
                         </div>
                     </div>
-                </div>
-                <div className="row mt-3">
-                    <hr className="border-primary border-2 opacity-75" />
-                    <div className="row">
-                        <div className="d-flex justify-content-center align-items-center gap-2">
-                            <h3 className="fw-bold mb-0">Vulnerability</h3>
-                            <img style={{height: '1.5em', width: 'auto'}} src={score_plus} alt="score"/>
-                            <h3 className="fw-bold mb-0">dashboard</h3>
-                        </div>
-                    </div>
-                    
-                    <Link to="/vuln_dashboard">
-                        <button type="button" className="btn btn-outline-primary fw-semibold v mt-2">Start scoring</button>
-                    </Link>
                 </div>
             </div>
         </div>
