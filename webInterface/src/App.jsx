@@ -7,6 +7,7 @@ import "./scss/bootstrap.scss";
 import {createBrowserRouter, createRoutesFromElements, Outlet, Route, RouterProvider} from "react-router-dom";
 import SearchingChoices from "./pages/searching_choices/SearchingChoices.jsx";
 import ManualSearch from "./pages/manual_search/ManualSearch.jsx";
+import Dashboard from './pages/dashboard/Dashboard.jsx';
 import Attack from "./pages/threat_show/attack/Attack.jsx";
 import Tool from "./pages/threat_show/tool/Tool.jsx";
 import Malware from "./pages/threat_show/malware/Malware.jsx";
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="" element={<Home />} />
         <Route path="searching_choices" element={<SearchingChoices />} />
         <Route path="manual_search" element={<ManualSearch />} />
+        <Route path="vuln_dashboard" element={<Dashboard />} />
         <Route path="attack_pattern" element={<Attack />} />
         <Route path="attack_patterns_by_phase" element={<TableAttackPatternsGroupedByPhases />} />
         <Route path="tool" element={<Tool />} />

@@ -53,16 +53,18 @@ services:
     networks:
       - app_network
 
-  vuln_score:
-    build: ./vuln_score
+  vuln_score_lite:
+    build: ./vuln_score_lite
     volumes:
       - type: bind
-        source: ./vuln_score
-        target: /vuln_score
+        source: ./vuln_score_lite
+        target: /app
     #ports:
-    #  - "5004:5004"
+      #- "5005:5005"
     networks:
       - app_network
+    depends_on:
+      - cvwelib
 
   nginx:
     build: ./nginx
@@ -74,7 +76,7 @@ services:
       - web_interface
       - stix_and_vulnerability
       - cvwelib
-      - vuln_score
+      - vuln_score_lite
 
 networks:
   app_network:

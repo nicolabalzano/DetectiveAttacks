@@ -1,10 +1,13 @@
-FROM node:16-alpine
+FROM node:20-alpine
 
 WORKDIR /webInterface
 
 COPY ./package.json ./package-lock.json ./
 
-RUN npm install
+RUN npm config set fetch-timeout 60000 && \
+    npm config set fetch-retry-mintimeout 20000 && \
+    npm config set fetch-retry-maxtimeout 120000 && \
+    npm install --legacy-peer-deps --prefer-offline --no-audit
 
 COPY . .
 
