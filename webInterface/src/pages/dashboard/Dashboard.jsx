@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ScoreGaugeCard from '../../components/ScoreGaugeCard';
-import ScoreHistoryChart from '../../components/ScoreHistoryChart';
-import ListDangerous from '../../components/ListDangerous';
+import ScoreGaugeCard from '../../components/score_gauge_card/ScoreGaugeCard';
+import ScoreHistoryChart from '../../components/score_history_chart/ScoreHistoryChart';
+import ListDangerous from '../../components/list_dangerous/ListDangerous';
 import { Box, Skeleton } from "@mui/material";
 
 const Dashboard = () => {

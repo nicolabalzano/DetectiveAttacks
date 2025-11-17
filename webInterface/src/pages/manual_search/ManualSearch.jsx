@@ -21,18 +21,22 @@ const ManualSearch = () => {
 
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-    const currentRecords = results.slice(indexOfFirstRecord, indexOfLastRecord);
-    const nPages = Math.ceil(results.length / recordsPerPage)
+    const currentRecords = Array.isArray(results) ? results.slice(indexOfFirstRecord, indexOfLastRecord) : [];
+    const nPages = Array.isArray(results) ? Math.ceil(results.length / recordsPerPage) : 0
 
     // FETCH DATA FROM API and SET FILTERS on startup
     useEffect(() => {
         // FETCH FILTERS FROM API
-        fetchFilterAPI().then(r => {
-            setListOfFilterTypes(r.data.list_of_filter_types);
-            setListOfFilterDomains(r.data.list_of_filter_domains);
-            setSelectedDomains(r.data.list_of_filter_domains);
-            setSelectedTypes(r.data.list_of_filter_types);
-        });
+        fetchFilterAPI()
+            .then(r => {
+                setListOfFilterTypes(r?.data?.list_of_filter_types || ['all']);
+                setListOfFilterDomains(r?.data?.list_of_filter_domains || ['all']);
+                setSelectedDomains(r?.data?.list_of_filter_domains || ['all']);
+                setSelectedTypes(r?.data?.list_of_filter_types || ['all']);
+            })
+            .catch(error => {
+                console.error('Errore nel caricamento dei filtri:', error);
+            });
 
         const root_element = document.getElementById('root');
         root_element.classList.remove('d-flex')
@@ -46,16 +50,26 @@ const ManualSearch = () => {
     useEffect(() => {
         setLoading(true);
         // FETCH DATA FROM API
-        fetchDataAPI(searchTerm, selectedTypes, selectedDomains).then(r => {
-            setResults(r.data.results);
-            //set direction of arrows in table to default
-            if (r.data.results.length > 0) {
-                setArrowDirectionTableOrder(new Array(r.data.results[0].length).fill('down'));
-            } else {
+        fetchDataAPI(searchTerm, selectedTypes, selectedDomains)
+            .then(r => {
+                // Controlla se la risposta contiene i dati previsti
+                const fetchedResults = r?.data?.results || [];
+                setResults(fetchedResults);
+                
+                //set direction of arrows in table to default
+                if (Array.isArray(fetchedResults) && fetchedResults.length > 0 && Array.isArray(fetchedResults[0])) {
+                    setArrowDirectionTableOrder(new Array(fetchedResults[0].length).fill('down'));
+                } else {
+                    setArrowDirectionTableOrder([]);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Errore nel caricamento dei dati:', error);
+                setResults([]);
                 setArrowDirectionTableOrder([]);
-            }
-            setLoading(false);
-        });
+                setLoading(false);
+            });
     }, [searchTerm, selectedTypes, selectedDomains]);
 
     const handleSearch = (term) => {
