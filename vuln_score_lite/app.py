@@ -36,6 +36,34 @@ def add_history():
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/addNewCVEInList', methods=['POST'])
+def add_new_cve_in_list():
+    """Add a new CVE to the list (alias for add_history)"""
+    return add_history()
+
+
+@app.route('/deleteCVEFromList', methods=['POST'])
+def delete_cve_from_list():
+    """Remove a CVE from the list"""
+    try:
+        data = request.json
+        cve_id = data.get('cveId')
+        
+        if not cve_id:
+            return jsonify({'error': 'cveId is required'}), 400
+            
+        result = history_controller.remove_cve(cve_id)
+        
+        if result:
+            return jsonify({'success': True, 'message': f'{cve_id} removed successfully'}), 200
+        else:
+            return jsonify({'success': False, 'message': 'CVE not found in list'}), 404
+            
+    except Exception as e:
+        logging.error(f"Error in delete_cve_from_list: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/getdashboard', methods=['GET'])
 def get_dashboard():
     """Get the current dashboard data"""

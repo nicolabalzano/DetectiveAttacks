@@ -59,6 +59,16 @@ class HistoryController:
         result = self.db.remove_cve(cve_id)
         if result:
             logging.info(f"Successfully removed {cve_id} from history")
+            
+            # Trigger automatic score recalculation
+            if self.dashboard_controller:
+                logging.info("Triggering automatic score recalculation after removal...")
+                try:
+                    scores = self.dashboard_controller.calculate_and_save_all_scores([])
+                    logging.info(f"Scores recalculated and saved: {scores}")
+                except Exception as e:
+                    logging.error(f"Error recalculating scores: {e}")
+                    
         return result
     
     def get_all_cves(self) -> list:

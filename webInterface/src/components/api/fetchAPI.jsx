@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_base_url = "http://10.11.97.103:8080/api/"
+// Use relative path to avoid CORS issues and hardcoded IPs
+// Nginx will proxy /api requests to the correct backend
+const API_base_url = "/api/"
 const API_stix_vulnerability = API_base_url + "stix_and_vulnerability"
 const API_vulnerability = API_base_url + "cvwelib"
 
@@ -8,9 +10,18 @@ const API_vulnerability = API_base_url + "cvwelib"
 export const fetchDataAPI = async (searchTerm, selectedTypes, selectedDomains) => {
     // REQUEST TO FLASK API
     let params = {search: searchTerm, types: selectedTypes, domains: selectedDomains};
-    let url = new URL(`${API_stix_vulnerability}/get_data`);
+    let url = new URL(`${API_stix_vulnerability}/get_data`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-    return await axios.get(url.toString());
+    
+    console.log(`[fetchDataAPI] Requesting: ${url.toString()}`);
+    try {
+        const response = await axios.get(url.toString());
+        console.log('[fetchDataAPI] Response:', response.data);
+        return response;
+    } catch (error) {
+        console.error('[fetchDataAPI] Error:', error);
+        throw error;
+    }
 };
 
 // FETCH FILTERS FOR RESEARCH
@@ -37,7 +48,7 @@ export const fetchDataCKCPhases = async () => {
 // GET GROUPS REPORT DATA
 export const fetchDataReportGroupsAPI = async (idList) => {
     const params = { id_list: idList };
-    const url = new URL(`${API_stix_vulnerability}/get_data/get_report_groups`);
+    const url = new URL(`${API_stix_vulnerability}/get_data/get_report_groups`, window.location.origin);
 
     // Appending parameters to the URL
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -71,21 +82,21 @@ export const fetchDataReportGroupsAPI = async (idList) => {
 // FETCH ATTACK PATTERNS DATA
 export const fetchDataAttackAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/get_data/get_attack_pattern`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_attack_pattern`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
 
 // FETCH ATTACK PATTERNS GROUPED BY CKC PHASES
 export const fetchDataAttackPatternsGroupedByPhaseAPI = async () => {
-    let url = new URL(`${API_stix_vulnerability}/get_data/get_attack_patterns_grouped_by_CKCP`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_attack_patterns_grouped_by_CKCP`, window.location.origin);
     return await axios.get(url.toString());
 }
 
 // FETCH CAMPAGIN DATA
 export const fetchDataCampaignAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/get_data/get_campaign`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_campaign`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -93,7 +104,7 @@ export const fetchDataCampaignAPI = async (id) => {
 // FETCH TOOL DATA
 export const fetchDataToolAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/get_data/get_tool_malware`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_tool_malware`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -101,7 +112,7 @@ export const fetchDataToolAPI = async (id) => {
 // FETCH MALWARE DATA
 export const fetchDataMalwareAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/get_data/get_tool_malware`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_tool_malware`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -109,7 +120,7 @@ export const fetchDataMalwareAPI = async (id) => {
 // FETCH ASSET DATA
 export const fetchDataAssetAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/get_data/get_asset`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_asset`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -117,7 +128,7 @@ export const fetchDataAssetAPI = async (id) => {
 // FETCH INTRUSION SET DATA
 export const fetchDataIntrusionSetAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/get_data/get_intrusion_set`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_intrusion_set`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -125,7 +136,7 @@ export const fetchDataIntrusionSetAPI = async (id) => {
 // FETCH VULNERABILITY DATA
 export const fetchDataVulnerabilityAPI = async (id) => {
     let params = {id: id};
-    let url = new URL(`${API_stix_vulnerability}/get_data/get_vulnerability`);
+    let url = new URL(`${API_stix_vulnerability}/get_data/get_vulnerability`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -142,7 +153,7 @@ export const uploadReportAPI = async (file) => {
 // FETCH CVE DATA
 export const fetchDataCVEAPI = async (id) => {
     let params = {'cveId': id};
-    let url = new URL(`${API_vulnerability}/api/get_cve`);
+    let url = new URL(`${API_vulnerability}/api/get_cve`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
@@ -150,7 +161,7 @@ export const fetchDataCVEAPI = async (id) => {
 // FETCH CWE DATA
 export const fetchDataCWEAPI = async (id) => {
     let params = {'cweId': id};
-    let url = new URL(`${API_vulnerability}/api/get_cwe`);
+    let url = new URL(`${API_vulnerability}/api/get_cwe`, window.location.origin);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }

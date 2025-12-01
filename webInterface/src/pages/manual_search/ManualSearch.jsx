@@ -49,9 +49,11 @@ const ManualSearch = () => {
 
     useEffect(() => {
         setLoading(true);
+        console.log('[ManualSearch] Fetching data with:', { searchTerm, selectedTypes, selectedDomains });
         // FETCH DATA FROM API
         fetchDataAPI(searchTerm, selectedTypes, selectedDomains)
             .then(r => {
+                console.log('[ManualSearch] Data fetched successfully:', r?.data);
                 // Controlla se la risposta contiene i dati previsti
                 const fetchedResults = r?.data?.results || [];
                 setResults(fetchedResults);
@@ -65,7 +67,7 @@ const ManualSearch = () => {
                 setLoading(false);
             })
             .catch(error => {
-                console.error('Errore nel caricamento dei dati:', error);
+                console.error('[ManualSearch] Error fetching data:', error);
                 setResults([]);
                 setArrowDirectionTableOrder([]);
                 setLoading(false);
