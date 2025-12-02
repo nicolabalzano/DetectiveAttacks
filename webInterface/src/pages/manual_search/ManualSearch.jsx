@@ -5,6 +5,7 @@ import { Box, Button, Pagination, Skeleton, Stack } from "@mui/material";
 import { fetchDataAPI, fetchFilterAPI } from "../../components/api/fetchAPI.jsx";
 import { navigateToThreats } from "../../components/handle_routing_threats/HandleRoutingThreats.jsx";
 import VulnerabilityMapping from "../../components/vulnerability_mapping/VulnerabilityMapping.jsx";
+import axios from 'axios';
 
 const ManualSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');

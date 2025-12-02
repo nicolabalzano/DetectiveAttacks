@@ -75,14 +75,42 @@ const Dashboard = () => {
     };
 
     const addNewCVEInList = async() => {
-        //TODO
+        const cveId = prompt("Enter the CVE ID (e.g., CVE-2021-44228):");
+        if (cveId) {
+            try {
+                const response = await axios.post('/api/vuln_score_lite/addNewCVEInList', { cveId: cveId.trim() });
+                if (response.data.success) {
+                    alert(`CVE ${cveId} added successfully!`);
+                    // Refresh the list and dashboard
+                    window.location.reload(); 
+                } else {
+                    alert(`Failed to add CVE: ${response.data.message || 'Unknown error'}`);
+                }
+            } catch (error) {
+                console.error('Error adding CVE:', error);
+                alert(`Error adding CVE: ${error.response?.data?.error || error.message}`);
+            }
+        }
     }
 
     const deleteCVEFromList = async(cveId) => {
-        //TODO: Implement API call to remove CVE
-        console.log('Deleting CVE:', cveId);
-        // Remove from local state for now
-        setCveList(prevList => prevList.filter(cve => cve.id !== cveId));
+        if (window.confirm(`Are you sure you want to remove ${cveId} from the list?`)) {
+            try {
+                const response = await axios.post('/api/vuln_score_lite/deleteCVEFromList', { cveId: cveId });
+                if (response.data.success) {
+                    // Remove from local state
+                    setCveList(prevList => prevList.filter(cve => cve.id !== cveId));
+                    // Optionally refresh dashboard scores if needed, but list update is immediate
+                    // To fully sync scores, we might want to reload or re-fetch scores
+                    // For now, let's just update the list UI
+                } else {
+                    alert(`Failed to remove CVE: ${response.data.message}`);
+                }
+            } catch (error) {
+                console.error('Error removing CVE:', error);
+                alert(`Error removing CVE: ${error.response?.data?.error || error.message}`);
+            }
+        }
     }
 
     useEffect(() => {
