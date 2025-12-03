@@ -1,24 +1,32 @@
 @import "../../scss/bootstrap";
 
-.switch {
+.switchs {
   position: relative;
   height: 32px;
-  width: 200px;
+  width: 280px;
   margin: 20px auto;
   background: $secondary;
   border-radius: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
 }
 .switch-label {
   font-weight: bold;
   position: relative;
   z-index: 2;
-  float: left;
-  width: 100px;
+  width: 50%;
+  flex: 0 0 50%;
   line-height: 32px;
   font-size: 11px;
   text-align: center;
   color: #FFF;
   cursor: pointer;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
 }
 
 .switch-input {
@@ -47,7 +55,7 @@
   top: 0px;
   left: 0px;
   display: block;
-  width: 100px;
+  width: 50%;
   height: 32px;
   border-radius: 32px;
   background-color: #1ab394;

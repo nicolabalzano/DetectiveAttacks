@@ -18,8 +18,8 @@ const SwitchView = ({ startId }) => {
     }
 
     return (
-        <div className="switch">
-            <input id={startId + '1'} name={startId} type="radio" value="1" className="switch-input"
+        <div className="switchs">
+            <input id={startId + '1'} name={startId} type="radio" value="1" className="switch-input" defaultChecked
                    onClick={(e)=>handleChangeView(e)}/>
             <label htmlFor={startId + '1'} className="switch-label switch-label-y">Hierarchical</label>
             <input id={startId + '2'} name={startId} type="radio" value="2" className="switch-input"

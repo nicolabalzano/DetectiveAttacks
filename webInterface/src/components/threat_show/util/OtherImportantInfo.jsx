@@ -53,7 +53,9 @@ function OtherImportantInfo({ otherImportantInfoDict }) {
                                         (
                                             <>
                                                 {/* Switch view */}
-                                                <SwitchView startId={title} />
+                                                <div className="d-flex justify-content-center">
+                                                    <SwitchView startId={title} />
+                                                </div>
                                                 <div className="row ms-5 d-none d-flex justify-content-center " id={title + '_table'}>
 
                                                     {/*Button go to Big table view*/}
