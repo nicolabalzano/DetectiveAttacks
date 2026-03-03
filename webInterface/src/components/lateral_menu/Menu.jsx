@@ -40,21 +40,21 @@ const Menu = () => {
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
-            >
-            
+        >
+
             {/* Page */}
             <List className='mt-2 text-decoration-none'>
                 {/* Home */}
                 <Link to="/" className='text-decoration-none text-color'>
                     <ListItemButton>
-                        <ListItemIcon> <LogoSvg w={'40px'} h={'40px'}/> </ListItemIcon>
+                        <ListItemIcon> <LogoSvg w={'40px'} h={'40px'} /> </ListItemIcon>
                         <ListItemText primary='Home' />
                     </ListItemButton>
                 </Link>
                 {/* Searching options */}
                 <Link to="/searching_choices" className='text-decoration-none text-color'>
                     <ListItemButton>
-                        <ListItemIcon> <QuestionMark/> </ListItemIcon>
+                        <ListItemIcon> <QuestionMark /> </ListItemIcon>
                         <ListItemText primary='Searching options' />
                     </ListItemButton>
                 </Link>
@@ -65,14 +65,23 @@ const Menu = () => {
                         <ListItemText primary='Manual search' />
                     </ListItemButton>
                 </Link>
+                {/* My Assets */}
+                <Link to="/mapping_assets" className='text-decoration-none text-color'>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <span style={{ fontSize: '24px', lineHeight: 1 }}>🛡️</span>
+                        </ListItemIcon>
+                        <ListItemText primary='My Assets' />
+                    </ListItemButton>
+                </Link>
                 {/* Attack Patterns by phase */}
                 <Link to="/attack_patterns_by_phase" className='text-decoration-none text-color'>
                     <ListItemButton>
-                        <ListItemIcon> 
+                        <ListItemIcon>
                             <div className='m-0 text-center fs-6'>
                                 <p style={{ color: '#c9482e' }} className='m-0 font-logo'>ATT&CK</p>
                                 <p className='text-color text-center font-logo plus-logo'>+</p>
-                                <p style={{ color: '#83d3f7' }} className='m-0 font-logo'>ATLAS</p> 
+                                <p style={{ color: '#83d3f7' }} className='m-0 font-logo'>ATLAS</p>
                             </div>
                         </ListItemIcon>
                         <ListItemText primary='Attack Patterns by phase' />
@@ -80,15 +89,15 @@ const Menu = () => {
                 </Link>
             </List>
 
-            <hr className='mx-4 border-2 border-primary'/>
-            
+            <hr className='mx-4 border-2 border-primary' />
+
             {/* About */}
             <List>
                 <p className='ms-4 fw-bold fs-4'>About</p>
                 {/* Github */}
                 <ListItemButton onClick={() => window.open("https://github.com/nicolabalzano")}>
-                        <ListItemIcon> <img src={github} alt='github' width={'30px'} height={'30px'} /> </ListItemIcon>
-                        <ListItemText primary='github' />
+                    <ListItemIcon> <img src={github} alt='github' width={'30px'} height={'30px'} /> </ListItemIcon>
+                    <ListItemText primary='github' />
                 </ListItemButton>
                 {/* Linkedin */}
                 <ListItemButton onClick={() => window.open("https://www.linkedin.com/in/nicola-balzano-1668a0272/")}>
@@ -103,7 +112,7 @@ const Menu = () => {
         <div>
             {
                 <React.Fragment key={'right'}>
-                    <Button className='color-primary' onClick={toggleDrawer('right', true)}><MenuIcon/></Button>
+                    <Button className='color-primary' onClick={toggleDrawer('right', true)}><MenuIcon /></Button>
                     <Drawer
                         anchor={'right'}
                         open={state['right']}

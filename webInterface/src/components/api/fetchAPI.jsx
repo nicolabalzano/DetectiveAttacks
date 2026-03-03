@@ -165,3 +165,16 @@ export const fetchDataCWEAPI = async (id) => {
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
     return await axios.get(url.toString());
 }
+
+// PERSONAL ASSETS
+export const fetchPersonalAssetsAPI = async () => {
+    return await axios.get(`${API_stix_vulnerability}/personal_assets/get_all`);
+}
+
+export const addPersonalAssetAPI = async (asset) => {
+    return await axios.post(`${API_stix_vulnerability}/personal_assets/add`, asset);
+}
+
+export const deletePersonalAssetAPI = async (assetId) => {
+    return await axios.delete(`${API_stix_vulnerability}/personal_assets/delete/${assetId}`);
+}
