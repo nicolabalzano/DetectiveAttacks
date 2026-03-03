@@ -4,7 +4,7 @@ import {fetchDataAssetAPI} from "../../../components/api/fetchAPI.jsx";
 const Asset = () => {
 
     const primaryInfo = ['Name', 'Type', 'Description'];
-    const infoForCardView = ['ID','Aliases', 'Platforms', 'Sectors', 'Domains', 'Revoked']
+    const infoForCardView = ['ID','Aliases', 'Impact', 'Platforms', 'Sectors', 'Domains', 'Revoked']
     const otherImportantInfo = ['Related Assets' ,'Realetd ATT&CK and ATLAS techniques'];
 
     return (
