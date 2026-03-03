@@ -1,23 +1,19 @@
-FROM node:20-alpine
+# 1. Usa un'immagine leggera
+FROM node:20-slim
 
-WORKDIR /webInterface
+WORKDIR /app
 
-COPY ./package.json ./package-lock.json ./
+# 2. Copia SOLO i file dei pacchetti prima di tutto il resto
+COPY package.json package-lock.json ./
 
-RUN npm config set fetch-timeout 60000 && \
-    npm config set fetch-retry-mintimeout 20000 && \
-    npm config set fetch-retry-maxtimeout 120000 && \
-    npm install --legacy-peer-deps --prefer-offline --no-audit
+# 3. Usa 'npm ci' invece di 'npm install'
+# --frozen-lockfile assicura che non ci siano cambiamenti al lock
+# --network-timeout aumenta la tolleranza per la tua rete
+RUN npm config set fetch-retry-maxtimeout 120000 && \
+    npm config set fetch-timeout 300000 && \
+    npm ci --quiet
 
+# 4. SOLO ORA copia il resto del codice
 COPY . .
 
-#RUN npm run build
-
-RUN npm install -g serve
-
-# Ensure esbuild binary is executable (fixes EACCES in some environments)
-RUN if [ -d "node_modules/@esbuild/linux-x64/bin" ]; then \
-      chmod +x node_modules/@esbuild/linux-x64/bin/esbuild || true; \
-    fi
-
-CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

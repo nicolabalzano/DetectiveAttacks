@@ -6,7 +6,7 @@ services:
     volumes:
       - type: bind
         source: ./webInterface/src
-        target: /webInterface/src
+        target: /app/src
     #ports:
     #  - "80:3001"
     networks:

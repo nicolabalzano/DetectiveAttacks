@@ -1,17 +1,20 @@
-import requests
-import json
+import google.generativeai as genai
 
+# Load env file to get API key
+api_key = "AIzaSyDjjPoSpVo4ys3Jg6QE2rHtie7MJcvbfBA"
 
+if not api_key:
+    print("API KEY not found in stix&vulnerability/.env")
+    exit(1)
 
-url = 'http://127.0.0.1:8080/api/cvwelib/api/get_cwe'
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel("gemini-2.5-flash")
 
-response = requests.get(f'{url}?keywordSearchCWE=xss&keywordExactMatch')
- 
-print(response.text)
-"""dict_= json.loads(response.text)
-
-print(dict_[0]['id'])
-print("-----------------------------------------------------")
-print(dict_[1] ['id'])
-print("-----------------------------------------------------")
-print(dict_[2]  ['id'])"""
+print("Testing Gemini API...")
+try:
+    response = model.generate_content("Hello, this is a test. Reply with 'OK' if you receive this.")
+    print("Success! Response from model:")
+    print(response.text)
+except Exception as e:
+    print("Error during API call:")
+    print(e)
