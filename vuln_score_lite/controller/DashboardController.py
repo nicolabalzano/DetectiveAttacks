@@ -52,13 +52,14 @@ class DashboardController:
         
         Args:
             excluded_cve_ids: List of CVE IDs to exclude from calculation
-            mode: Calculation mode (0-4)
+            mode: Calculation mode (0-5)
                 0: Base score (simple average)
                 1: Impact-weighted
                 2: Exploitability-weighted
                 3: Severity-weighted
                 4: CWE-count weighted
-            auto_save: If True, saves to history when all 5 modes are calculated
+                5: Asset-impact weighted (CVEs with no linked assets are excluded)
+            auto_save: If True, saves to history when all 6 modes are calculated
         
         Returns:
             Tuple of (score, list of checked CVE IDs)
@@ -82,15 +83,23 @@ class DashboardController:
             return (0.0, excluded_cve_ids)
         
         # Calculate score based on mode
-        score = ScoreCalculator.calculate_score_by_mode(cve_helpers, mode)
+        if mode == 5:
+            # Fetch assets and impacts per CVE from stix&vulnerability
+            assets_per_cve = {
+                cve.cve_id: self.cvelib.get_assets_for_cve(cve.cve_id)
+                for cve in cve_helpers
+            }
+            score = ScoreCalculator.calculate_score_by_mode(cve_helpers, mode, assets_per_cve)
+        else:
+            score = ScoreCalculator.calculate_score_by_mode(cve_helpers, mode)
         
         # Store score for potential batch save
         if auto_save:
             self._pending_scores[mode] = score
             self._pending_excluded = excluded_cve_ids
             
-            # If all 5 modes are calculated, save to history
-            if len(self._pending_scores) == 5:
+            # If all 6 modes are calculated, save to history
+            if len(self._pending_scores) == 6:
                 self.score_history.add_score_entry(self._pending_scores, self._pending_excluded)
                 logging.info(f"Saved score history entry with {len(self._pending_scores)} modes")
                 # Reset pending data
@@ -101,7 +110,7 @@ class DashboardController:
     
     def calculate_and_save_all_scores(self, excluded_cve_ids: List[str] = None) -> Dict[int, float]:
         """
-        Calculate all 5 score modes and save to history
+        Calculate all 6 score modes and save to history
         
         Args:
             excluded_cve_ids: List of CVE IDs to exclude from calculation
@@ -112,10 +121,14 @@ class DashboardController:
         excluded_cve_ids = excluded_cve_ids or []
         scores = {}
         
-        # Calculate all 5 modes
+        # Calculate modes 0-4 without asset lookup
         for mode in range(5):
-            score, _ = self.update_score(excluded_cve_ids, mode)
+            score, _ = self.update_score(excluded_cve_ids, mode, auto_save=False)
             scores[mode] = score
+        
+        # Calculate mode 5 (asset-impact weighted) separately
+        score, _ = self.update_score(excluded_cve_ids, 5, auto_save=False)
+        scores[5] = score
         
         # Save to history
         self.score_history.add_score_entry(scores, excluded_cve_ids)
@@ -133,6 +146,12 @@ class DashboardController:
             List of history entries with timestamp and scores
         """
         return self.score_history.get_history(limit)
+    
+    def reset_dashboard(self) -> bool:
+        """Reset the dashboard by clearing all tracked CVEs and score history"""
+        db_cleared = self.db.clear_database()
+        history_cleared = self.score_history.clear_history()
+        return db_cleared and history_cleared
     
     def _calculate_severity_counts(self, cve_data_list: List[Dict]) -> Dict:
         """Calculate count of each severity level"""

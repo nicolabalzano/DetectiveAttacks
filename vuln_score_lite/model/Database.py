@@ -72,6 +72,15 @@ class Database:
             return True
         return False
     
+    def clear_database(self) -> bool:
+        """Clear all CVEs from the database"""
+        self._write_data({
+            'cveList': [],
+            'createdAt': datetime.now().isoformat(),
+            'updatedAt': datetime.now().isoformat()
+        })
+        return True
+    
     def get_metadata(self) -> Dict:
         """Get metadata about the database"""
         data = self._read_data()

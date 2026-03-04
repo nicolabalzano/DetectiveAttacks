@@ -42,6 +42,29 @@ def add_new_cve_in_list():
     return add_history()
 
 
+@app.route('/addBulkCVEs', methods=['POST'])
+def add_bulk_cves():
+    """Add multiple CVEs to the list efficiently"""
+    try:
+        data = request.json
+        cve_ids = data.get('cveIds', [])
+        
+        if not cve_ids or not isinstance(cve_ids, list):
+            return jsonify({'error': 'cveIds list is required'}), 400
+            
+        results = history_controller.add_cves_bulk(cve_ids)
+        
+        return jsonify({
+            'success': True, 
+            'results': results,
+            'message': f'Processed {len(cve_ids)} CVEs'
+        }), 200
+            
+    except Exception as e:
+        logging.error(f"Error in add_bulk_cves: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/deleteCVEFromList', methods=['POST'])
 def delete_cve_from_list():
     """Remove a CVE from the list"""
@@ -89,9 +112,21 @@ def update_dashboard():
             'newScore': score,
             'checkedIds': checked_ids
         }), 200
-        
     except Exception as e:
         logging.error(f"Error in update_dashboard: {e}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/resetdashboard', methods=['POST'])
+def reset_dashboard_route():
+    """Reset the dashboard by clearing all tracked CVEs and recorded score history"""
+    try:
+        success = dashboard_controller.reset_dashboard()
+        if success:
+            return jsonify({'success': True, 'message': 'Dashboard reset successfully'}), 200
+        else:
+            return jsonify({'success': False, 'message': 'Failed to reset dashboard'}), 500
+    except Exception as e:
+        logging.error(f"Error in reset_dashboard: {e}")
         return jsonify({'error': str(e)}), 500
 
 

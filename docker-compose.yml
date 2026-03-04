@@ -63,8 +63,6 @@ services:
       #- "5005:5005"
     networks:
       - app_network
-    depends_on:
-      - cvwelib
 
   nginx:
     build: ./nginx

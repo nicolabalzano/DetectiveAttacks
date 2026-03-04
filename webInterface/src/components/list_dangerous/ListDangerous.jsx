@@ -24,7 +24,7 @@ const ListDangerous = ({ cveList, loading, onDeleteCve }) => {
                 </div>
             ) : (
                 <div className="table-responsive">
-                    <table className="table table-hover table-sorting text-center">
+                    <table className="table table-hover table-sorting text-center mb-5">
                         <thead className="table-dark">
                             <tr>
                                 <th scope="col">#</th>

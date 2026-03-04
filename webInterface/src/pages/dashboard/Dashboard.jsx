@@ -10,12 +10,12 @@ const Dashboard = () => {
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--bs-secondary').trim();
 
     const [scores, setScores] = useState([
-        { id: 0, title: "Base Score", subtitle: "(Simple Average)", value: 0, max: 10, color:'#0d6efd'},
-        { id: 1, title: "Impact Score", subtitle: "(Weighted by Impact)", value: 0, max: 10, color:'#d32f2f' },
-        { id: 2, title: "Exploitability", subtitle: "(Weighted by Exploitability)", value: 0, max: 10, color:'#f57c00' },
-        { id: 3, title: "Severity", subtitle: "(Weighted by Severity)", value: 0, max: 10, color:'#fbc02d' },
-        { id: 4, title: "CWE Count", subtitle: "(Weighted by Weaknesses)", value: 0, max: 10, color:'#388e3c' },
-        { id: 5, title: "Asset Weight", subtitle: "(Weighted by Assets)", value: 0, max: 10, color:'#7b1fa2' },
+        { id: 0, title: "Base Score", subtitle: "(Simple Average)", value: 0, max: 10, color: '#0d6efd' },
+        { id: 1, title: "Impact Score", subtitle: "(Weighted by Impact)", value: 0, max: 10, color: '#d32f2f' },
+        { id: 2, title: "Exploitability", subtitle: "(Weighted by Exploitability)", value: 0, max: 10, color: '#f57c00' },
+        { id: 3, title: "Severity", subtitle: "(Weighted by Severity)", value: 0, max: 10, color: '#fbc02d' },
+        { id: 4, title: "CWE Count", subtitle: "(Weighted by Weaknesses)", value: 0, max: 10, color: '#388e3c' },
+        { id: 5, title: "Asset Weight", subtitle: "(Weighted by Assets Impact)", value: 0, max: 10, color: '#7b1fa2' },
     ]);
 
     const [scoreHistory, setScoreHistory] = useState([
@@ -28,6 +28,8 @@ const Dashboard = () => {
 
     const [cveList, setCveList] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [bulkCveInput, setBulkCveInput] = useState("");
+    const [isAddingBulk, setIsAddingBulk] = useState(false);
 
     const scoreLabels = ['Base Score', 'Impact', 'Exploitability', 'Severity', 'CWE Count', 'Asset Weight'];
     const scoreColors = ['#1976d2', '#d32f2f', '#f57c00', '#fbc02d', '#388e3c', '#7b1fa2'];
@@ -39,11 +41,11 @@ const Dashboard = () => {
     };
 
     const formatDateTimeLabel = (date) => {
-        const options = { 
-            year: 'numeric', 
-            month: '2-digit', 
-            day: '2-digit', 
-            hour: '2-digit', 
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
             minute: '2-digit'
         };
         return new Intl.DateTimeFormat('it-IT', options).format(date);
@@ -74,7 +76,7 @@ const Dashboard = () => {
         }
     };
 
-    const addNewCVEInList = async() => {
+    const addNewCVEInList = async () => {
         const cveId = prompt("Enter the CVE ID (e.g., CVE-2021-44228):");
         if (cveId) {
             try {
@@ -82,7 +84,7 @@ const Dashboard = () => {
                 if (response.data.success) {
                     alert(`CVE ${cveId} added successfully!`);
                     // Refresh the list and dashboard
-                    window.location.reload(); 
+                    window.location.reload();
                 } else {
                     alert(`Failed to add CVE: ${response.data.message || 'Unknown error'}`);
                 }
@@ -93,7 +95,39 @@ const Dashboard = () => {
         }
     }
 
-    const deleteCVEFromList = async(cveId) => {
+    const addBulkCVEsFromInput = async () => {
+        if (!bulkCveInput.trim()) return;
+
+        const cveIds = bulkCveInput.split(/\s+/).filter(id => id.trim() !== "");
+        if (cveIds.length === 0) return;
+
+        setIsAddingBulk(true);
+        try {
+            const response = await axios.post('/api/vuln_score_lite/addBulkCVEs', { cveIds: cveIds });
+            if (response.data.success) {
+                const { added, failed, already_present } = response.data.results;
+                let message = `Processed ${cveIds.length} CVEs.\n`;
+                if (added.length > 0) message += `Added: ${added.join(", ")}\n`;
+                if (already_present.length > 0) message += `Already present: ${already_present.join(", ")}\n`;
+                if (failed.length > 0) {
+                    message += `Failed: ${failed.map(f => `${f.cveId} (${f.error})`).join(", ")}`;
+                }
+
+                alert(message);
+                setBulkCveInput("");
+                window.location.reload();
+            } else {
+                alert(`Failed to add CVEs: ${response.data.message || 'Unknown error'}`);
+            }
+        } catch (error) {
+            console.error('Error adding bulk CVEs:', error);
+            alert(`Error adding CVEs: ${error.response?.data?.error || error.message}`);
+        } finally {
+            setIsAddingBulk(false);
+        }
+    }
+
+    const deleteCVEFromList = async (cveId) => {
         if (window.confirm(`Are you sure you want to remove ${cveId} from the list?`)) {
             try {
                 const response = await axios.post('/api/vuln_score_lite/deleteCVEFromList', { cveId: cveId });
@@ -113,18 +147,38 @@ const Dashboard = () => {
         }
     }
 
+    const resetDashboard = async () => {
+        if (window.confirm(`Are you sure you want to reset the entire dashboard and clear history?`)) {
+            try {
+                const response = await axios.post('/api/vuln_score_lite/resetdashboard');
+                if (response.data.success) {
+                    alert('Dashboard history cleared correctly!');
+                    setScores(prevScores => prevScores.map(s => ({ ...s, value: 0 })));
+                    setScoreHistory([]);
+                    setCveList([]);
+                    window.location.reload();
+                } else {
+                    alert(`Failed to reset: ${response.data.message}`);
+                }
+            } catch (error) {
+                console.error('Error resetting dashboard:', error);
+                alert(`Error resetting dashboard: ${error.response?.data?.error || error.message}`);
+            }
+        }
+    }
+
     useEffect(() => {
         const loadDashboard = async () => {
             setLoading(true);
             try {
                 // First, try to load the latest scores (without recalculating)
                 const latestResponse = await axios.get('/api/vuln_score_lite/latest-scores');
-                
+
                 if (latestResponse.data.success) {
                     // Use existing scores
                     const existingScores = latestResponse.data.scores;
                     console.log('Loading existing scores:', existingScores);
-                    
+
                     setScores(prevScores =>
                         prevScores.map((score, index) => ({
                             ...score,
@@ -151,13 +205,13 @@ const Dashboard = () => {
                     // No scores yet, calculate them
                     console.log('No score history found, calculating initial scores...');
                     await calculateAllScores();
-                    
+
                     // Load history after calculation
                     const history = await fetchScoreHistory();
                     if (history && history.length > 0) {
                         setScoreHistory(history);
                     }
-                    
+
                     // Load CVE list
                     await loadCveList();
                 } else {
@@ -186,7 +240,7 @@ const Dashboard = () => {
 
         const calculateAllScores = async () => {
             const results = [];
-            
+
             // Calculate all score modes (backend will auto-save when all 5 are calculated)
             for (let mode = 0; mode <= 5; mode++) {
                 const response = await axios.post('/api/vuln_score_lite/updatedashboard', {
@@ -195,7 +249,7 @@ const Dashboard = () => {
                 });
                 results.push(response.data.newScore);
             }
-            
+
 
             // Update scores with calculated values
             setScores(prevScores =>
@@ -231,7 +285,7 @@ const Dashboard = () => {
                 {/*Score History Chart*/}
                 <div className='row justify-content-center mt-5'>
                     <div className="">
-                        <ScoreHistoryChart 
+                        <ScoreHistoryChart
                             scoreHistory={scoreHistory}
                             scoreLabels={scoreLabels}
                             scoreColors={scoreColors}
@@ -240,22 +294,68 @@ const Dashboard = () => {
                         />
                     </div>
                 </div>
-                
+
+                {/*Add CVEs*/}
+                <div className="card shadow-sm border-0 rounded-3 mt-4">
+                    <div className="card-body p-4">
+                        <h5 className="card-title fw-bold">Bulk Add CVEs</h5>
+                        <p className="text-hint small mb-3">Enter CVE IDs separated by spaces (e.g., CVE-2021-44228 CVE-2024-12345)</p>
+                        <div className="input-group">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="CVE-2021-44228 CVE-2024-12345 ..."
+                                value={bulkCveInput}
+                                onChange={(e) => setBulkCveInput(e.target.value)}
+                                disabled={isAddingBulk}
+                            />
+                            <button
+                                className="btn btn-primary px-4"
+                                onClick={addBulkCVEsFromInput}
+                                disabled={isAddingBulk || !bulkCveInput.trim()}
+                            >
+                                {isAddingBulk ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                        Adding...
+                                    </>
+                                ) : (
+                                    'Add CVEs'
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 {/*CVE LIST*/}
-                <ListDangerous 
+                <ListDangerous
                     cveList={cveList}
                     loading={loading}
                     onDeleteCve={deleteCVEFromList}
+
                 />
 
+                {/*Add single CVE
                 <div className="d-flex justify-content-center">
-                    <button  className='btn btn-primary px-4 mt-3 mb-5' onClick={addNewCVEInList}>Add new CVE encountered</button>  
-                </div>
+                    <button className='btn btn-outline-secondary px-4 mt-3 mb-5' onClick={addNewCVEInList}>
+                        <i className="bi bi-plus-circle me-2"></i>
+                        Add single CVE (Legacy)
+                    </button>
+                </div>*/}
+
+                {/* Floating Reset Button */}
+                <button
+                    className='btn btn-primary px-4 py-2 position-fixed bottom-0 end-0 m-4 shadow z-3 rounded-pill'
+                    onClick={resetDashboard}
+                    title="Reset dashboard and clear all history"
+                >
+                    <i className="bi bi-arrow-counterclockwise me-2"></i>
+                    Reset Dashboard
+                </button>
             </div>
         </div>
     )
 }
 
 export default Dashboard;
-
 

@@ -182,7 +182,7 @@ export const deletePersonalAssetAPI = async (assetId) => {
 export const updatePersonalAssetAttackPatternsAPI = async (assetId, attackPatterns) => {
     return await axios.put(
         `${API_stix_vulnerability}/personal_assets/${assetId}/attack_patterns`,
-        attackPatterns
+        { attack_patterns: attackPatterns }
     );
 };
 

@@ -12,6 +12,10 @@ import { fetchDataAttackPatternsGroupedByPhaseAPI } from '../../components/api/f
 import { navigateToThreats } from '../../components/handle_routing_threats/HandleRoutingThreats.jsx';
 import { Skeleton, Box } from '@mui/material';
 
+const ROW_HEIGHT = 35; // Approx height of a row in px
+const HEADER_HEIGHT = 30; // Approx height of the table header
+const MAX_TOTAL_HEIGHT = 65; // Max allowed VH for both tables combined before overflowing page
+
 const EMPTY_FORM = {
     name: '',
     description: '',
@@ -26,17 +30,23 @@ const AttackPatternPanel = ({ asset, allAttackPatterns, onSave }) => {
     const [saving, setSaving] = useState(false);
     const [dirty, setDirty] = useState(false);
 
-    // Flatten all attack patterns from {phase: [{ID, Name}]} into a single list
-    const flat = Object.values(allAttackPatterns).flat();
     const linkedIds = new Set(linked.map(a => a.id));
 
     const hasSearch = search.trim().length > 0;
-    const filtered = hasSearch
-        ? flat.filter(ap =>
-            ap.Name.toLowerCase().includes(search.toLowerCase()) ||
-            ap.ID.toLowerCase().includes(search.toLowerCase())
-        )
-        : flat;
+    const searchLower = search.toLowerCase();
+
+    const filteredGrouped = Object.entries(allAttackPatterns).reduce((acc, [phase, patterns]) => {
+        const matchingPatterns = hasSearch
+            ? patterns.filter(ap => ap.Name.toLowerCase().includes(searchLower) || ap.ID.toLowerCase().includes(searchLower))
+            : patterns;
+
+        if (matchingPatterns.length > 0) {
+            acc[phase] = matchingPatterns;
+        }
+        return acc;
+    }, {});
+
+    const hasResults = Object.keys(filteredGrouped).length > 0;
 
     const addAP = (ap) => {
         if (linkedIds.has(ap.ID)) return;
@@ -85,23 +95,30 @@ const AttackPatternPanel = ({ asset, allAttackPatterns, onSave }) => {
                                 scrollbarWidth: 'thin',
                                 scrollbarColor: 'white transparent',
                             }}>
-                                {filtered.length === 0 && !hasSearch ? (
+                                {!hasResults && !hasSearch ? (
                                     <p className="text-secondary small text-center mt-3">Loading…</p>
-                                ) : filtered.length === 0 ? (
+                                ) : !hasResults ? (
                                     <p className="text-secondary small text-center mt-3">No results</p>
-                                ) : filtered.map(ap => (
-                                    <div key={ap.ID} className="ma-ap-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span className="small fw-semibold">{ap.Name}</span>
-                                            <span className="text-secondary small ms-2 opacity-75">{ap.ID}</span>
+                                ) : Object.entries(filteredGrouped).map(([phase, patterns]) => (
+                                    <div key={phase}>
+                                        <div className="bg-primary px-2 py-1 small fw-bold text-secondary text-uppercase sticky-top" style={{ fontSize: '0.75rem', backdropFilter: 'blur(4px)' }}>
+                                            {phase.replace(/-/g, ' ')}
                                         </div>
-                                        <button
-                                            className="btn btn-sm btn-outline-primary py-0 px-2"
-                                            disabled={linkedIds.has(ap.ID)}
-                                            onClick={() => addAP(ap)}
-                                        >
-                                            {linkedIds.has(ap.ID) ? <i className="bi bi-check" /> : <i className="bi bi-plus" />}
-                                        </button>
+                                        {patterns.map(ap => (
+                                            <div key={ap.ID} className="ma-ap-item d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <span className="small fw-semibold">{ap.Name}</span>
+                                                    <span className="text-secondary small ms-2 opacity-75">{ap.ID}</span>
+                                                </div>
+                                                <button
+                                                    className="btn btn-sm btn-outline-primary py-0 px-2"
+                                                    disabled={linkedIds.has(ap.ID)}
+                                                    onClick={() => addAP(ap)}
+                                                >
+                                                    {linkedIds.has(ap.ID) ? <i className="bi bi-check" /> : <i className="bi bi-plus" />}
+                                                </button>
+                                            </div>
+                                        ))}
                                     </div>
                                 ))}
                             </div>
@@ -178,6 +195,51 @@ const MappingAssets = () => {
     const [success, setSuccess] = useState('');
     const [expandedId, setExpandedId] = useState(null);
 
+    // Dynamic height calculation
+    const getTableHeights = useCallback(() => {
+        const savedCount = assets.length;
+        const mitreCount = mitreAssets.length;
+
+        // If an asset is expanded to Manage AP, give the Saved table lots of space
+        // and aggressively shrink the Mitre one so the user can scroll within the AP menu easily.
+        if (expandedId) {
+            return { saved: '45vh', mitre: '20vh' };
+        }
+
+        // If both have 6+ items or are roughly equal, split 50/50 (35vh each)
+        if ((savedCount >= 6 && mitreCount >= 6) || (savedCount > 0 && mitreCount > 0 && Math.abs(savedCount - mitreCount) <= 2)) {
+            return { saved: '35vh', mitre: '35vh' };
+        }
+
+        // Calculate needed pixels
+        const savedNeededPx = HEADER_HEIGHT + (savedCount * ROW_HEIGHT);
+        const mitreNeededPx = HEADER_HEIGHT + (mitreCount * ROW_HEIGHT);
+
+        // Convert approx px to VH (assuming 1080p display for rough estimate, 1vh ≈ 10px)
+        // We'll use a safer approach: determine percentages of the 70vh max
+
+        // If one is very small (or empty)
+        if (savedCount === 0) return { saved: 'auto', mitre: '70vh' };
+        if (mitreCount === 0) return { saved: '70vh', mitre: 'auto' };
+
+        // Ratio based allocation
+        const totalRows = savedCount + mitreCount;
+        let savedVh = Math.max(15, Math.floor((savedCount / totalRows) * MAX_TOTAL_HEIGHT));
+        let mitreVh = Math.max(15, Math.floor((mitreCount / totalRows) * MAX_TOTAL_HEIGHT));
+
+        // Let's cap them at the actual needed height so we don't have empty space
+        // if the total rows are low
+        const totalNeededPx = savedNeededPx + mitreNeededPx;
+
+        // Return computed or fallback to auto if they don't fill the screen
+        return {
+            saved: totalRows < 12 ? 'auto' : `${savedVh}vh`,
+            mitre: totalRows < 12 ? 'auto' : `${mitreVh}vh`
+        };
+    }, [assets.length, mitreAssets.length, expandedId]);
+
+    const tableHeights = getTableHeights();
+
     useEffect(() => {
         const root_element = document.getElementById('root');
         root_element.classList.remove('d-flex');
@@ -186,6 +248,7 @@ const MappingAssets = () => {
         root_element.classList.remove('align-items-center');
         root_element.style.margin = '0';
         root_element.style.height = '100vh';
+        root_element.style.overflow = 'hidden';
 
         loadAssets();
 
@@ -263,7 +326,7 @@ const MappingAssets = () => {
     };
 
     return (
-        <div className="ma-page container-fluid" style={{ marginTop: '80px', paddingBottom: '40px' }}>
+        <div className="ma-page container-fluid d-flex flex-column" style={{ height: 'calc(100vh - 70px)', marginTop: '70px', overflow: 'hidden' }}>
 
             {/* Header */}
             <div className="ma-header px-4 mb-4">
@@ -277,7 +340,7 @@ const MappingAssets = () => {
                 </p>
             </div>
 
-            <div className="d-flex gap-4 flex-wrap flex-lg-nowrap px-4">
+            <div className="d-flex gap-4 flex-wrap flex-lg-nowrap px-4 flex-grow-1" style={{ overflow: 'hidden' }}>
 
                 {/* ── ADD FORM ─────────────────────────────── */}
                 <div className="ma-form-card flex-shrink-0">
@@ -335,7 +398,7 @@ const MappingAssets = () => {
                 </div>
 
                 {/* ── ASSETS TABLE ─────────────────────────── */}
-                <div className="flex-grow-1 d-flex flex-column gap-5">
+                <div className="flex-grow-1 d-flex flex-column gap-4 pb-3" style={{ overflowY: 'auto' }}>
 
                     {/* CUSTOM ASSETS */}
                     <div>
@@ -355,9 +418,9 @@ const MappingAssets = () => {
                                 <p>No custom assets yet. Add one using the form!</p>
                             </div>
                         ) : (
-                            <div className="table-responsive">
-                                <table className="table table-hover ma-table">
-                                    <thead>
+                            <div className="search-result" style={{ maxHeight: tableHeights.saved }}>
+                                <table className="table table-hover table-sorting mb-0">
+                                    <thead className="position-sticky top-0 z-1" style={{ backgroundColor: 'var(--bs-body-bg)' }}>
                                         <tr>
                                             <th className="text-secondary">ID</th>
                                             <th className="text-secondary">Name</th>
@@ -465,9 +528,9 @@ const MappingAssets = () => {
                                 <p>No Mitre assets found.</p>
                             </div>
                         ) : (
-                            <div className="table-responsive">
-                                <table className="table table-hover ma-table">
-                                    <thead>
+                            <div className="search-result" style={{ maxHeight: tableHeights.mitre }}>
+                                <table className="table table-hover table-sorting mb-0">
+                                    <thead className="position-sticky top-0 z-1" style={{ backgroundColor: 'var(--bs-body-bg)' }}>
                                         <tr>
                                             <th className="text-secondary">ID</th>
                                             <th className="text-secondary">Name</th>
