@@ -1,0 +1,11 @@
+ID,True_Count,Pred_Count,True_Techniques,Pred_Techniques
+CVE-2019-11886,2,2,Initial Access - Drive-by Compromise; Execution - Exploitation for Client Execution,Initial Access - Drive-by Compromise; Execution - Exploitation for Client Execution
+CVE-2017-0143,2,4,Initial Access - Exploit Public-Facing Application; Execution - Exploitation for Client Execution,Privilege Escalation - Exploitation for Privilege Escalation; Initial Access - Exploit Public-Facing Application; Lateral Movement - Exploitation of Remote Services; Execution - Command and Scripting Interpreter
+CVE-2021-20638,2,1,Credential Access - OS Credential Dumping; Execution - Exploitation for Client Execution,Defense Evasion - Indirect Command Execution
+CVE-2010-1165,2,2,Initial Access - Drive-by Compromise; Execution - Exploitation for Client Execution,Initial Access - Drive-by Compromise; Execution - Exploitation for Client Execution
+CVE-2020-17506,3,8,Privilege Escalation - Exploitation for Privilege Escalation; Initial Access - Exploit Public-Facing Application; Defense Evasion - Abuse Elevation Control Mechanism,Discovery - Group Policy Discovery; Impact - Data Manipulation; Defense Evasion - Process Injection; Privilege Escalation - Process Injection; Defense Evasion - Indirect Command Execution; Execution - Command and Scripting Interpreter; Initial Access - Exploit Public-Facing Application; Lateral Movement - Exploitation of Remote Services
+CVE-2019-11932,1,1,Execution - Exploitation for Client Execution,Execution - Exploitation for Client Execution
+CVE-2009-0238,1,0,Persistence - Hijack Execution Flow,
+CVE-2020-3133,1,1,Initial Access - Exploit Public-Facing Application,Initial Access - Exploit Public-Facing Application
+CVE-2021-3537,3,6,Command And Control - Proxy; Initial Access - Supply Chain Compromise; Defense Evasion - Masquerading,Privilege Escalation - Exploitation for Privilege Escalation; Defense Evasion - Exploitation for Defense Evasion; Credential Access - Exploitation for Credential Access; Execution - Exploitation for Client Execution; Initial Access - Exploit Public-Facing Application; Lateral Movement - Exploitation of Remote Services
+CVE-2020-14059,1,0,Impact - Endpoint Denial of Service,
