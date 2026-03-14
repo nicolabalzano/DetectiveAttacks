@@ -196,3 +196,17 @@ export const updateAssetImpactAPI = async (assetId, impact) => {
         { impact }
     );
 };
+
+export const addAttackPatternToMappingAPI = async (cveId, atId) => {
+    return await axios.post(
+        `${API_stix_vulnerability}/get_data/add_attack_pattern_to_mapping`,
+        { cve_id: cveId, at_id: atId }
+    );
+};
+
+export const removeAttackPatternFromMappingAPI = async (cveId, atId) => {
+    return await axios.delete(
+        `${API_stix_vulnerability}/get_data/remove_attack_pattern_from_mapping`,
+        { data: { cve_id: cveId, at_id: atId } }
+    );
+};
