@@ -31,6 +31,27 @@
   padding: 7.5px 50px;
 }
 
+.btn-danger {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  background-image: none !important;
+  color: #fff !important;
+
+  &:hover, &:focus, &:active {
+    background-color: #f1606e !important;
+    border-color: #f1606e !important;
+    background-image: none !important;
+    color: #fff !important;
+  }
+
+  &:disabled {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    background-image: none !important;
+    opacity: 0.65;
+  }
+}
+
 form{
   caret-color: $primary;
 }

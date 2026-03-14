@@ -10,7 +10,7 @@ const Dashboard = () => {
     const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--bs-secondary').trim();
 
     const [scores, setScores] = useState([
-        { id: 0, title: "Base Score", subtitle: "(Simple Average)", value: 0, max: 10, color: '#0d6efd' },
+        { id: 0, title: "Base Score", subtitle: "(Simple Average)", value: 0, max: 10, color: '#1976d2' },
         { id: 1, title: "Impact Score", subtitle: "(Weighted by Impact)", value: 0, max: 10, color: '#d32f2f' },
         { id: 2, title: "Exploitability", subtitle: "(Weighted by Exploitability)", value: 0, max: 10, color: '#f57c00' },
         { id: 3, title: "Severity", subtitle: "(Weighted by Severity)", value: 0, max: 10, color: '#fbc02d' },
@@ -30,6 +30,7 @@ const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [bulkCveInput, setBulkCveInput] = useState("");
     const [isAddingBulk, setIsAddingBulk] = useState(false);
+    const [cveAssetWeights, setCveAssetWeights] = useState({});
 
     const scoreLabels = ['Base Score', 'Impact', 'Exploitability', 'Severity', 'CWE Count', 'Asset Weight'];
     const scoreColors = ['#1976d2', '#d32f2f', '#f57c00', '#fbc02d', '#388e3c', '#7b1fa2'];
@@ -232,6 +233,26 @@ const Dashboard = () => {
                     });
                     setCveList(sortedCves);
                     console.log('Loaded CVE list:', sortedCves.length, 'CVEs');
+
+                    // Fetch asset weights for each CVE (for Asset Weight score card)
+                    const weightEntries = await Promise.all(
+                        sortedCves.map(async (cve) => {
+                            try {
+                                const r = await axios.get(
+                                    `/api/stix_and_vulnerability/get_data/get_assets_and_impacts_for_cve`,
+                                    { params: { cve_id: cve.id } }
+                                );
+                                const assets = Array.isArray(r.data) ? r.data : [];
+                                const weight = assets.length > 0
+                                    ? (assets.reduce((s, a) => s + (a.impact || 3), 0) / assets.length / 5.0)
+                                    : null;
+                                return [cve.id, weight];
+                            } catch {
+                                return [cve.id, null];
+                            }
+                        })
+                    );
+                    setCveAssetWeights(Object.fromEntries(weightEntries));
                 }
             } catch (error) {
                 console.error('Error loading CVE list:', error);
@@ -278,7 +299,7 @@ const Dashboard = () => {
                 {/*Graphic for vulnerabilty score*/}
                 <div className="row">
                     {scores.map((score) => (
-                        <ScoreGaugeCard key={score.id} score={score} getTextColor={getTextColor} />
+                        <ScoreGaugeCard key={score.id} score={score} getTextColor={getTextColor} cveList={cveList} cveAssetWeights={cveAssetWeights} />
                     ))}
                 </div>
 
