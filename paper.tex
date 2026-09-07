@@ -1,0 +1,319 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+%\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\graphicspath{ {./figures/} } % Indica a LaTeX di cercare sempre qui dentro
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage[table]{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{DetectiveAttacks: An LLM-Driven Framework for CVE-to-TTP Correlation, Threat Actor Attribution, and Context-Aware Vulnerability Management across ATT\&CK and ATLAS Matrices}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Nicola Balzano}
+\IEEEauthorblockA{\textit{MNTCRL Lab} \\
+\textit{University of Bari Aldo Moro}\\
+Bari, Italy \\
+n.balzano2@studenti.uniba.it}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Vita Santa Barletta}
+\IEEEauthorblockA{\textit{Department of Computer Science} \\
+\textit{University of Bari Aldo Moro}\\
+Bari, Italy \\
+vita.barletta@uniba.it}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Giovanni Bruno}
+\IEEEauthorblockA{\textit{SER\&Practices} \\
+\textit{Spin-off of the University of Bari Aldo Moro}\\
+Bari, Italia \\
+g.bruno@serandp.com}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Danilo Caivano}
+\IEEEauthorblockA{\textit{Department of Computer Science, SER\&Practices} \\
+\textit{University of Bari Aldo Moro}\\
+Bari, Italia \\
+danilo.caivano@uniba.it}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Massimiliano Morga}
+\IEEEauthorblockA{\textit{SER\&Practices} \\
+\textit{Spin-off of the University of Bari Aldo Moro}\\
+Bari, Italia \\
+m.morga@serandp.com}
+}
+
+\maketitle
+
+\begin{abstract}
+As the frequency and sophistication of cyber threats continue to escalate, organizations face significant challenges in translating high-volume Cyber Threat Intelligence (CTI) into actionable defensive measures. Traditional manual processes for correlating external threat data with internal system vulnerabilities are often slow, resource-intensive, and inadequate for protecting complex digital infrastructure. To address this critical gap, we present an automated framework designed to simplify and accelerate the mitigation of cyber attacks. By leveraging the reasoning capabilities of LLMs, \textit{DetectiveAttacks} processes structured CTI to uncover the underlying interdependencies between threat data. It specifically automates the correlation between known vulnerabilities and their corresponding TTPs (Tactics, Techniques, and Procedures), allowing for a dynamic mapping that aligns external intelligence with internal system exposures. Crucially, DetectiveAttacks operates as a human-in-the-loop (HITL) framework. Rather than replacing human expertise, the system places the security specialist at the center of the decision-making process, requiring expert validation of all LLM-generated mappings and mitigation suggestions. This novel, LLM-driven approach enables security operations teams to transition from static patch management to dynamic risk prioritization. The framework implements a dynamic, multi-weighted scoring system that incorporates factors such as impact-weighted severity, exploitability, and asset-specific criticality. By automatically highlighting the vulnerabilities most likely to be exploited by active threat campaigns and facilitating rapid expert review, DetectiveAttacks allows defenders to optimize resource allocation and confidently remediate the most critical flaws first.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Cyber Threat Intelligence (CTI), Vulnerability Management, Large Language Models (LLM), STIX/TAXII, Semantic Correlation, Risk Prioritization, Automated Security, MITRE ATT\&CK, MITRE ATLAS.
+\end{IEEEkeywords}
+
+\section{Introduction}
+In the contemporary digital landscape, the frequency, scale, and sophistication of cyber attacks are expanding at an unprecedented rate \cite{Adekoya_2025}. To counter these escalating threats, organizations increasingly rely on Cyber Threat Intelligence (CTI) to gather actionable insights regarding adversary behaviors, emerging campaigns, and malicious tools \cite{PRASAD2025104606}. However, Security Operations Centers (SOCs) are frequently overwhelmed by the sheer volume of unstructured CTI reports \cite{Baldassarre2019_HackSpace}. Identifying the relationships between external threat data—such as known attack campaigns or specific software used by adversaries—and internal system vulnerabilities is crucial to speeding up defensive responses \cite{Aslan_2023}. Unfortunately, this correlation is traditionally a manual, slow, and resource-intensive process.
+Furthermore, the paradigm of cyber threats is fundamentally shifting. While the MITRE ATT\&CK\footnote{https://attack.mitre.org} framework has become the industry standard for modeling traditional enterprise threats, the widespread adoption of Artificial Intelligence (AI) has introduced novel attack vectors \cite{Alsada_MITRE-ATT_2024,Alsada_MITRE-ATT_2025}. These AI-specific threats are cataloged in separate domains, such as MITRE ATLAS\footnote{https://atlas.mitre.org} (Adversarial Threat Landscape for AI Systems) \cite{carroll2025strengthening_MitreATLAS}. Security teams currently lack a unified perspective, forcing them to navigate fragmented databases to assess their overall risk posture. 
+
+To address these critical gaps, we present \textit{DetectiveAttacks}, a novel, automated, Human-in-the-Loop (HITL) framework designed to simplify and accelerate cyber attack mitigation. By leveraging the advanced natural language understanding of Large Language Models (LLMs), \textit{DetectiveAttacks} automatically processes CTI informations and maps it to specific vulnerabilities within an organization's environment. A key innovation of our approach is the unification of attack patterns from both the MITRE ATT\&CK and MITRE ATLAS domains into a single, cohesive matrix, structurally aligned with the phases of the Cyber Kill Chain. This allows the LLM to seamlessly map vulnerabilities to attack patterns across different technological domains without losing context.
+
+Beyond static mapping, \textit{DetectiveAttacks}\footnote{https://github.com/nicolabalzano/DetectiveAttacks} actively supports incident response. By analyzing the extracted TTPs (Tactics, Techniques, and Procedures), the framework facilitates the analysis of potential intrusion sets, helping defenders identify the specific Advanced Persistent Threat (APT) groups responsible for an attack in progress. Furthermore, to ensure that defensive measures are strictly aligned with organizational priorities, the framework enables security teams to define custom business assets and map them directly against specific attack patterns. This localized, user-defined context powers a dynamic, multi-weighted scoring system that evaluates the CVEs encountered within the specific business environment. By applying diverse calculus matrices—incorporating impact, exploitability, and custom asset criticality—\textit{DetectiveAttacks} facilitates a shift from static patch management to highly targeted dynamic risk prioritization.
+
+In summary, the main contributions of this paper are:
+\begin{itemize}
+    \item The unification of MITRE ATT\&CK and MITRE ATLAS attack patterns into a single operational matrix aligned with the Cyber Kill Chain.
+    \item Using the CTI relationship to define which attack patterns can occur before or after a detected attack pattern.
+    \item The deployment of an LLM-driven architecture to automatically extract and map vulnerabilities (CVEs) to complex, cross-domain attack patterns.
+    \item The exploitation of CTI relationships (e.g., campaigns, tools, and software) to trace potential intrusion sets and identify the threat groups responsible for active attacks.
+    \item The capability to ingest custom business assets and map them directly to relevant attack patterns, ensuring that threat models reflect the actual organizational infrastructure.
+    \item The development of a dynamic, multi-factor risk scoring system tailored to the specific business environment, optimizing remediation efforts based on actual organizational impact.
+\end{itemize}
+
+The remainder of this paper is organized as follows: Section \ref{related_work} reviews the state of the art on Cyber Threat Intelligence extraction and automated mapping of vulnerabilities to standardized attack frameworks; Section \ref{proposed_method} presents the proposed \textit{DetectiveAttacks}framework, describing the overall architecture and the methodological pipeline used to correlate vulnerabilities with attack patterns; Section \ref{conclusion} discusses the main findings and summarizes the contributions of the framework, highlighting how the proposed approach improves the contextualization of vulnerabilities and supports more effective cyber defense decision-making; Finally, Section \ref{future_work} outlines future research directions to improve \textit{DetectiveAttacks}.
+
+\section{Related Work}
+\label{related_work}
+The challenge of automating the extraction of actionable intelligence from unstructured Cyber Threat Intelligence (CTI) and mapping it to standardized frameworks has been extensively explored in recent literature \cite{Anooja_2025,carroll2025strengthening_MitreATLAS}. Early efforts primarily focused on traditional Natural Language Processing (NLP) and supervised Machine Learning (ML) techniques. 
+
+A prominent example is the \textit{CVE2ATT\&CK} framework \cite{cve2attack_2022}, which utilized BERT-based multi-label classification to map Common Vulnerabilities and Exposures (CVEs) directly to MITRE ATT\&CK techniques. While pioneering, this approach achieved a weighted F1-score of roughly 47.8\%, struggling heavily with the severe class imbalance inherent in the ATT\&CK framework. More recently, El Jaouhari et al. \cite{compsac_2024} attempted to improve these ML-based solutions by applying data augmentation and hyperparameter tuning to models like SciBERT and RoBERTa, achieving better accuracy but remaining fundamentally constrained by the maximum token limit of traditional encoder models (typically 512 tokens), which makes them unsuitable for processing lengthy CTI informations.
+
+With the advent of Large Language Models (LLMs), the state-of-the-art has shifted towards generative and reasoning-based architectures. The \textit{Crimson} framework \cite{crimson_2024} introduced a Retrieval-Aware Training (RAT) mechanism to empower strategic reasoning in cybersecurity. By fine-tuning a 70B parameter model, Crimson achieved an AST (Attack Strategy Tree) accuracy of 69.9\% in mapping CVEs to ATT\&CK, significantly outperforming zero-shot models like GPT-4. Similarly, the \textit{TTParser} system \cite{ttparser_2026} leveraged a hierarchical LLM-based verification module to extract Tactics, Techniques, and Procedures (TTPs) from raw CTI text, demonstrating high procedural reconstruction accuracy compared to sentence-level classifiers. Other tools, such as \textit{SMET} \cite{smet_2024}, have focused on semantic similarity matching to correlate threat reports to ATT\&CK matrices without relying on rigid static rules.
+
+Despite these significant advancements, the existing literature exhibits two major structural limitations that our proposed framework, \textit{DetectiveAttacks}, directly addresses. 
+
+First, the vast majority of current methodologies attempt to force a direct, one-to-one mapping between a CVE (or a CTI report) and a MITRE ATT\&CK technique. This direct translation often leads to a semantic gap, as it ignores the underlying causal mechanics of how a vulnerability is exploited. In contrast, our methodology explicitly exploits intermediate knowledge representations. Rather than jumping directly to the endpoint, \textit{DetectiveAttacks} traverses the ontological chain by mapping CVEs to their underlying root causes via Common Weakness Enumeration (CWE\footnote{https://cwe.mitre.org}), linking these to Common Attack Pattern Enumeration and Classification (CAPEC\footnote{https://capec.mitre.org}), and ultimately bridging these attack patterns to the final TTPs. This multi-layered approach ensures a much higher contextual fidelity in the final mapping.
+
+Second, without exception, the aforementioned works restrict their operational domain entirely to the traditional MITRE ATT\&CK enterprise matrix. As modern cyber threats increasingly target artificial intelligence and machine learning infrastructures, classical enterprise models are no longer sufficient \cite{Mohamed2025}. \textit{DetectiveAttacks} bridges this critical gap by integrating the \textit{MITRE ATLAS} (Adversarial Threat Landscape for AI Systems) framework into its core dataset. This allows the system to natively map unstructured CTI related to novel AI-specific attacks (e.g., data poisoning, model evasion) to specific ATLAS TTPs, providing a comprehensive, cross-domain threat prioritization that is currently unprecedented in the literature.
+
+\section{Proposed Method}
+\label{proposed_method}
+The methodology of DetectiveAttacks is built upon the ingestion and correlation of three primary data streams: (i) MITRE ATT\&CK operational matrix, (ii) MITRE ATLAS operational matrix (iii) standardized vulnerability data from the National Vulnerability Database (NVD) including CVE and CWE entries, and (iv) Common Attack Pattern Enumeration and Classification (CAPEC) data. The framework utilizes JSON-formatted STIX objects to store and manage the attack pattern and the relationships between these entities.
+
+\subsection{Unified matrix ATT\&CK and ATLAS}\label{sec:unified_matrix_att&ck_and_atlas}
+To address the fragmentation of threat knowledge across disparate domains, DetectiveAttacks integrates the traditional MITRE ATT\&CK enterprise, ICS (Industrial Control System) and mobile matrices with the MITRE ATLAS framework. This unification is operationalized by structurally aligning all identified techniques and sub-techniques to the seven phases of the Cyber Kill Chain (CKC) (Figure \ref{fig:cyber_kill_chain}), such as Reconnaissance, Exploitation, and Actions on Objectives. By mapping cross-domain attack patterns to a standardized temporal sequence, the framework provides defenders with a cohesive operational view that transcends technological silos.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/cyber_kill_chain.png}
+    \caption{Cyber Kill Chain reconstruction from ATT\&CK and ATLAS tactics.}
+    \label{fig:cyber_kill_chain}
+\end{figure}
+
+
+\subsection{Attack Patterns Prevention based on relationships}\label{sec:Prevention}
+By integrating the MITRE ATT\&CK framework—accessed via its official Python library, with a custom-reconstructed module for MITRE ATLAS, the methodology facilitates deep access to attack patterns, software, assets, campaigns, and their interdependencies.
+
+This relational data enables the identification of specific attack patterns tied to known campaigns or malicious software. Specifically, once an initial pattern is detected, the framework can extrapolate other techniques likely to be present based on their shared association with a specific intrusion set or toolkit (Figure \ref{fig:relationship_usage}). Such a capability is instrumental in reconstructing the adversary’s software stack and determining whether an ongoing attack mirrors a previously documented campaign. Consequently, this approach allows security teams to prioritize the verification of high-probability techniques, significantly accelerating the mitigation process.
+
+Furthermore, by aligning these patterns with Cyber Kill Chain (CKC) phases, the system can determine the temporal context of an intrusion, identifying both the techniques that likely preceded the detected activity (Figure \ref{fig:Tecniche_Antecedenti}) and those that could potentially follow it (Figure \ref{fig:Tecniche_Successive}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/relationship_usage.png}
+    \caption{How the relationships are used for patterns prevention.}
+    \label{fig:relationship_usage}
+\end{figure}
+
+\begin{figure*}[th]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/Tecniche_Antecedenti.png}
+    \caption{Attack patterns might have preceded the pattern of Account Discovery (identified as T1087 in the MITRE ATT\&CK framework).}
+    \label{fig:Tecniche_Antecedenti}
+\end{figure*}
+
+\begin{figure*}[th]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/Tecniche_Successive.png}
+    \caption{Attack patterns could potentially follow the identified pattern of Account Discovery (identified as T1087 in the MITRE ATT\&CK framework).}
+    \label{fig:Tecniche_Successive}
+\end{figure*}
+
+
+\subsection{Analyzing Potential Intrusion Sets Behind an Attack}\label{sec:potential_intrusion_sets}
+In traditional security operations, identifying the most likely \textit{Intrusion Set} behind a set of observed TTPs is a labor-intensive, manual process. Analysts must typically cross-reference detected techniques against thousands of entries in the MITRE ATT\&CK and ATLAS databases, often relying on subjective judgment to estimate which threat actor is most relevant. This manual correlation is not only time-consuming but also prone to human error and cognitive bias.
+
+\textit{DetectiveAttacks} automates this attribution by quantifying the relationship between observed patterns and known threat groups. To achieve a rigorous and normalized ranking, the framework employs a \textbf{Softmax-based approach}. Given a vector of counts $C$, where $C_i$ represents the number of observed attack patterns associated with a specific Intrusion Set $i$, the probability $P(IS_i)$ is calculated as follows:
+
+\begin{equation}
+P(IS_i) = \frac{e^{C_i - \max(C)}}{\sum_{j} e^{C_j - \max(C)}}
+\end{equation}
+
+Where:
+\begin{itemize}
+    \item $P(IS_i)$ is the final probability assigned to the group $i$.
+    \item $e$ is the base of the natural logarithm.
+    \item $\max(C)$ is the maximum value among all counts, utilized to ensure numerical stability.
+\end{itemize}
+
+By subtracting the maximum value before exponentiation, the framework prevents numerical overflow—a common issue when dealing with exponential functions in large-scale datasets. This ensures that even when a threat group has a significantly higher count of exploited patterns, the calculation remains computationally robust.
+
+This automated approach transforms a qualitative assessment into a quantitative, dynamic prioritization tool. As more techniques are detected during an incident, the exponential nature of the Softmax function rapidly highlights the most probable threat actors, allowing the expert to focus on the specific playbooks and mitigation strategies associated with those groups.
+
+\subsection{Vulnerability and Attack Patterns Relationships}
+
+A core capability of \textit{DetectiveAttacks} is the automated mapping of known vulnerabilities to the relevant Tactics, Techniques, and Procedures (TTPs) across the unified ATT\&CK and ATLAS matrix. This process is designed around a \textbf{Human-in-the-Loop (HITL)} paradigm \cite{Calvano2025}: the LLM does not act as an autonomous decision-maker, but rather as a reasoning engine that accelerates and augments the analyst's workflow. All LLM-generated mappings are presented to the security specialist for validation before being persisted, ensuring that domain expertise remains central to the final output.
+
+The overall approach is a complex conditional pipeline (Figure~\ref{fig:algorithm_relationships}) that branches depending on the \textbf{type of vulnerability} provided as input: a \textbf{CVE} (Common Vulnerabilities and Exposures) or a \textbf{CWE} (Common Weakness Enumeration).
+
+\textbf{CVE path.}
+When a CVE is provided, the framework first checks whether the vulnerability is already present in the local \texttt{mapped-cve.json} cache. If so, the previously computed mappings are returned immediately, avoiding redundant computation. Otherwise, the framework queries the \textit{MAPPINGS EXPLORER}, an external knowledge base that maintains curated CVE-to-TTP associations. If a match is found there, those mappings are returned. If the CVE is absent from both sources, the algorithm retrieves the list of CWEs associated with that CVE from the NVD. If no CWE is found, the framework falls back to a direct LLM query (\textsc{REQUEST-CVE}), instructing the model to infer the most plausible ATT\&CK or ATLAS techniques from the vulnerability description alone, as detailed in Table~\ref{tab:prompt_mapping}. If one or more CWEs are identified, the process follows the CWE path described below for each of them, aggregating the results.
+
+\textbf{CWE path.}
+When the input is a CWE (either directly or as a resolved sub-path of a CVE), the framework again checks the \texttt{mapped-cwe.json} cache to avoid redundant lookups. If the CWE is already mapped, the result is returned directly. Otherwise, the algorithm retrieves the CAPEC entries associated with that CWE, exploiting the structured ontological chain: \textit{CVE $\rightarrow$ CWE $\rightarrow$ CAPEC $\rightarrow$ MITRE TTP}. If no related CAPECs are found, the framework issues a direct LLM query (\textsc{REQUEST-CWE}) to infer the mapping from the weakness description. If at least one CAPEC is identified, the framework checks whether each CAPEC is present in the \texttt{mapped-capec.json} cache. For those already mapped, the related MITRE TTPs are returned. For the remaining ones, the algorithm verifies whether the CAPECs have any directly linked ATT\&CK or ATLAS techniques; if none are found, an LLM query (\textsc{REQUEST-CAPECs}) is issued to establish the final association.
+
+This layered architecture ensures that \textbf{structured knowledge is always prioritized over model inference}: the LLM is employed exclusively as a compensatory mechanism, activated only when no deterministic link exists in any of the available knowledge sources.
+
+Furthermore, a critical design decision concerns how the LLM is provided with knowledge of the attack landscape. Rather than relying on the model's static training knowledge—which is inherently bounded by its training cut-off date and may therefore lack recently published ATT\&CK or ATLAS techniques—\textit{DetectiveAttacks} adopts a \textbf{context injection} strategy. 
+At every inference call, the complete and up-to-date catalog of attack patterns, sourced directly from the live knowledge bases maintained by the framework, is dynamically injected into the prompt. This ensures that the model always reasons over the current state of the threat landscape, regardless of when it was trained.
+The pipeline operates in two sequential steps, each governed by a dedicated prompt. 
+
+First, as shown in Table~\ref{tab:prompt_classification}, the model receives the vulnerability description and is instructed to classify it into the most relevant technological domain (e.g., enterprise, ICS, mobile, or AI-specific). This domain classification narrows the subsequent search space, preventing the model from being overwhelmed by the full cross-domain catalog and improving both precision and response quality. 
+
+Second, as shown in Table~\ref{tab:prompt_mapping}, the model receives \textit{only} the attack patterns belonging to the identified domain—still potentially numbering in the hundreds—and is required to return the IDs of those whose exploitation mechanics or consequences are semantically consistent with the vulnerability description. By structuring the task in this way, the framework exploits the LLM's natural language reasoning capabilities while keeping its output strictly grounded in the officially recognized, versioned set of TTPs, ensuring consistent and reproducible mappings across model updates.
+
+The validated CVE-to-TTP mappings produced by this pipeline feed all downstream modules of \textit{DetectiveAttacks}, including the attack chain prevention analysis (Section~\ref{sec:Prevention}), the intrusion set attribution (Section~\ref{sec:potential_intrusion_sets}), and the multi-weighted risk scoring system.(Section \ref{sec:Risk Score Algorithms}).
+
+\begin{table}[htbp]
+\caption{LLM Prompt for Vulnerability Domain Classification.}
+\label{tab:prompt_classification}
+\centering
+\begin{tabular}{|p{0.95\columnwidth}|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{System Role \& Instructions} \\ \hline
+\small \texttt{You are an Expert Cybersecurity Analyst. Your task is to classify a vulnerability description into one of the following domains: [List of Domains].} \\
+\small \texttt{1. Analyze the provided vulnerability description.} \\
+\small \texttt{2. Determine which of the allowed domains best fits the context.} \\
+\small \texttt{3. Return ONLY the domain name as a string.} \\
+\small \texttt{4. Do not include extra text, punctuation, or explanation.} \\ \hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{User Input} \\ \hline
+\small \texttt{Classify this vulnerability description: [Vulnerability Description]} \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\caption{LLM Prompt for Mapping Vulnerabilities to Attack Patterns.}
+\label{tab:prompt_mapping}
+\centering
+\begin{tabular}{|p{0.95\columnwidth}|}
+\hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Task Description} \\ \hline
+\small \texttt{Task: Map the following vulnerability description to the provided Attack Patterns.} \\
+\small \texttt{Vulnerability: [Vulnerability Description]} \\ \hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Requirements \& Constraints} \\ \hline
+\small \texttt{Requirement: Identify the Attack Pattern IDs that represent the techniques used to exploit this vulnerability or the consequences of its exploitation.} \\ \hline
+\rowcolor[HTML]{EFEFEF} 
+\textbf{Output Format} \\ \hline
+\small \texttt{Output: A JSON list of strings containing ONLY the IDs.} \\
+\small \texttt{Example: ["T1001", "T1002"]} \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Quantitative Evaluation on CVE2ATT\&CK}
+To quantitatively assess the vulnerability-to-attack-pattern mapping capability, we evaluated the LLM fallback component on a benchmark of 100 CVEs sampled from the \textit{CVE2ATT\&CK} dataset. Since CVE2ATT\&CK provides technique categories rather than exact ATT\&CK identifiers, predicted ATT\&CK IDs were compared against the dataset labels through their official technique name or parent technique name. The prompt structure used in this evaluation is the same as the one described in Tables~\ref{tab:prompt_classification} and~\ref{tab:prompt_mapping}.
+
+Table~\ref{tab:cve2attack_results} reports the results for the two best-performing models in our benchmark. We report exact-match accuracy, where the predicted set must fully match the reference category set, and any-hit accuracy, where a CVE is considered correctly mapped if at least one predicted ATT\&CK technique matches one of its CVE2ATT\&CK categories. We also report the micro-averaged F1 score and the average number of ATT\&CK IDs returned per CVE.
+
+\begin{table}[htbp]
+\caption{CVE-to-ATT\&CK mapping results on 100 CVEs from CVE2ATT\&CK.}
+\label{tab:cve2attack_results}
+\centering
+\begin{tabular}{lcccc}
+\hline
+\textbf{Model} & \textbf{Accuracy} & \textbf{Any-hit} & \textbf{Micro-F1} & \textbf{Avg. IDs/CVE} \\
+\hline
+Gemini Flash High & 19.0\% & 52.0\% & 37.6\% & 1.60 \\
+Mistral Large 3 & 6.0\% & 73.0\% & 28.9\% & 4.42 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/algorithm_relationships.png}
+    \caption{Conditional approach to obtain Vulnerability-TTPs relationship.}
+    \label{fig:algorithm_relationships}
+\end{figure}
+
+
+\subsection{Risk Score Algorithms:}\label{sec:Risk Score Algorithms}
+The prioritization of technical vulnerabilities is achieved through a dynamic, multi-weighted scoring methodology. \textit{DetectiveAttacks} allows security operators to select from six distinct scoring modes to assess the risk posture of the organization based on the specific context of the threat landscape and the internal asset criticality. Given a set of vulnerabilities $V = \{v_1, v_2, \dots, v_n\}$ mapped to a specific attack campaign or TTP, the framework computes a cumulative risk score $S$ as a weighted average of the individual CVSS base scores $B_i$ for each $v_i \in V$, using mode-specific weights $w_i$.
+
+\textbf{Base score:}
+The simplest assessment mode represents the arithmetic mean of the CVSS base scores for all identified vulnerabilities:
+\begin{equation}
+S_{base} = \frac{1}{n} \sum_{i=1}^{n} B_i
+\end{equation}
+This mode provides a baseline overview of the average technical severity without accounting for external threat factors. It answers the question: \textit{``What is the average intrinsic severity of the identified vulnerabilities?''}
+
+\textbf{Impact based score:}
+This mode prioritizes vulnerabilities that have a higher potential impact on the confidentiality, integrity, and availability (CIA) of systems. The weight $w_i$ for each vulnerability is computed as the normalized CVSS impact sub-score $I_i$ (max value 6.0 for CVSS v3.1), which reflects the degree of damage caused \textit{if} a vulnerability is successfully exploited:
+\begin{equation}
+w_i = \frac{I_i}{6.0}, \quad S_{impact} = \frac{\sum_{i=1}^{n} (B_i \cdot w_i)}{\sum_{i=1}^{n} w_i}
+\end{equation}
+It answers the question: \textit{``What is the severity of the vulnerabilities that, once exploited, would cause the greatest damage?''} A high $I_i$ indicates that a successful exploitation would severely compromise confidentiality, integrity, and/or availability.
+
+\textbf{Exploitability based score:}
+This mode prioritizes vulnerabilities that are easiest to exploit in practice, regardless of the damage they inflict. Weights are derived from the normalized CVSS exploitability sub-score $E_i$ (max value 3.9 for CVSS v3.1), which captures attacker-side conditions such as the attack vector, complexity, required privileges, and user interaction:
+\begin{equation}
+w_i = \frac{E_i}{3.9}, \quad S_{exploit} = \frac{\sum_{i=1}^{n} (B_i \cdot w_i)}{\sum_{i=1}^{n} w_i}
+\end{equation}
+It answers the question: \textit{``What is the severity of the vulnerabilities that are most likely to be actively exploited?''} A high $E_i$ indicates that exploitation requires minimal attacker capabilities (e.g., remotely reachable, low complexity, no privileges, no user interaction).
+
+\textbf{Severity based score:}
+To provide a more intuitive risk assessment, this mode employs a qualitative-to-quantitative mapping of the CVSS severity rating (e.g., NONE=0, LOW=1, MEDIUM=2, HIGH=3, CRITICAL=4). The weights $w_i$ are assigned according to the corresponding severity level of $v_i$:
+\begin{equation}
+S_{severity} = \frac{\sum_{i=1}^{n} (B_i \cdot \text{map}(\text{sev}_i))}{\sum_{i=1}^{n} \text{map}(\text{sev}_i)}
+\end{equation}
+It answers the question: \textit{``What is the severity of the environment weighted by its overall criticality tier?''} This mode is especially suited for non-technical stakeholders, as it relies on the human-readable CVSS severity label rather than raw numeric sub-scores.
+
+\textbf{CWE Count based score:}
+This algorithm emphasizes complex vulnerabilities that exhibit multiple underlying weaknesses. The weight $w_i$ is determined by the number of Common Weakness Enumeration (CWE) entries associated with $v_i$ (with a minimum weight of 1):
+\begin{equation}
+w_i = \max(1, |CWE_i|), \quad S_{cwe} = \frac{\sum_{i=1}^{n} (B_i \cdot w_i)}{\sum_{i=1}^{n} w_i}
+\end{equation}
+It answers the question: \textit{``What is the severity of the environment weighted by structural vulnerability complexity?''} Vulnerabilities rooted in multiple distinct weaknesses are considered harder to remediate and more likely to yield attack chains, hence they receive a higher weight.
+
+\textbf{Asset Weight based score:}
+To provide a highly context-aware assessment, this mode integrates the criticality of organizational assets into the risk calculus. For a given vulnerability $v_i$, the system computes the average impact score $A_i$ (normalized to a $[0, 1]$ range from an initial $1-5$ scale) across all internal assets exposed to the specific attack patterns associated with that vulnerability. Vulnerabilities affecting no defined assets are excluded from this specific calculation:
+\begin{equation}
+w_i = \bar{A_i}, \quad S_{asset} = \frac{\sum_{i \in V_{linked}} (B_i \cdot w_i)}{\sum_{i \in V_{linked}} w_i}
+\end{equation}
+where $V_{linked}$ is the subset of vulnerabilities associated with at least one organizational asset. It answers the question: \textit{``What is the severity of the vulnerabilities that most directly threaten our critical assets?''} Unlike all other modes, this score is organization-specific: the same vulnerability may receive a different weight depending on which assets are defined and how critical they are deemed to be.
+The strength of this scoring mode lies in its ability of this framework to ingest custom asset definitions and link them to standard attack patterns. By bridging the gap between technical CVSS metrics and the specific business infrastructure, \textit{DetectiveAttacks} transforms generic threat intelligence into a tailored risk prioritization strategy, ensuring that defensive resources are allocated where the potential business impact is highest.
+
+\section{Conclusions}
+\label{conclusion}
+This paper presented \textit{DetectiveAttacks}, a novel Human-in-the-Loop framework that addresses two critical gaps in the current state of automated Cyber Threat Intelligence processing: the fragmentation of threat knowledge across heterogeneous domains, and the lack of context-aware, organization-specific risk prioritization.
+
+By unifying the MITRE ATT\&CK and MITRE ATLAS matrices into a single operational model aligned with the Cyber Kill Chain, the framework enables security analysts to reason across traditional enterprise and AI-specific threat domains from a single interface. The multi-layered, conditional pipeline for mapping vulnerabilities to TTPs—traversing the CVE $\rightarrow$ CWE $\rightarrow$ CAPEC $\rightarrow$ TTP ontological chain and resorting to LLM inference only when deterministic links are unavailable—ensures both completeness and fidelity of the resulting mappings. The Softmax-based intrusion set attribution module further augments incident response by transforming qualitative analyst judgment into a quantitative, dynamically updated ranking of probable threat actors.
+
+The LLM-driven components of the framework were evaluated using \textbf{Google Gemini 2.5 Pro} and \textbf{Gemini 2.5 Flash} as the underlying models. However, the architecture is deliberately model-agnostic: the prompt-based interface and context injection strategy are compatible with any instruction-following LLM accessible via an API, allowing practitioners to substitute the underlying model according to cost, latency, privacy, or compliance requirements without modifying the framework logic.
+
+Finally, the multi-weighted scoring system—offering six configurable modes ranging from pure CVSS-based aggregation to fully asset-aware prioritization—enables organizations to tailor risk assessments to their specific operational context, bridging the gap between generic threat intelligence and actionable, business-aligned remediation strategies.
+
+\section{Future Works}
+\label{future_work}
+Several directions are identified for future development of \textit{DetectiveAttacks}.
+
+\textbf{LLM benchmarking and selection.} The current evaluation relied on the Gemini 2.5 model family. A systematic benchmarking study comparing multiple state-of-the-art LLMs—including open-weight alternatives, with the goal of identifying the optimal trade-off between mapping accuracy, inference latency, and deployment cost for cybersecurity-specific use cases.
+
+\textbf{Integration of multi-source CTI enrichment.} Beyond TTPs and vulnerability databases, future versions of the framework will incorporate technical Indicators of Compromise (IoCs) like IP addresses and hashes, among others.
+
+\textbf{Deployment in operational environments.} The framework has been validated in a controlled research setting. Future work will involve deploying \textit{DetectiveAttacks} in real-world SOC environments to assess its practical effectiveness, measure analyst workload reduction, and gather feedback for iterative refinement of the scoring and attribution modules.
+
+\section*{Acknowledgment}
+This work was partially supported by the following projects: SETH: Security Education and Training Hybrid-Wargame, Avviso “Reti - Sostegno alla ricerca collaborativa” - Codice progetto BM755Y1; CYBER-PREDICT: Cyber vulnerability ranking prediction by prescription, Avviso “Reti - Sostegno alla ricerca collaborativa”, - Codice Progetto DUQVKW0; Patto territoriale "Sistema universitario pugliese" – CUP F61B23000370006.
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\end{document}
