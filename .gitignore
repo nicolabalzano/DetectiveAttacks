@@ -217,3 +217,5 @@ yarn-error.log*
 **/core
 
 #test_module/
+
+CVE2ATT-CK/
