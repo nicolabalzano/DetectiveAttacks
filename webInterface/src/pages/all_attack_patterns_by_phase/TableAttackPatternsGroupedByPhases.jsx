@@ -4,19 +4,30 @@ import {
     fetchDataDomains, fetchDataReportGroupsAPI,
     fetchDataPlatforms, fetchDataCKCPhases
 } from "../../components/api/fetchAPI.jsx";
+import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SearchBar from "../../components/search_bar/SearchBar.jsx";
 import { Skeleton } from "@mui/material";
 import('../../scss/util.scss')
 
 const TableAttackPatternsGroupedByPhases = () => {
+    const location = useLocation();
 
     // store of the attack patterns grouped by cyber kill chain phases
     const [atGroupedByPhase, setAtGroupedByPhase] = useState([])
     // store of the attack patterns in view (updated by search)
     const [atGroupByPhaseInView, setAtGroupByPhaseInView] = useState([]);
     // store of the attack patterns selected by the user
-    const [selectedAt, setSelectedAt] = useState([])
+    const [selectedAt, setSelectedAt] = useState(() => {
+        const incoming = location.state?.alreadySelected || [];
+        return incoming.map(id => {
+            const lastUnderscore = id.lastIndexOf('_');
+            if (lastUnderscore !== -1) {
+                return id.substring(0, lastUnderscore) + '_0';
+            }
+            return id;
+        });
+    });
     // store of the filter of selected domains of attack patterns
     const [listOfFilterDomains, setListOfFilterDomains] = useState([]);
     const [selectedDomains, setSelectedDomains] = useState([]);
@@ -197,7 +208,12 @@ const TableAttackPatternsGroupedByPhases = () => {
                                         //     selectedAtFormatted.push(atFormatted.substring(indexOfT).replace(/\.0$/, ''));
                                         // }
                                         const indexToSplit = at.indexOf("__");
-                                        const atFormatted = at.substring(indexToSplit + 2).replace(/_/g, '.').replace(/\.0$/, '');
+                                        let atFormatted = at.substring(indexToSplit + 2);
+                                        const lastUnderscore = atFormatted.lastIndexOf('_');
+                                        if (lastUnderscore !== -1) {
+                                            atFormatted = atFormatted.substring(0, lastUnderscore);
+                                        }
+                                        atFormatted = atFormatted.replace(/_/g, '.').replace(/\.0$/, '');
                                         selectedAtFormatted.push(atFormatted);
                                     });
                                     fetchDataReportGroupsAPI(selectedAtFormatted).catch((e) => {

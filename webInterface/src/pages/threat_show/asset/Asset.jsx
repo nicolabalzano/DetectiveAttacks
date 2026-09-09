@@ -5,7 +5,7 @@ const Asset = () => {
 
     const primaryInfo = ['Name', 'Type', 'Description'];
     const infoForCardView = ['ID','Aliases', 'Impact', 'Platforms', 'Sectors', 'Domains', 'Revoked']
-    const otherImportantInfo = ['Related Assets' ,'Realetd ATT&CK and ATLAS techniques'];
+    const otherImportantInfo = ['Related Assets' ,'Related ATT&CK and ATLAS techniques'];
 
     return (
         <Threat primaryInfo={primaryInfo} infoForCardView={infoForCardView} otherImportantInfo={otherImportantInfo} fetchDataFunction={fetchDataAssetAPI}/>

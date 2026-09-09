@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { navigateToThreats } from "../../handle_routing_threats/HandleRoutingThreats";
 import('../../../scss/util.scss')
 
@@ -8,10 +7,6 @@ const TableView = ({ infoDict, selectedAt, setSelectedAt, tableCount = 0 }) => {
 
     // store of the color assigned to each source of relationship
     const [colorMapSource, setColorMapSource] = useState({});
-
-    // store of the attack patterns already selected by the user
-    const location = useLocation();
-    let alreadySelected = location.state ? location.state.alreadySelected : null;
 
     var parentAttackPatternIdForRendering = '*****';
 
@@ -32,9 +27,6 @@ const TableView = ({ infoDict, selectedAt, setSelectedAt, tableCount = 0 }) => {
     useEffect(() => {
         const root_element = document.getElementById('root');
         root_element.classList.add('scrollbar')
-        if (alreadySelected)
-            setSelectedAt(alreadySelected);
-        alreadySelected = null;
 
         // fetch ckc phases to ordered the list
 
