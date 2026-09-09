@@ -1,0 +1,101 @@
+cve_id,error,gold_categories,predicted_attack_ids,matched_categories,false_negative_categories,false_positive_predicted_ids,parse_error,invalid_output,latency_s
+CVE-2020-5421,,Exploitation for Privilege Escalation; Browser Session Hijacking; Exploitation for Credential Access; User Execution; Exploitation for Client Execution,,,Browser Session Hijacking; Exploitation for Client Execution; Exploitation for Credential Access; Exploitation for Privilege Escalation; User Execution,,non_json,True,19.51823259199955
+CVE-2020-28035,,Exploitation for Privilege Escalation,,,Exploitation for Privilege Escalation,,non_json,True,27.79927438699815
+CVE-2014-2523,,Process Injection; Endpoint Denial of Service; Exploitation for Client Execution,,,Endpoint Denial of Service; Exploitation for Client Execution; Process Injection,,non_json,True,22.873574773002474
+CVE-2021-44223,,Data Manipulation; Exploitation for Client Execution,,,Data Manipulation; Exploitation for Client Execution,,non_json,True,24.810370076000254
+CVE-2022-22965,,Process Injection; Command and Scripting Interpreter; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Exploit Public-Facing Application; Process Injection,,non_json,True,21.089143706001778
+CVE-2011-4106,,Command and Scripting Interpreter; Server Software Component; Exploitation for Client Execution; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Exploit Public-Facing Application; Exploitation for Client Execution; Server Software Component,,non_json,True,31.36852343999999
+CVE-2016-0800,,Exploitation for Credential Access; Adversary-in-the-Middle; Unsecured Credentials; Valid Accounts,,,Adversary-in-the-Middle; Exploitation for Credential Access; Unsecured Credentials; Valid Accounts,,non_json,True,25.49763866399735
+CVE-2014-3566,,Adversary-in-the-Middle,,,Adversary-in-the-Middle,,non_json,True,46.0511482030015
+CVE-2014-0160,,Process Injection; Hijack Execution Flow; Archive Collected Data; Unsecured Credentials; Exploitation for Client Execution; Exploit Public-Facing Application,,,Archive Collected Data; Exploit Public-Facing Application; Exploitation for Client Execution; Hijack Execution Flow; Process Injection; Unsecured Credentials,,non_json,True,26.173372418998042
+CVE-2015-8787,,External Remote Services; Endpoint Denial of Service,,,Endpoint Denial of Service; External Remote Services,,non_json,True,27.993141421000473
+CVE-2021-33604,,Exploitation for Client Execution,,,Exploitation for Client Execution,,non_json,True,34.677891122999426
+CVE-2021-33602,,Endpoint Denial of Service,,,Endpoint Denial of Service,,non_json,True,23.60681758100327
+CVE-2021-33583,,Unsecured Credentials,,,Unsecured Credentials,,non_json,True,22.251323726999544
+CVE-2021-33701,,Exploitation for Privilege Escalation; Command and Scripting Interpreter,,,Command and Scripting Interpreter; Exploitation for Privilege Escalation,,non_json,True,30.71768924999924
+CVE-2021-33627,,Data Destruction; Exploitation for Defense Evasion,,,Data Destruction; Exploitation for Defense Evasion,,non_json,True,27.53195773799962
+CVE-2021-33698,,Server Software Component; Valid Accounts,,,Server Software Component; Valid Accounts,,non_json,True,49.650505871999485
+CVE-2021-33704,,Data Destruction; Abuse Elevation Control Mechanism; Valid Accounts,,,Abuse Elevation Control Mechanism; Data Destruction; Valid Accounts,,non_json,True,25.99998793800114
+CVE-2021-33707,,Phishing; Browser Session Hijacking,,,Browser Session Hijacking; Phishing,,non_json,True,30.290981522000948
+CVE-2021-33708,,Exploitation for Privilege Escalation; Valid Accounts,,,Exploitation for Privilege Escalation; Valid Accounts,,non_json,True,32.79690136299905
+CVE-2021-33842,,Abuse Elevation Control Mechanism,,,Abuse Elevation Control Mechanism,,non_json,True,25.318238666997786
+CVE-2021-33910,,Exploitation for Defense Evasion,,,Exploitation for Defense Evasion,,non_json,True,31.249616039000102
+CVE-2021-33903,,Exploitation for Credential Access,,,Exploitation for Credential Access,,non_json,True,51.31703572400147
+CVE-2022-0236,,Data from Local System; Exploitation for Client Execution,,,Data from Local System; Exploitation for Client Execution,,non_json,True,42.279352768000535
+CVE-2022-0210,,Command and Scripting Interpreter; Valid Accounts; Drive-by Compromise,,,Command and Scripting Interpreter; Drive-by Compromise; Valid Accounts,,non_json,True,32.0405598690013
+CVE-2022-22529,,Drive-by Compromise; Exploit Public-Facing Application,,,Drive-by Compromise; Exploit Public-Facing Application,,non_json,True,38.12964130600085
+CVE-2022-0154,,Exploitation for Privilege Escalation,,,Exploitation for Privilege Escalation,,non_json,True,21.388878501998988
+CVE-2022-20698,,Exploitation for Defense Evasion; Endpoint Denial of Service,,,Endpoint Denial of Service; Exploitation for Defense Evasion,,non_json,True,40.058467539998674
+CVE-2022-20660,,Data from Local System,,,Data from Local System,,non_json,True,35.757921948999865
+CVE-2022-22056,,Unsecured Credentials; Valid Accounts,,,Unsecured Credentials; Valid Accounts,,non_json,True,38.792152442998486
+CVE-2022-22112,,Process Injection; Exploit Public-Facing Application,,,Exploit Public-Facing Application; Process Injection,,non_json,True,36.321918484998605
+CVE-2022-23107,,Data from Local System; Data Destruction,,,Data Destruction; Data from Local System,,non_json,True,23.46276295699863
+CVE-2022-22113,,Access Token Manipulation,,,Access Token Manipulation,,non_json,True,23.63135285200042
+CVE-2022-23113,,File and Directory Discovery; Exploitation for Client Execution,,,Exploitation for Client Execution; File and Directory Discovery,,non_json,True,50.81239995100259
+CVE-2022-23106,,Brute Force,,,Brute Force,,non_json,True,46.9934654030003
+CVE-2022-21671,,Access Token Manipulation; Data from Local System,,,Access Token Manipulation; Data from Local System,,non_json,True,35.805050564998965
+CVE-2022-21668,,Command and Scripting Interpreter; Server Software Component; Exploitation for Client Execution; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Exploit Public-Facing Application; Exploitation for Client Execution; Server Software Component,,non_json,True,26.436948038000992
+CVE-2022-0129,,Process Injection; Exploitation for Client Execution,,,Exploitation for Client Execution; Process Injection,,non_json,True,30.05358537400025
+CVE-2022-22121,,User Execution; Valid Accounts,,,User Execution; Valid Accounts,,non_json,True,35.129992844998924
+CVE-2022-21653,,Endpoint Denial of Service,,,Endpoint Denial of Service,,non_json,True,26.382555577998573
+CVE-2022-22114,,Access Token Manipulation; Browser Session Hijacking; Drive-by Compromise,,,Access Token Manipulation; Browser Session Hijacking; Drive-by Compromise,,non_json,True,22.70527784300066
+CVE-2022-22110,,Brute Force; Exploitation for Defense Evasion,,,Brute Force; Exploitation for Defense Evasion,,non_json,True,26.263572945001215
+CVE-2022-22111,,Valid Accounts,,,Valid Accounts,,non_json,True,30.125404286001867
+CVE-2022-21644,,Command and Scripting Interpreter; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Exploit Public-Facing Application,,non_json,True,34.12877609700081
+CVE-2022-20018,,Data from Local System; Unsecured Credentials,,,Data from Local System; Unsecured Credentials,,non_json,True,22.38652347400057
+CVE-2021-33436,,Process Injection,,,Process Injection,,non_json,True,26.248567941998772
+CVE-2021-33516,,Browser Session Hijacking,,,Browser Session Hijacking,,non_json,True,38.56554349900034
+CVE-2021-33525,,Command and Scripting Interpreter; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Exploit Public-Facing Application,,non_json,True,41.783910940997885
+CVE-2021-33558,,Data from Local System; Exploitation for Defense Evasion,,,Data from Local System; Exploitation for Defense Evasion,,non_json,True,30.70865388299717
+CVE-2021-33578,,Exploitation for Privilege Escalation; Command and Scripting Interpreter; Data Destruction; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Data Destruction; Exploit Public-Facing Application; Exploitation for Privilege Escalation,,non_json,True,31.06160074500076
+CVE-2022-23129,,Unsecured Credentials; Valid Accounts,,,Unsecured Credentials; Valid Accounts,,non_json,True,50.04878982199807
+CVE-2022-22553,,Brute Force; Valid Accounts,,,Brute Force; Valid Accounts,,non_json,True,51.73554452099779
+CVE-2022-21658,,Data Destruction,,,Data Destruction,,non_json,True,43.98934961000123
+CVE-2022-21704,,Unsecured Credentials,,,Unsecured Credentials,,non_json,True,52.72537589999774
+CVE-2022-0232,,Drive-by Compromise,,,Drive-by Compromise,,non_json,True,35.21931450000193
+CVE-2022-22152,,Valid Accounts; Exploit Public-Facing Application,T1590.004; T1590.006,,Exploit Public-Facing Application; Valid Accounts,T1590.004; T1590.006,,False,24.6494801359986
+CVE-2022-22161,,Endpoint Denial of Service,,,Endpoint Denial of Service,,non_json,True,29.201878841002326
+CVE-2022-22156,,Adversary-in-the-Middle; Exploitation for Defense Evasion,,,Adversary-in-the-Middle; Exploitation for Defense Evasion,,non_json,True,53.13869139699818
+CVE-2021-33738,,Data from Local System; Exploitation for Client Execution,,,Data from Local System; Exploitation for Client Execution,,non_json,True,24.642718663999403
+CVE-2021-33790,,Hijack Execution Flow; Exploitation for Client Execution,,,Exploitation for Client Execution; Hijack Execution Flow,,non_json,True,35.569770165999216
+CVE-2021-3377,,Drive-by Compromise,,,Drive-by Compromise,,non_json,True,69.05566687399914
+CVE-2021-33794,,Data from Local System; Command and Scripting Interpreter,,,Command and Scripting Interpreter; Data from Local System,,non_json,True,36.74669183500009
+CVE-2021-3380,,Data from Local System; Exploitation for Client Execution,,,Data from Local System; Exploitation for Client Execution,,non_json,True,32.4479992120032
+CVE-2021-33824,,Endpoint Denial of Service; Exploit Public-Facing Application,,,Endpoint Denial of Service; Exploit Public-Facing Application,,non_json,True,57.81171027899836
+CVE-2021-33806,,Hijack Execution Flow; Command and Scripting Interpreter,,,Command and Scripting Interpreter; Hijack Execution Flow,,non_json,True,25.25921504300277
+CVE-2021-33807,,File and Directory Discovery,,,File and Directory Discovery,,non_json,True,52.18331190600293
+CVE-2021-33879,,Process Injection; Adversary-in-the-Middle,,,Adversary-in-the-Middle; Process Injection,,non_json,True,40.55707089200223
+CVE-2021-33880,,Adversary-in-the-Middle; Brute Force,,,Adversary-in-the-Middle; Brute Force,,non_json,True,41.46579625600134
+CVE-2021-33850,,Command and Scripting Interpreter; User Execution; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Exploit Public-Facing Application; User Execution,,non_json,True,30.80590517100063
+CVE-2021-33886,,Command and Scripting Interpreter; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Exploit Public-Facing Application,,non_json,True,34.33088209599737
+CVE-2021-33913,,Exploitation for Client Execution,,,Exploitation for Client Execution,,non_json,True,33.459987443999125
+CVE-2021-3393,,Command and Scripting Interpreter,,,Command and Scripting Interpreter,,non_json,True,33.95442140199884
+CVE-2021-33938,,Endpoint Denial of Service; Exploitation for Client Execution,,,Endpoint Denial of Service; Exploitation for Client Execution,,non_json,True,41.89159621900035
+CVE-2021-33965,,Command and Scripting Interpreter; Exploit Public-Facing Application,,,Command and Scripting Interpreter; Exploit Public-Facing Application,,non_json,True,40.6513499419998
+CVE-2022-23102,,User Execution,,,User Execution,,non_json,True,35.787128314001166
+CVE-2022-21702,,Data Destruction; User Execution; Drive-by Compromise; Exploitation of Remote Services,,,Data Destruction; Drive-by Compromise; Exploitation of Remote Services; User Execution,,non_json,True,39.24770545800129
+CVE-2022-21713,,Data from Local System; Exploit Public-Facing Application,,,Data from Local System; Exploit Public-Facing Application,,non_json,True,27.075128284999664
+CVE-2022-21733,,Endpoint Denial of Service; Exploitation for Client Execution,,,Endpoint Denial of Service; Exploitation for Client Execution,,non_json,True,25.661911573999532
+CVE-2022-21703,,Abuse Elevation Control Mechanism; Drive-by Compromise,,,Abuse Elevation Control Mechanism; Drive-by Compromise,,non_json,True,28.161011468000652
+CVE-2020-10802,,Command and Scripting Interpreter,,,Command and Scripting Interpreter,,non_json,True,27.017465367000113
+CVE-2020-6100,,Endpoint Denial of Service; Exploit Public-Facing Application,,,Endpoint Denial of Service; Exploit Public-Facing Application,,non_json,True,46.849740261997795
+CVE-2020-1992,,Exploitation for Privilege Escalation; Endpoint Denial of Service,,,Endpoint Denial of Service; Exploitation for Privilege Escalation,,non_json,True,33.660869893999916
+CVE-2020-0442,,Endpoint Denial of Service,,,Endpoint Denial of Service,,non_json,True,50.87922798799991
+CVE-2020-5291,,Exploitation for Privilege Escalation,,,Exploitation for Privilege Escalation,,non_json,True,43.828779162999126
+CVE-2020-2581,,Endpoint Denial of Service,,,Endpoint Denial of Service,,non_json,True,31.38076928600276
+CVE-2020-1753,,Unsecured Credentials,,,Unsecured Credentials,,non_json,True,23.10350769300203
+CVE-2020-5522,,Adversary-in-the-Middle,,,Adversary-in-the-Middle,,non_json,True,25.07333454900072
+CVE-2020-15001,,Access Token Manipulation,,,Access Token Manipulation,,non_json,True,51.09958083799938
+CVE-2020-29254,,Exploitation for Privilege Escalation,,,Exploitation for Privilege Escalation,,non_json,True,28.77363963099924
+CVE-2020-3374,,Data from Local System; Exploitation for Privilege Escalation; Endpoint Denial of Service,,,Data from Local System; Endpoint Denial of Service; Exploitation for Privilege Escalation,,non_json,True,27.89205130299888
+CVE-2020-4427,,Exploitation for Privilege Escalation,,,Exploitation for Privilege Escalation,,non_json,True,35.61534148699866
+CVE-2020-8142,,Valid Accounts,,,Valid Accounts,,non_json,True,20.250820342000225
+CVE-2020-6308,,Network Sniffing,,,Network Sniffing,,non_json,True,46.14621413400164
+CVE-2020-5777,,Valid Accounts,,,Valid Accounts,,non_json,True,44.97717274200113
+CVE-2020-6146,,Hijack Execution Flow; User Execution,,,Hijack Execution Flow; User Execution,,non_json,True,25.19526484400194
+CVE-2020-9004,,Valid Accounts; Exploit Public-Facing Application,,,Exploit Public-Facing Application; Valid Accounts,,non_json,True,36.12228352500097
+CVE-2022-21199,,Data from Local System; Adversary-in-the-Middle,,,Adversary-in-the-Middle; Data from Local System,,non_json,True,28.73086607699952
+CVE-2022-23598,,Drive-by Compromise,,,Drive-by Compromise,,non_json,True,25.59000340199782
+CVE-2021-26833,,Data from Local System; Unsecured Credentials,,,Data from Local System; Unsecured Credentials,,non_json,True,21.389752660998056
+CVE-2021-1066,,Endpoint Denial of Service,,,Endpoint Denial of Service,,non_json,True,35.28191659199729
+CVE-2021-1370,,Exploitation for Privilege Escalation; Command and Scripting Interpreter,,,Command and Scripting Interpreter; Exploitation for Privilege Escalation,,non_json,True,26.274908494997362

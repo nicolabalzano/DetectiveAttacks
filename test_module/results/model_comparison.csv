@@ -1,0 +1,5 @@
+model,run_dir,rows,success_rate,non_empty_rate,any_hit_accuracy,exact_match,micro_precision,micro_recall,micro_f1,invalid_output_rate,parse_error_rate,request_error_rows,avg_latency_s,median_latency_s,p95_latency_s,total_predicted_attack_ids,avg_predicted_attack_ids_per_cve,avg_predicted_attack_ids_per_non_empty_cve,avg_matched_gold_categories_per_cve
+gemini-3.5-flash-high,agy_gemini,100,1.0,0.98,0.52,0.19,0.42,0.34054054054054056,0.3761194029850746,0.01,0.01,0,59.45549022865011,41.876212583001234,170.29783199599842,160,1.6,1.6326530612244898,0.63
+mistralai/mistral-large-3-675b-instruct-2512,nim_100_full,100,0.98,0.98,0.73,0.06,0.2103960396039604,0.4594594594594595,0.28862478777589134,0.03,0.02,2,56.01519676212253,41.754915033500765,107.89431890999913,442,4.42,4.510204081632653,0.85
+minimaxai/minimax-m2.7,nim_100_minimax,100,1.0,0.54,0.37,0.08,0.42105263157894735,0.21621621621621623,0.28571428571428575,0.46,0.46,0,136.9035405153496,53.29373292949822,469.305237569999,108,1.08,2.0,0.4
+stepfun-ai/step-3.5-flash,nim_100_step,100,1.0,0.01,0.0,0.0,0.0,0.0,0.0,0.99,0.99,0,34.08647117806995,31.71066457750203,51.73554452099779,2,0.02,2.0,0.0

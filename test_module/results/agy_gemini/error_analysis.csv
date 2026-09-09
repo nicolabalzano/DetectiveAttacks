@@ -1,0 +1,101 @@
+cve_id,error,gold_categories,predicted_attack_ids,matched_categories,false_negative_categories,false_positive_predicted_ids,parse_error,invalid_output,repair_applied,repair_method,latency_s
+CVE-2020-5421,,Exploitation for Privilege Escalation; Browser Session Hijacking; Exploitation for Credential Access; User Execution; Exploitation for Client Execution,T1204.002; T1036,User Execution,Browser Session Hijacking; Exploitation for Client Execution; Exploitation for Credential Access; Exploitation for Privilege Escalation,T1036,,False,False,,8.928339402999882
+CVE-2020-28035,,Exploitation for Privilege Escalation,T1068,Exploitation for Privilege Escalation,,,,False,False,,21.242371565999747
+CVE-2014-2523,,Process Injection; Endpoint Denial of Service; Exploitation for Client Execution,T1210; T1499,Endpoint Denial of Service,Exploitation for Client Execution; Process Injection,T1210,,False,False,,7.140523695999946
+CVE-2021-44223,,Data Manipulation; Exploitation for Client Execution,T1195; T1195.001; T1059,,Data Manipulation; Exploitation for Client Execution,T1059; T1195; T1195.001,,False,False,,45.09498294400055
+CVE-2022-22965,,Process Injection; Command and Scripting Interpreter; Exploit Public-Facing Application,T1190,Exploit Public-Facing Application,Command and Scripting Interpreter; Process Injection,,,False,False,,7.98510031800015
+CVE-2011-4106,,Command and Scripting Interpreter; Server Software Component; Exploitation for Client Execution; Exploit Public-Facing Application,T1059; T1071.001,Command and Scripting Interpreter,Exploit Public-Facing Application; Exploitation for Client Execution; Server Software Component,T1071.001,,False,False,,61.6853289870005
+CVE-2016-0800,,Exploitation for Credential Access; Adversary-in-the-Middle; Unsecured Credentials; Valid Accounts,T1040,,Adversary-in-the-Middle; Exploitation for Credential Access; Unsecured Credentials; Valid Accounts,T1040,,False,False,,39.787336124999456
+CVE-2014-3566,,Adversary-in-the-Middle,T1040,,Adversary-in-the-Middle,T1040,,False,False,,78.6998130309994
+CVE-2014-0160,,Process Injection; Hijack Execution Flow; Archive Collected Data; Unsecured Credentials; Exploitation for Client Execution; Exploit Public-Facing Application,T1005,,Archive Collected Data; Exploit Public-Facing Application; Exploitation for Client Execution; Hijack Execution Flow; Process Injection; Unsecured Credentials,T1005,,False,False,,58.36396189300012
+CVE-2015-8787,,External Remote Services; Endpoint Denial of Service,T1210; T1499.004,Endpoint Denial of Service,External Remote Services,T1210,,False,False,,226.60803605900037
+CVE-2021-33604,,Exploitation for Client Execution,T1059.007,,Exploitation for Client Execution,T1059.007,,False,False,,10.04134874400188
+CVE-2021-33602,,Endpoint Denial of Service,T1027.015; T1203; T1562.001,,Endpoint Denial of Service,T1027.015; T1203; T1562.001,,False,False,,156.05473992099996
+CVE-2021-33583,,Unsecured Credentials,T1552.001; T1078,Unsecured Credentials,,T1078,,False,False,,8.392917318999935
+CVE-2021-33701,,Exploitation for Privilege Escalation; Command and Scripting Interpreter,T1068,Exploitation for Privilege Escalation,Command and Scripting Interpreter,,,False,False,,34.33915751800032
+CVE-2021-33627,,Data Destruction; Exploitation for Defense Evasion,T1068; T1542.001,,Data Destruction; Exploitation for Defense Evasion,T1068; T1542.001,,False,False,,73.6781738919999
+CVE-2021-33698,,Server Software Component; Valid Accounts,T1078; T1505.003,Server Software Component; Valid Accounts,,,,False,False,,6.5274471459997585
+CVE-2021-33704,,Data Destruction; Abuse Elevation Control Mechanism; Valid Accounts,T1068,,Abuse Elevation Control Mechanism; Data Destruction; Valid Accounts,T1068,,False,False,,7.319224832000145
+CVE-2021-33707,,Phishing; Browser Session Hijacking,T1566; T1566.002; T1185,Browser Session Hijacking; Phishing,,,,False,False,,192.02840202599964
+CVE-2021-33708,,Exploitation for Privilege Escalation; Valid Accounts,T1068,Exploitation for Privilege Escalation,Valid Accounts,,,False,False,,7.533220708000044
+CVE-2021-33842,,Abuse Elevation Control Mechanism,T1078,,Abuse Elevation Control Mechanism,T1078,,False,False,,57.287022935000095
+CVE-2021-33910,,Exploitation for Defense Evasion,T1499.004,,Exploitation for Defense Evasion,T1499.004,,False,False,,66.73419449199992
+CVE-2021-33903,,Exploitation for Credential Access,T1078,,Exploitation for Credential Access,T1078,,False,False,,35.69026844600012
+CVE-2022-0236,,Data from Local System; Exploitation for Client Execution,T1005,Data from Local System,Exploitation for Client Execution,,,False,False,,49.40496209799949
+CVE-2022-0210,,Command and Scripting Interpreter; Valid Accounts; Drive-by Compromise,T1059.007,Command and Scripting Interpreter,Drive-by Compromise; Valid Accounts,,,False,False,,7.669783708000068
+CVE-2022-22529,,Drive-by Compromise; Exploit Public-Facing Application,T1059.007,,Drive-by Compromise; Exploit Public-Facing Application,T1059.007,,False,False,,8.61504739100019
+CVE-2022-0154,,Exploitation for Privilege Escalation,T1190; T1204.001,,Exploitation for Privilege Escalation,T1190; T1204.001,,False,False,,43.07074620399999
+CVE-2022-20698,,Exploitation for Defense Evasion; Endpoint Denial of Service,T1211; T1499; T1499.004,Endpoint Denial of Service; Exploitation for Defense Evasion,,,,False,False,,170.29783199599842
+CVE-2022-20660,,Data from Local System,T1005; T1006,Data from Local System,,T1006,,False,False,,100.40853464199972
+CVE-2022-22056,,Unsecured Credentials; Valid Accounts,T1078,Valid Accounts,Unsecured Credentials,,,False,False,,61.59246190399972
+CVE-2022-22112,,Process Injection; Exploit Public-Facing Application,T1059.007,,Exploit Public-Facing Application; Process Injection,T1059.007,,False,False,,7.739529249000043
+CVE-2022-23107,,Data from Local System; Data Destruction,T1005,Data from Local System,Data Destruction,,,False,False,,9.092488016000061
+CVE-2022-22113,,Access Token Manipulation,T1078,,Access Token Manipulation,T1078,,False,False,,52.20753357099966
+CVE-2022-23113,,File and Directory Discovery; Exploitation for Client Execution,T1083,File and Directory Discovery,Exploitation for Client Execution,,,False,False,,8.383602441999756
+CVE-2022-23106,,Brute Force,T1078,,Brute Force,T1078,,False,False,,113.12107259000004
+CVE-2022-21671,,Access Token Manipulation; Data from Local System,T1040,,Access Token Manipulation; Data from Local System,T1040,,False,False,,148.7640602019992
+CVE-2022-21668,,Command and Scripting Interpreter; Server Software Component; Exploitation for Client Execution; Exploit Public-Facing Application,T1195.002; T1059.006; T1204.002,Command and Scripting Interpreter,Exploit Public-Facing Application; Exploitation for Client Execution; Server Software Component,T1195.002; T1204.002,,False,False,,7.173094600000695
+CVE-2022-0129,,Process Injection; Exploitation for Client Execution,T1574.001; T1068,,Exploitation for Client Execution; Process Injection,T1068; T1574.001,,False,False,,35.31560935699963
+CVE-2022-22121,,User Execution; Valid Accounts,T1204.002; T1559.002,User Execution,Valid Accounts,T1559.002,,False,False,,28.478405623998697
+CVE-2022-21653,,Endpoint Denial of Service,T1499; T1499.004,Endpoint Denial of Service,,,,False,False,,157.38117943700126
+CVE-2022-22114,,Access Token Manipulation; Browser Session Hijacking; Drive-by Compromise,T1059.007; T1068; T1078,,Access Token Manipulation; Browser Session Hijacking; Drive-by Compromise,T1059.007; T1068; T1078,,False,False,,69.00925334299973
+CVE-2022-22110,,Brute Force; Exploitation for Defense Evasion,T1110; T1110.001,Brute Force,Exploitation for Defense Evasion,,,False,False,,67.91161309900053
+CVE-2022-22111,,Valid Accounts,T1068; T1078,Valid Accounts,,T1068,,False,False,,8.424033987999792
+CVE-2022-21644,,Command and Scripting Interpreter; Exploit Public-Facing Application,T1190,Exploit Public-Facing Application,Command and Scripting Interpreter,,,False,False,,7.524834609001118
+CVE-2022-20018,,Data from Local System; Unsecured Credentials,T1068,,Data from Local System; Unsecured Credentials,T1068,,False,False,,72.86318501400092
+CVE-2021-33436,,Process Injection,T1574.001; T1068,,Process Injection,T1068; T1574.001,,False,False,,21.577789823000785
+CVE-2021-33516,,Browser Session Hijacking,T1046; T1059.007; T1071.001; T1071.004; T1048; T1189,,Browser Session Hijacking,T1046; T1048; T1059.007; T1071.001; T1071.004; T1189,,False,False,,104.74703018599939
+CVE-2021-33525,,Command and Scripting Interpreter; Exploit Public-Facing Application,T1059.004; T1190,Command and Scripting Interpreter; Exploit Public-Facing Application,,,,False,False,,6.632623366998814
+CVE-2021-33558,,Data from Local System; Exploitation for Defense Evasion,T1005,Data from Local System,Exploitation for Defense Evasion,,,False,False,,6.483416700999442
+CVE-2021-33578,,Exploitation for Privilege Escalation; Command and Scripting Interpreter; Data Destruction; Exploit Public-Facing Application,T1005; T1068; T1078,Exploitation for Privilege Escalation,Command and Scripting Interpreter; Data Destruction; Exploit Public-Facing Application,T1005; T1078,,False,False,,59.78613823100022
+CVE-2022-23129,,Unsecured Credentials; Valid Accounts,T1552.001; T1552,Unsecured Credentials,Valid Accounts,,,False,False,,6.797385100000611
+CVE-2022-22553,,Brute Force; Valid Accounts,T1110; T1110.001,Brute Force,Valid Accounts,,,False,False,,6.789405337000062
+CVE-2022-21658,,Data Destruction,T1068; T1070.004,,Data Destruction,T1068; T1070.004,,False,False,,6.688213475001248
+CVE-2022-21704,,Unsecured Credentials,T1005,,Unsecured Credentials,T1005,,False,False,,8.264286829999037
+CVE-2022-0232,,Drive-by Compromise,T1059.007,,Drive-by Compromise,T1059.007,,False,False,,24.266507354997884
+CVE-2022-22152,,Valid Accounts; Exploit Public-Facing Application,T1016,,Exploit Public-Facing Application; Valid Accounts,T1016,,False,False,,8.809998184999131
+CVE-2022-22161,,Endpoint Denial of Service,T1498; T1498.001; T1499; T1499.001; T1499.004,Endpoint Denial of Service,,T1498; T1498.001,,False,False,,57.96424318600111
+CVE-2022-22156,,Adversary-in-the-Middle; Exploitation for Defense Evasion,T1059; T1059.008,,Adversary-in-the-Middle; Exploitation for Defense Evasion,T1059; T1059.008,,False,False,,130.23254607900162
+CVE-2021-33738,,Data from Local System; Exploitation for Client Execution,T1005,Data from Local System,Exploitation for Client Execution,,,False,False,,86.48624238100092
+CVE-2021-33790,,Hijack Execution Flow; Exploitation for Client Execution,T1190; T1203; T1210,Exploitation for Client Execution,Hijack Execution Flow,T1190; T1210,,False,False,,34.65740479300075
+CVE-2021-3377,,Drive-by Compromise,T1059.007,,Drive-by Compromise,T1059.007,,False,False,,46.4477283289998
+CVE-2021-33794,,Data from Local System; Command and Scripting Interpreter,T1203,,Command and Scripting Interpreter; Data from Local System,T1203,,False,False,,7.144541418998415
+CVE-2021-3380,,Data from Local System; Exploitation for Client Execution,T1068,,Data from Local System; Exploitation for Client Execution,T1068,,False,False,,75.04278721199807
+CVE-2021-33824,,Endpoint Denial of Service; Exploit Public-Facing Application,,,Endpoint Denial of Service; Exploit Public-Facing Application,,,False,False,,63.74301190299957
+CVE-2021-33806,,Hijack Execution Flow; Command and Scripting Interpreter,T1059,Command and Scripting Interpreter,Hijack Execution Flow,,,False,False,,94.79335921600068
+CVE-2021-33807,,File and Directory Discovery,T1005; T1190,,File and Directory Discovery,T1005; T1190,,False,False,,6.648934938999446
+CVE-2021-33879,,Process Injection; Adversary-in-the-Middle,T1055; T1557,Adversary-in-the-Middle; Process Injection,,,,False,False,,247.71549927100023
+CVE-2021-33880,,Adversary-in-the-Middle; Brute Force,T1110; T1110.001,Brute Force,Adversary-in-the-Middle,,,False,False,,56.96854622899991
+CVE-2021-33850,,Command and Scripting Interpreter; User Execution; Exploit Public-Facing Application,T1059.007,Command and Scripting Interpreter,Exploit Public-Facing Application; User Execution,,,False,False,,6.5132510350013035
+CVE-2021-33886,,Command and Scripting Interpreter; Exploit Public-Facing Application,T1210; T1059.004,Command and Scripting Interpreter,Exploit Public-Facing Application,T1210,,False,False,,29.128673093000543
+CVE-2021-33913,,Exploitation for Client Execution,T1190; T1210,,Exploitation for Client Execution,T1190; T1210,,False,False,,142.859294640999
+CVE-2021-3393,,Command and Scripting Interpreter,T1068,,Command and Scripting Interpreter,T1068,,False,False,,8.182594727000833
+CVE-2021-33938,,Endpoint Denial of Service; Exploitation for Client Execution,T1068,,Endpoint Denial of Service; Exploitation for Client Execution,T1068,,False,False,,50.8272151759993
+CVE-2021-33965,,Command and Scripting Interpreter; Exploit Public-Facing Application,T1190; T1059.004,Command and Scripting Interpreter; Exploit Public-Facing Application,,,,False,False,,6.4853412580014265
+CVE-2022-23102,,User Execution,T1204.001,User Execution,,,,False,False,,133.15905957200084
+CVE-2022-21702,,Data Destruction; User Execution; Drive-by Compromise; Exploitation of Remote Services,T1189; T1204.001; T1210; T1485,Data Destruction; Drive-by Compromise; Exploitation of Remote Services; User Execution,,,,False,False,,165.83668910600318
+CVE-2022-21713,,Data from Local System; Exploit Public-Facing Application,T1069,,Data from Local System; Exploit Public-Facing Application,T1069,,False,False,,63.21839581099994
+CVE-2022-21733,,Endpoint Denial of Service; Exploitation for Client Execution,T1203; T1499,Endpoint Denial of Service; Exploitation for Client Execution,,,,False,False,,166.30647910500193
+CVE-2022-21703,,Abuse Elevation Control Mechanism; Drive-by Compromise,T1068,,Abuse Elevation Control Mechanism; Drive-by Compromise,T1068,,False,False,,40.68167896200248
+CVE-2020-10802,,Command and Scripting Interpreter,T1190,,Command and Scripting Interpreter,T1190,,False,False,,30.27307565999945
+CVE-2020-6100,,Endpoint Denial of Service; Exploit Public-Facing Application,T1068,,Endpoint Denial of Service; Exploit Public-Facing Application,T1068,,False,False,,40.51483760699921
+CVE-2020-1992,,Exploitation for Privilege Escalation; Endpoint Denial of Service,T1068,Exploitation for Privilege Escalation,Endpoint Denial of Service,,,False,False,,38.008887144002074
+CVE-2020-0442,,Endpoint Denial of Service,T1499.004,Endpoint Denial of Service,,,,False,False,,52.017828511001426
+CVE-2020-5291,,Exploitation for Privilege Escalation,T1068,Exploitation for Privilege Escalation,,,,False,False,,7.772464544999821
+CVE-2020-2581,,Endpoint Denial of Service,T1499,Endpoint Denial of Service,,,,False,False,,144.99471902799996
+CVE-2020-1753,,Unsecured Credentials,T1003.007; T1057,,Unsecured Credentials,T1003.007; T1057,,False,False,,101.2024481970002
+CVE-2020-5522,,Adversary-in-the-Middle,T1040,,Adversary-in-the-Middle,T1040,,False,False,,33.19158885499928
+CVE-2020-15001,,Access Token Manipulation,T1025; T1068,,Access Token Manipulation,T1025; T1068,,False,False,,113.87726061500143
+CVE-2020-29254,,Exploitation for Privilege Escalation,T1068,Exploitation for Privilege Escalation,,,,False,False,,62.843814136998844
+CVE-2020-3374,,Data from Local System; Exploitation for Privilege Escalation; Endpoint Denial of Service,T1068,Exploitation for Privilege Escalation,Data from Local System; Endpoint Denial of Service,,,False,False,,8.020821837002586
+CVE-2020-4427,,Exploitation for Privilege Escalation,T1068,Exploitation for Privilege Escalation,,,,False,False,,48.43467303799844
+CVE-2020-8142,,Valid Accounts,T1068,,Valid Accounts,T1068,,False,False,,7.5917342610009655
+CVE-2020-6308,,Network Sniffing,T1018; T1046,,Network Sniffing,T1018; T1046,,False,False,,6.523057379999955
+CVE-2020-5777,,Valid Accounts,T1078,Valid Accounts,,,,False,False,,190.2279603120005
+CVE-2020-6146,,Hijack Execution Flow; User Execution,T1203; T1204.002,User Execution,Hijack Execution Flow,T1203,,False,False,,4.937215228997957
+CVE-2020-9004,,Valid Accounts; Exploit Public-Facing Application,T1059; T1068,,Exploit Public-Facing Application; Valid Accounts,T1059; T1068,,False,False,,8.292717830999663
+CVE-2022-21199,,Data from Local System; Adversary-in-the-Middle,T1040,,Adversary-in-the-Middle; Data from Local System,T1040,,False,False,,50.15696257499985
+CVE-2022-23598,,Drive-by Compromise,T1059.007,,Drive-by Compromise,T1059.007,,False,False,,105.81605534000028
+CVE-2021-26833,,Data from Local System; Unsecured Credentials,,,Data from Local System; Unsecured Credentials,,non_json,True,False,,302.51913409100007
+CVE-2021-1066,,Endpoint Denial of Service,T1499; T1499.002,Endpoint Denial of Service,,,,False,False,,155.1361568110001
+CVE-2021-1370,,Exploitation for Privilege Escalation; Command and Scripting Interpreter,T1059.008; T1068,Command and Scripting Interpreter; Exploitation for Privilege Escalation,,,,False,False,,5.698522743000467

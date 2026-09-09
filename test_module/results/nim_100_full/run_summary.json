@@ -1,0 +1,8 @@
+[
+  {
+    "csv": "test_module/results/nim_100_full/manual_comparison_mistralai_mistral_large_3_675b_instruct_2512.csv",
+    "jsonl": "test_module/results/nim_100_full/predictions_mistralai_mistral_large_3_675b_instruct_2512.jsonl",
+    "model": "mistralai/mistral-large-3-675b-instruct-2512",
+    "rows": 100
+  }
+]

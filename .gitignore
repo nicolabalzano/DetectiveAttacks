@@ -216,4 +216,4 @@ yarn-error.log*
 # other dirsstix&vulnerability/core
 **/core
 
-test_module/
+#test_module/

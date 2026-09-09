@@ -1,0 +1,8 @@
+[
+  {
+    "csv": "test_module/results/nim_100_minimax/manual_comparison_minimaxai_minimax_m2_7.csv",
+    "jsonl": "test_module/results/nim_100_minimax/predictions_minimaxai_minimax_m2_7.jsonl",
+    "model": "minimaxai/minimax-m2.7",
+    "rows": 100
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "description_chars": 200,
+  "jsonl": "/home/alocin/Documents/research/DetectiveAttacks/test_module/results/agy_gemini/predictions_gemini_3_5_flash_high.jsonl",
+  "model": "gemini-3.5-flash-high",
+  "rows": 100
+}

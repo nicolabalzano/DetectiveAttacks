@@ -1,0 +1,69 @@
+{
+  "coverage_non_empty_rate": 0.98,
+  "coverage_success_rate": 0.98,
+  "invalid_output_rate_all": 0.03,
+  "latency": {
+    "avg_s": 56.01519676212253,
+    "max_s": 805.3195625939989,
+    "median_s": 41.754915033500765,
+    "min_s": 4.759262605999538,
+    "p95_s": 107.89431890999913
+  },
+  "non_empty_prediction_rows": 98,
+  "overall_including_errors": {
+    "any_hit_accuracy": 0.73,
+    "any_hit_count": 73,
+    "exact_match": 0.06,
+    "exact_match_count": 6,
+    "fn": 100,
+    "fp": 319,
+    "macro_f1": 0.32865578865578865,
+    "macro_precision": 0.28807539682539685,
+    "macro_recall": 0.49616666666666664,
+    "micro_f1": 0.28862478777589134,
+    "micro_precision": 0.2103960396039604,
+    "micro_recall": 0.4594594594594595,
+    "rows": 100,
+    "topk_macro_recall": {
+      "recall@1": 0.24916666666666668,
+      "recall@3": 0.43616666666666665,
+      "recall@5": 0.4861666666666667
+    },
+    "topk_micro_recall": {
+      "recall@1": 0.22162162162162163,
+      "recall@3": 0.3837837837837838,
+      "recall@5": 0.4486486486486487
+    },
+    "tp": 85
+  },
+  "parse_error_rate_all": 0.02,
+  "request_error_rows": 2,
+  "successful_only": {
+    "any_hit_accuracy": 0.7448979591836735,
+    "any_hit_count": 73,
+    "exact_match": 0.061224489795918366,
+    "exact_match_count": 6,
+    "fn": 95,
+    "fp": 319,
+    "macro_f1": 0.33536304964876396,
+    "macro_precision": 0.2939544865565274,
+    "macro_recall": 0.5062925170068027,
+    "micro_f1": 0.2910958904109589,
+    "micro_precision": 0.2103960396039604,
+    "micro_recall": 0.4722222222222222,
+    "rows": 98,
+    "topk_macro_recall": {
+      "recall@1": 0.2542517006802721,
+      "recall@3": 0.44506802721088434,
+      "recall@5": 0.49608843537414965
+    },
+    "topk_micro_recall": {
+      "recall@1": 0.22777777777777777,
+      "recall@3": 0.39444444444444443,
+      "recall@5": 0.46111111111111114
+    },
+    "tp": 85
+  },
+  "successful_rows": 98,
+  "total_rows": 100
+}

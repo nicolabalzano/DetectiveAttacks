@@ -1,0 +1,71 @@
+{
+  "coverage_non_empty_rate": 0.54,
+  "coverage_success_rate": 1.0,
+  "invalid_output_rate_all": 0.46,
+  "latency": {
+    "avg_s": 136.9035405153496,
+    "max_s": 1278.1012501389987,
+    "median_s": 53.29373292949822,
+    "min_s": 14.955762238998432,
+    "p95_s": 469.305237569999
+  },
+  "non_empty_prediction_rows": 54,
+  "overall_including_errors": {
+    "any_hit_accuracy": 0.37,
+    "any_hit_count": 37,
+    "exact_match": 0.08,
+    "exact_match_count": 8,
+    "fn": 145,
+    "fp": 55,
+    "macro_f1": 0.24935714285714286,
+    "macro_precision": 0.2875,
+    "macro_recall": 0.24783333333333332,
+    "micro_f1": 0.28571428571428575,
+    "micro_precision": 0.42105263157894735,
+    "micro_recall": 0.21621621621621623,
+    "rows": 100,
+    "topk_macro_recall": {
+      "recall@1": 0.2075,
+      "recall@3": 0.24783333333333332,
+      "recall@5": 0.24783333333333332
+    },
+    "topk_micro_recall": {
+      "recall@1": 0.17297297297297298,
+      "recall@3": 0.21621621621621623,
+      "recall@5": 0.21621621621621623
+    },
+    "tp": 40
+  },
+  "parse_error_rate_all": 0.46,
+  "repaired_output_rate_all": 0.0,
+  "repaired_output_rows": 0,
+  "request_error_rows": 0,
+  "successful_only": {
+    "any_hit_accuracy": 0.37,
+    "any_hit_count": 37,
+    "exact_match": 0.08,
+    "exact_match_count": 8,
+    "fn": 145,
+    "fp": 55,
+    "macro_f1": 0.24935714285714286,
+    "macro_precision": 0.2875,
+    "macro_recall": 0.24783333333333332,
+    "micro_f1": 0.28571428571428575,
+    "micro_precision": 0.42105263157894735,
+    "micro_recall": 0.21621621621621623,
+    "rows": 100,
+    "topk_macro_recall": {
+      "recall@1": 0.2075,
+      "recall@3": 0.24783333333333332,
+      "recall@5": 0.24783333333333332
+    },
+    "topk_micro_recall": {
+      "recall@1": 0.17297297297297298,
+      "recall@3": 0.21621621621621623,
+      "recall@5": 0.21621621621621623
+    },
+    "tp": 40
+  },
+  "successful_rows": 100,
+  "total_rows": 100
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "csv": "test_module/results/nim_100_step/manual_comparison_stepfun_ai_step_3_5_flash.csv",
+    "jsonl": "test_module/results/nim_100_step/predictions_stepfun_ai_step_3_5_flash.jsonl",
+    "model": "stepfun-ai/step-3.5-flash",
+    "rows": 100
+  }
+]
